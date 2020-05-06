@@ -4,13 +4,14 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>4a486be5-9b8f-4892-bd9e-d85307cec883</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>PORT.py</StartupFile>
+    <StartupFile>MODLES.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>DEVS-Python</Name>
     <RootNamespace>DEVS-Python</RootNamespace>
+    <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -28,6 +29,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="main.py" />
+    <Compile Include="MODLES.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PORT.py">
       <SubType>Code</SubType>
     </Compile>
