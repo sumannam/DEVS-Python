@@ -1,9 +1,13 @@
-import ENTITIES
-import PORT
+from ENTITIES import ENTITIES
+from PORT import PORT
 
 class MODELS( ENTITIES ):
     inports = set([]) 
     outports = set([])
+
+    def __init__(self):
+        inports.clear()
+        outports.clear()
 
     def addInport( self, PORT ):
         if checkPortDuplicate( PORT._name ) == true:
