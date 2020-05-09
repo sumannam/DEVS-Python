@@ -1,14 +1,14 @@
 class ENTITIES:
-    _name = ""
+    name = ""
 
-    def __init__( self, name ):
-        self._name = name
+    def __init__( self, _name ):
+        self.name = _name
 
     def getName( self ):
-        return self._name
+        return self.name
 
     def printName( self ):
-        print( self._name )
+        print( self.name )
     
     def getEntity( self ):
         return self
