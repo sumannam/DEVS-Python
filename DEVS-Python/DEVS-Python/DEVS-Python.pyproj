@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>4a486be5-9b8f-4892-bd9e-d85307cec883</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>ATOMIC_MODELS.py</StartupFile>
+    <StartupFile>P.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -33,6 +33,9 @@
     </Compile>
     <Compile Include="main.py" />
     <Compile Include="MODELS.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="P.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PORT.py">
