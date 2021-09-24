@@ -6,9 +6,12 @@ class ATOMIC_MODELS( MODELS ):
     def __init__( self, model_name ):
         MODELS.__init__(self, model_name)
     
-        self.state = {}
-        self.state["sigma"]=math.inf
-        self.state["phase"]="passive"
+        #self.state = {}
+        #self.state["sigma"]=math.inf
+        #self.state["phase"]="passive"
+
+        self.sigma=math.inf
+        self.phase="passive"
 
         self.ta = 0
         self.elapsed_time = 0        
@@ -26,8 +29,10 @@ class ATOMIC_MODELS( MODELS ):
             self.sigma = self.sigma - self.e
     
     def passviate(self):
-        self.state["sigma"]=math.inf
-        self.state["phase"]="passive"
+        #self.state["sigma"]=math.inf
+        #self.state["phase"]="passive"
+        self.sigma=math.inf
+        self.phase="passive"
     
     # s: state, e: elased_time, x: inport
     def externalTransitionFunc(self, state, elased_time, inport):
