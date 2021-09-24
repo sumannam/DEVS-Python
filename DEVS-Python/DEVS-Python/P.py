@@ -1,23 +1,41 @@
+import math
+
 from ATOMIC_MODELS import ATOMIC_MODELS
-from PORT import PORT
+from CONTENT import CONTENT
 
-class P( ATOMIC_MODELS ):
-    job_id = ""
-    processing_time = 0
-    
-    def __init__( self ):
-        self.setName( "P" )
-        in_port = PORT( "in" )
-        out_port = PORT( "out" )
 
-        self.addInport( in_port )
-        self.addOutport( out_port )
+class P(ATOMIC_MODELS):
+    def __init__(self):
+        ATOMIC_MODELS.__init__(self, self.__class__.__name__)
+        
+        self.addInPort("in")
+        self.addOutPort( "out" )
 
-        self.sigma = inf.math
-        self.phase = "passive"
-        self.job_id = ""
-        self.processing_time = 10
+        self.state["sigma"]=math.inf
+        self.state["phase"]="passive"
+        self.addState("job-id", "")
+        self.addState("processing_time", 10)
 
-    def externalTransitionFunc( e, x ):
-        #if in_port == 여기부터 작성
-        print( "externalTransitionFunc" )
+    def externalTransitionFunc(self, state, elased_time, inport):
+        if inport == "in":
+            if self.state["phase"] == "passive":
+                self.state["job-id"] = "JOB-1"
+                self.holdIn("busy", state["processing_time"])
+            elif self.state["phase"] == "busy":
+                self.Continue()
+
+    def internalTransitionFunc(self, state):
+        if self.state["phase"] == "passive":
+            self.passviate()
+
+    def outputFunc(self, state):
+        if self.state["phase"] == "busy":
+            return CONTENT("out", self.state["job-id"])
+
+def main():
+    p = P()
+    p.externalTransitionFunc(p.state, 5, "in")
+
+
+if __name__ == '__main__':
+    main()

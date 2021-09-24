@@ -1,21 +1,22 @@
 import PORT
 
 class CONTENT(object):
-    _value = ""
-    port = PORT("")
+    value = ""
+    port = ""
+    #port = PORT("")
     
     def __init__(self, port, value):
         self.port = port
-        self._value = value
+        self.value = value
 
     def setContent(self, port, value):
         self.port = port
-        self._value = value
+        self.value = value
 
     def getPort(self):
-        return self._port
+        return self.port
 
     def getValue(self):
-        return self._value
+        return self.value
 
 

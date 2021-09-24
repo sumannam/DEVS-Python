@@ -3,19 +3,19 @@ import math
 from MODELS import MODELS
 
 class ATOMIC_MODELS( MODELS ):
-    sigma = 0
-    phase = ""
+    def __init__( self, model_name ):
+        MODELS.__init__(self, model_name)
+    
+        self.state = {}
+        self.state["sigma"]=math.inf
+        self.state["phase"]="passive"
 
-    ta = 0
-    e = 0
+        self.ta = 0
+        self.elapsed_time = 0        
 
-    def __init__( self ):
-        self.sigma = math.inf
-        self.phase = ""
-
-    def setName( seft, _name ):
-        self.name = _name
-
+    def addState(self, key, value):
+        self.state[key]=value
+        
     def holdIn( self, _sigma, _phase ):
         # processing_time = processing_time
         self.sigma = _sigma
@@ -23,17 +23,21 @@ class ATOMIC_MODELS( MODELS ):
 
     def Continue( self, e ):
         if self.sigma != math.inf:
-            self.sigma = self.sigma - e
+            self.sigma = self.sigma - self.e
     
-    def passviate():
-        self.sigma = math.inf
-        self.phase = "passive"
+    def passviate(self):
+        self.state["sigma"]=math.inf
+        self.state["phase"]="passive"
+    
+    # s: state, e: elased_time, x: inport
+    def externalTransitionFunc(self, state, elased_time, inport):
+        print( self.__class__.__name__ + " : " + self.externalTransitionFunc.__name__)
 
-    def externalTransitionFunc():
-        printf( "ATOMIC_MODELS: externalTransitionFunc() ")
+    def internalTransitionFunc(self, state):
+        print( self.__class__.__name__ + " : " + self.internalTransitionFunc.__name__)
 
-
-
+    def outputFunc(self, state):
+        print( self.__class__.__name__ + " : " + self.outputFunc.__name__)
 
 
         
