@@ -1,0 +1,806 @@
+The following is a list of all lines in DEVSOURCE files that begin with
+alias, define, macro, and build-module. Go to the source file in which the
+item appears for more information. Procedures intended for normal use are
+capitalized.  A similar index is contained in the SCHEME directory.
+
+============================ alias =====================
+
+---------- CO-TEST.S
+(ALIAS #NL #\NEWLINE)
+(ALIAS PL PLACE-LEAF)
+(ALIAS PA PLACE-ATOMIC)
+(ALIAS CS CLEAR-SCREEN)
+(alias wcs window-clear-stack)
+
+---------- DISPLAY.S
+(ALIAS INIT INITIALIZE)             ;(INITIALIZE ROOT-CO PROC)   
+(ALIAS MK-E MK-ENT)                 ;(MK-ENT CLASS NAME)
+(ALIAS MK-BR MAKE-BROADCAST)        ;(MAKE-BROADCAST MODEL-CLASS)
+(ALIAS MK-PR MAKE-PAIR)             ;(MAKE-PAIR MODEL-CLASS 'NAME)            
+(ALIAS PR PRINT-ROOT)               ;(PRINT-ROOT ROOT-CO)
+(ALIAS PLR PLACE-ROOT)              ;(PLACE-ROOT ROOT-CO)
+(ALIAS PM PLACE-MODEL)              ;(PLACE-MODEL MOD)
+(ALIAS PLL PLACE-LEAF)              ;(PLACE-LEAF ROOT-CO)
+(ALIAS PA PLACE-ATOMIC)             ;(PLACE-ATOMIC COUP-MOD LINE COL)
+(ALIAS RES RESTART)                 ;(RESTART ROOT-CO)
+
+---------- ENMODUL.S
+(ALIAS ENT 'ENT)
+(ALIAS ASP 'ASP)
+(ALIAS SPEC 'SPEC)
+(ALIAS MULT-ENT 'MULT-ENT)
+(ALIAS MULT-ASP 'MULT-ASP)
+(ALIAS MULT-CHILD 'MULT-CHILD)
+(ALIAS CI CURRENT-ITEM?)
+(ALIAS SCI SET-CURRENT-ITEM)
+(ALIAS AI ADD-ITEM)
+(ALIAS DEI DELETE-ITEM)
+(ALIAS AM ADD-MULT)
+(ALIAS AMC ADD-MULT-COUPLE)
+(ALIAS SMCT SET-MULT-COUP-TYPE)
+(ALIAS ASM ADD-SINGLE-MULT)
+(ALIAS ADM ADD-DOUBLE-MULT)
+(ALIAS ATM ADD-TRIPLE-MULT)
+(ALIAS AMM ADD-MULT-MULT)
+(ALIAS PE PRINT-ENT)
+(ALIAS EN-BASE ENTSTR-BASE_DIRECTORY)
+(ALIAS MO-BASE  MODEL-BASE_DIRECTORY)
+
+
+---------- STATE-GR.S
+(alias csg construct-state-graph)
+
+---------- WINDOW.S
+(ALIAS WSP WINDOW-SET-POSITION!)   ;(WSP WIND L C)
+(ALIAS WGP WINDOW-GET-POSITION!)   ;(WSP WIND) (L C)
+(ALIAS WSS WINDOW-SET-SIZE!)       ;(WSS WIND H W)
+(ALIAS WGS WINDOW-GET-SIZE!)       ;(WGS WIND) (H W)
+(ALIAS WSC WINDOW-SET-CURSOR!)     ;(WSC WIND L C)
+(ALIAS WGC WINDOW-GET-CURSOR!)     ;(WGC WIND)  (L C)
+(ALIAS WC WINDOW-CLEAR)            ;(WC WIND)
+(ALIAS WP WINDOW-POPUP)            ;(WP WIND)
+(ALIAS WPD WINDOW-POPUP-DELETE)    ;(WPD WIND)
+(ALIAS MW MAKE-WINDOW)             ;(MW LABEL #!TRUE)
+(alias wpush window-push)
+(alias wpop window-pop)
+(alias wrs window-reduce-stack)
+
+============================ define ==========================
+
+---------- ANALYZE.S
+(define-structure node id st ct sons yt)
+(DEFINE (ANALYZE  SIM-ROOT)
+(define (retrial )
+(define (reconstruct-son name)
+(define (reconstruct-all-sons son)
+(define (calculate-cts name)
+(define  (sum-over son)
+(define (adjust-sons name)
+(define (adjust-all-sons son)
+(define (ini-node model mark)
+(define (recover n)
+(define (recover-sons son)
+(define (sim com)
+(define (report n wind)
+(define (report-son son wind)
+(define (display-son n wind)
+(define (out-sons son)
+(define (display-all-sons son wind)
+(define (o-s sym)
+(define (enclose n com)
+(define (maximum-time son val com)
+(define (close-it nod val)
+(define (greatest str)
+(define (sort str)
+(define (change-order n)
+(define (order n)
+(define (order-son n)
+(DEFINE (BC) (BACK 'CONSOLE))
+
+---------- ATOM-CL.S
+(define-class atomic-models
+(define-structure state sigma phase)
+(define-structure content port value)
+(define state-vars '(sigma phase))
+
+
+---------- ATOM-ME.S
+(define (add-state-vars new-vars)
+(define (display-structure s state-vars ind-vars wind)
+(define (mark val)
+(define (get-structure s state-vars ind-vars wind)
+(define (erase x wind)
+(DEFINE-METHOD (ATOMIC-MODELS DEF-STATE)(VARS)
+(DEFINE-METHOD (ATOMIC-MODELS DEF-INT-TRANSFN) ()
+(DEFINE-METHOD (ATOMIC-MODELS DEF-EXT-TRANSFN) ()
+(DEFINE-METHOD (ATOMIC-MODELS DEF-OUTPUTFN) ()
+(DEFINE-METHOD (ATOMIC-MODELS DEF-TIME-ADVANCEFN)()
+(DEFINE-METHOD (ATOMIC-MODELS SET-STATE)()
+(DEFINE-METHOD (ATOMIC-MODELS MAKE-CLASS)(CLASS-NAME)
+(DEFINE-METHOD (ATOMIC-MODELS MAKE-NEW)(M-NM)
+(DEFINE-METHOD (ATOMIC-MODELS SET-ELAPSED-TIME) (ELAPSED-TIME)
+(DEFINE-METHOD (ATOMIC-MODELS INT-TRANSITION) ()
+(DEFINE-METHOD (ATOMIC-MODELS EXT-TRANSITION) ()
+(DEFINE-METHOD (ATOMIC-MODELS OUTPUT?) ()
+(DEFINE-METHOD (ATOMIC-MODELS TIME-ADVANCE?) ()
+(DEFINE-METHOD (ATOMIC-MODELS COPY-STATE)(M)  ;SEND M COPY-STATE M1 (NO ')
+(DEFINE-METHOD (ATOMIC-MODELS INITIAL-STATE)() (SET-STATE))
+(DEFINE-METHOD (ATOMIC-MODELS SAVE-ALL-STATE)(TO-FILE)
+(DEFINE-METHOD (ATOMIC-MODELS RESTORE-ALL-STATE)(FROM-FILE)
+(define-method (atomic-models get-ind-vars-pairs)()
+(DEFINE-METHOD (ATOMIC-MODELS RESUME-STATE)(IND-VARS-PAIRS)
+(DEFINE-METHOD (ATOMIC-MODELS MAKE-COPY) (M)
+(DEFINE-METHOD (ATOMIC-MODELS ISOMORPHIC?) (M)
+(DEFINE-METHOD (ATOMIC-MODELS DELETE-METHODS)()
+(DEFINE-METHOD (ATOMIC-MODELS RESUME-METHODS)()
+(define-method (atomic-models external-message?) (source port))
+(define-method (atomic-models ninitial-state) ())
+(DEFINE (BUILD-ATOMIC-MODEL NAME)
+(define (int-a s) (set! (state-phase s) 'active) s)
+(define (ext-a s e x) (set! (state-phase s) (content-value x)) s)
+(define (out-a s) (make-content 'port 'out 'value (state-phase s)))
+(define (ta-a s)(state-sigma s))
+(define s)
+(DEFINE (IDENTITY X) X)
+
+---------- BROAD-CL.S
+(define-class broadcast-models
+
+---------- BROAD-ME.S
+(define-method (broadcast-models get-influencees) (child)
+(define-method (broadcast-models get-receivers)()
+(define-method (broadcast-models translate)(n1 n2 port-name)
+(DEFINE-METHOD (BROADCAST-MODELS PRINT-GRAPH)()
+(DEFINE-METHOD (BROADCAST-MODELS INIT-NEW)()
+(DEFINE-METHOD (BROADCAST-MODELS MAKE-NEW)(NEW-INST-NAME)
+(DEFINE-METHOD (BROADCAST-MODELS MAKE-MEMBERS) (NM N)
+(DEFINE-METHOD (BROADCAST-MODELS MAKE-CLASS)(CLASS-NAME)
+(define-method (broadcast-models isomorphic-coupling?) (m)
+(DEFINE-METHOD (BROADCAST-MODELS RESUME-METHODS)()
+(DEFINE-METHOD (BROADCAST-MODELS DELETE-METHODS)()
+
+---------- CELLU-CL.S
+(define-class cellular-models
+
+---------- CELLU-ME.S
+(define-method (coupled-models init-wind)()
+(define-method (atomic-models init-wind)()
+(define-method (cellular-models get-influencees) (child)
+(define-method (cellular-models get-receivers)()
+(DEFINE-METHOD (CELLULAR-MODELS PRINT-GRAPH)()
+(DEFINE-METHOD (CELLULAR-MODELS MAKE-CLASS)(CLASS-NAME)
+(DEFINE-METHOD (CELLULAR-MODELS MAKE-NEW)(NEW-INST-NAME)
+(define-method (cellular-models create-cell)(cell-position)
+(define-method (cellular-models make-init-active-cells)(nm list-of-boundaries)
+(define-method (cellular-models set-newcells-positions)(coord-lst)
+(define-method (cellular-models num-created-cells) ()
+(DEFINE-METHOD (CELLULAR-MODELS SAVE-STATE)(BOUNDARY-LST TO-FILE)
+(DEFINE-METHOD (CELLULAR-MODELS RESTORE-STATE) (FROM-FILE BOUNDARY-LST)
+(DEFINE-METHOD (CELLULAR-MODELS COPY&PASTE) (FROM-BOUNDARY TO-BOUNDARY)
+(define-method (cellular-models cell-pos->model) (cell-pos)
+(define-method (cellular-models isomorphic-coupling?) (m)
+(DEFINE-METHOD (CELLULAR-MODELS RESUME-METHODS)()
+(DEFINE-METHOD (CELLULAR-MODELS DELETE-METHODS)()
+(DEFINE-METHOD (CELLULAR-MODELS ADD-PORT-PAIR)
+(define-method (cellular-models translate)(n1 n2 port-name)
+(DEFINE-METHOD (CELLULAR-MODELS INIT-NEW)()
+
+---------- CO-TEST.S
+(define-structure message source time content)
+(define-structure content port value)
+(define #!t #!TRUE)
+(define #!F #!FALSE)
+(DEFINE (ATTACH PROCESSOR MODEL)  
+(define (initial-tN processor) 
+(define (prepare-window model)
+(define (initial-tL processor)
+(define (maximum tL-list)
+(define pause nil)
+(DEFINE  (MAKE-PAIR CLASS NAME)
+(DEFINE (INITIALIZE ROOT-CO-ORDINATOR PROCESSOR)
+(DEFINE (RESTART ROOT-CO-ORDINATOR . LST)
+(define (print-timing model space wind)
+(DEFINE (PRINT-TIME  ROOT-CO-ORD)
+(define (key-menu&zhang . root-model)             
+(define (prompt_user question)
+(define (an_environment? name)
+
+---------- COOR-CL.S
+(define-class co-ordinators
+
+---------- COOR-ME.S
+(define-method (co-ordinators when-receive-y) (input-message)
+(define-method (co-ordinators when-receive-x) (input-message)
+(define-method (co-ordinators when-receive-*) (input-message)
+(define (compute-imminent tN-list)
+(define (mark-done message wait-list)
+(define (set-tN  message tN-list)
+(define-method (co-ordinators when-receive-done) (input-message)
+
+
+---------- EF1.S
+(define (has-gen? lst)
+(define (has-tran? lst)
+(define (member? obj1 obj2)
+(define (has-acc? lst)
+(define (attach-g model)
+(define (roof-g model)
+(define (build-inf-dig-g model int-coup)
+(define (build-coup-g model coupling-list)
+(define (change model l)
+(define (transfer model sublist)
+(define (build-int-coup model int-coup-list)
+(define (member? obj1 obj2)
+(define (temp-tree-g model) 
+(DEFINE-METHOD (DIGRAPH-MODELS GET-EXT-COUPLING) ()
+(DEFINE-METHOD (DIGRAPH-MODELS GET-INT-COUPLING) ()
+(define (attach-tr model)
+(define (roof-t model) 
+(define (build-inf-dig-t model int-coup)
+(define (build-coup-t model coupling-list)
+(define (temp-tree-t model)
+(define (build-inf-dig-a model int-coup)
+(define (build-coup-a model coupling-list)
+(define (roof-a model) 
+(define (attach-a model)
+(define (temp-tree-a model) 
+
+---------- EF2.S
+(define (att-acc model)
+(define (attach-acc model)
+(define (attt-acc model)
+(DEFINE (GEN? OBJ)
+(DEFINE (TRAN? OBJ)
+(DEFINE (ACC? OBJ)
+(define (att-gen model)
+(define (attach-gen model)
+(define (attt-gen model)
+(define (att-tran model)
+(define (attach-tran model)
+(define (attt-tran model)
+(define (recursive node)
+(define (put-to-end queue element)
+(define attach-wind (mw #!false #!true))
+(define (wait_a_while n)
+(DEFINE (CONSTRUCT-EF)
+
+---------- ENMANAG.S
+(DEFINE (CHANGE-DIR)
+(define (gen-en-fname en) 
+(define (ens-in-enbase) 
+(define (init-version-num en-name)
+(DEFINE (SHOW-E:ENS)
+(DEFINE (SHOW-P:ENS)
+(DEFINE (SHOW-TMP:ENS) 
+(DEFINE (SHOW-ALL:ENS) 
+(DEFINE (MAKE-ENTSTR ENT-NAME)         
+(define (copy-entstr1 from-en to-en)
+(define (copy1-entstr en)
+(DEFINE (SAVE-ENTSTR EN)
+(define (save-en en)
+(define (restore-entstr entstr it-brs-lst)
+(define (all:ens en-name-*)
+(define ent-name-ctr (name-counter))
+(define (clean-entstr p:en)
+(define (mk-entstr-version e:en)
+(define (add-sub-entstr e:en sub-entstr)
+(define (delete-sub-entstr e:en it-name)
+(define (delete-sub-entstr1 e:en it-name)
+(define (extract-sub-entstr e:en)
+(define (sub-entstr-its e:en root-sub-entstr)
+(define (sub-entstr-brs e:en root-sub-entstr)                
+(define (find-out-branches e:en it-name)
+(define (find-in-branches e:en it-name)
+(define (flatten en items-lst)
+(define (children-ents en item)
+(define (root-name en)
+(DEFINE (CUT-ENTSTR1 E:EN/P:EN P:EN ENT-CUT)
+
+
+---------- COUPL-CL.S
+(define-class coupled-models
+
+---------- COUPL-ME.S
+(define-structure message source time content)
+(define-structure content port value)
+(define (reconstruct input-message coupled-model destination)
+(define (empty? input-message)
+(define-method (coupled-models show-children)()
+(define-method (coupled-models get-children)()
+(define-method (coupled-models get-influencees) (child)
+(define-method (coupled-models get-receivers)()
+(define-method (coupled-models translate)(n1 n2 port-name)
+(DEFINE-METHOD (COUPLED-MODELS COPY-STATE)(M)  
+(DEFINE-METHOD (COUPLED-MODELS GET-ALL-LEAF-MODELS)()
+(DEFINE-METHOD (COUPLED-MODELS SAVE-ALL-STATE)(TO-FILE)
+(DEFINE-METHOD (COUPLED-MODELS RESTORE-ALL-STATE)(FROM-FILE)
+(define-method (coupled-models associate-model-state)(models state-pairs)
+(define-method (coupled-models get-corresp-tab) (m)
+(DEFINE-METHOD (COUPLED-MODELS RESUME-METHODS)()
+(DEFINE-METHOD (COUPLED-MODELS DELETE-METHODS)()
+(define-method (coupled-models hide-nw)(model))
+(define-method (coupled-models initial-wind)(model))
+(define-method (coupled-models display-nw) (mes-cont mes-source))
+(define (initial-structure model)
+(define (logic-and bool-lst)
+
+---------- DIGRAPH.S
+(define-structure link
+(define   (outgoing  edges cur)
+(define  (successors  edges node)
+(define (converse edges)
+(define (incoming edges cur)
+(define (in-edge? edges node)
+(define (find-edge edges n1 n2)
+(define (copy-digraph di tab)
+(DEFINE (SHOW-NAMES LST)
+(define (show-links lst)
+(define (show-nodes di)
+(define (show-edges di)
+(define (di-insert-pair di n1 n2 p1 p2)
+(define (di-delete-pair di n1 n2 p1)
+
+---------- DIMOD-CL.S
+(define-class digraph-models  
+
+---------- DIMOD-ME.S
+(define (influencees child clist)
+(define (construct-int-coup children child-inf-list)
+(define-method (digraph-models get-influencees) (child)
+(define-method (digraph-models get-receivers)()
+(DEFINE-METHOD (DIGRAPH-MODELS BUILD-COMPOSITION-TREE)  (THIS CH)
+(DEFINE-METHOD (DIGRAPH-MODELS SET-EXT-INP-COUP )(CHILD PORT-PAIRS)
+(DEFINE-METHOD (DIGRAPH-MODELS SET-EXT-OUT-COUP) (CHILD PORT-PAIRS)
+(DEFINE-METHOD (DIGRAPH-MODELS SET-INF-DIG) (CHILD-INF-LIST)
+(DEFINE-METHOD (DIGRAPH-MODELS SET-INT-COUP)  (CH1 CH2 PORT-PAIRS)
+(define-method (digraph-models translate)(n1 n2 port-name)
+(define-method (digraph-models set-selectfn) (fn)
+(DEFINE-METHOD (DIGRAPH-MODELS PRINT-GRAPH)()
+(define-method (digraph-models adjust-composition-tree)()
+(DEFINE-METHOD (DIGRAPH-MODELS MAKE-CLASS)(CLASS-NAME)
+(DEFINE-METHOD (DIGRAPH-MODELS MAKE-NEW)(M-NM)
+(DEFINE-METHOD (DIGRAPH-MODELS INITIAL-STATE)()
+(define-method (digraph-models get-coupling)()
+(define-method (digraph-models isomorphic?)(m)
+(define-method (digraph-models isomorphic-coupling?) (m)
+(DEFINE-METHOD (DIGRAPH-MODELS MAKE-COPY)(M-NM)
+(DEFINE-METHOD (DIGRAPH-MODELS RESUME-METHODS)()
+(DEFINE-METHOD (DIGRAPH-MODELS DELETE-METHODS)()
+(define-method (digraph-models external-message?) (source-model port))
+
+---------- DISPLAY.S
+(DEFINE (DC)(DOS-CALL "" ""))
+(DEFINE (MK-COP M1 M2)
+(DEFINE (PG M)(SEND M PRINT-GRAPH)
+(define (hide-window model line col) 
+(DEFINE (PLACE-ATOMIC MODEL LINE COL) 
+(define (ok val low high)
+(define (place-root root-co-ord)
+(define (print-structure model space wind)
+(DEFINE (PRINT-ROOT ROOT-CO-ORD)
+(define (flash-message model mes)
+(define (root-of-model model)
+(DEFINE (PLACE-LEAF ROOT-CO-ORD)               
+(DEFINE (CLEAR-SCREEN)
+(define (window-clear-stack)
+(define initialize-window (make-window "INITIALIZATION" #!true))
+(define (initial-window model)       
+(define (bel$hu no)   ;;;from menu.s
+(define (place-model model line col)
+(define (get-line-column wind line col)
+(define (get-height-width wind)
+
+---------- DOS-ED.S
+(define (ed filename)
+
+---------- ENINIT.S
+(define model-base_directory (read))
+(define entstr-base_directory (read))
+(define en-mgr (entstr-manager))
+
+---------- ENPEPRUN.S
+(DEFINE (PRUNE EN)
+(define (prune1 en) 
+(define (adjust-en-name p:en-with-tmp-name extension)
+(define (adjust-root-name root-name)
+(define (add-spec-and-prune en)                                
+(define (prune-from-ent en)
+(define (attach-num-mult-children en)
+(define (is-in-model_base? ent-name)
+(define (p:ens-with-root-nm root-nm)
+(define (is-in-entstr_base? ent-name)
+(define (ent->pruned-en-files ent-name)
+(define (name-match? ent-name prun-en-file)
+(define (add-spec&ents-at-leaf en leaf-ent)
+(DEFINE (PRINT-ENT EN)
+(define (print-item en item-nm space)
+(define (print-coup coup)
+
+---------- ENMODUL.S
+(define-structure link
+(define-structure item
+(define-structure branch left right)
+(define (find-item items it-name)
+(define root-asp (make-item 'name 'root-asp 'type asp))
+
+
+---------- ENPRIMIT.S
+(define (axiom-violated? cur-item items-lst new-type new-name)
+(define (mode-alternating? cur-type new-type) 
+(define (valid-brothers/strict-hierarchy? items-lst name)
+(define (remove-branch en br)
+(define  (in-branches en)
+(define  (out-branches en)
+(define (ents? en)
+(define (copy-item struct-item)
+(define (aspects en)
+(define (specializations en)
+(define (ents en)
+(define (parent-aspects en)
+(define (parent-specs en)
+(define (add-single-mult en nm1) (eval `(make-mult-mult ,en ,nm1)))
+(define (add-double-mult en nm1 nm2) (eval `(make-mult-mult ,en ,nm1 ,nm2)))
+(define (add-triple-mult en nm1 nm2 nm3)
+(define (add-mult en nm)
+(define (add-mult-mult en mult-lst)
+(define (set-mult-coup-type en aspect coup-type) 
+(define (add-mult-couple en ml-asp port-name1 port-name2)
+(define (select-asp en nm)
+(define (inherit en ent-name)
+(define (replace-branches  branches gen sp)
+(define (replace-coupling aspect gen-nm sp-nm)
+(define (trans-nm gen-nm sp-nm entity-nm)
+(define (trans gen sp item)
+(define (select-ent en ent-name spec-name)
+(define (select-root en ent-name)
+(define (atomic en)
+(define (children en)
+(define (all-children en)
+(define (load-if-exists filenm)
+(define (leaf-ents en)
+
+---------- ENTI-CL.S
+(define-class entities
+
+---------- ENTI-ME.S
+(DEFINE (MAKE-ENTITY CLASS ID)
+(DEFINE (SHOW-CLASS CLASS)
+(DEFINE (NAME->ENTITY NAME LST)
+(DEFINE-METHOD (ENTITIES DESTROY)()
+(define root-entity
+(DEFINE (SPECIALIZED-CLASS OBJ CLASSNAME)
+(define (mixnames classname)
+
+---------- ENTRANS.S
+(DEFINE (TRANSFORM EN)
+(define (transform-ent en ent-name path)
+(define (construct-pruned ent-name)
+(define (retrieve class ent-name inst-name)
+(define (back-up en ent-name path path-name)
+(define (house-clean class)
+(define (compactify path-name)
+(define (construct-digraph-model en ent-name extended-path)
+(define (construct-kernel-model en ent-name inst-name extended-path)
+(define (connected-to-root en ent-name)
+(DEFINE (INV-TRANSFORM ROOT-CO-ORD)
+(define (inv-transform1 root-model)
+(define (set-its/brs-pair en model)
+(define (model->ent-name model)                                                 
+(define (asp-name model)
+(define (item-sub-ty en model)
+(define (coupling? model)
+(define (drop-prefix model-nm)
+(define (select-representative-member root-model)
+
+---------- STATE-GR.S
+(define-structure linkk
+(define   (outgoing  edges cur)
+(define  (successors  edges node)
+(define (incoming edges cur)
+(define (in-edge? edges node)
+(define (find-edge edges n1 n2)
+(define (find-arc edges input-test text buffer)
+(define-structure sta name function fn-text outg fn)
+(define (show-names lst)
+(define (show-linkks lst)
+(define (show-states di)
+(define (show-arcs di)
+(define (transit di arc)
+(define test-for! (test-for !))
+(define (input-tests arcs)
+(define (texts arcs)
+(define (buffers arcs)
+(define (quoted-symbol? x)
+(define (save-state-graph st-nm)
+(define (restore-state-graph st-nm)
+(define (recover-states arcs)
+(define (con-state-graph di list-of-triples function fn-text fn)
+(define (final-state? di)
+(define (interpret di)
+(define (req-inp di)
+(define (read-input di)
+
+---------- DEEP.S
+(DEFINE (DEEP-DEVS COOR GROUP NEW CLS)
+(define (port&zhang port cnt)
+
+---------- FLAT.S
+(DEFINE (FLAT-ALL COOR)
+(define (flat_all coor)(flat_all&zhang coor 0))
+(define (flat_all&zhang coor depth)
+(DEFINE (FLAT-DEVS COOR)                                
+(define (environment->name&zhang envs)
+(define (int-coup&zhang this coups)
+(define (ext-inp-coup&zhang this coups)
+(define (out-ext-coup&zhang this coups)
+(define (common-coup&zhang this coups fun1 fun2)
+(define (in_lst? name lst)
+(define (not_in_lst? name lst)
+(define (this->coor->sons coor-name out-ext fint-coup)
+(define (sons->coor->this coor-name fint-coup ext-inp)
+(define  (sons->father coor-name fname out-ext fout-ext)
+(define (flat-devs&zhang coor)
+(define (father->sons coor-name fname ext-inp fext-inp)
+(define (new-inf-dig&zhang nchild-lst nint-coup)
+(define (connect-it&zhang child int-coup father)
+(define (connect-out-ext&zhang child father out-ext-coup)
+(define (connect-ext-inp&zhang child father ext-inp-coup)
+
+---------- EXENT.S
+(DEFINE (SPECIALIZED-CLASS OBJ CLASSNAME)
+(define (mixnames classname)
+(define (print-class-structure root-class sp-bar cv iv meth inst)
+(define (print-options class cv iv meth inst) 
+(define (displayln lst leading-sp)
+(DEFINE (PRINT-PATH FROM-CLASS-NM TO-CLASS-NM SPACE)                
+(DEFINE (PARENT-CLASSES FROM-CLASS TO-CLASS)
+(DEFINE (ALL-PARENT-CLASSES FROM-CLASS)                
+(DEFINE (ALL-CLASSES)        
+(DEFINE (SUB-CLASSES CLASS-NM)
+(DEFINE (SUB-CLASS-OF SPEC-NM  GEN-NM)
+(DEFINE (CLASS? NM)
+(DEFINE (ALL-OBJECTS)
+(DEFINE (SHOW-ALL-OBJECTS)
+(macro ex-define-class (lambda (e) ;;replaces define-class
+(define (special-remove-mult lst)
+(define (special-member el lst)
+(DEFINE (SAVE-OBJECT OB-NM)
+(DEFINE (RESTORE-ALL-OBJECTS)
+
+---------- HYPER-CL.S
+(define-class hypercube-models
+
+---------- HYPER-ME.S
+(define-method (hypercube-models get-influencees) (child)
+(define-method (hypercube-models get-receivers)()             
+(DEFINE-METHOD (HYPERCUBE-MODELS PRINT-GRAPH)()
+(DEFINE-METHOD (HYPERCUBE-MODELS MAKE-NEW)(NEW-INST-NAME)
+(DEFINE-METHOD (HYPERCUBE-MODELS MAKE-MEMBERS) (NM N)
+(DEFINE-METHOD (HYPERCUBE-MODELS MAKE-CLASS)(CLASS-NAME)
+(define-method (hypercube-models set-allcell-positions)()
+(define-method (hypercube-models isomorphic-coupling?) (m)
+(DEFINE-METHOD (HYPERCUBE-MODELS RESUME-METHODS)()
+(DEFINE-METHOD (HYPERCUBE-MODELS DELETE-METHODS)()
+(DEFINE-METHOD (HYPERCUBE-MODELS ADD-PORT-PAIR)  
+(define-method (hypercube-models translate)(n1 n2 port-name)
+(DEFINE-METHOD (HYPERCUBE-MODELS INIT-NEW)()
+
+---------- KERNL-CL.S
+(define-class kernel-models
+
+---------- KERNL-ME.S
+(define-method (kernel-models get-children)()
+(DEFINE-METHOD (KERNEL-MODELS ADD-PORT-PAIR) (PORT-NAME1 PORT-NAME2)
+(DEFINE-METHOD (KERNEL-MODELS DELETE-PORT-PAIR)(PORT-NAME)
+(DEFINE-METHOD (KERNEL-MODELS INIT-ALL)()
+(DEFINE-METHOD (KERNEL-MODELS INIT-ONE)()
+(define-method (kernel-models is-parent-kernl)()
+(define-method (kernel-models set-cellposition-init-cell)()
+(DEFINE-METHOD (KERNEL-MODELS INITIAL-STATE)() 
+(DEFINE-METHOD (KERNEL-MODELS INIT-PROCS)()
+(DEFINE-METHOD (KERNEL-MODELS REPORT-LEVEL)()
+(DEFINE-METHOD (KERNEL-MODELS ASSIGN-LEVEL)()
+(DEFINE-METHOD (KERNEL-MODELS MAKE-KERNEL-MEMBERS) (NM N)
+(DEFINE-METHOD (KERNEL-MODELS MAKE-INIT-CELL)()
+(define-method (kernel-models gen-mem-name)(ker-inst-name)
+(define-method (kernel-models gen-name-prefix)()
+(define-method (kernel-models get-coupling)()
+(define-method (kernel-models isomorphic?) (m)
+(DEFINE-METHOD (KERNEL-MODELS RESUME-METHODS)()
+(DEFINE-METHOD (KERNEL-MODELS DELETE-METHODS)()
+
+
+---------- CONTRL-ME.S
+(define-method (controlled-models external-message?) (source-model port))
+
+
+
+---------- MODEL-CL.S
+(define-class models
+(define (grand-children model)
+(define (depth model)
+(define-structure nwind)
+(define-method (models get-nw)(var))
+(define-method (models set-nw)(var))
+
+---------- MODEL-ME.S
+(define-method (models spec-class-of-object)()
+(define-method (models trav-models)(model)
+(DEFINE-METHOD (MODELS RESUME-METHODS)()
+(DEFINE-METHOD (MODELS DELETE-METHODS)()
+
+---------- PROC-CL.S
+(define-class processors
+
+---------- PROC-ME.S
+(define-method (processors when-receive-mes)(mes)
+
+---------- ROOT-CL.S
+(define-class root-co-ordinators
+
+---------- SIMU-CL.S
+(define-class simulators
+
+---------- SIMU-ME.S
+(DEFINE (ADD N1 N2)
+(DEFINE (SUB N1 N2)
+(DEFINE (LESS-THAN N1 N2)
+(DEFINE (LESS-THAN-OR-EQUAL N1 N2)
+(define-structure message
+(define-structure (*-message (include message)))
+(define-structure (ext-message (include message)))
+(define-structure  (done-message (include message)))
+(define-method (simulators when-receive-*) (input-message)   
+(define-method (simulators when-receive-x) (input-message)
+
+---------- SPMOD-CL.S
+(define-class spec-models
+(define (int s) (gensym))
+(define (ext s e x) (content-value x))
+(define (out s) (make-content 'port 'out 'value s))
+(define (tad s ) 1)
+
+---------- TEST.S
+
+(DEFINE (SUB-CLASS-OF SPEC-NM  GEN-NM)
+
+---------- WINDOW.S
+(DEFINE (BACK CNSL)
+(DEFINE (SET-UP CNSL)
+(define window-line 1)
+(define (set-up-window)
+(define wst (stack-mgr))
+(define (top-of pair)
+(define (window-push  pair)
+(define (window-pop)
+(define (window-reduce-stack pair)
+
+---------- ROOT-ME.S
+
+(DEFINE (TIMER N)
+(define pause #!true)
+(define time-gen
+(DEFINE SET-INTERVAL (LAMBDA(TIME-GEN M)((TIME-GEN 'SET-INTERVAL) M)))
+(DEFINE RUN-IT (LAMBDA(TIME-GEN)((TIME-GEN 'RUN-IT))))
+(define-method (root-co-ordinators when-receive-y)(input-message)
+(define-method (root-co-ordinators when-receive-done) (input-message)
+
+
+---------- ext-dis.s
+
+(macro change-display {option})
+(macro cd {option})
+(define initialize-window)
+(define cs-low)
+(define (make-winds type position size inports))
+(define (remove-pair lst))
+(define (res-wind model))
+(define (atomic-wind model))
+(define (get-ports coupling model type))
+(define (atomic-eq? model))
+(define (hide-nw-parent model))
+(define (place-model model line col))
+(define (print-root root-co-ord))
+(define (start-log . fn))
+(define (stop-log))
+(define (display&file-structure s state-vars ind-vars log-file))
+
+
+
+============================= macro ============================
+
+
+---------- ATOM-ME.S
+(macro make-atomic-class (lambda(e)
+(MACRO HOLD-IN (LAMBDA (E)
+(MACRO PASSIVATE-IN (LAMBDA (E)
+(MACRO PASSIVATE (LAMBDA(E)     
+(MACRO CONTINUE (LAMBDA(E)
+(MACRO IN-PHASE? (LAMBDA(E)
+(MACRO CONSTANT (LAMBDA(E)
+
+---------- BROAD-ME.S
+(macro make-broadcast-class (lambda(e)
+(MACRO MAKE-BROADCAST (LAMBDA (E)
+
+---------- CELLU-ME.S
+(macro make-cellular-class (lambda(e)
+(MACRO MAKE-CELLULAR (LAMBDA (E)
+
+---------- ENMANAG.S
+(macro mk-entstr (lambda(e)
+(MACRO RENAME-ENTSTR (LAMBDA(E)
+(MACRO COPY-ENTSTR 
+(MACRO DELETE-ENTSTR (LAMBDA(E)
+(macro load-entstr1 (lambda(e)
+(MACRO LOAD-ENTSTR
+(MACRO MAKE-FLAT 
+
+---------- DIMOD-ME.S
+(macro make-digraph-class (lambda(e)
+
+---------- ENPRIMIT.S
+(macro make-mult-mult (lambda(e)
+
+---------- ENTI-ME.S
+(MACRO MK-ENT (LAMBDA(E)
+(macro def-class (lambda (e)
+
+---------- STATE-GR.S
+(macro test-for (lambda(e)
+(macro construct-state-graph (lambda(e)
+
+---------- EXENT.S
+(MACRO PRINT-SCOOPS-CLASS
+(macro print-scoops-path  (lambda(e)  
+(macro mk-ent-no-display (lambda(e)
+(MACRO OBJECT? (LAMBDA(E)
+(MACRO OBJECT-NAME-OF? (LAMBDA(E)
+(MACRO OBJECT-NAME? (LAMBDA(E)
+(MACRO EX-DEFINE-CLASS (LAMBDA (E) 
+(MACRO EX-COMPILE-CLASS (LAMBDA(E) 
+(MACRO QUOTED-NAME? (LAMBDA(E)
+(MACRO SET-OBJECT (LAMBDA(E)
+(macro set-var (lambda(e)
+(macro get-var (lambda(e)
+
+---------- HYPER-ME.S
+(macro make-hypercube-class (lambda(e)
+(MACRO MAKE-HYPERCUBE (LAMBDA (E)
+
+---------- TEST.S
+(MACRO OBJECT? (LAMBDA(E)
+(MACRO OBJECT-NAME-OF? (LAMBDA(E)
+(MACRO NEW-SYMBOL? (LAMBDA(E)
+(MACRO ATOMIC-MODEL? (LAMBDA(E)
+(MACRO DIGRAPH-MODEL? (LAMBDA(E)
+(MACRO KERNEL-MODEL? (LAMBDA(E)
+(MACRO COUPLED-MODEL? (LAMBDA(E)
+(MACRO MODEL? (LAMBDA(E)
+(MACRO ROOT-CO-ORDINATOR? (LAMBDA(E)
+(MACRO CO-ORDINATOR? (LAMBDA(E)
+(MACRO SIMULATOR? (LAMBDA(E)
+(MACRO PROCESSOR? (LAMBDA(E)
+
+---------- WINDOW.S
+(MACRO DISPLAY-WINDOW (LAMBDA (E)
+
+==================================build-module ====================
+
+---------- ENMANAG.S
+(build-module entstr-manager
+
+---------- DIGRAPH.S
+(build-module digraph
+
+---------- ENMODUL.S
+(build-module entity-structure
+
+---------- STATE-GR.S
+(build-module state-graph
+
+---------- WINDOW.S
+(build-module stack-mgr
+
+
+

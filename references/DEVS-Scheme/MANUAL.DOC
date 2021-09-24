@@ -1,0 +1,2779 @@
+
+
+
+
+
+
+
+
+
+
+
+List of Figures	iii
+1.0  Introduction	1
+2.0  Overview of the DEVS Formalism  Concepts	2
+2.1  Simulation Concepts	2
+2.2  Discrete Event Formalism	4
+2.3  Advantages of Discrete Event Simulation	6
+3.0  Introduction to DEVS-Scheme	7
+3.1  System Specification in DEVS-Scheme	9
+3.2  The Abstract Simulation Process	11
+4.0  Computer System Requirements and Getting Started	15
+4.1  Hardware	15
+4.2  Software	15
+4.3  Loading DEVS-Scheme and File Organization	15
+4.3.1  Subdirectories	15
+4.3.2  File Naming Conventions	16
+4.4  Execution of DEVS-Scheme	17
+4.4.1  Help	17
+4.4.2  Some Useful General Commands	18
+5.0  Atomic Model Development	19
+5.1  DEVS-Scheme Pseudo-Code	19
+5.2  DEVS-Scheme Code	24
+5.2.1  DEVS-Scheme Code for a simple processor	24
+5.2.2  Explanation of the simple 
+	  processor code	25
+5.3  Testing an Atomic-Model	26
+6.0  Experimental Frame	30
+6.1  Design of an Experimental Frame Generator	32
+6.1.1  Generator Pseudo-code	32
+6.1.2  Generator DEVS-Scheme code	33
+6.1.3  Testing the Generator	34
+6.2  Design of an Experimental Frame Transducer	36
+6.2.1  Transducer Pseudo-code	37
+6.2.2  Transducer DEVS-Scheme code	38
+6.2.3  Testing the Transducer	41
+7.0  Development of Digraph-models	43
+7.1 Experimental Frame Digraph Model	43
+7.1.1  Experimental Frame Digraph-model 
+	  Pseudo Code	45
+7.1.2  Experimental Frame Digraph-Model
+	  DEVS-Scheme Code	46
+7.2 Digraph-Models with Atomic-Models and
+	 Coupled-Models	46
+7.2.1  Experimental Frame Processor
+	  Digraph Model	47
+7.2.2  Experimental Frame Processor 
+	  Digraph-model Pseudo Code	49
+7.2.3  Experimental Frame Processor
+	  Digraph-Model	50
+7.2.4  Handling Equal Next-Event-Times	51
+7.3	Digraph-Model for a Pipeline Computer	51
+8.0  The Simulation Process using DEVS Scheme	54
+8.1  Simulation of an Atomic-Model	54
+8.2  Simulation of Coupled-Models	61
+9.0 Notes to the Advanced User	63
+10.0  Overview of the Systems Entity Structure Concepts	63
+10.1  Knowledge Representation Scheme Requirements	63
+10.2  System Entity Structure Definitions and Axioms	63
+10.3  Development of a System Entity Structure	64
+11.0  Using the System Entity Structure in DEVS-Scheme	70
+11.1  Experimental Frame System Entity Structure	70
+11.2  DEVS-Scheme Code Implementation of the Experimental
+	    Frame System Entity Structure	71
+11.3  Experimental Frame/Processor pair System Entity
+ 	   Structure	72
+11.4  DEVS-Scheme Implementation of the Exp Frame/Processor 	   System Entity Structure	73
+11.5  Simulating using a System Entity Structure	74
+12.0  Computer Architecture Simulation using a SES	76
+12.1  Developing the Computer Architecture SES	76
+12.2  DEVS-Scheme Computer Architecture SES Code	80
+12.3  Pruning a System Entity Structure	83
+13.0  Computer Architecture SES using Deepening 
+		 and Flattening	88
+APPENDIX A  Major Instance Variables, Class Variables, and
+            Class Methods for Classes Entities,
+            Atomic-Models, and Digraph-Models	94
+APPENDIX B  Alphabetical Listing of DEVS-Scheme
+            Commands and Messages	96
+APPENDIX C  Simple Processor Test File Listing	101
+APPENDIX D  Templates for Atomic-Model, Digraph-Model, and
+		  Entity Structure Definitions 103
+
+
+
+
+
+LIST OF FIGURES
+
+FIGURE NO.	Title	PAGE NO.
+
+1	Modelling and Simulation Relationships	2
+
+2	Generalized Data Segment produced by
+	a System or a Model	4
+
+3	Discrete Event Time Segment	5
+
+4	Class Hierarchy of DEVS-Scheme	8
+
+5	Model Base Concept	10
+
+6a	Hierarchical Model	12
+
+6b	Abstract Simulator Structure	12
+
+7a	Inter-processor Message Structure	13
+
+7b	Processor Messages	13
+
+8	Single Processor without queue	19
+
+9	DEVS State Transition Diagram	23
+
+10	Experimental Frame coupled to a System	30
+
+11	Experimental Frame Components	31
+
+12	Simple Generator	32
+
+13	Response to (send genr set-state)	35
+
+14	Simple Transducer	36
+
+15	Experimental Frame Digraph Model	43
+
+16	Experimental Frame Composition Tree	44
+
+17	Experimental Frame Influence Digraph	45
+
+18	Digraph-Model EF-P	47
+
+19	EF-P Composition Tree	48
+
+20	EF-P Influence Digraph	48
+
+21	Pipeline Architecture Digraph-Model	52
+
+22	Pipeline Architecture Composition Tree	53
+
+23	Pipeline Architecture Influence Digraph	53
+
+24	Response to (Initialize r s:genr)	55
+
+25	Response to (restart r)	56
+
+26	Model Initialization Window	57
+
+27	Start of the Pause mode Simulation	58
+
+28	Receipt of a *-message	59
+
+29	Output of a Job	60
+
+30	Completion of an Internal Transition	61
+		
+31	Computer System Entity Structure	65
+
+32	System Entity Structure with Specialization
+	Relations and Multiple Decompositions	67
+
+33	Elimination of the Specializations for
+	the Entity Structure of Figure 32	68
+
+34	Experimental Frame System Entity Structure	70
+
+35	Experimental Frame Coupling Relationships	71
+
+36	Exp Frame/Processor pair System Entity
+	Structure	72
+
+37	Exp Frame/Processor pair Coupling
+	Relationships	73
+
+38	Experimental Frame Computer Architecture
+	System Entity Structure	77
+
+39	Coupling Specifications for Computer
+	Architectures and Experimental Frame	79
+
+40	Puning SES to Contruct Divide & Conquer Model	84
+
+41	Pruned Entity Structure for Divide& Conquer
+	Model	86
+
+42	Divide & Conquer SES and equivalent
+	Digraph-Model	88
+
+43	DC-ARCH Digraph-Model and its Equivalent
+	Deepened SES	90
+
+
+44	Computer Architecture SES using Deepening and
+	Common Co-ordinator Architecture Structures	91
+
+45	Coupling Specifications fo Deepened Computer
+	Architecture SES	92
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DEVS-SCHEME USER'S MANUALã
+
+September 1988
+
+
+
+compiled by
+
+
+Eric R. Christensen
+Department of Electrical and Computer Engineering
+University of Arizona, Tucson, AZ 85721
+
+1.0  Introduction
+
+	The purpose of this manual is to introduce the user to the Discrete Event Simulation (DEVS) Scheme implementation developed by Dr. B.P. Zeigler of the University of Arizona.  This manual is intended to be used with the PC Scheme Users Guide and Reference Manual 2nd Edition 1988.
+
+	The manual is divided into two sections.  Section 1 provides an introduction to the  basic functions and features of DEVS Scheme for the  Level 1 users.  Section 2 provides an introduction to the advanced features of DEVS Scheme for Level 2 users.
+
+	Section 1 discusses the following topics:
+
+		a.	Overview of the DEVS Formalism Concepts
+		b.	Introduction to DEVS Scheme
+		c.	Computer System Requirements
+		d.	Development of Atomic Models
+		e.	Experimental Frame Concepts
+		f.	Development of Digraph Coupled Models
+		g.	Simulation Run Examples
+
+	Section 2 discusses the following topics
+
+		a.	Systems Entity Structure Concepts
+		b.	Developing a Systems Entity Structure
+		c.	Simulation Using a Systems Entity Structure
+		d.	Deepening and Flattening Hierarchical Structures
+
+	Entries to be made by the users are indicated by bold type and system responses are indicated by italics. Those entries or responses which are variable are enclosed in brackets. For example: enter (mk-ent root-co-ordinators <r>) ; the response is Entity of type root-co-ordinators with name R made.
+		
+	Any questions regarding this manual should be directed to the Department of Electrical and Computer Engineering, University of Arizona, ATTN: DR. Zeigler, Tucson, Arizona, 85721.
+		
+
+2.0  Overview of the DEVS Formalism  Concepts
+
+	This chapter provides a brief overview of the concepts underlying DEVS-Scheme.  The first section presents an introduction to simulation concepts, the second section is an introduction to the Discrete Event Formalism, the final section addresses some of the advantages of Discrete Event Simulation.
+
+	 2.1  Simulation Concepts
+
+		The ability to determine how a current system or a proposed system will react to certain stimuli is critical to control management and design. The cost of making such predictions should be minimal, where the cost may be measured in time, money or even people's lives.  The primary means used to achieve this goal is the use of modelling and simulation. For clarity the following definitions of models, modelling and simulation will be used in this manual. A model is the representation of the real or proposed system.  Modelling describes the relationship between the model and the system being modelled.  Simulation describes the relationship between computers and the model. The relationships and the elements described above are as shown in Figure 1.
+
+
+	
+
+	
+	The modelling relation shown in Figure 1 defines how well the model represents the system or entity being modelled. The model consists of a set of instructions for generating data.  In general terms a model can be considered valid if the data generated by the model agrees with the data produced by the system being modelled.
+
+	The simulation relation shown in Figure 1 represents how well the computer (or a device) is able to carry out the instructions of the model. 
+
+	The primary focus in modelling and simulating a system should be the behavior of the system.  Thus in essence the real or proposed system should be viewed as a source of data. 
+
+	The model can be viewed from two perspectives; structure and behavior.  The structure of the model is the set of instructions comprising the model.  Behavior of the model is defined as what the model does.  Thus the structure of a model causes the generation of data which defines the behavior of the model.  
+
+	The basic items of data produced by a system or model are time segments.  These time segments are intervals [ti,tf] defined over a specified time base which map from [ti,tf] to values in the ranges of one or more variables.  The variables can either be observed or measured. An example of a data segment is shown in Figure 2.
+
+
+
+
+
+
+	 2.2  Discrete Event Formalism
+
+	The structure of the model which generates the model behavior is expressed in a mathematical language or a formalism. The formalism may have different forms such as differential equations or discrete time forms. 
+
+	The discrete event formalism focuses on the changes of variable values and assumes the behavior of the curves are piecewise continuous.  Thus an event is a change in a variable value which occurs instaneously as shown in Figure 3.
+
+
+
+
+
+	  Discrete event formalism is a language for describing events.  Description of an event invloves the scheduling defining the changes in state for that event.  In essence the discrete event formalism defines how to generate a new variable values and at what time the new value should be generated.  An example would be set V = 5 at time t = 10. An important aspect of the formalism is that the time interval does not have to be fixed. 
+
+	As mentioned previously the structure of the model is its set of instructions. These instructions can be decomposed into several components such as; Input event types, Sequential Internal States, Output event types, transition functions due to external events and internal events, Output function, and a means of scheduling the next event.   DEVS formalizes the model descriptions using a set-theoretic formalism.
+
+
+	The simplest non-decomposable models in DEVS are defined as atomic-models. Atomic-models are defined by the DEVS formalism as M = <X,S,Y,dint,dext,l,t >. Where 
+
+	X: Set of values for External Input Event types
+	S: Sequential State Set
+	Y: Set of values for External Event types generated as Output
+	dint : Internal Transition Function defining the state transition 			due to an internal event
+	dext : External Transition Function defining the state transition 			due to an external event
+	l   :  Output Function generating an External Event at the Output
+	t   :  Time advance function
+
+	Since DEVS is  modular, atomic-models may be coupled in the DEVS formalism to form larger and more complex models. Coupled-models are defined by the DEVS formalism as DN = < D, {Mi}, {Ii}, {Zi,j}, SELECT>.  Where
+		D:  Is a set of component names;
+
+ for each i in D,
+		Mi:  is a component
+		Ii:  is a set, the influencees of i
+
+and for each j in Ii,
+
+		Zi,j: is a function, the i-to-j output translation
+and
+		SELECT:  is a function, the tie-breaking selector.
+
+	A detailed development of the DEVS formalism can be found in the books Theory of Modelling and Simulation, John Wiley and Sons, New York, 1976 and Multifacetted Modelling and Discrete Event Simulation, Academic Press (Harcourt Brace Jovanovich Publishers), Orlando, Florida, 1984 by  Bernard P. Zeigler.
+	
+
+	 2.3  Advantages of Discrete Event Simulation
+
+	Discrete event simulation is very efficient when compared to fixed time step approaches to simulation.  In a fixed time step simulation the time step must be selected.  If the time step selected is too coarse events will be lost, and if the time step selected is too fine it is possible that a large number of redundant values will be generated which will require an excessive amount of time for the simulation.  Additionally with a fixed time step system there is no guarantee that all events will be seen.
+
+
+	 3.0  Introduction to DEVS-Scheme
+
+
+		DEVS-Scheme is an implementation of the DEVS formalism in the Scheme Object Oriented Programming System (SCOOPS) which is a superset of TI Scheme. The use of an object oriented programming paradigm allows the development of general classes of models from which more specialized models my be developed using the inheritance capabilities of object oriented programming.  There also exists compatibility between the object oriented programming paradigms and the discrete event world view formalism as both use the concept of objects.
+
+		Through the use of the object oriented programming paradigms DEVS-Scheme is able to support the development of modular, hierarchical discrete event models.  At the present time DEVS-Scheme supports the class specialization hierarchy shown in Figure 4. 
+	
+		The class taxonomy of DEVS-Scheme is of a dual nature. This is exhibited as follows:  For each basic model class there exists a processor class, for each atomic-model there exists a simulator, and for each coupled-model there exists a co-ordinator. The class variables, instance variables, and class methods are implemented using single inheritance.  Since Scheme is interactive, classes may be created at any time, including simulation time.
+
+	 	All classes in DEVS-Scheme are subclasses of the universal class entities which provides tools for manipulating objects in these classes (these objects are hereafter called entities).  The inheritance mechanism ensures that general facilities need only be declared once.  Entities of a desired class may be constructed using mk-ent and destroyed using destroy. Mk-ent makes the entity and places it in the list of members for the given class, lst.  Destroy removes the entity from the list.  Every entity has a name assigned upon creation, which is accessible using the method get-name.  Since entities are Scheme environments, they are anonymous until identified with queries.  The facilities provided with SCOOPS help out in this situation: the entity names currently in a class may be displayed with show-class, and name->entity will return an entity with a given name.
+				The main subclasses of entities are  models  and  processors which provide the basic constructs needed for modelling and simulation.  Models is further specialized as shown in Figure 4 into atomic-models  and coupled-models, which in turn are further specialized into more specific classes, a process which could continue indefinitely, as the user develops a specific model base.  Class processors has three specializations: simulators, co-ordinators, root-co-ordinators, which are used to handle all of the simulation needs.  The major instance variables, class variables, and class methods of classes entities, atomic-models, and digraph-models are shown in APPENDIX A.
+
+
+
+	 3.1  System Specification in DEVS-Scheme
+
+		This section provides a brief overview of how the DEVS formalism is expressed in DEVS-Scheme.  The general system specifications for atomic-models and coupled-models will be given.
+
+	As mentioned earlier atomic-models are non-decomposable models and are expressed in set-theoretic form as  M = <X,S,Y,dint,dext,l,t >.  The specification using DEVS-Scheme is expressed as follows:
+ 
+	 1.  External Transition Function (define (ext S e X) ....); 
+	 2. Internal Transition Function (define (int S)....) ; 
+	 3.  Output Function (define ( out S)....); 
+	 4. Time Advance Function (define (ta S)....).  
+
+From this specification the following observations are possible:  The external transition function is defined in terms of the external input events, the sequential states, and elapsed time within a particular state.  The internal transition, the output, and time advance functions are defined in terms of the sequential states.   
+
+	Coupled-models are defined as models having one or more component (atomic or coupled) models and are expressed in set-theoretic form as DN = < D, {Mi}, {Ii}, {Zi,j}, SELECT>.  The specification of coupled-models in DEVS-Scheme is recursive and includes the following: 
+
+	1.  Component model specification, which may be atomic component 		 models, coupled component models or atomic and coupled 			 component models.
+
+	2.	The specification of the coupling of the sets of port pairs.
+
+  	The coupling is expressed as either internal or external coupling. External coupling is required to couple the model to the outside world and to couple the outside world to the model.  This means external coupling must be specified for the output and the input of the coupled model. Internal coupling is required to couple a component model to its influencees (to the other component models with which it has interaction).  As in external coupling,  the internal coupling must be specified for the input and output of each model and its influencees.  Figure 5 illustrates the concepts of coupling atomic-models to form coupled-models using a model base.
+
+
+  
+
+		Figure 5a shows a model base consisting of atomic-models only.  Figure 5b depicts a model base consisting of atomic-models and coupled-models.  Figure 5c is a diagram of a coupled-model AB showing the coupling of the input and output ports.  Figure 5d is a composition tree of the coupled-model AB showing that its component models are A and B.  Figure 5d also illustrates the specification of the external input, external output, and internal coupling for a coupled-model.
+
+		 3.2  The Abstract Simulation Process
+
+		The simulators, co-ordinators, and root-co-ordinators specialization classes of processors carry out the simulation of DEVS by implementing the abstract simulator principles developed as part of the DEVS theory.  As mentioned earlier simulators and co-ordinators are assigned to atomic-models and coupled-models in a one-to-one relationship respectively (Figures 6a and 6b).  The model-processor pairing is recorded in the variables processor and devs-component of the model and processor, respectively.  A root-co-ordinator manages the overall simulation and is linked to the co-ordinator of the outermost coupled model.  Simulation proceeds by means of messages passed among the processors which carry information concerning internal and external events, as well as data needed for synchronization.  As shown in figure 7a, messages have fields for source of origination, time (carrying local or global time stamps, depending upon use), and content consisting of a port designation and a value, both determined by atomic-model output functions. 
+
+	As depicted in Figure 7b, a processor (simulator, co-ordinator, root-co-ordinator) receives and sends several types of messages.  A x-message represents the arrival of an external event to a processors's devs-component; it bears the global model time and comes from its parent.  A co-ordinator transmits this message to the processors of its devs-component's receivers, using its get-receivers and translate methods.  When a simulator receives an x-message it calls the external transition function of its devs-component (using the ext-transition method)  and then responds with a done message.  The latter indicates to the parent that the state transition has been carried out and carries with it the model time at which the next internal event of its component is scheduled (obtained by calling the time-advance? method).
+
+
+
+
+
+
+	
+
+	A *-message arriving at a processor indicates that the next internal event is to be carried out within its scope.  Thus a co-ordinator responds to a *-message by transmitting to its imminent child, the child with the minimum tine-of-next-event (or selected by tie-breaking rules embodied in the select function, if more than one has a minimum time of next event).
+
+	A simulator processes the *-message by computing the internal transition function of its devs-component (which is the imminent atomic-model) and responds with a y-message followed by a done-message.  The y-message carries a content, the port, and value, obtained by computing the output function of the atomic-model.  The done-message indicates that the state transition has been carried out and provides the new time-of-next-event.
+
+	When a co-ordinator receives a y-message from its imminent child, it consults the external output coupling scheme to see whether it should be transmitted to its parent, and its internal coupling scheme to obtain the children and their respective input ports to which the message should be sent.  The co-ordinator performs this processing using the get-influencees and translate methods of its coupled model.
+
+	When a co-ordinator has received the done messages from all influencees (in the ascending y-message case) or receivers (in the descending x-message case) it computes the minimum of its tN-children (maintained list of times-of-next-event) and determines the new imminent child for use upon receiving the next *-message.  Also it sends this new minimum as the time of its own next internal event in a done-message to its parent.
+
+	Simulation is initiated by initializing the states of the atomic-models, thereby determining each one's time-of-next-event.  These times are propagated upward by done-messages and thus setting up the path of imminent sub-components from the outermost coupled-model to the innermost atomic-model.  When the root-co-ordinator receives a done-message from its child (the co-ordinator of the outermost coupled-model), it returns a *-message to it bearing the time-of-next-event.  This starts the simulation, since the *-message will be transmitted down the the imminent path to the imminent simulator.  There will result in an upward wave of done-messages, the last of which, transmitted to the root-co-ordinator initiates the next round of simulation (processing of the next internal event).
+
+	Since, DEVS-Scheme runs interactively; a simulation run can be interrupted during the root-co-ordinator's cycle so that a pause occurs only in a valid model state.  The run can be restarted from the resulting state after any desired modification to the state.
+
+
+
+	 4.0  Computer System Requirements and Getting Started
+
+	This chapter specifies the hardware and software required to execute DEVS-Scheme and some tips for getting started.
+
+	 4.1  Hardware
+
+			The minimum practical Hardware configuration is a PC-AT compatible machine having at least 1 megabyte of memory and a 20 megabyte hard disk, using MS-DOS 2.1 or greater and with a 5f(1,4)" high density floppy disk drive.  The memory above 640K must be configured as either expanded or extended memory. For maximum execution speed the memory should be configured as expanded memory.  The expanded version of  PC Scheme is much faster (a factor of 3 to 6) than the extended version of PC Scheme.
+
+	 4.2  Software
+
+			DEVS requires the use of either the extended or expanded version of PC Scheme and SCOOPS.  Both Scheme versions and a SCOOPS fast-load file are included on the DEVS-Scheme distribution disks (currently a set of 2 High Density 5f(1,4)" floppy disks).  
+
+		Also a text editor is required.  The Edwin editor provided with Scheme can be used but it is very memory intensive.  Ideally you should use a text editor that provides the capability to check for matching parenthesis (such as Norton Editor) which is a great help when writing Scheme code.
+			
+	 4.3  Loading DEVS-Scheme and File Organization
+
+		IMPORTANT: By loading DEVS-Scheme on to your hard disk following the file organizational structure outlined no changes will be required in the scheme.ini files.
+
+		IMPORTANT:  Check the pcs.bat and pcshort.bat files to ensure that they are calling the proper version of PC-Scheme.  If you have expanded memory the version to be called is pcsexp if you have extended memory then pcsext should be called.
+
+		 4.3.1  Subdirectories
+
+		Create a Directory called Scheme on your hard disk and copy those files which are in the DEVS-Scheme distribution disk under the Scheme Directory . Then create a subdirectory under Scheme on the hard disk called Source and copy the files which are in the Source subdirectory of the DEVS-Scheme distribution disks. 
+
+	Now you are ready to set up the file structure for your model base. Go back to the Scheme directory of your hard disk and create a subdirectory called SIMPARC (Which is short for Simple Architecture).  Then copy those files which are in the SIMPARC subdirectory of the DEVS-Scheme distribution disk to the SIMPARC subdirectory of your hard disk.  Now create subdirectories called Mbase (Model Base), Enbase (Entity Structure Base), Coupbase (Coupled Model Base) and Test under SIMPARC.  Now copy from the DEVS-Scheme distribution disk those files which are under MBASE, Enbase,Coupbase, and Test to the equivalently named subdirectory on the hard disk.  
+
+ 		For each model domain that you create follow the same naming convention. Thus each model domain should have subdirectories called Mbase, Enbase ( Coupbase, and Test are optional). Additionally the files which are located in the subdirectory SIMPARC should also be in each model domain subdirectory.  Thus, the organization of your directories should be as follows:
+
+	scheme directory 		\scheme
+	DEVS-Scheme directory	\scheme\devs
+	domain directory		\scheme\devs\simparc
+	model base directory	\scheme\devs\simparc\mbase
+	coupled model base directory	\scheme\devs\simparc\coupbase
+	entity structure directory	\scheme\devs\simparc\enbase
+	test file directory	\scheme\devs\simparc\test
+
+	Each of the top three subdirectories should contain a scheme initialization file (scheme.ini) which loads the PC-Scheme system, loads DEVS-Scheme, and informs DEVS-Scheme of the model domain directory and its subdirectories.  The model and entity structure directories are assumed to be subdirectories of the domain directory with names mbase, and enbase respectively.  These directories can be changed with the DEVS-Scheme command (change-dir).  Global variables model_base_directory and entstr_base_directory (having aliases mbase and enbase) hold the path information to the respective subdirectories.
+	
+		 4.3.2  File Naming Conventions
+
+	Each atomic model file in the Mbase subdirectory should have a name with an extension "m"; for example a model could be named "proc.m". Thus the extension "m" indicates that the file contains an atomic-model.  The importance of using this convention will be explained later in the Level 2 section of this manual
+
+  The naming of the models in the coupbase subdirectory is not as critical but we recommend that a naming convention be followed here also.  A suggested convention is to use an extension "cm".  The extension "cm" would then indicate that the file is a coupled model.
+
+	The naming of the test files in the test subdirectory is not critical but again we recommend a naming convention be used.  A suggested convention is to use an extension of "tst".  The extension "tst" would then indicate that the file is a test file.
+ 	
+	Systems entity structures which are placed in the Enbase subdirectory should also follow a set naming convention.  It is recommended that the entity structure files have an extension of "s".  Thus for example a systems entity structure could have a name of "ef-a.s".  A compiled version of the file is created with an extension of "e".  The use of the systems entity structures will be explained later in the Level 2 section of this manual.
+
+	 4.4  Execution of DEVS-Scheme 
+
+	Before loading DEVS-Scheme into RAM kill all RAM resident programs (such as Norton Commander for example) since DEVS-Scheme requires a large amount of RAM. A small RAM resident program such as Sidekick can be tolerated.  A note of caution:  Scheme behaves very unpredictably when RAM is nearly full -- And it doesn't give any warning that it is doing so.  If you get errors after you have been running for a while that you didn't get when you started suspect this as the cause.
+
+	To load the Level 1 version of DEVS-Scheme go to directory \scheme\devs\simparc  kill all ram resident programs (such as Norton Commander for example) and enter pcshort (To load the Level 2 version of DEVS-Scheme enter pcs).  When DEVS-Scheme is loading two questions will be posed to the user "Need Screen-Copy (y/n)" and "(Wish help? (y/n)".  Answer y to the first if you wish a transcript of the current session.  Answer y to second if you wish help in basic DEVS-Scheme commands.
+
+
+		 4.4.1  Help
+
+	Interactive help is obtainable as we have just seen.  Both the Scheme directory (which contains general utilities developed for DEVS-Scheme) and Source subdirectory have index files which identify the source code of all definitions, macros, aliases, and modules in DEVS-Scheme. Appendix B of this manual contains an alphabetical listing of the DEVS-Scheme commands.
+
+
+		 4.4.2 Some Useful General Commands
+
+	Command			Purpose
+
+	(bc) 		clears the screen 
+
+	(dc) 		temporarily exit to dos (dos-call "" "")
+
+	(evl <n>) 		is equivalent to (eval (%c <n>)) and will re-						evaluate the input to the <n>th prompt.
+					eg.(evl 19)
+
+	(lk <n>) 		will display the input to the <n>th prompt and 					call a procedure that enables the reviewing of 					other input.  Responses are: e = evaluate; 
+					f = forward; b = backward; x = exit; 
+					1 = show all from here back to prompt 1.
+					eg.(lk 20)
+
+	(start-rep) 	will load a read-eval-print loop which does not 					garbage collect after every call to inspector.  					This speeds up development when extended memory 					is being used.
+
+
+
+	 5.0  Atomic Model Development
+
+	The constructing of modular discrete-event models requires a different view of the system being simulated than that of traditional simulation languages.  As with any modular specification, the model must be viewed as possessing input and output ports through which all interaction with other modules and the environment must pass.  In the discrete-event case, events determine the values which appear on the input and output ports.  To be specific, when external events, arising outside the model, are received on its input ports, the model description must specify how to respond. Also, internal events arising within the model, may change its state, as well as producing events at the output ports to be transmitted to other model components. To facilitate the process of model specification and its expression in DEVS-Scheme a pseudo-code has been developed.
+
+	 5.1  DEVS-Scheme Pseudo-Code
+
+	The DEVS-Scheme pseudo-code specifies the input port external transition in the form of when receive x on input port p..... phrase.  The internal state transition can be specified in the terms of a process description which contain phrases of the form send y to output port p.
+
+	As an example: consider the model of a single processor without queue(a simple processor).  There is an input port: in for receiving jobs to be processed.  The output port is: out for outputting completed jobs. A diagram of the model often facilitates the writing of the pseudo-code.  A drawing of the single processor without queue is as shown in Figure 8.
+
+
+
+
+
+
+		The pseudo-code description appears as:
+
+
+	external transition specification (Simple Processor)
+
+		When receive x on port in * 
+			if not busy then
+				begin
+					set job being processed  := x
+					set busy := true
+					go to START
+				end
+				else continue  ; ignore the job x on port in
+
+* Note: An external transition must be specified for each input port. For example if a model has 3 input ports, there must be 3 sets of "when receive" phrases as will be shown later in a buffering model.
+
+
+ 	
+	internal transition specification (Simple Processor)
+
+		START:  hold(s)  ; schedule the next internal event at t + s 
+				 set busy := false
+				 passivate ;  set the next internal event to t + ¥ 
+						    ;  or hold for ¥ 
+
+	output function (Simple Processor)
+
+				send job x to port out
+				
+
+	The external transition specification for the simple processor states the following:  When a job is received check the status of the processor.  If the processor is not busy then accept the job for processing, set the processor status to busy, and begin processing the job.  If the processor is busy then ignore the job and continue to work on the job in the processor.  
+
+	The internal transition specification for the simple processor states the following:  Hold the job in the processor for the amount of processing time required to complete the job.  This means schedule the next internal event at a time which is equal to the current time "t" + the processing time "s".  Set busy to false, and then passivate.  The PASSIVE phase (in which the model passivates) represents a "ground" phase of the model in which it waits for external events while engaging in no internal activity of its own.
+
+	The output function of the simple processor says send job x to the output port out.
+
+	To illustrate the specification for the external transition function when there is more than one input port a simple buffering model will be used.  There are three input ports: in, for receiving items to be buffered; done, for receiving the acknowledgement of the downstream process; and stop-send, for flow control for the upstream process.  The pseudo-code description appears as:
+
+	external transition specification (Buffer)
+
+		when receive x on port in
+			insert (x,queue)
+			if one(queue) then
+				begin
+					s	:= preparation-time
+				 	goto SEND
+				end
+				else continue
+
+		when receive done on port done
+			if not empty(queue) then 
+				begin
+					s	:= preparation-time
+				 	goto SEND
+				end
+				else continue
+
+		when receive x on port stop-send with elapsed time e
+			if phase = SEND and x = stop then
+				begin 
+					processing-time-left := s - e
+					passivate
+				end
+
+			if passive and x = start then
+				begin
+					s := processing-time-left
+					goto SEND
+				end
+				else continue
+
+	internal transition specification (Buffer)
+
+		SEND:  hold(s) 
+				queue := rest(queue)
+				passivate
+
+	output function (Buffer)
+
+				send first(queue) to port out
+
+
+			The pseudo-code makes use of the variables  e (elapsed tine in a current phase(state)) and s (time left in the current phase) which are essential to achieve the modularity required for discrete-event models.  
+
+	As indicated above the external transition function has three "when receive" phrases, one for each input port.  The first says that when an input value x is received on the in port, it should be inserted in the queue; if it is the only member of the queue, control should be sent to the phase SEND, otherwise the model should continue (no new internal event will be scheduled).  The internal transition specification has one phase, SEND, in which the model stays for a period of time, preparation-time, this causes the scheduling of an internal transition to occur at time = current time + preparation-time.  Upon occurrence of the internal event the model sends the first element of its queue to the output port out, removes it from the queue and passivates.
+
+	The phrase "continue" updates s to s-e, so that the time of the next internal event is unchanged.  To express an interruption requiring a change in scheduling, the continue statement is replaced by statements manipulating s, as the specification for the input port stop-send illustrates.  This external event, if indicating stop, causes the model to leave the phase SEND, where it is holding and abort the current transmission; if indicating start, transmission is re-initiated.
+
+	The change in scheduling is brought about as s is changed from a finite value to infinity in the first case.  Supposing that the time already spent in preparing the output need not be repeated when the transmission is resumed, store the remaining time (s - e) in processing-time-left for restoration to s upon re-entry to the SEND phase.  Were there several jobs that could be held in suspended states of this kind at once, we would save a processing-time-left for each one.
+
+	It is important to note here that there is no way to generate an output directly from an external event or external transition.  An output can only occur as the result of an internal transition. To be more specific the output will occur just prior to the occurrence of an internal transition. To create a simulation of an external event causing an output without delay, use an internal state with a hold time of zero.  This will allow the generation of an output resulting from an external event with no simulation time elapsing between the input and the output.  The relationship between external transitions, internal transitions, and outputs are as shown in Figure 9.
+
+
+		
+			
+
+	Once the pseudo-code for a model has been written it is a fairly straight forward process to write the DEVS-Scheme code to implement the model.
+
+	  5.2  DEVS-Scheme Code
+
+	The DEVS-Scheme code for simple processor (file p.m) will be given and then a discussion of the DEVS-Scheme code will be presented.
+
+		 5.2.1  DEVS-Scheme Code for a simple processor
+
+			(make-pair atomic-models 'p)
+			(send p def-state
+				'(
+					job-id     							processing-time  
+				  )
+			)
+			(send p set-s
+				(make-state 'sigma 'inf
+						    ' phase 'passive
+           			    ' job-id '()
+						    ' processing-time 5
+				)
+			)
+			(define (ex-f s e x)
+			(case (content-port x)
+					( 'in (case state-phase s)
+							( 'passive (set! (state-job-id s) 
+										      (content-value x))
+										(hold-in 'busy 
+										      (state-processing-time s))
+							)
+							( 'busy (continue))
+							)
+					)
+			)
+		)
+		(define (in-f s)
+			(case (state-phase s)
+				( 'busy (passivate))
+			)
+		)
+		(define (out-f s)
+			(case (state-phase s)
+				( 'busy
+					(make-content 'port 'out 'value (state-job-id s))
+		)	)	)
+		(send p set-ext-transfn ex-f)
+		(send p set-int-transfn in-f)
+		(send p set-outputfn out-f)
+
+		 5.2.2  Explanation of the simple processor code
+	
+	The "(make-pair atomic-models 'p)" statement creates both the atomic-model P as well as the simulator S:P assigned to it. The use of "make-pair" obviates the need to separately create (using mk-ent), and assign (using a function called attach), models and processors.  
+	
+	The "(send p def-state ....)" statement is used to set up the additional state variables required for the model.  It should be noted that all models have sigma and phase upon creation through  inheritance.  In this case additional state variables are  defined for the name of the job to be processed (job-id) and the time required to process a job (processing-time).
+
+	The "(send p set-s ( make-state .....))" statement initializes the state variables.  Note that although sigma and phase were defined through inheritance they must be initialized.  A sigma of "inf" indicates that the model will not have an internal transition unless an external transition occurs.  
+
+	The "(define (ex-f s e x)...)" statements define the external transition function and its variables.  Every external transition function must be defined using the variables s,e,x as arguments.  The external transition begins by looking at the contents of an input port. For the case of the input port x = in the phase of the processor must be checked.  For the case of the phase = passive the following actions are taken: First, the state variable job-id is set to the value of the message content appearing on port in; Second the phase is set to busy with a sigma equal to the state variable processing time.  For the case of phase = busy the processor will ignore the input and continue in its current state.  Continue is a macro which updates sigma given the elapsed time e.
+
+	The "(define (int-f s)...)" statements define the internal transition function and its variables.  Every internal transition function must be defined using the variable s as an argument.  The internal transition function first checks the phase of the processor. For the case of phase = busy the macro passivate is used to set the phase to passive and sigma to infinity.  
+
+	The "(define (out-f s)...)" statements define the output function and its variables.  Every output function must be defined using the variable s as an argument.  The output function first checks the phase of the processor.  For the case phase = busy an output will be generated.  The " (make-content 'port 'out 'value (state-job-id s))" statement generates an output on the port called out with a value equal to the state variable job-id.  Again it should be noted that the output is generated before the internal transition occurs.
+
+
+	The "(send p set-ext-transfn ext-f)
+		  (send p set-int-transfn int-f)
+		  (send p set-outputfn out-f)"
+statements are used to assign the external transition , internal transition , and output functions to the atomic-model P.  The atomic-model is now complete and ready for testing. 
+
+	 5.3  Testing an Atomic-Model
+
+		A significant and critical benefit of the DEVS formalism is its hierarchical nature which allows the independent testing of components.  In the DEVS-Scheme implementation of the DEVS formalism it is possible to test each atomic-model independently in a stand-alone manner. The testing of an atomic-model follows the sequence of steps outlined below: 
+ 
+		1.  Go to the \scheme\devs\simparc directory
+
+		2.  Kill all ram resident programs 
+
+		3.  Enter pcshort which loads DEVS-Scheme
+			The system responds with the following:
+Pc Scheme 3.0  <Expanded Memory Version 18 August 1987
+(C) Copyright 1987 by Texas Instruments
+		All Rights Reserved
+Basic Files Loaded
+Need Screen Copy (y/n)
+
+
+		4.	The response can be y or n .
+The system then responds with the following:
+[The following DEVS Files are loaded]
+window.f digraph.f tree.f entity-class.f entity-methods.f ext.f
+Utility Files Loaded
+model-class.f coupled-model-class.f di-model-class.f kernel-class.f broadcast-model-class.f atomic-model-class.f spec-model-class.f processor-class.f simulator-class.f coordinator-class.f root-coordinator-class.f models-me.f coupled-model-methods.f di-model-methods.f atomic-model-methods.f processor-methods.f simulator-methods.f coordinator-methods.f root-coordinator-methods.f co-test.f display.f
+Wish help? (y/n)
+
+		5.	The response should be n since we are not using the 				interactive help facility.
+The system then responds with the following:
+[PCS-DEBUG-MODE is OFF]
+[1]
+
+		6.  Enter at the [<n>] prompt the following:
+		    (load "/mbase/p.m")
+	       The system responds with the following messages:
+			  "Model of type atomic-models with name P made.
+			  Processor of type simulators with name S:P made. OK"
+			  If you do not get the above messages there is a error in
+          your simple processor DEVS-Scheme code (These messages will 			  be generated for each atomic model loaded).  Once you get 			  the proper messages proceed to step 7. 
+
+		7.  Begin testing the model using a sequence of test messages as
+			 outlined below.
+
+	A test message sequence  and its results for the single processor without queue atomic-model and its simulator S:P could be as follows:
+
+	a. 	(send p set-x (make-content 'port 'in 'value 'x1))
+	     The result is "#(((:#! (STRUCTURE : .CONTENT)) in x1)" 
+			output to the screen at the current cursor location
+
+	b.	(send p set-e 0)
+			The result  "0"  is output to the screen at the current
+			cursor location
+
+	c.	(send p ext-transition)
+			The result is " state s = (5 BUSY X1 5)" output to the screen
+			at the top of the screen
+
+
+	d.	(send p output?)
+			The result is " output y = OUT X1" output on about the 4th				line from the top and "#(((:#! STRUCTURE:.CONTENT)) OUT X1)" 
+			is output at the current cursor location.
+
+	e.	(send p int-transition)
+			The result is " state s = (INF PASSIVE X1 5)" output to the 				screen at the top left
+
+	Message a causes P to set its external input event(X) slot to a content structure consisting of a port 'in and 'value x1.  Message b tells P to set the elapsed time(E) slot to 0. Which is indicated by  These messages mimic those generated by S:P when it receives an external event and sets the elapsed time of P to 0.
+
+	Message c causes P to execute its external transition function.  Again this is what the simulator would send to P in order to have it respond to the current external event.
+
+	Messages d and e cause P to execute its output and internal transition functions respectively.  Again, note the output occurs prior to the internal transition.  S:P would request this to be done when it receives a *-message indicating that the time has arrived for its model to execute its internal event.
+
+	Messages a, b, and c, may be replaced by a single message which performs the same functions.  This message uses a method called inject. The inject method creates a content-structure with the given port and value, sets the elapsed time, e, to the value supplied (optional), and calls for an ext-transition.  The format of the message using inject is as follows:  (send <atomic-model> inject <'port> <'value> {<elapsed-time>}).  The test message sequence  above using inject and its results would be as follows:
+
+	f.	(send p inject 'in 'x1 0)
+			The result is " state s = (5 BUSY X1 5)" output to the screen
+			at the top left
+
+	g.	(send p output?)
+			The result is " output y = OUT X1" output on about the 4th				line from the top and "#(((:#! STRUCTURE:.CONTENT)) OUT X1)" 
+			is output at the current cursor location.
+
+	h.	(send p int-transition)
+			The result is " state s = (INF PASSIVE X1 5)" output to the 			screen at the top left
+
+
+	To test the continue statement of the external transition function a job must be sent into the processor when it is busy.  The following sequence of messages could be used to test that condition:
+
+	i.	(send p inject 'in 'x1 0)
+			The result is " state s = (5 BUSY X1 5)" output to the screen
+			at the top left
+
+	j.	(send p inject 'in 'x2 3)
+			The result is " state s = (2 BUSY X1 5)" output to the screen
+			at the top left. Notice: The job in the processor is still X1 
+			and sigma is now 2, thus job X2 was ignored, the continue
+			statement reset sigma to the time remaining, s-e,i.e.5-3 =2.
+
+	k.	(send p output?)
+			The result is " output y = OUT X1" output on about the 4th				line from the top and "#(((:#! STRUCTURE:.CONTENT)) OUT X1)" 
+			is output at the current cursor location.
+
+	l.	(send p int-transition)
+			The result is " state s = (INF PASSIVE X1 5)" output to the 			screen at the top left
+
+
+	This sequence of messages along with other sets of message sequences may be put into a test file (p.tst for our case, shown in 
+APPENDIX C) which would be put into subdirectory of the appropriate modelling domain called test  (for our case test is a subdirectory of simparc).  The test file could then be used to test the model for all of the different combinations of inputs and states to which the processor implementation must respond to correctly.  Once the processor responds to all test message sequences properly it can be put into the model base as a valid model.  If errors occur when it is employed as a component of a coupled-model, and all of the other components have been validated in a similar manner, you may confidently look for the source to be in the coupling or other specifications of the coupled-model.  This bottom up testing makes it possible to confidently build up successively higher level subcomponents of a complex model until the final model is achieved.
+
+	To perform testing using "p.tst" for the simple processor follow  steps 1-6  given above for loading DEVS-Scheme and the atomic-model. Then instead of using the test message sequence use the following step: 7.  (load "\test\p.tst").  The p.tst file in APPENDIX C includes the messages and the responses of the system.
+
+
+	 6.0  Experimental Frame
+
+		The testing of atomic-models in a stand-alone manner is sufficient to ensure that the model performs as intended.  However, to make the model useful it must be coupled to other models which are capable of providing input and observing its output (Figure 10).  The models which provide the input and observation of the output are components of an "experimental frame".  An Experimental frame is a coupled-model composed of atomic-models which are used to generate inputs, observe outputs, and provide control in accordance with the desired experimental conditions. 
+
+	
+
+
+
+
+	Separate and distinct experimental frames should be designed for each specific set of experimental conditions.  This allows the coupling of the different experimental frames to copies of the model to simulate the model under the different experimental conditions.  Additionally the experimental frame should be implemented as a stand-alone module(model) which allows the coupling of the experimental frame to different models. 
+
+	The definition of the experimental model components should specify the following: 1. Input Segments (events); 2. Method of observing the output, summaries and statistics; 3. Run Control (initialization and termination of the simulation).  In general an experimental frame is as shown in Figure 11.
+
+
+
+
+
+	
+	The Generator shown in Figure 11 generates the "Input Segments" for the model. The Transducer shown in Figure 11 produces the simulation summary and collects statistics.  The Acceptor shown in Figure 11 provides the simulation "run control" by testing for the initialization and termination conditions.
+
+  For the case of the simple processor discussed earlier a generator will be designed to output jobs at a fixed rate. The transducer will be designed to measure the performance indexes of interest for computer processors: the thruput and average turnaround time of jobs in a simulation run.  Recall that thruput is the average rate of job departures from the computer system, estimated by the number of jobs processed during the observation interval, divided by the length of the interval.  A job's turnaround time is the length of time between arrival of a job at the computer system and its departure from it as a completed job.  An acceptor component will not be designed for this simulation and the initialization and termination conditions will be incorporated into the design of the transducer.
+
+ 6.1  Design of an Experimental Frame Generator
+
+	As indicated above the generator (Figure  12) will be designed to output a sequence of job identifies at a fixed rate.
+
+
+
+	
+
+ 6.1.1  Generator Pseudo-code 
+
+	The pseudo-code definition of the generator is as follows:
+
+		external transition function (Generator)
+
+			when receive x on port stop
+			  stop the output (passivate)
+
+		internal transition function (Generator)
+			
+			case phase
+				active: hold-in active  inter-arrival-time
+				passive: (does not occur)
+			
+		output function (Generator)
+
+			case phase
+				active:  send random-job-name to port out
+				passive (does not occur)
+
+	The external transition function in a generator is not always necessary.  The basic mechanism that produces the fixed time between jobs is the "hold-in active inter-arrival-time" phrase in the internal transition function of the generator.  This phrase returns the model to the same phase (active) after each internal transition and schedules it to undergo a next transition at the time specified by inter-arrival-time (which for this case is a constant but can vary in general).  As previously mentioned just prior to the occurrence of the internal transition, the output is produced.  The output is a randomly determined job identifier symbol.  
+
+	
+
+  6.1.2  Generator DEVS-Scheme code 
+ 
+		The DEVS-Scheme code for the generator is as follows:
+
+		; create a generator
+	(make-pair atomic-models 'genr)
+		; add the state variable inter-arrival-time
+	(send genr def-state '(inter-arrival-time))
+		;initialization of the state variables
+	(send genr set-s (make-state 'sigma 	0
+						'phase	'active
+						'inter-arrival-time	10
+					)
+	)
+		; definition of the external transition function
+	(define (ext-genr s e x)
+		(case (content-port x)
+			('stop
+				('passivate ) ; upon receipt of a stop signal passivate
+			)
+			( else (continue))  
+		)
+	)
+		; definition of the internal transition function
+	(define (int-genr s)
+		(case (state-phase s)
+			('active
+				(set! (state-sigma s) (state-inter-arrival-time s))
+			)	; reset sigma each time an internal transition occurs
+		)
+	)
+		; definition of the output function
+	(define (out-genr s)
+		(case (state-phase s)
+			('active
+				(make-content 'port 'out 'value(gensym)) 
+				)	;gensym is a scheme random generator used to generate
+					; jobnames
+				(else (make-content)
+				)
+			)
+		)
+			;;  assign the definition of the functions to the generator
+	(send genr set-ext-transfn ext-genr)
+	(send genr set-int-transfn int-genr)
+	(send genr set-outputfn out-genr)
+
+
+	 6.1.3  Testing the Generator
+
+	The generator (file genr.m) should be tested in a manner similar to the testing of the simple processor atomic model.  The testing sequence is as follows:
+	
+		
+		1.  Go to the \scheme\devs\simparc directory
+		2.  Kill all ram resident programs
+		3.  Enter pcshort which loads DEVS-Scheme
+		4.  Enter at the [<n>] prompt the following 				 (load "/mbase/genr.m")
+			  The system responds with the following messages:
+			  "Model of type atomic-models with name GENR made.
+			  Processor of type simulators with name S:GENR made. OK"
+			  If you do not get the above messages there is an error in
+          your GENR DEVS-Scheme code.  Once you get the 
+			  proper messages proceed to step 5.
+
+		5.  Begin testing the model using a sequence of test messages as
+			 outlined below.
+
+	A test message sequence and its results for the generator atomic-model and its simulator S:GENR could be as follows:
+
+		b.  (send genr output?)
+			  The result is "OUTPUT Y = OUT <G6>" output to the screen at
+			  approximately 4 lines from the top on the left, and 
+			  "#(((:#! STRUCTURE : . CONTENT)) OUT <G6>) is output to the
+			  screen at the current cursor location.
+
+		c.  (send genr int-transition)
+			  The result is "state s = (10 ACTIVE 10)" output to the
+		     screen in the upper left corner
+
+	Note: An external transition was not used in this test since the primary function of the generator is internal transitions. This test message sequence should be repeated several times to ensure the generator is operating properly. 
+
+	The next test message sequence checks the external transition function of the generator.
+
+		d. (send genr inject 'stop 'stop)
+		    The result is "state s = (INF PASSIVE 10)" output to the
+		    screen in the upper left corner
+		
+	Note:  The generator passivates and its state cannot be changed via an external or internal event. One way to change the state of the generator when it is in the passive phase is to send it the following message.
+
+		e.  (send genr set-s (make-state 'sigma 10 'phase 				   'active 'inter-arrival-time 10))
+			  The result is "#(((:#! STRUCTURE :.STATE)) 10 ACTIVE 10)"
+			  output to the screen at the current cursor location
+
+	Note: Sigma and inter-arrival-time can be set to any desired values.
+
+	Alternatively, and more simply we can send the generator the following message "(send genr set-state)" .  This clears the screen and calls up an interactive window  (Figure 13) for directly setting the state variables and choosing which ones to display. 
+
+
+
+
+
+
+	As shown in Figure 13 the current model state is displayed (in this case it indicates that the generator is in the passive phase with a Sigma of 0 and an inter-arrival-time of 10) and also an initialization window is presented.  If a response of "d" is selected the user will be queried as to whether each state variable is to be displayed.  For this case the user must respond either "y" or "n" to whether Sigma, Phase, and Inter-arrival-time are to be displayed.
+
+	If the user responds with "y" to the question "wish to (change state for/display) GENR? y/n/d" then the user is instructed to enter the desired values for the state variables as a list.  For this case the list to be entered could be as follows: (<0 Active 10>).  All values for the state variables must be entered whether or not they are to be changed. If an error is made in the number of state values entered the system will respond with a message indicating an incorrect number of values have been entered and then will exit to the inspector.  If this occurs enter CTRL G and then enter the correct list of values for the state variables.  
+
+	When the generator performs as desired it should be put in the appropriate atomic-model base (\simparc\mbase) as a valid atomic-model.
+
+
+
+	 6.2  Design of an Experimental Frame Transducer
+	
+	As mentioned previously the transducer (Figure 14) will be designed to measure the thruput and turnaround time for the processor.  
+
+
+	
+	
+
+
+	To compute these performance measures, the transducer (TRANSD) places job identifiers that arrive at its 'ariv input port on its arrived-list paired with their arrival times.  When, and if, the job identifier also appears on the 'solved input port, TRANSD places it on the solved-list and also computes its turnaround time.  TRANSD maintains its own local clock to measure arrival and turnaround times.  The DEVS formalism does not make available simulation clock time to model components, only to their simulators.  Thus models have to maintain their own clocks if time base reading are needed.  This can be done easily  by accumulating the elapsed time information which is readily available.
+
+
+	 6.2.1  Transducer Pseudo-code  
+
+	The  transducer in contrast to the generator, is primarily driven by its external transition function.  In TRANSD, an internal transition function is used only to cause an output to occur at the end of the observation interval.  (In a more generalized case the transducer  could have additional input ports for  simulation management which could be used to terminate the simulation run.  The model which generates the signals for the simulation control as previously mentioned is called an acceptor.)  The pseudo-code for TRANSD is as follows:
+
+		external transition function (Transducer)
+
+		advance the local clock to agree with the global clock
+		when receive job on port 'ariv (from generator)
+			append the job with its current time to the arrived-list
+		when receive job on port 'solved (from processor)
+			find job arrival time from the arrived-list
+			turnaround time = current-clock - arrival time
+			update the total turnaround time
+			put the job in the solved list
+		continue
+
+		internal transition function (Transducer)
+
+			case phase
+				active:  passivate (end of observation interval)
+			  	passive : doe not occur
+
+		output function (Transducer)
+
+			case phase
+				active: calculate the average turnaround time
+					   and thruput
+					   turnaround time = total-turn-around- time/
+					     solved-job-number
+					  thruput = solved-job-number/current-clock
+					  send thruput and avg turnaround time out
+					  port 'out
+					  send STOP out port 'control
+				else no output (does not happen)
+
+	 6.2.2  Transducer DEVS-Scheme code 
+
+	The DEVS-Scheme code for the simple transducer is as follows:
+
+		; observation-interval must be set (default is 100)
+	(define observation-interval 100)
+
+		;definition of the transducer model
+	(make-pair atomic-models 'transd)
+
+		;define the additional state variables needed
+	(send transd def-state '(arrived-list  ;; jobs which have arrived
+						solved-list	;; jobs that are processed
+						clock	;; local clock
+						total-ta)	;; total-turnaround time of
+	)						;; of jobs processed
+		; initialize the state variables
+	(send transd set-s (make-state
+						'sigma	'observation interval
+						'phase	'active
+						'arrived-list	'()
+						'solved-list	'()
+						'clock	0
+						'total-ta	0
+					 )
+	)
+		; definition of the external transition function
+		; The external transition function records arriving and
+		; solved jobs, and sums the total turnaround time
+	
+	(define (ext-transd s e x)
+		(let (      ; allows the use of local state variables
+				(problem-id (content-value x));problem-id = content-value x
+				)
+				(set! (state-clock s) (+(state-clocks s)e))
+				(case (content-port x)
+					('ariv (set! (state-arrived-list s)
+						(cons (list problem-id (state-clock s))
+							(state-arrived-list s))); appends the arriving
+									 ;job to the arrived-list
+					)
+					('solved (let* (
+								(pair (assoc problem-id 
+									(state-arrived-list s)))
+								(prob-arrival-time (cadr pair))
+								(turn-around-time ( - (state-clock s)
+										  (prob-arrival-time s))
+								); finds the time of job arrival then
+								 ; calculates the turn-around-time for
+								 ; that job
+								( when (not (null? prob-arrival-time))
+									(set! (state-total-ta s)
+										(+ (state-total-ta s) 
+											  turn-around-time))
+									(set! ( state-solved-list s)
+									 	(cons problem-id
+											(state-solved-list s)))
+								) ; if problem arrival time is in list
+								  ; then determine new total-turn-around
+								  ; time, and add problem id to solved 
+								  ; list
+							)
+						)
+					(else (bkpt "error: invalid input port name -->" 								(content-port))
+				)
+			)
+			(continue)
+		)
+			;define internal transition which occurs only at end of 				;observation interval
+
+	  ( define (int-transd s)
+			(case (state-phase s)
+				('active (passivate))
+			)
+		)
+			; define the output function which computes the thruput 			; and average turnaround time
+
+		(define (out-transd s)
+			(case (state-phase s)
+				('active
+					(let (
+			; a scheme port log-file is opened to record the transducer
+			; output in a file "log"
+							(log-file (open-output-file "log"))
+			; calculate the average turn-around time as defined 			   ; in the pseudo code
+							( avg-ta-time
+								(if (NULL? (state-solved-list s)
+									'()
+									 ; check to ensure list is not empty
+									(/ (state-total-ta s) 
+										( length (state-solved-list s)))
+								)
+							)
+			; calculate the thruput as defined in the pseudo code
+							( thruput
+								( if (= (state-clock s) 0)
+									'()
+									; check to ensure clock is not zero
+									( / (length (state-solved-list s)) 
+											(state-clock s))
+								)
+							)
+							)
+				; format the output in the "log" file
+
+					(newline log-file)
+					(display "The arrived-list: "  log-file)
+					(display (state-arrived-list s) log-file)
+					(newline log-file)
+					(display "The solved-list : " log-file)
+					(display (solved-list s) log-file)
+					(newline log-file)
+					(display "Avg. turnaround time: " log-file) 
+					(display avg-ta-time)
+					(newline log-file)
+					(display "Thruput: " log-file)
+					(display thruput)
+					(newline log-file)
+					(close-output-port log-file)
+
+				; output from the transducer 
+
+					(list  
+				   (make-content 'port 'control 'value 'stop)
+					(make-content 'port 'out 'value 
+														   (list avg-ta-time thruput))
+					) ; list used to produce simultaneous outputs to ports
+					  ; control and out
+				) ; let
+			) ; active
+			(else (make-content))
+		)
+	)
+
+		; assignment of the internal and external transition and output
+		; functions to the model
+
+	(send transd set-ext-transfn ext-transd)
+	(send transd set-int-transfn int-transd)
+	(send transd set-outputfn out-transd)
+	
+
+	It should be noted that the procedure used in TRANSD to write to a DOS file can be used in any atomic-model to maintain a log of events over time. Also, the use of the 
+
+	"(list
+		(make-content 'port 'control 'value 'stop)
+		(make-content 'port 'out 'value (list avg-ta-time thruput))
+	  )" 
+
+statement can be used in a similar manner in any atomic-model to produce simultaneous outputs to different ports during the same clock cycle.
+
+
+	 6.2.3  Testing the Transducer 
+
+	The transducer model should be thoroughly tested in a manner similar to the simple processor and generator atomic-models previously tested.  A testing sequence for the transducer atomic-model (file transd.m) is as follows:
+
+		1.  Go to the \scheme\devs\simparc directory
+		2.  Kill all ram resident programs
+		3.  Enter pcshort which loads DEVS-Scheme
+		4.  Enter at the [<n>] prompt the following 				 (load "/mbase/transd.m")
+			  The system responds with the following messages:
+			  "Model of type atomic-models with name TRANSD made.
+			  Processor of type simulators with name S:TRANSD made. OK"
+			  If you do not get the above messages there is an error in
+          your TRANSD DEVS-Scheme code.  Once you get the 
+			  proper messages proceed to step 5.
+
+		5.  Begin testing the model using a sequence of test messages 			 such as outlined below.
+
+			a.	(Send transd inject 'ariv '<X1> <0>)
+					The response output at the top of the screen is
+				 	state s = (100 ACTIVE ((X1 0)) - 0 0)
+					Note:  "(X1 0)" is the arrived job list 
+							" - " is the solved problem list
+							" 0 0" are the current clock time and
+							total-turnaround time respectively
+
+			b.	(Send transd inject 'ariv '<X2> <2>)
+					The response output at the top of the screen is : 
+					state s  =(98 ACTIVE ((X2 2)(X1 0)) - 2 0)
+					Note: 	Sigma is now 98 
+							arrived job list is ((X2 2) (X1 0)
+							solved problem list is still nil
+							current clock time is 2
+							total-turnaround-time is still 0 				
+			c.	(Send transd inject 'ariv '<X3> <4>)
+					The response output at the top of the screen is : 
+					state s  =(94 ACTIVE ((X3 6)(X2 2)(X1 0)) - 6 0)
+					Note: 	Sigma is now 94 
+							arrived job list is ((X3 6)(X2 2) (X1 0)
+							solved problem list is still nil
+							current clock time is 6
+							total-turnaround-time is still 0 	
+
+
+			d.	(Send transd inject 'solved '<X1> <5>)
+					The response output at the top of the screen is: 
+					state s  =(89 ACTIVE ((X3 6)(X2 2)(X1 0)) (X1) 11 11)
+					Note: 	Sigma is now 89 
+							arrived job list is ((X3 6)(X2 2) (X1 0)
+							solved problem list is (X1)								current clock time is 11
+							total-turnaround-time is 11
+
+			e.	(Send transd inject 'solved '<X2> <3>)
+					The response output at the top of the screen is: 
+					state s  =(86 ACTIVE ((X3 6)(X2 2)(X1 0))(X2 X1) 14 23)
+					Note: 	Sigma is now 86 
+							arrived job list is ((X3 6)(X2 2) (X1 0)
+							solved problem list is (X2 X1)								current clock time is 14
+							total-turnaround-time is 23
+
+			f.	(Send transd inject 'solved '<X3> <7>)
+					The response  output at the top of the screen is : 
+					state s=(79 ACTIVE ((X3 6)(X2 2)(X1 0))(X3 X2 X1)21 38)
+					Note: 	Sigma is now 79 
+							arrived job list is ((X3 6)(X2 2) (X1 0)
+							solved problem list is (X3 X2 X1)								current clock time is 21
+							total-turnaround-time is 38
+
+	From the above it can be concluded that the external transition function is working properly.  The next step is to check the output and internal transition functions.
+
+		g.	(send transd output?)
+				The response output at about 4 lines from the top is:
+				output y = CONTROL STOP which is then overwritten by
+				output y = OUT ( 12.666667 0.1428571) and the output
+				at the current cursor location is:
+				"#(((:#! STRUCTURE :.CONTENT)) OUT (12.66667 0.14285) 					#(((:#! STRUCTURE :.CONTENT)) CONTROL STOP)"
+				Note:  12.667 is the average turnaround-time and
+				0.1428571 is the thruput.
+
+		h.	(send transd int-transition)
+				The response output at the top of the screen is:
+				state s=(INF PASSIVE ((X3 6)(X2 2)(X1 0))(X3 X2 X1)21 38)
+
+
+	From this testing it can be concluded that the transducer is functioning properly and it can now be placed in the model base (mbase) as a valid model.	Now that a set of models have been constructed and tested the next step is to couple the models together. This will be discussed in the next chapter.
+
+
+
+	 7.0  Development of Digraph-models 
+
+	Digraph-models is a specialized subclass of coupled-models. A digraph-model is a coupled-model which is composed of a set of explicitly given components with explicitly specified coupling. Methods are used to specify the components of the digraph-model (build-composition-tree) and to specify the coupling of the components (set-inf-dig, set-int-coup, set-ext-out-coup, set-ext-inp-coup).  A digraph-model will be developed using the generator and transducer components designed previously and coupling them to form an experimental Frame.  A second digraph-model will be developed which illustrates the coupling of a digraph-model and an atomic-model to form a parent digraph-model.  However, the procedures used are the same as those used to develop all coupled-models in general. 
+
+	7.1 Experimental Frame Digraph Model
+	
+	The use of a diagram facilitates the design of coupled models immensely.  The diagram for the experimental frame is as shown in Figure 15.
+
+
+
+	
+
+	The GENR and TRANSD are coupled together as shown in Figure 15 to form the experimental frame EF.  The input port 'in of EF is for receiving solved jobs which are sent to the 'solved input port of TRANSD through the external input coupling.  There are two output ports: 'out, which transmits job identifiers sent to it by GENR, and 'result which transmits the performance measures computed by TRANSD.  Both of these output transmissions are realized by external output couplings.  Finally, there are two internal couplings: the output port 'out of GENR sends jobs identifiers to the 'ariv port of TRANSD and the output port 'control of TRANSD which sends STOP to the 'stop input port of GENR.
+
+	It should be noted that output lines may diverge and indicate the occurrence of simultaneous events.  Thus for example, when GENR sends out a job identifier on port 'out, it goes at the same simulation clock time, both to the 'ariv port of TRANSD and port 'out of EF, hence eventually to some processor model.  Also, convergence of input lines, i.e., two or more source ports connected to the same destination port, can occur.  Convergence does not pose a problem since at most one component is active and can be sending an output at any given moment.
+	
+	For complex coupled-models it is also helpful to draw diagrams of the coupled-model composition tree and influence digraph.  The composition tree and influence digraph of the experimental frame are as shown in Figures 16 and 17 respectively.
+
+
+
+	
+	
+
+	The composition tree (Figure 16) depicts the coupled-model (EF) as the root of a tree with its leafs being the component models (GENR, TRANSD) comprising the coupled-model. In the general case the leafs can be either coupled-models or atomic-models.
+
+
+
+
+	Figure 17 depicts that GENR influences TRANSD and that TRANSD influences GENR.  In the general case there does not have to be a bidirectional influence.  The influencees of a model can be determined by the coupling of the model.  A model influences all models to which it's output ports  are coupled.  A model is influenced by all models to which its input ports are coupled. 
+
+
+	 7.1.1  Experimental Frame Digraph-model Pseudo Code
+
+	The pseudo code for the experimental frame digraph-model is as follows:
+
+		Composition Tree (Figure 16)
+
+		root:	ef
+		leaves:	genr, transd
+
+		Influence Digraph  (Figure 17)
+
+		genr 	Ñ> 	transd
+		transd	Ñ>	genr
+
+		Internal Coupling  (Figure 15)
+
+		genr.out		   Ñ>  trans.ariv
+		transD.control  Ñ>  genr.stop
+
+		External Input Coupling (Figure 15)
+
+		EF.in	Ñ>	TRANS.solved
+
+		External Output Coupling (Figure 15)
+
+		GENR.out	 Ñ>	EF.out
+		TRANSD.out Ñ>	EF.result
+
+	The composition tree, influence digraph, internal coupling, external input and output couplings must be specified in all digraph-models in the same manner.  
+
+	 7.1.2  Experimental Frame Digraph-Model DEVS-Scheme 					  Code
+
+	The DEVS-Scheme code for EF (file ef.cm) illustrating the general approach to defining digraph-model composed of atomic-models is as follows:
+
+		;load the component models from the model base directory mbase
+
+	(load "\mbase\genr.m")
+	(load "\mbase\transd.m")
+
+		;create the digraph-model 'ef and its simulator
+
+	(make-pair digraph-models 'ef)
+
+		; specify the components of digraph-model ef
+
+	(send ef build-composition-tree ef (list genr transd))
+
+		; specify the influencees of digraph-model ef
+
+	(send ef set-inf-dig (list (list genr transd) (list transd genr)))
+
+		; specify the internal coupling of digraph-model ef
+		; couple out port 'control of transd to in port 'stop of genr
+
+	(send ef set-int-coup transd  genr (list (cons 'control 'stop)))
+
+		; couple out port 'out of genr to in port 'ariv of transd
+
+	(send ef set-int-coup genr transd (list (cons 'out 'ariv)))
+
+		; specify the external input coupling of digraph-model ef
+
+	(send ef set-ext-inp-coup transd (list (cons 'in 'solved)))
+
+		; specify the external output coupling of digraph-model ef
+
+	(send ef set-ext-out-coup genr (list (cons 'out 'out)))
+	(send ef set-ext-out-coup transd (list (cons 'out 'result)))  
+
+	Since this is a digraph-model which is a coupled model it should be stored in the coupbase subdirectory.
+
+	The testing of the digraph-model will be deferred until the execution of the simulation process has been discussed since the testing of digraph-models is easiest via simulation.
+
+	7.2 Digraph-Models with Atomic-Model and Coupled-Model
+			Components
+
+	To illustrate the coupling of digraph-models and atomic-models to form larger and more complex coupled-models the coupling of the experimental frame to the simple processor will be used to form an experimental-frame-processor (ef-p) digraph-model. 
+
+	 7.2.1  Experimental Frame Processor Digraph Model
+
+ 	The process used in this example is the same that should be followed to form any digraph-model.  Again it is very helpful to draw diagrams to assist in designing the model.  The ef-p digraph-model is as shown in Figure 18.
+
+
+	
+
+	Again as mentioned earlier it is extremely helpful to draw diagrams of the digraph-model composition tree and influence digraph.  The composition tree and influence digraph for EF-P are as shown in Figures 19 and 20.
+
+
+
+
+
+	The composition tree (Figure 19) depicts the coupled-model (EF-P) as the root of a tree with its leafs being the component models (EF, P) comprising the coupled-model. 
+
+
+
+
+
+	Figure 20 depicts that EF influences P and that P influences EF.  In the general case as mentioned earlier there does not have to be a bidirectional influence.  
+
+
+ 7.2.2  Experimental Frame Processor Digraph-model Pseudo 			   Code
+
+	The pseudo code for the experimental frame processor digraph-model is as follows:
+
+		Composition Tree (Figure 19)
+
+		root:	ef-P
+		leaves:	EF, P
+
+		Influence Digraph  (Figure 20)
+
+		EF 	Ñ> 	P
+		P 	Ñ>		EF
+
+		Internal Coupling  (Figure 18)
+
+		EF.out Ñ> P.in
+		P.out  Ñ> EF.in
+
+		External Input Coupling
+	
+		None
+
+		External Output Coupling (Figure 18)
+
+		EF.result Ñ>	EF-P.out
+
+		Priority List (see later discussion of equal next-event-times)
+
+		P EF
+
+
+ 7.2.3  Experimental Frame Processor Digraph-Model
+				DEVS-Scheme Code
+
+	The DEVS-Scheme code for EF-P (file ef-p.cm) illustrating the general approach to defining a digraph-model composed of atomic-models and digraph-models is as follows:
+
+		;load the component models from the model base directory mbase
+
+	(load "\mbase\p.m")
+	(load "\coupbase\ef.cm")
+
+		;create the digraph-model 'ef-p and its simulator
+
+	(make-pair digraph-models 'ef-p)
+
+		; specify the components of digraph-model ef-p
+
+	(send ef-p build-composition-tree ef (list ef p))
+
+		; specify the influencees of digraph-model ef-p
+
+	(send ef-p set-inf-dig (list (list ef p) (list p ef)))
+
+		; specify the internal coupling of digraph-model ef
+		; couple out port 'out of ef to in port 'in of p
+
+	(send ef-p set-int-coup ef p (list (cons 'out 'in)))
+
+		; couple out port 'out of p to in port 'in of ef
+
+	(send ef-p set-int-coup p ef (list (cons 'out 'in)))
+
+		; specify the external output coupling of digraph-model ef-p
+
+	(send ef-p set-ext-out-coup ef (list (cons 'result 'out)))
+	
+
+		; define the priority of next events to avoid collisions when a 		; job is produced by the generator at the same time the 			;	processor finishes a job.  To avoid loss of jobs: processor 		; first then generator
+ 
+	(send ef-p set-priority (list p ef)
+
+
+	Since this is a digraph-model, hence a coupled-model it should be stored in the coupbase subdirectory with the name "ef-p.cm".
+
+
+	
+	7.2.4  Handling Equal Next-Event-Times
+
+	When developing and implementing coupled-models there are many situations that can arise during simulation in which subcomponent models may have equal next-event-times which can occur in EF-P. If the generator and processor have inter-arrival-times and processing-times which are exact multiples of each other, they will have equal next-event-times occurring.  For example if the inter-arrival-time of the generator and the processor processing-time were equal and the next-event selection were not specified every second job would be lost if the generator carried out its next-event first. It is extremely critical to recognize this and then specify in the coupled-model the order for which the models are to carry out their state-changes when the next-event-times are equal.  The "(send ef-p set-priority (list p ef)"  statement in the EF-P digraph-model is the preferred method of specifying the order of next-event execution.  Another method of specifying the sequence of next-events when the next-event-times are equal is define your own selectfn.  The following is equivalent to setting the priority order: p, ef.
+
+	" (define (sel-p slst)
+			(cond (( member p slst) p)
+				 (( member ef slst) ef)
+			)
+		)
+		(send ef-p set-selectfn sel-p)"  
+
+	7.3	Digraph-Model for a Pipeline Computer
+
+	The EF-P digraph-model discussed earlier is a relatively simple example of digraph-models.  To further illustrate the concepts of composition trees and influence diagraphs an example of a pipeline computer architecture will be used. The pipeline architecture for this example consists of a pipeline coordinator and three processors as shown in Figure 21.
+
+	 
+
+
+	The composition tree and influence diagram for the pipeline computer architecture are shown in Figures 22 and 23.  Simple architectures are discussed in Section 12 in the context of systems entity stucture concepts.
+
+
+
+	
+
+
+
+
+
+
+
+	 8.0  The Simulation Process using DEVS Scheme
+
+	 The simulation process using DEVS-Scheme is rather straight forward once the models have been developed and validated. To facilitate the discussion of the simulation process the atomic-models and digraph-models previously developed will be simulated.  
+
+	  8.1  Simulation of an Atomic-Model
+
+	Simulation of the simple processor and the generator will be used to explain simulation of atomic-models. Simulation of the generator will serve as an example to illustrate, step-by-step, the simulation process.
+
+	The simple generator simulation proceeds as follows:
+
+		1.	Go to the \scheme\devs\simparc directory
+
+		2.	Kill all ram resident programs
+
+		3. 	Enter pcshort which loads DEVS-Scheme
+
+		4. 	Enter at the [<n>] prompt the following: 
+				(load "/mbase/genr.m").
+	      	The system responds with the following messages:
+			 	"Model of type atomic-models with name P made.
+			 	Processor of type simulators with name S:P made. 					OK "
+			 	If you do not get the above messages there is an error in
+         	your generator DEVS-Scheme code.  Once you get the 
+			 	proper messages proceed to step 5.
+
+		5. 	Enter at the [<n>] prompt the following: 
+				(mk-ent root-co-ordinators r).
+				The system responds with the following message:
+				Entity of type root-co-ordinators with name R made.
+
+		6. 	Enter at the [<n>] prompt the following:
+				(initialize r s:genr).
+				"(initialize r s:p)" links the root-co-ordinator r (created
+				in step 5 by mk-ent) to the simulator s:genr 
+				(created by the the "(make-pair atomic-models 'genr)" 					statement in the DEVS-Scheme code of the generator model.
+				The system responds by clearing the screen and displaying 				the screen shown in Figure 24.
+
+ 
+
+
+		7.  Enter at the [<n>] prompt the following: (restart r)
+			The system responds as shown in Figure 25.
+
+
+
+
+	The simulation process can be performed in a "pause" or "non-pause" mode.  The system is in the pause mode upon initiation of the simulation.  The "<CTRL>Switchmode" in Figure 25 indicates that by pressing the CTRL S  keys simultaneously that the user can toggle between the pause and non-pause modes.  
+
+	By pressing the CTRL T keys simultaneously the user can terminate the simulation run. In the pause mode the simulation terminates at the next inter-processor message, thus yielding an incomplete state. In the non-pause  mode the simulation stops only after the root-co-ordinator has received the next done message, thus yielding a complete state from which the simulation may be restarted without any problems. In either case the system will display a message saying: keyboard interrupt [<n>].  The simulation may be continued by 1) pressing the CTRL G keys simultaneously  to tell the Scheme inspector to go (This resumes proper processing for both cases), or 2) by pressing the CTRL Q keys simultaneously (Quits the inspector and returns to DEVS-Scheme) and then entering (restart r) at the [<n>] prompt to restart the simulation.
+
+	During simulation each atomic-model has its own window.  When simulating in the pause mode the inter-processor messages are displayed for each atomic-model as well as the root-co-ordinator.  In the non-pause mode only model inputs, outputs, time-advance, and states are displayed in the model windows and the current clock time and clock base are displayed in the root-co-ordinator window. When the simulation is first begun the windows are overlapping. To place the windows in the desired positions (Place-leaf) press the CTRL P  keys simultaneously.  The system will respond with a message " enter name ===>".  At this prompt enter the name of an atomic-model (or coupled-model in which case all sub-atomic-models will be queried).  A window with the name of the selected atomic-model will be displayed with the message "hide this window y/n?".  If yes is selected the window will be placed out of view.  If no is selected then instructions are given to move the window to the desired position on the screen and to resize the window using the arrow keys. 
+
+	The simulation process continues as shown in Figure 26 if the pause mode is selected for simulation and a key is pressed.
+
+
+
+
+	The question "Wish to (change state or/display) <GENR>? (y/n/d)" is asked whether in the pause or non-pause mode when the simulation begins or is restarted. It will be asked for each atomic-model being simulated.  If a response of y is given the current model state will be displayed and a list of new model state values must be entered by the user.  The system will check for the proper number of state values entered and if an error is made the user must retype the entire list of state variable values.  The user also must enter the desired elapsed time (e). The user is thus  given the opportunity to set the states of each atomic-model being simulated.  If a response of n is given the system will begin the simulation (or will proceed to the next atomic-model).  For the purposes of this example the response will be n thus leaving the state variables with the same values as they were given in the DEVS-Scheme code for GENR ('sigma 10 'phase 'active 'inter-arrival-time 10)
+
+	If a response of "d" is given each state variable for the particular atomic-model will be displayed with the question "Display this variable? <name> (y/n).  This allows the user to select those state variables that he or she desires to observe during the simulation (which can affect the window size needed for a particular model).  This process occurs for each state variable possessed by the atomic-model. After a choice is made to display or not display each of the state variables the user is again given the opportunity to change the values of the state variables.  Note:  If an error is made regarding the choice of displaying a particular state variable it can be changed by terminating and sending the atomic model set-state.
+
+	Once the model initialization is complete the simulation process begins in the pause mode as shown in Figure 27.
+
+
+
+	
+
+	As indicated in Figure 27 the simulation begins with the root-co-ordinator receiving a done-message from the system with time 0 to initiate the simulation.  The next step of the simulation is as shown in Figure 28 when a key is pressed.
+
+
+
+	Figure 28 shows GENR receiving a *-message from the root-co-ordinator telling it to carry out an internal transition.  It should be noted that the root-co-ordinator only tells GENR to carry out its internal transition.  Thus if an external transition is to be carried out it must result from the user entering a message from the keyboard, for example: (send genr inject 'stop 'stop), after the simulation has been terminated.  The next step of the simulation occurs as shown in Figure 29 when a key is pressed.
+
+
+
+		
+
+	As shown in Figure 29 prior to an internal transition occurring an output is generated.  The next step of the simulation occurs when a key is pressed as shown in Figure 30. It shows that S:GENR has caused GENR to carry out its internal transition and has sent a done-message to R.
+
+
+
+
+
+	The steps shown in Figures 27-30 continue with the time being incremented by 10 for each cycle until the simulation is terminated.  If the simulation were being run in the non-pause mode the messages between the processors would not be shown.  The root-coordinator window would display the current time and relative clock base,  the generator window would display the output as it occurs, the current state of the model and the time-advance (time until the next internal transition is scheduled to occur).
+
+
+	8.2  Simulation of Coupled-Models
+
+	The simulation of coupled-models occurs in a similar manner to that of atomic-models.  The command sequence to load and then simulate the experimental frame processor digraph-model (ef-p) is as follows:
+
+		1.	Go to the \scheme\devs\simparc directory
+
+		2.	Kill all ram resident programs
+
+		3. 	Enter pcshort which loads DEVS-Scheme
+
+
+		4. 	Enter at the [<n>] prompt the following: 
+				(load "/coupbase/ef-p.cm").
+	      	The system responds with the following messages:
+			 	"Model of type atomic-models with name P made.
+			 	Processor of type simulators with name S:P made.
+				Model of type atomic-models with name GENR made.
+				Processor of type simulators with name S:GENR made.
+		 		Model of type atomic-models with name TRANSD made.
+				Processor of type simulators with name S:TRANSD made.
+				Model of type coupled-models with name EF made.
+				Processor of type co-ordinators with name C:EF made.
+				Model of type coupled-models with name EF-P made.
+				Processor of type co-ordinators with name C:EF-P made.
+				current must be reset current must be reset current must 
+				be reset OK"
+			 	The "current must be reset" message is the resetting of the 				current simulation time in each atomic-model 					subcomponent.If you do not get the above messages there is 				an error in your EF-P DEVS-Scheme code.  Once you get the 
+			 	proper messages proceed to step 5.
+
+		5. 	Enter at the [<n>] prompt the following: 
+				(mk-ent root-co-ordinators <r>).
+				The system responds with the following message:
+				Entity of type root-co-ordinators with name R made.
+
+		6. 	Enter at the [<n>] prompt the following:
+				(initialize r c:ef-p).
+				"(initialize r c:ef-p)" links the root-co-ordinator r 					(created
+				in step 5 by mk-ent) to the co-ordinator c:ef-p 
+				(created by the 
+				the "(make-pair digraph-models 'ef-p)" statement in the 
+				DEVS-Scheme code of the experimental frame processor 					digraph-model.
+			
+		7.   Enter at the [<n>] prompt the following:
+				(restart r)
+The system responds clearing the screen as it did in Figure 27 but would show all of the components of EF-P.  The same choices regarding placing model windows (place-leaf) can be made as well as simulating in the pause or non-pause modes. 
+
+
+
+ 9.0 Notes to the Advanced User
+
+	The following chapters of this manual presents the more advanced concepts of the DEVS-Scheme Implementation for the Advanced User. These chapters provide an overview of the Systems Entity Structure concepts, the development of a model base and simulation using the system entity structure.  
+	
+
+10.0  Overview of the Systems Entity Structure Concepts
+
+	As a hierarchical discrete-event model base is developed and expanded for a particular domain or family the "manual" management of the models becomes very difficult. To overcome the weaknesses inherent in a "manual" system a knowledge representation system has been developed called the System Entity Structure (SES) which takes advantage of the computer resources available. This chapter provides a brief introduction to the terminology and concepts of the SES.
+
+	10.1  Knowledge Representation Scheme Requirements
+
+	A knowledge representation scheme which facilitates the management of a family of models must support the following three relationships:  decomposition, taxonomy, and coupling. Knowledge about decomposition means that the structure has schemes  for representing the manner in which an object is decomposed into components (subcomponents), and can operate on, and can communicate about such schemes.
+
+	The requirement for taxonomic knowledge means that there must be a method of representing the different kinds of variants for an object, i.e. how they can be categorized and subclassified.  For example the structure could know that automobile transmissions are automatic and manual, and that the later can be of the four-speed or five-speed variety.
+
+	The requirement for the coupling relationship means that there must be a way of representing which models are coupled together and how they are coupled. 
+
+	10.2  System Entity Structure Definitions and Axioms
+
+	The system entity structure is defined as labelled tree with attached variable types which satisfies the following axioms:
+
+	a.	uniformity:  Any two nodes which have the same labels have identical attached variable types and isomorphic subtrees.
+
+	b.	strict hierarchy:  No label appears more than once down any path of the tree.
+
+
+	c.	alternating mode:  Each node has a mode which is either "entity", "aspect", or "specialization";  the mode of a node and the modes of its successors are always opposites.  The mode of the root is entity.
+
+	d.	valid brothers:  No two brothers have the same label.
+
+	e.	attached variables:  No two variable types attached to the same item have the same name. 
+
+	The SES is described completely by its axioms.  However, the interpretation of the axioms cannot be specified and thus is open to the user.  When constructing a SES it may seem difficult initially to decide how to represent a concept of the real world: is it an entity or an aspect?  To assist in making this decision the following points should be kept in mind:
+
+	An entity represents a real world object which either can be independently identified or postulated as a component of some decomposition of a real world object.
+
+	An aspect represents one decomposition out of many possible of an entity.  Thus an entity can be considered as a component of a decomposition.  The variables attached to an aspect are variables of that entity's superior entity that pertain to it only in the context of the aspect.
+
+	A specialization is a mode of classifying entities and is used to represent the taxonomy of the system being modelled.  For example if you were using the SES to represent a computer system the entity printer could use the specializations of : size, color, typeface, or interface to represent the various types of printers.  The use of specializations is a powerful way of representing many different variations of the same object.  
+
+	The entities of an aspect represent distinct components of a decomposition.  A model can be constructed by connecting together some or all of these components.
+
+	The aspects of an entity do not necessarily represent disjoint decompositions.  A new aspect can be constructed by selecting from these aspects as desired.
+
+	
+
+	10.3  Development of a System Entity Structure
+
+	To illustrate the development of a SES we will use computer as the root entity.  The root entity is referred to as a general type relative to the entities which belong to its specializations, which are called special types.  For example special types of computer could be Analog, Digital, and Hybrid. Since each entity can have several specializations, a hierarchical structure is developed which is called a taxonomy.  An example of a SES representing a computer system is as shown in Figure 31.
+
+
+	
+	
+
+	The triple vertical bars connecting I/O Devices and I/O Device in Figure 31 represent a special type of decomposition called a multiple decompositions.  A multiple decomposition is used to represent entities whose number in a system may vary.  For example a computer may have 1, 2, or more I/O devices.  The double vertical bars connecting computer with Hybrid, Analog, and Digital represent a specialization.  The specializations in the SES are a way of showing inheritance, represent the taxonomy of the structure and are a very powerful way of representing many different objects. Thus through the use of specialization  the entities Hybrid, Analog, and Digital inherit all of the attributes (variables and substructures) possessed by Computer.  
+
+	The SES supports the DEVS-Scheme hierarchical modelling and simulation concept through the use of specializations and aspects as shown in Figure 31.  The specializations can be used to represent the hierarchical structure of the system being modelled and aspects can be used to represent the hierarchical decomposition of the system.
+
+	Figure 32 illustrates an entity structure in which the entity automobile has been specialized into passenger.car and truck using utility specialization.  The entity Passenger.Car has been further specialized into station wagon, sedan and hatchback using Passenger.Car specialization.  It also should be noted that through inheritance that Passenger.Car and Truck possess the Physical Decomposition substructure.
+
+	Figure 33 depicts the entity structure of Figure 32 after all specializations have been removed through transformation that rewrites the multiple decompositions. It also illustrates the result of the inheritance of the Physical Decomposition substructure mentioned above. 
+ 
+
+
+
+
+	
+
+
+
+
+
+	 As you may recall the coupling relationship defines how the entities(models) communicate with each other.  Since the aspects define the hierarchical decomposition of the system the coupling relationships must be associated with the aspects.  
+
+	 The process of traversing the SES and selecting a single aspect for an entity and a single special type from each specialization is called pruning.  Currently  pruning is primarily manual however, work is being done to integrate a rule based system to assist in the pruning process.
+
+	A more detailed and formal development of the SES concepts  can be found in the book Multifacetted Modelling and Discrete Event Simulation, Academic Press (Harcourt Brace Jovanovich Publishers), Orlando, Florida, 1984 by Bernard P. Zeigler and in Technical Report: A Conceptual Basis for Integrated, Model-Based System Design by Dr. Jerzy W. Rozenblit, Doctoral Dissertation, 1985, available from University Microfilms, Ann Arbor, Michigan.
+
+
+	11.0  Using the System Entity Structure in DEVS-Scheme
+
+		The SES provides an alternative to the digraph-model method of specifying coupled models.  In DEVS-Scheme this is a higher level of specification which is then transformed into an equivalent coupled model, similar to the compiling of a high level language into object code for execution by a computer.  Using the higher level specification considerably simplifies the model description task in a manner comparable to writing a program in a high level language versus assembly or machine language.
+
+	This chapter illustrates the use of the SES in the modelling and simulation of various computer architectures.
+
+	11.1  Experimental Frame System Entity Structure
+
+ 	Recall the experimental frame developed in chapter 7 consisted of two components: generator; transducer.  The SES for that experimental frame is as shown in Figure 34.
+
+
+
+
+	
+	The SES shown in Figure 34 illustrates that the root entity EF can be decomposed into the entities GENR and TRANSD.  The coupling specifications as indicated earlier are associated with the aspect EF-Decomposition.  The coupling is presented as a list of elements of the form (comp1 comp2 (port1 . port2)).  The type of coupling (external-input, external-output, or internal) is recognizable form the component sequence comp1 comp2. For example, (GENR TRANSD (OUT . ARIV)) specifies the internal coupling of  the generator's outport 'out to the transducers inport 'ariv.  (GENR EF (Out . Out)) specifies external-output coupling from generator to  the digraph-model EF. Note, that the digraph-model's instance variables, composition-tree and influence-digraph can be inferred from the decomposition and coupling information shown in the SES.  Figure 35 depicts the coupling relationships for the entity structure shown in Figure 34.
+
+
+
+
+	11.2  DEVS-Scheme Code Implementation of the
+			 Experimental Frame System Entity Structure
+
+	The DEVS-Scheme code for the experimental frame system entity structure (file ef.s in subdirectory enbase) is as follows:
+
+;; make and entity structure with root EF
+(make-entstr 'ef)
+
+;; add an aspect for decomposition
+(add-item e:ef asp 'ef-dec)
+
+;; identifies the experimental frame components
+(set-current-item e:ef 'ef-dec)
+(add-item e:ef ent 'transd)
+(add-item e:ef ent 'genr)
+
+;;specify the coupling relationships
+(add-couple e:ef 'ef 'transd 'in 'solved)
+(add-couple e:ef 'transd 'ef 'out 'result)
+(add-couple e:ef 'transd 'genr 'control 'stop)
+(add-couple e:ef 'genr 'ef 'out 'out)
+(add-couple e:ef 'genr 'transd 'out 'ariv)
+
+; save
+(save-en e:ef)
+
+	Recall the by definition that the SES is a form of a tree.  The message "(set-current-item e:ef 'ef-dec)" shown in the code is used to traverse the tree.  Entities and aspects are added to the tree by using "(add-item e:ef ent 'transd)" or "(add-item e:ef asp 'ef-dec)" respectively as shown above.  Remember that the current item must be set to an aspect before any coupling relationships can be specified.  The manner of traversing the tree and adding entities and aspects as illustrated above is used in the development of all SESs in DEVS-Scheme.
+
+	Loading the file ef.s creates a SES in main memory called e:ef and saves its structure in a file called ef.e.  Subsequently, e:ef is known to the system manager and it can be quickly loaded with the command (load-entstr e:ef).
+
+	11.3  Experimental Frame Processor pair System Entity			   Structure
+
+	The SES for the experimental frame/processor pair is as shown in Figure 36.
+
+
+
+
+		Figure 36 includes the SES of the experimental frame however as we shall see later the transformation process is able to handle the the situation where the entity EF is itself a coupled model.  Figure 37 depicts the coupling relationships of the experimental frame/processor pair architecture.
+
+
+
+	
+	11.4  DEVS-Scheme Implementation of the Exp 
+			 Frame/Processor pair System Entity Structure
+
+	The DEVS-Scheme code that implements the experimental frame/processor pair SES is as shown below (File ef-p.s in subdirectory enbase)
+
+;; make an entity structure for the experimental frame processor ef-p
+(make-entstr 'ef-p)
+
+;;add a level of decomposition
+(add-item e:ef-p asp 'ef-p-dec)
+
+;; set cursor location to ef-p-dec
+(set-current-item e:ef-p 'ef-p-dec)
+
+;; add the component entities
+(add-item e:ef-p ent 'p)
+(add-item e:ef-p ent 'ef)
+
+;;specify the coupling between p, ef, and ef-p
+(add-couple e:ef-p 'p 'ef 'out 'in)
+(add-couple e:ef-p 'ef 'p 'out 'in)
+(add-couple e:ef-p 'ef 'ef-p 'result 'out)
+
+;; specify the order of events when the next event times are equal
+(add-priority e:ef-p '(p ef))
+
+;;move cursor location to ef
+(set-current-item e:ef-p 'ef)
+
+;; add an aspect for decomposition
+(add-item e:ef-p asp 'ef-dec)
+
+;; identifies the experimental frame components
+(set-current-item e:ef-p 'ef-dec)
+(add-item e:ef-p ent 'transd)
+(add-item e:ef-p ent 'genr)
+
+;;specify the coupling relationships
+(add-couple e:ef-p 'ef 'transd 'in 'solved)
+(add-couple e:ef-p 'transd 'ef 'out 'result)
+(add-couple e:ef-p 'transd 'genr 'control 'stop)
+(add-couple e:ef-p 'genr 'ef 'out 'out)
+(add-couple e:ef-p 'genr 'transd 'out 'ariv)
+
+; save
+(save-en e:ef-p)
+
+	When this file is loaded for the first time it creates the SES in main memory called e:ef-p and saves it in a file called ef-p.e.  This structure can be loaded directly as mentioned previously by using the command: (load-entstr e:ef-p).
+
+	11.5  Simulating using a System Entity Structure
+
+	The SES developed above is "pure" maining that it contains no specializations  and at most one aspect under each entity.  Such a SES is easily transformed into a hierarchical model and simulated. For this case no pruning of the SES is required although the prune procedure must be still be executed.  The pruning procedure creates a structure called p:ef-p. Once the SES has been pruned it then can be transformed. The transformation procedure requires in general that all models for the leafs of the SES  be available in the subdirectory mbase. Exceptions to this general case will be discussed later in Chapter 12.  Thus the files p.m, genr.m, and transd.m must be in the subdirectory mbase.  After synthesizing the digraph-model EF-P, the transformation procedure makes a root-co-ordinator r:ef-p and couples it to the co-ordinator c:ef-p, it has also made. 
+
+	Note:  To use the SES facilities, DEVS-Scheme must be completely loaded.  This is accomplished by setting the current directory to the domain directory, killing all ram resident programs, and then loading either the expanded (pcsexp) or extended (pcsext)  version of PC-Scheme at the dos prompt.
+
+	After the full version of DEVS-Scheme is loaded then the file (ef-p.s) can be loaded by issuing the command: (load "enbase/ef-p.s) this loads ef-p.s and the creates an entity structure e:ef-p in main memory and saves it as ef-p.e in the subdirectory enbase as indicated earlier. Assuming that the file ef-p.s has been loaded at least once the following illustrates the sequence of commands for simulating ef-p:
+
+	a.  	Load the entity structure
+			(load-entstr e:ef-p)
+
+	b.	Transform the SES into a hierarchical model and initialize it 			with a root-co-ordinator r:ef-p
+			(Transform e:ef-p)
+
+	c.	start the simulation run
+			(restart r:ef-p)
+
+	The use of the SES to assist in the modelling and simulation of the experimental frame/processor combination does not show us real power. The power of SES becomes apparent in the modelling and simulation of larger and more complex systems.  To illustrate this point we will use the case of modelling several different computer architectures.
+
+
+	12.0  Computer Architecture Simulation using a SES
+
+	There has been a large amount of interest lately in the performance of various computer architectures.  In many cases it is not feasible to build the various architectures but it is possible to simulate the architectures.  In this chapter we will develop a SES which could be used in the simulation of the architectures to measure their relative performances. The architectures that we will investigate are: Single Processor, Multi-Processor, Pipeline, and Divide and Conquer.  The multi-processor architecture consists of a multi-server coordinator with three attached identical processors.  The pipeline architecture consists of a pipeline coordinator and three identical processors.  The divide and conquer architecture consists of a divide and conquer coordinators, a job partitioner, a job compiler, and three identical partial job processors.
+
+	12.1  Developing the Computer Architecture SES
+
+	The SES of the computer architectures is as shown in Figure 34.  The system entity structure shown assumes that we have the following atomic-model files in our model base (subdirectory mbase): p.m, mul-c.m, pip-c.m, dc-c.m, genr.m, and transd.m. The atomic-model files p.m, genr.m, and transd.m were created in chapters 5 and 6 of this manual. The reader should examine the files of the other atomic-models in /Scheme/DEVS/SIMPARC/MBASE. 
+
+	As indicated earlier in general each leaf of the SES must have a corresponding atomic-model in the mbase subdirectory.  An exception to that rule is that entities with a name ending with a number or having a "&" in them are not required to have atomic-models in the mbase subdirectory. However the name prior to the number or "&", called the base name, must be in the mbase subdirectory.  
+
+	Transform takes a name with either a number of "&" and uses the base name to create the atomic-models required.  For example to create the atomic-model P&CMPL the transformation process would use the atomic-model P in file p.m of the mbase subdirectory. Note, that transforming makes copies of existing atomic-models.
+
+
+
+	As indicated in Figure 38 the same experimental frame will be used to measure the performance of all four architectures.  This can be seen by observing that the model/frame combination is represented by the root entity, ef-a. The components of ef-a are decomposed using the ef-a-dec aspect into entities arch and ef.  EF as in previous cases represents the experimental frame and ARCH represents the generic architectures.  ARCH is further specialized by ARCH-SPEC which contains the four architecture variants of interest.
+
+	The coupling between ARCH and EF is attached to the EF-A-DEC aspect as shown in Figure 39.  During the pruning process when a particular specialized entity is selected from ARCH-SPEC it will replace all occurrences of ARCH in the coupling specification.  Thus, in general the entity ARCH can be viewed as a place holder for any of its specialized versions in the coupling specification.  For example, if p is selected as the specialized entity from ARCH-SPEC, the coupling between ef and p becomes:
+
+		couplingÐÐ> ((EF EF-A (RESULT . OUT))
+				   (EF P ( OUT . IN))
+        	   (P EF (OUT . IN)).
+
+	It should be observed that this is the same coupling specified earlier when P was coupled to EF in the digraph-model.
+
+
+  
+  ÐENT : EF-A
+  --ASP : EF-A-DEC 	, priority-list (EF ARCH)
+	, coupling Ð> (( EF EF-A ( RESULT . OUT))
+		(EF ARCH ( OUT . IN))
+		(ARCH EF ( OUT . IN)))
+  ÐÐÐENT : EF
+  ÐÐÐÐASP : EF-DEC	, coupling Ð> ((GENR TRANSD ( OUT . ARIV))
+		(GENR EF ( OUT . OUT))
+		(TRANSD GENR (CONTROL . STOP))
+		(TRANSD EF ( OUT . RESULT))
+		(EF TRANSD ( IN . PROC )))
+  ÐÐÐÐÐENT : TRANSD
+  ÐÐÐÐÐENT : GENR
+  ÐÐÐENT : ARCH
+  ÐÐÐSPEC : ARCH-SPEC
+  ÐÐÐÐÐENT : P
+  ÐÐÐÐÐENT : MUL-ARCH
+  ÐÐÐÐÐÐASP : MUL-ARCH-DEC , priority list (P1 P2 P3 MUL-C)
+	    , coupling Ð>   ((P3 MUL-C ( OUT . Y3))
+			(P2 MUL-C ( OUT . Y2))
+			(P1 MUL-C ( OUT . Y1))
+			(MUL-C P3 ( X3 . IN))
+			(MUL-C P2 ( X2 . IN))
+			(MUL-C P1 ( X1 . IN))
+			(MUL-C MUL-ARCH (OUT .OUT))
+			(MUL-ARCH MUL-C (IN . IN)))
+  ÐÐÐÐÐÐÐENT : MUL-C
+  ÐÐÐÐÐÐÐENT : P1
+  ÐÐÐÐÐÐÐENT : P2
+  ÐÐÐÐÐÐÐENT : P3
+  ÐÐÐÐÐENT : PIP-ARCH
+  ÐÐÐÐÐÐASP : PIP-ARCH-DEC , priority-list (P3 P2 P1 PIP-C)
+	    , coupling Ð>  ((P3 PIP-C (OUT .Y3))
+			(P2 PIP-C (OUT . Y2))
+			(P1 PIP-C (OUT . Y1))
+			(PIP-C P3 (X3 . IN))
+			(PIP-C P2 (X2 . IN))
+			(PIP-C P1 (X1 . IN))
+			(PIP-C PIP-ARCH (OUT . OUT))
+			(PIP-ARCH PIP-C ( IN . IN)))
+  ÐÐÐÐÐÐÐENT : PIP-C
+  ÐÐÐÐÐÐÐENT : P1
+  ÐÐÐÐÐÐÐENT : P2
+  ÐÐÐÐÐÐÐENT : P3
+  ÐÐÐÐÐENT : DC-ARCH
+  ÐÐÐÐÐÐASP : DC-ARCH-DEC , priority-list (P&CMPL P3 P2 P1 P&DIV DC-C)
+	   , coupling Ð>   ((P&CMPL DC-C (OUT . CY))
+			(P&DIV DC-C (OUT .PY))
+			(P3 DC-C (OUT . Y3))
+			(P2 DC-C (OUT . Y2))
+			(P1 DC-C (OUT . Y1))
+			(DC-C P3 (X3 . IN))
+			(DC-C P2 (X2 . IN))
+			(DC-C P1 (X1 . IN))
+			(DC-C DC-ARCH (OUT . OUT))
+			(DC-ARCH DC-C ( IN . IN)))
+  ÐÐÐÐÐÐÐENT : DC-C
+  ÐÐÐÐÐÐÐENT : P1
+  ÐÐÐÐÐÐÐENT : P2
+  ÐÐÐÐÐÐÐENT : P3            Figure 39:  Coupling Specifications for Computer
+  ÐÐÐÐÐÐÐENT : P&CMPL                    Architectures and Experimental Frame
+  ÐÐÐÐÐÐÐENT : P&DIV
+
+	For ARCH to validly represent its specialized versions, the coupling between each of the versions and the experimental frame must be isomorphic, i.e., essentially identical except for the replacement of one variants name for another. This is the case for this example since the frame was designed so it could be consistently coupled to any job processing architecture to measure average turnaround time and throughput.  
+
+	Just as in the case of digraph-models earlier there must be some means of handling the situation when equal next event times occur.  This is accomplished by attaching an order of priority to an aspect. If P were selected from ARC-SPEC, the priority list attached to EF-A-DEC would become: priority-list (EF P). 
+
+	12.2  DEVS-Scheme Computer Architecture SES Code
+
+	The DEVS-Scheme implementation of the computer architectures (ef-a.s in subdirectory enbase) is as follows:
+
+;;create the root entity ef-a
+	(make-entstr 'ef-a)
+
+;;add a level of decomposition
+	(add-item e:ef-a asp 'ef-a-dec)
+
+;;set the cursor to ef-a-dec and describe ef-a-dec
+	(set-current-item e:ef-a 'ef-a-dec)
+	;; add its component entities ARCH and EF
+		(add-item e:ef-a 'arch)
+		(add-item e:ef-a 'ef)
+	;;specify the coupling 
+		(add-couple e:ef-a 'arch 'ef 'out 'in)
+		(add-couple e:ef-a 'ef 'arch 'out 'in)
+		(add-couple e:ef-a 'ef 'ef-a 'result 'in)
+	;; specify the priority of next events when next event times are     	;; equal
+		(add-priority e:ef-a '(arch ef))
+
+;;set cursor to ef-a-arch and add ARCH-SPEC
+	(set-current-item e:ef-a 'arch)
+	(add-item e:ef-a spec 'arch-spec)
+
+;;set cursor to arch-spec and add the component entities
+	(set-current-item e:ef-a 'arch-spec)
+	(add-item e:ef-a ent 'p)
+	(add-item e:ef-a ent 'pip-arch)
+	(add-item e:ef-a ent 'mul-arch)
+	(add-item e:ef-a ent 'dc-arch)
+
+;; set cursor to pip-arch the pipeline architecture
+	(set-current-item e:ef-a 'pip-arch)
+
+
+;;describe PIP-ARCH
+	;;decompose pip-arch using an aspect
+	 	(add-item e:ef-a asp 'pip-arch-dec)
+
+		;; set cursor to pip-arch-dec and add the component entities 
+		 (set-current-item e:ef-a 'pip-arch-dec)
+			(add-item e:ef-a ent 'pip-c)
+			(add-item e:ef-a ent 'p1)
+			(add-item e:ef-a ent 'p2)
+			(add-item e:ef-a ent 'p3)
+
+		;; specify the coupling for PIP-ARCH
+			(add-coupling e:ef-a 'pip-arch 'pip-c 'in 'in)
+			(add-coupling e:ef-a 'pip-c 'pip-arch 'out 'out)
+			(add-coupling e:ef-a 'pip-c 'p1 'x1 'in)
+			(add-coupling e:ef-a 'pip-c 'p2 'x2 'in)
+			(add-coupling e:ef-a 'pip-c 'p3 'x3 'in)
+			(add-coupling e:ef-a 'p1 'pip-c 'out 'y1)
+			(add-coupling e:ef-a 'p2 'pip-c 'out 'y2)
+			(add-coupling e:ef-a 'p3 'pip-c 'out 'y3)
+	
+		;; specify sequence of next events when the next event times are 		;; equal
+			(add-priority e:ef-a '(p3 p2 p1 pip-c))
+
+;; set cursor to MUL-ARCH the multi-server processor architecture
+	(set-current-item e:ef-a 'mul-arch)
+
+;;describe MUL-ARCH
+	;;decompose MUL-ARCH using an aspect
+	 	(add-item e:ef-a asp 'mul-arch-dec)
+
+		;; set cursor to MUL-ARCH-dec and add the component entities 
+		 (set-current-item e:ef-a 'mul-arch-dec)
+			(add-item e:ef-a ent 'mul-c)
+			(add-item e:ef-a ent 'p1)
+			(add-item e:ef-a ent 'p2)
+			(add-item e:ef-a ent 'p3)
+
+		;; specify the coupling for MUL-ARCH
+			(add-coupling e:ef-a 'mul-arch 'mul-c 'in 'in)
+			(add-coupling e:ef-a 'mul-c 'mul-arch 'out 'out)
+			(add-coupling e:ef-a 'mul-c 'p1 'x1 'in)
+			(add-coupling e:ef-a 'mul-c 'p2 'x2 'in)
+			(add-coupling e:ef-a 'mul-c 'p3 'x3 'in)
+			(add-coupling e:ef-a 'p1 'mul-c 'out 'y1)
+			(add-coupling e:ef-a 'p2 'mul-c 'out 'y2)
+			(add-coupling e:ef-a 'p3 'mul-c 'out 'y3)
+	
+		;; specify sequence of next events when the next event times are  		;; equal
+			(add-priority e:ef-a '(p3 p2 p1 mul-c))
+
+;; set cursor to DC-ARCH  the divide and conquer architecture
+	(set-current-item e:ef-a 'dc-arch)
+
+;;describe DC-ARCH
+	;;decompose DC-ARCH using an aspect
+	 	(add-item e:ef-a asp 'dc-arch-dec)
+
+		;; set cursor to DC-ARCH-dec and add the component entities 
+		 (set-current-item e:ef-a 'dc-arch-dec)
+			(add-item e:ef-a ent 'dc-c)
+			(add-item e:ef-a ent 'p1)
+			(add-item e:ef-a ent 'p2)
+			(add-item e:ef-a ent 'p3)
+			(add-item e:ef-a ent 'p&div)
+			(add-item e:ef-a ent 'p&cmpl)
+
+		;; specify the coupling for DC-ARCH
+			(add-coupling e:ef-a 'dc-arch 'dc-c 'in 'in)
+			(add-coupling e:ef-a 'dc-c 'dc-arch 'out 'out)
+			(add-coupling e:ef-a 'dc-c 'p&div 'px 'in)
+			(add-coupling e:ef-a 'dc-c 'p1 'x1 'in)
+			(add-coupling e:ef-a 'dc-c 'p2 'x2 'in)
+			(add-coupling e:ef-a 'dc-c 'p3 'x3 'in)
+			(add-coupling e:ef-a 'dc-c 'p&cmpl 'cx 'in)
+			(add-coupling e:ef-a 'p1 'dc-c 'out 'y1)
+			(add-coupling e:ef-a 'p2 'dc-c 'out 'y2)
+			(add-coupling e:ef-a 'p3 'dc-c 'out 'y3)
+			(add-coupling e:ef-a 'p&div 'dc-c 'out 'py)
+			(add-coupling e:ef-a 'p&cmpl 'dc-c 'out 'cy)
+	
+		;; specify sequence of next events when the next event times are 		;; equal
+			(add-priority e:ef-a '(p&cmpl p3 p2 p1 p&div dc-c))
+
+;;set the cursor to EF the experimental frame
+	(set-current-item e:ef-a 'ef)
+
+	;;decompose EF
+		(add-item e:ef-a asp 'ef-dec)
+
+	;;set the cursor to EF-DEC and add its components
+		(set-current-item e:ef-a 'ef-dec)
+		(add-item e:ef-a ent 'transd)
+		(add-item e:ef-a ent 'genr)
+
+	;; specify the coupling relationships of EF
+		(add-couple e:ef-a 'ef 'transd 'in 'solved)
+		(add-couple e:ef-a 'transd 'ef 'out 'result)
+		(add-couple e:ef-a 'transd 'genr 'control 'stop)
+		(add-couple e:ef-a 'genr 'ef 'out 'out)
+		(add-couple e:ef-a 'genr 'transd 'out 'ariv)
+
+;;save the entity structure
+	(save-en e:ef-a)
+
+	To use a SES in simulation requires that the SES be "pure" which means that the SES must not contain any specializations and have at most one aspect hanging from every entity.  The SES shown in Figure 34 and described by the DEVS-Scheme code contains specializations thus it must be "pruned" prior to using the SES to synthesize the models for simulation.  
+
+	12.3  Pruning a System Entity Structure
+
+	Pruning the SES is similar in meaning to pruning a fruit tree.  In this case we will be removing the branches of the SES (aspects and special types) which are not of interest.  This allows us to create a pruned entity structure (PES) which specifies the particular hierarchical model of interest.  The pruning process is initiated by issuing the command (prune <es>) for the particular entity structure, es.
+
+	Continuing our example of simulating computer architectures we will prune the system entity structure given in Figures 38 and 39 to construct a model/experimental frame pair suitable for experimenting with the divide & conquer architecture.  The sequence of steps to construct the desired model/experimental frame pair is as shown in Figure 40.
+
+
+1.	(load-entstr e:ef-a)
+
+2.	(prune e:ef-a)
+			give the extension for pruned-entstr name:
+
+3.	dc
+			select starting entity from the following : (GENR TRANSD 				P&CMPL P&DIV DC-C MUL-C P3 P2 P1 PIP-C P DC-ARCH MUL-ARCH 				PIP-ARCH EF ARCH EF-A )
+
+4.	EF-A
+		working from ef-a
+		make this a leaf? (y/n)
+
+5.	n
+		select an aspect from the following: (EF-A-DEC)
+		aspect EF-A-DEC selected
+		working from entity ARCH
+		select a specialization from the following: (ARCH-SPEC)
+		specialization ARCH-SPEC is selected
+		select an entity from the following:(P PIP-ARCH MUL-ARCH 
+		DC-ARCH)
+
+6.	DC-ARCH
+		entity DC-ARCH from specialization ARCH-SPEC selected
+		select an aspect from the following: (DC-ARCH-DEC)
+		aspect DC-ARCH-DEC selected
+		working from entity DC-C
+		working from entity P1
+		working from entity P2
+		working from entity P3
+		working from entity P&DIV
+		working form entity P&CMPL
+
+		working from entity EF
+		make this a leaf? (y/n)
+
+7.	n
+		select an aspect from the following : (EF-DEC)
+		aspect EF-DEC selected
+		working from entity TRANSD
+		working from entity GENR
+
+		save this entity-structure? (y/n)
+
+8.	y
+		Pruned entstr P:ef-a-dc made.
+
+
+	Figure 40:  Pruning SES to Construct Divide and Conquer Model
+
+
+
+
+
+	Step 1 of Figure 40  assumes that you have loaded the file ef-a.s previously and that file ef-a.e is present in subdirectory enbase.  Step 2 is the initiation of the pruning process.  So that the PES created may be save at the end of the pruning process the user is asked for an extension name.  In this example the extension given is dc to represent the divide & conquer architecture being constructed.  The system then requests the user to select the starting entity.  The root of the PES will be the starting entity selected.  The name of the PES will now be the name of the starting entity with the previously given extension as a suffix.  It is important to note that since the user selects the starting entity, any model of the components or subsystems of the overall system may be constructed using the pruning process.  
+
+	The next decision required of the user is whether to make a leaf (steps 5 and 7).  Making an entity a leaf has the effect of terminating the pruning of its subtrees and requires that a model representing that leaf be accessible to the transform procedure.  The making of a leaf is appropriate in those situations where a simplified model is to be used for the current entity rather than a more complex one that would result from the synthesis of the subtree.
+
+	In all cases during the pruning a process a single aspect can be selected.  In the case of step 5 there was only one aspect possible.  In this case the system automatically selects the aspect.  The same applies to specializations.  Only one specialization may be selected in a given pruning step and again if only one is available the system automatically selects the specialization.
+
+	The pruning process is a depth first traversal of the SES.  For example, the first child of aspect EF-A-DEC , ARCH is visited next and then ARCH-SPEC.  If as indicated earlier there is more than one specialization the user will have to select one otherwise it is automatic as shown in step 6.  Pruning continues in this manner until all leaf entities (which remain after all subtrees have been cut off) have been visited.
+
+	Notice as a result of step 8 a PES has been made.  The PES is also saved in the subdirectory enbase which in this case is a file named ef-a-dc.p.  Thus there now exists three types of files in enbase:  1. The original entity structure source file which has an extension of s; 2. The entity structure "compiled" file which has an extension of e; 3. The pruned entity structure file which has an extension of p.  For example in this case the three files are: ef-a.s; ef-a.e, ef-a-dc.p.
+
+	Figure 41 depicts the PES resulting from the pruning process just described.  When the PES is transformed it will create a digraph-model which couples the divide and conquer architecture with the experimental frame.  Notice that the coupling associated with the aspect EF-A-DEC has been automatically modified to show the replacement of the generic entity ARCH by a specialized choice DC-ARCH.  In general, replacement of a generic entity by its selected specialized entity is made in all contexts in which the generic entity appears.
+
+
+  
+  ÐENT : EF-A
+  --ASP : EF-A-DEC , priority-list (EF ARCH)
+                   ,coupling Ð> (( EF EF-A ( RESULT . OUT))
+	         (EF DC-ARCH ( OUT . IN))
+	         (DC-ARCH EF ( OUT . IN)))
+  ÐÐÐENT : EF
+  ÐÐÐÐASP : EF-DEC , coupling Ð> ((GENR TRANSD ( OUT . ARIV))
+	          (GENR EF ( OUT . OUT))
+	          (TRANSD GENR (CONTROL . STOP))
+	          (TRANSD EF ( OUT . RESULT))
+	          (EF TRANSD ( IN . PROC )))
+  ÐÐÐÐÐENT : TRANSD
+  ÐÐÐÐÐENT : GENR
+  ÐÐÐÐÐENT : DC-ARCH
+  ÐÐÐÐÐÐASP : DC-ARCH-DEC ,priority-list 
+	(P&CMPL P3 P2 P1 P&DIV DC-C)
+
+	, coupling Ð>((P&CMPL DC-C (OUT . CY))
+			(P&DIV DC-C (OUT .PY))
+			(P3 DC-C (OUT . Y3))
+			(P2 DC-C (OUT . Y2))
+			(P1 DC-C (OUT . Y1))
+			(DC-C P3 (X3 . IN))
+			(DC-C P2 (X2 . IN))
+			(DC-C P1 (X1 . IN))
+			(DC-C DC-ARCH (OUT . OUT))
+			(DC-ARCH DC-C ( IN . IN)))
+  ÐÐÐÐÐÐÐENT : DC-C
+  ÐÐÐÐÐÐÐENT : P1
+  ÐÐÐÐÐÐÐENT : P2
+  ÐÐÐÐÐÐÐENT : P3            
+  ÐÐÐÐÐÐÐENT : P&CMPL                   
+  ÐÐÐÐÐÐÐENT : P&DIV
+
+            Figure 41 : Pruned Entity Structure for Divide
+                        and Conquer Architecture
+
+
+
+
+
+	
+	To construct a simulation model ready for execution the user need only issue the transform command (transform p:ef-a-dc).  The simulation then proceeds as indicated earlier.
+
+
+	The computer architecture SES can be constructed so that the coupling specifications are more generalized.  Observe in Figure 39 that the coupling had to be specified for each architecture entity of ARCH-SPEC.  To create a more generalized SES requires the use of concepts referred to a deepening and flattening.
+
+	13.0  Computer Architecture SES using Deepening 				  Flattening
+
+			This chapter will illustrate the concepts of using deepening and flattening on the computer architecture SES developed in Chapter 12.   The deepening process refers to the fact that the height of the tree is increased.  Whereas flattening has the inverse effect.  Figure 38 illustrates that the SES for DC-ARCH  represents a digraph-model of the divide and conquer architecture with all of its children being atomic-models.
+
+
+
+
+
+	To make maximum use of the SES concept it is desirable to have as few entities resulting from a specialization as possible and have the specializations as far down the SES as possible.  Or in other words try to specify the commonalty between the entities as much as possible before specifying their differences. By doing this there will be fewer choices to be made when pruning and also since the specializations are moved down there will be less aspects which means less coupling specifications required.
+
+	The SES created in Chapter 12 did not take advantage of the commonalty between the various co-ordinated architectures.  A common feature found in the co-ordinated architectures is that each of them had three subordinate processors, and all of these subordinate processors were coupled to their respective co-ordinators.  The primary difference in the co-ordinated architectures is that the divide & conquer architecture had two additional processors to divide and compile jobs.To create a common structure for the co-ordinated architecture implies that the divide & conquer architecture structure shown in Fig 42 must be modified.
+
+	To create a common structure for the co-ordinated architectures the divide & conquer co-ordinator, DC-C, can be grouped with its "helpers", the job partitioner, P&DIV and job compiler, P&CMPL to form a new component, DC-COORD as shown in Figure 43.  This structure modification process is called "deepening".  The deepening procedure, "deep-devs", automatically does the desired structure modification in such a way that behavioral equivalence is preserved.  As is shown below, deep-devs takes as arguments, the name of the model which has components to be grouped (DC-ARCH), the list of components to be grouped (DC-C, P&DIV, P&CMPL), the name of the model to be formed by the grouping, (DC-COORD), and the class to which the new model will belong (digraph-models or a sub-class of it).  To use "deep-devs" the file "deep.f" in subdirectory devs must be loaded.
+
+	(deep-devs 'dc-arch '(dc-c p&div p&cmpl) 'dc-coord 	'digraph-models)
+
+	The inverse of deepen is "flatten".  The flatten process would remove the digraph-model from a larger model and then couple its components (children) to their grandparent.  For example,
+
+	(flat-devs dc-coord)
+
+will remove DC-COORD from the model in which it is found (DC-ARCH Figure 43), and reconnect its children to its parent in such a way that the original model DC-ARCH (Figure 42) is restored.  It is important to realize that the model being removed cannot be the highest level digraph-model of a hierarchical structure.  To use "flat-devs" the file "flat.f" in subdirectory devs must be loaded.
+
+	If it is desired to flatten a hierarchical model of DC-ARCH down to a single level, the command (flat-all dc-arch) is used.  Flat-all repeatedly applies flat-devs until a completely flat model (digraph-model with only atomic-model children) is obtained.
+
+	Figure 44 shows the computer architecture SES using deepening and taking full advantage of all structural commonalties in the co-ordinated architectures.
+
+
+
+
+	
+
+
+
+
+	The coupling specifications for the SES shown in Figure 44 are as shown in Figure 45.
+
+	-ENT : EF-A
+	--ASP : EF-A-DEC , priority-list (EF ARCH)
+                   ,coupling Ð>    (( EF EF-A ( RESULT . OUT))
+	                              	(EF ARCH ( OUT . IN))
+	         			(ARCH EF ( OUT . IN)))
+  ÐÐÐENT : EF
+  ÐÐÐÐASP : EF-DEC , coupling Ð>   ((GENR TRANSD ( OUT . ARIV))
+	          			(GENR EF ( OUT . OUT))
+	          			(TRANSD GENR (CONTROL . STOP))
+	          			(TRANSD EF ( OUT . RESULT))
+	          			(EF TRANSD ( IN . PROC )))
+	ÐÐÐÐÐENT : TRANSD
+	ÐÐÐÐÐENT : GENR
+	---ENT : ARCH
+	ÐÐÐÐSPEC : ARCH-SPEC
+	ÐÐÐÐÐENT : P
+	ÐÐÐÐÐENT : CO-ARCH
+	ÐÐÐÐÐÐASP : CO-ARCH-DEC  , priority-list (P3 P2 P1 COORD)
+					      ,coupling Ð> ((P3 COORD ( OUT . Y3))
+							(P2 COORD ( OUT . Y2))
+							(P1 COORD ( OUT . Y1))
+							(COORD P3 ( X3 . IN))
+							(COORD P2 ( X2 . IN))
+							(COORD P1 ( X1 . IN))
+							(COORD CO-ARCH ( OUT . OUT))
+							(CO-ARCH COORD ( IN . IN))
+	ÐÐÐÐÐÐÐENT : COORD
+	ÐÐÐÐÐÐÐENT : P1
+	ÐÐÐÐÐÐÐENT : P2
+	ÐÐÐÐÐÐÐENT : P3
+	ÐÐÐÐÐÐÐASP : COORD-SPEC
+	ÐÐÐÐÐÐÐÐENT : MUL-C
+	ÐÐÐÐÐÐÐÐENT : PIP-C
+	ÐÐÐÐÐÐÐÐENT : DC-COORD
+	ÐÐÐÐÐÐÐÐÐASP :DC-COORD-DEC, priority-list (P&CMPL P&DIV DC-C DC-COORD)
+					      ,coupling Ð> ((DC-COORD DC-C (IN4 .IN))
+							(DC-COORD DC-C (IN3 . Y1))
+							(DC-COORD DC-C (IN 2 . Y2))
+							(DC-COORD DC-C (IN1 . Y3))
+							(DC-C DC-COORD (OUT . OUT4))
+							(DC-C DC-COORD (X1 . OUT3))
+							(DC-C DC-COORD (X2 . OUT2))
+							(DC-C DC-COORD (X3 . OUT 1))
+							(P&CMPL DC-C (OUT . CY))
+							(P&DIV DC-C (OUT .PY))
+							(DC-C P&CMPL (CX . IN))
+							(DC-C P&DIV (PX . IN))
+	ÐÐÐÐÐÐÐÐENT : DC-C
+	ÐÐÐÐÐÐÐÐENT : P&DIV
+	ÐÐÐÐÐÐÐÐENT : P&CMPL
+				
+				Figure 45:  Coupling Specifications for
+					    Deepened Computer Architecture SES
+	
+
+
+
+	The SES that is shown in Figures 44 and 45 is much more compact and requires less information to be provided.  It also makes better use of the modularity of DEVS-Scheme by making explicit the common features of the co-ordinated architectures and using those common features thus leading to better comprehension of the SES and hence the subsequent execution of the simulation.
+
+	In the SES shown in Figure 44 notice that the four architectures under study are not individual entities under the ARCH-SPEC as they were shown in Figure 38.  Instead, by making use of the common properties and structure of the co-ordinated architectures an entity CO-ARCH is used.  CO-ARCH is then decomposed using CO-ARCH-DEC into four common entities: subordinate processors P1, P2, P3, and COORD.  COORD is then specialized by COORD-SPEC to represent the different types of co-ordinators into :MUL-C, PIP-C, and DC-COORD.  DC-COORD is then further decomposed using DC-COORD-DEC into its components which are: DC-C, P&DIV, and P&CMPL.
+
+	As indicated earlier, the coupling between the general entity COORD and the subordinate processors is attached to the enclosing aspect CO-ARCH-DEC.  When COORD is replaced by any of its specialized entities, the coupling is specialized accordingly.  Thus, though each of the co-ordinator alternatives manages their subordinate processors differently, the coupling between co-ordinators and subordinate processors is essentially the same(isomorphic) is each case.
+
+	Flattening and deepening are useful for modifying a model structure to produce alternative structures which are all behaviorally equivalent.  The alternative structures produced may have better simulation properties with regard to execution speed on either serial or parallel computers.
+
+
+
+ APPENDIX A
+
+Major Instance Variables, Class Variables, and Class Methods of Classes entities, atomic-models, and digraph-models
+
+	ENTITIES:
+
+		<< inst-vars>>
+
+			NAME			name of object
+
+		<<class-vars>>
+
+			LST			list of instances of class
+
+		constructor: mk-ent
+		destructor: destroy
+
+ATOMIC-MODELS:
+
+		<<inst-vars>>
+
+			X			slot for input port pair
+			S			slot for current state
+			Y			slot for output port pair
+			E			slot for elapsed time
+			IND-VARS		list of state variables
+			INT-TRANSFN		internal transition function
+			EXT-TRANSFN		external transition function
+			OUTPUTFN		output function
+			TIME-ADVANCEFN	time advance function
+
+		<<methods>>
+
+	construction:
+
+			SET-X
+			SET-E
+			SET-S
+			SET-STATE		displays current states and calls a							window to set states and display				DEF-STATE		add state variables
+			SET-INT-TRANSFN	
+			SET-EXT-TRANSFN
+			SET-OUTPUTFN
+
+	used in simulation:
+
+			INT-TRANSITION	executes internal transition function			EXT-TRANSITION	executes external transition function			OUTPUT?			executes output function
+			TIME-ADVANCE?	executes time advance function
+
+
+DIGRAPH-MODELS:
+
+		<<inst-vars>>
+
+			COMPOSITION-TREE
+			INFLUENCE-DIGRAPH
+			SELECTFN
+			PRIORITY-LIST
+
+		<<methods>>
+
+	construction:
+
+			BUILD-COMPOSITION-TREE
+			SET-INF-DIG
+			SET-INT-COUP
+			SET-EXT-OUT-COUP
+			SET-EXT-INP-COUP
+			SET-SELECTFN
+			SET-PRIORITY
+
+	used in simulation:
+
+			GET-RECEIVERS	components to receive internal input
+			GET-INFLUENCEES	influencees of imminent component
+			TRANSLATE		queries coupling to translate given
+						port into coupled port
+
+	display:
+
+			PRINT-GRAPH		displays coupling scheme
+
+ APPENDIX B
+
+ALPHABETICAL LISTING OF DEVS-SCHEME COMMANDS AND MESSAGES
+
+
+	The command or message is in bold type with the following explanation in plain type.  Also variable entries are placed in brackets; i.e if r is a variable entry is would be shown as: <r>.
+
+	(add-couple e:<ef-a> '<dc-c> '<p&div> '<px> '<in>) specifies the coupling between components of a model in an entity structure. 
+
+	(add-item e:<ef-a> asp '<ef-a-dec>) adds an aspect "ef-a-dec" to an entity structure "e:ef-a".
+
+	(add-item e:<ef-a> ent '<arch>) adds an entity "arch" to an entity structure "e:ef-a".
+
+	(add-item e:<ef-a> spec '<arch-spec>) adds a specialization "arch-spec" to an entity structure "ef-a".
+
+(add-priority e:<ef-a> '(<arch ef>) specifies which model is to be handled first when the next-event-times are equal.
+
+	(bc) clears the screen 
+
+	CTRL P (Control P) allows the moving and resizing of windows for each specified atomic-model or coupled-model subcomponent models on the screen.
+
+	CTRL S (Control S) toggles between the pause and non-pause modes of simulation.
+
+	CTRL T (Control T) terminates a simulation run.  If the simulation is proceeding in the pause mode the simulation terminates immediately after the next inter-processor message.  If the simulation is in the non-pause mode the simulation will terminate after the root-co-ordinator receives the next done-message.
+
+	(deep-devs <dc-arch> '(<dc p&div p&cmpl>) '<dc-coord> '<di-graph>) modifies an entity structure by creating an additional sublayer thereby increasing the height of the tree.  The procedure deep-devs takes as arguments, the name of the model which has components to be grouped(dc-arch), the list of components to be grouped (dc, p&div, p&cmpl), the name of the new model to be constructed by the grouping,(dc-coord), and the class to which the new model will belong (digraph-models or a sub-class of it).
+
+	(dc) temporarily exit to dos (dos-call "" "") to return from dos enter exit
+
+
+	(define (<sel-comp1> slst)
+			(cond (( member <comp1> slst) <comp1>)
+				 (( member <comp2> slst) <comp2>)
+			)
+		)
+		(send <dm> set-selectfn <sel-comp1>) specifies that if next-event-times for comp1 and comp2 are equal execute comp1 first
+
+	(exit) quits DEVS-Scheme
+
+	(evl <n>) is equivalent to (eval (%c <n>)) and will re-evaluate the input to the <n>th prompt.eg. (evl 19)
+
+	(flat-all <dc-arch>) flattens a hierarchical model down to a single layer (a digraph model with only atomic children).
+
+	(flat-devs <dc-coord>) performs the inverse of deep-devs.  Removes a digraph-model from a larger model and then couples its components(children) to their grandparent.
+
+	(initialize <r> c:<ef>) or (init <r> c:<ef>) links a root-co-ordinator r (created with mk-ent) to the co-ordinator c:ef
+
+	(initialize <r> s:<p>) or (init <r> s:<m>) links a root-co-ordinator r (created with mk-ent) to the simulator s:p
+
+	(lk <n>) will display the input to the <nth>th prompt and call a procedure that enables the reviewing of other input.  Responses are: e = evaluate; f = forward; b = backward; x = exit; 1 = show all from here back to prompt 1.eg. (lk 20)
+
+	(make-enstr '<ef-a>) creates the root node of an entity structure called "ef-a".
+
+	(make-pair atomic-models '<m>) creates both and atomic-model m, as well as a simulator s:m assigned to it.
+
+	(make-pair digraph-models '<d>) creates both the digraph-model d, as well as the co-ordinators c:d assigned to it.
+
+	(mk-ent root-co-ordinators <r>) makes an entity in the class root-co-ordinators called 'r
+
+	(load "<path/filename>") loads and executes the specified file
+
+	(load-from <path> <filename>) loads and executes the specified file
+
+	(prune e:<ef-a>) creates a pruned entity structure.  A pruned entity structure is one which does not have any specializations and has at most one aspect hanging from every entity.
+
+	(restart <r>) or (res <r>) starts an interactive simulation run once an initialization has occurred or restarts a simulation run that was interrupted.  The user is given the opportunity to modify(or initially establish) the state of all atomic-models from which the run will proceed.
+
+	(restart <r> "file1" "file2"...) loads the specified files and starts a batch simulation run. 
+
+
+	(screen-copy) can be issued at any time and will create a new file scrcopy.n , where n is an integer which increases each time.
+
+	(send <dm> build-composition-tree <dm> (list <comp1> <comp2> ...))  specifies the compoments of the digraph model
+
+	(send <dm> get-influencees) returns the influencees of the imminent component
+
+	(send <dm> get-receivers) returns the components which will receive internal inputs
+
+	(send <dm> print-graph) displays the coupling scheme
+
+		(send <dm> set-ext-inp-coup <comp> (list (cons '<in> '<in>))) specifies the coupling of the external input ports
+
+	(send <dm> set-ext-out-coup <comp> (list (cons '<out> '<out>))) specifies the coupling of the external output ports.
+
+	(send <dm> set-inf-dig (list (list <comp1> <influencees>)
+								(list <comp2> <influencees>)
+								...
+								(list <compn> <influencees>)
+		)) specifies the components and their influencees
+
+
+	(send <dm> set-int-coup <comp1> <comp2> (list (cons '<out> '<in>))) specifies the internal coupling of ports. The coupling specification is read as port 'out of comp1 is coupled to port 'in of comp2.
+
+	(send <dm> set-priority (list <comp1> <comp2>) specifies the order of execution if next-event-times are equal for comp1 and comp2
+
+	(send <dm> translate '<port>) queries coupling to translate given port into coupled port
+
+
+	(send <m> destroy) will remove the entity m from its class list
+
+
+	(send <model> inject '<port> '<value> {<elapsed-time>}) facilitates testing of models.  It creates a content-structure with the given port and value, sets elapsed time, e to the value supplied (optional). For example (send m inject 'in 'x1 0).  For atomic-models it calls the external transition function.  For coupled-models it sends the translated port value pair to all the receivers.
+
+	(send <m> ext-transition) causes m to execute its external transition function.
+
+	(send <m> int-transition) causes m to execute its internal transition function.
+
+	(send <m> make-new '<m1>) makes an exact clone of m with name m1 
+
+	(send <m> output?) causes m to execute its output function
+
+	(send <m> set-ext-transfn <name>) attaches the external transition function to the atomic-model m.
+
+	(send <m> set-e <0>) tells m to set its elapsed time to 0.
+
+	(send <m> set-int-transfn <name>) attaches the internal transition function to the atomic-model m.
+
+	(send <m> set-outputfn <name>) attaches the output function to the atomic-model m.
+
+	(send <m> set-s (make-state '<sigma> 10 '<phase> 'active ...))  causes the current states of m to be set to the specified values.  Remember must specifiy all state variables and their values.
+
+	(send <m> set-state) clears the display then displays the current state values of m and an initialization window.  The intialization window allows the users to select state variables for display and to intialize the model by entering a list of the state values.
+
+	(send <m >def-state) '( <state1> <state2> ...)) defines additional state variables for the atomic-model m.
+
+	(send <m> set-x (make-content 'port '<in> 'value '<x3>))  causes m to set its X slot to a content structure consisting of a port 'in and a value 'x3. Used to input external events into an atomic model during testing.
+
+	(send <m> time-advance? ) causes execution of the time advance function.
+
+	(set-current-item e:<ef-a> ent '<arch>) moves the cursor to the specified entity, aspect, or specialization in an entity structure. 
+
+	(set-interval (send <r> get-timer) <n>) sets the duration of the interval between cycles of root-co-ordinator r so that the screen presentation of the state behavior may be slowed, or sped up as desired.
+
+	(start-rep) will load a read-eval-print loop which does not garbage collect after every call to inspector. This speeds up development when extended memory is being used.
+
+	(transcript-off) turns off the transcript file.  If a transcript file is opened it should be turned off before using a dos call or exiting DEVS-Scheme.
+
+	(transcript-on "<log>") creates a dos file named log and records all input and output. (screen-copy is preferrable)
+
+	(transfrom  p:<ef-a-dc>) constructs a simulation model ready for execution from a pruned entity structure.
+
+ APPENDIX C
+ 
+SIMPLE PROCESSOR TEST FILE (P.TST)
+	
+
+
+
+;Sample test file for simple processor
+
+;occurrence of an external event job-in-1 at elapsed time 0
+
+(send p inject 'in 'job-in-1 0)
+
+; result of the external event appearing at the top left of the             ; screen : STATE S = (5 BUSY JOB-IN-1 5)
+; this indicates the processor is processing job-in-1
+
+;after 5 time units have passed the following should happen
+
+(send p output?)  ;; executes the output function
+
+; result of the output function appearing at the current cursor        ; location :  OUTPUT Y = OUT JOB-IN-1
+
+;execute the internal transition function
+
+(send p int-transition)
+
+; result of the internal transition function appearing at the top       ; left of the screen
+; STATE S = (INF PASSIVE JOB-IN-1 5); processor is in the passive      ; state
+
+; repeat occurrence of external event with job-in-2 with elapsed time      ; 0
+
+(send p inject 'in 'job-in-2 0)
+
+; result of the external event appearing at the top left of the           ; screen STATE S = (5 BUSY JOB-IN-2 5)
+; this indicates the processor is processing job-in-2
+
+
+; now testing for job arrival when processor is busy
+
+(send p inject 'in 'job-in-3 2)
+
+; result of the external event appearing at the top left of the      ; screen STATE S = (3 BUSY JOB-IN-2 5)
+; this indicates that job-in-3 is lost, job-in-2 has 3 time units     ; left due to the continue statement
+
+; ;after 3 time units have passed the following should happen
+
+(send p output?)  ;; executes the output function
+
+; result of the output function appearing at the current cursor           ; location  OUTPUT Y = OUT JOB-IN-2
+
+;execute the internal transition function
+
+(send p int-transition)
+
+; result of the internal transition function appearing at the top     ; left of the screen
+; STATE S = (INF PASSIVE JOB-IN-2 5)  processor is in the passive    ; state
+
+
+
+
+.c1APPENDIX D
+
+Templates for Atomic-Model, Digraph-Model, and Entity Structure Definitions
+
+
+Atomic-Model Definition Template
+
+;;file a.m
+
+;;create the atomic model a and it simulator s:a
+
+(make-pair atomic-models 'a)
+
+;;add additional state variables and paramters to sigma and phase
+
+(send a def-state '(list of state-variables and parameters))
+
+;;initialize state if desired
+
+(send a set-s (make-state 'sigma 'initial-sigma
+    				      'phase 'initial-phase
+					      ...
+				)
+)
+
+;;define the external transition function
+
+(define (ext-a s e x)
+			(case content-port x)
+			  ( 'input-port1
+			     (case (state-phase s)
+			       ( 'phase1
+					statements
+				)
+				( 'phase2
+					statements
+				)
+				...
+			   )
+		      ( 'input-port2
+				...
+			    )
+			)
+)
+
+
+;; define the internal transition function
+
+(define ( int-a s)
+			(case state-phase s)
+				( 'phase1
+					statements
+				)
+				( 'phase2
+					statements
+				)
+				...
+			 )
+)
+
+;; define the output function
+
+(define (out-a s)
+		(case (state-phase s)
+			( 'phase1
+			     statements
+			     (make-content 'port 'output-port1 'value value1))
+        )
+			( 'phase2
+			     statements
+			     (make-content 'port 'output-port2 'value value2))
+        )
+			...
+	)))
+
+;;assignment to model
+
+(send a set-ext-transfn ext-a)
+(send a set-int-transfn int-a)
+(send a set-outputfn out-a)
+
+
+
+
+Digraph-Model Definition Template
+
+;;file d.cm
+
+;;load the component definition files
+
+(load-from model-base_directory component1.m)
+(load-from model-base_directory component2.m)
+          ...
+
+;;make any needed copies of component models
+
+(send component1 make-new 'copy1)
+(send component2 make-new 'copy2)
+       ...
+
+;; copy the state of the original to the copies if desired
+
+(send copy1 copy-state component1)
+      ...
+
+;;create the digraph-model and its associated co-ordinator
+
+(make-pair digraph-models 'd)
+
+;;build the composition tree
+
+(send d build-composition-tree d (list component1 component2 ...))
+
+;;set-up the influence digraph : for each component, list the
+;;component followed by its influencees if any
+
+(send d set-inf-dig (list
+					  (list component1 influencee11 influencee12 ...))
+					  (list component2 influencee21 influencee22 ...))
+						...
+					)
+)
+
+;;specify the external-input coupling: for each component which
+;;receives input from d, provide a list of port pairs, e.g.,
+;;d's input-port1 is coupled to component1's input-portx
+
+(send d set-ext-inp-coup component1 (list
+					    (cons 'input-port1 'input-portx)
+					    (cons 'input-port2 'input-porty)
+						...
+						)
+)
+					...
+
+
+;;specify the external-output coupling: for each component which
+;;send output to d, provide a list of port pairs, e.g.,
+;;component1's output-port1 is coupled to d's output-portx
+
+(send d set-ext-out-coup component1 (list
+					      (cons 'output-port1 'output-portx)
+					      (cons 'output-port2 'output-porty)
+						...
+						)
+)
+
+;;specify the internal coupling for each pair of components
+;;(component1 component2) in the influence digraph, provide
+;;a list of port pairs, e.g., conponent1's output-port1 is
+;;coupled to component2's input-portx
+
+(send d set-int-coup component1 component2 (list
+					(cons 'output-port1 'input-portx)
+					(cons 'output-port2 'input-porty)
+						...
+							  )
+)
+				...
+
+;;define the select function: which selects one of the
+;;component models in its input argument, lst (imminent components)
+
+(send d set-selectfn (lambda(lst)...))
+
+;;for priority type slect function, which selects the
+;;component in the lst (of imminent components) which has
+;;highest priority; if no components in lst are in the
+;;priority list then the first in the lst is selected
+
+(send d set-priority (list ... components in order of priority ..))
+
+;;the priority-list is recognized by the structure operations
+;;for flattening and deepening relieving the user of responsibility
+;;for revising the select-fn when these operations are applied
+
+
+
+
+Entity Structure Definition Template
+
+
+;;file ent.s
+
+;;make an entity structure called e:en having root en
+;;the cursor will be pointing to en
+
+(make-entstr 'en)
+
+;;add an aspect en-dec under en in e:en for decomposing en
+
+(add-item e:en asp 'en-dec)
+
+;;set cursor to en-dec so as to add entities and couplings to it
+
+(set-current-item e:en 'en-dec)
+
+;; add entities en2, en2, ... to en-dec
+
+(add-item e:en ent 'en1)
+(add-item e:en ent 'en2)
+
+			...
+
+;;add couplings to 'en-dec
+
+(add-couple e:en 'en 'en1 'in 'in1) ;;external-input type
+(add-couple e:en 'en1 'en 'out1 'out) ;;external-output type
+(add-couple e:en1 'en2 'en1 'out 'stop) ;;internal type
+
+				...
+
+;;add priority list to 'en-dec if desired
+
+(add-priority e:en '(component1 component2 ...))
+
+;;move cursor to another entity, e.g., en1
+
+(set-current-item e:en 'en1)
+
+;;continue in the same manner with en1 as with en
+
+			....
+
+;;save the structure permanently
+
+(save-en e:en)
+
