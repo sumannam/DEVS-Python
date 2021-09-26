@@ -38,8 +38,10 @@
     <Compile Include="P.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="P2.py" />
     <Compile Include="PORT.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="testModelTest.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

@@ -4,3 +4,6 @@ class PORT( object ):
 
     def __eq__( self, PORT ):
         return self.name == PORT.name
+
+    def __eq__( self, _name ):
+        return self.name == _name
