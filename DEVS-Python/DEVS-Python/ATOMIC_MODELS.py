@@ -77,6 +77,6 @@ class ATOMIC_MODELS(MODELS):
         if type == "inject":
             result = "state s = (" + state_str + ")"
 
-        print(result)
+        #print(result)
         return result
         
