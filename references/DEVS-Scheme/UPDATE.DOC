@@ -1,0 +1,264 @@
+;;; The following files have been modified by Jim. and Tae. ;;;
+
+root-me.s(f)
+1/9/92         ;; when-receive-done for start-log is moved from scheme.ini
+               ;; to this file.
+
+
+model-cl.s(f)
+1/9/92         ;; instance variable nw added for new window display
+
+
+atom-me.s(f)      ;; clip -> $clip
+1/9/92         ;; int-transiton, output?, set-external-event methods
+               ;; changed to accomdate start-log and new window display
+
+               ;; set-state, set-elapsed-time, time-advance? changed for
+               ;; new window display
+
+               ;; nget-structure, ninitial-state, external-message?
+               ;; initial-wind add for new window display
+
+
+
+
+
+forw-fn.s      ;; new stuff
+forw-fn.f      ;; every forward-model should get it's name set before running
+
+
+
+pseudo.s(f)    ;; not used in 1990 version
+
+6-23-89        ;; add retrieve-special for kernel-models' init-new
+
+               ;; take out (send-if-.....    tell-your-robot-name)
+               ;;;; from controlled-models' init-new
+
+               ;; add (tell-atomic-children-their-names) in broadcast-models'
+               ;;; init-new
+
+
+6-24-89        ;; take out kernel-models' gen-name-prefix and put it
+               ;; in kernl-me.s
+
+7-11-89        ;; integrate all stuff into kernel-models and its subclasses.
+
+
+kernl-me.s(f)
+
+6-24-89        ;; add new gen-name-prefix
+
+7-11-89        ;; modify make-kernel-members
+               ;; avoid making members with same names as existing environments
+               ;; especially for group pruning cases
+
+7-25-89        ;; add method make-true-members
+
+1/9/92         ;; external-message?, dis-all, nintial-state added for
+               ;; new window display
+
+
+
+contr-me.s(f)
+
+6-14-89        ;; (define-structure state ....) -> (mk-st 'atomic-models ...)
+
+6-27-89        ;; comment out method make-class
+
+7-25-89        ;; modify make-new to make true members
+               ;; since we can specify different member prefixes in group pruning
+
+1/9/92         ;; external-message? added for new-window display
+
+
+broad-me.s(f)
+
+6-27-89        ;; comment out method make-class
+
+7-11-89        ;; modify make-new, add originator
+
+7-25-89        ;; modify make-new to make true members
+
+cellu-me.s(f)
+
+6-27-89        ;; comment out method make-class
+
+7-11-89        ;; modify make-new, add origiantor
+
+7-25-89        ;; modify make-new to make true members
+
+hyper-me.s(f)
+
+6-27-89        ;; comment out method make-class
+               ;; change "hc" to "hy" in make-hypercube
+
+7-11-89        ;; modify make-new, add originator
+
+
+rob-me.s(f)    ;; for robot organization application
+
+6-14-89        ;; reconstruct -> $reconstruct
+
+6-22-89        ;; clip -> $clip    erase -> $erase
+
+6-29-89        ;; add new methods tell-mpu-name, tell-object-name ...
+               ;; modify table-model method input?
+
+
+table-fn.s(f)
+
+6-21-89        ;; add new hold-in macro
+               ;; add (eval (state-stab s))
+               ;; add (eval (state-gtab s))
+
+
+table-me.s(f)
+
+6-21-89        ;;  (eval `(state-stab s))
+
+
+
+model-me.s     ;; add method resume-methods
+model-me.f
+
+atom-me2.s(f)
+
+6-20-89        ;; macro make-true-atomic-class -> make-atomic-class
+3-15-90: updated (add-int-event-observation) and (add-ext-event-observation)
+
+
+coupl-me.s
+
+3-19-90        ;; added (tell-atomic-children-their-names) and (get-your-name)
+
+1/9/92         ;; hide-nw, initial-wind, display-nw, external-message?
+               ;; methods added for new window display
+
+
+dimod-me.s(f)
+
+6-20-89        ;; comment out method  make-true-class
+               ;; new make-class (make pseudo-class)
+
+6-29-89       ;; take out base-name in digraph-model's make-new
+
+7-20-89       ;; put back base-name in make-new
+
+1/9/92        ;; external-messag?, ninitial-state method added for
+              ;; new-window display
+
+
+rob-log.s(f)
+
+6-22-89        ;; clip -> $clip   erase -> $erase
+               
+
+log.s(f)       ;; used to keep simulation log
+               ;; usage: (load "c:/scheme/devs/log.f")
+               ;;        (set! log-file-name "filename")
+
+6-29-89        ;; comment out robot-name parts     
+               ;; clip -> $clip  erase -> $erase
+
+
+display.s(f)
+
+7-26-89        ;; modify (equal? (top? wst) ...) to (eq? (top? wst) ....)
+               ;; add line range test (< l 25) in place-model
+
+1/9/92         ;; flash-message changed to accomodate new-window display
+
+
+enmodul.s(f)
+
+8-25-89       ;; new stuff
+3-13-90: took en from (add-sel-constraint)
+
+enprimit.s
+3-13-90: new axioms violation testing procedures
+3-15-90: use original (axiom-violated?) for mode-alternating test
+         use (test-axioms) for advanced axioms violation testing
+
+enmanag.s
+3-12-90: no duplicates in add-e:lst, add-p:lst, and add-tmp:lst
+3-15-90: added (delete-sub-branches)
+3-21-90  updated (cut-entstr) and (cut-entstr1), made them works for
+         all non-leaf ents.
+
+enpeperun.s(f)
+
+6-26-89        ;; modify adjust-coupling
+
+7-20-89        ;; rename e:tmp@sub to e:@sub
+               ;; add (dos-delete (string-append en-base (gen-en-fname e:en-ver)))
+               ;; in mk-entstr-version
+
+8-25-89      ;; add context sensitive pruning, not complete
+
+1-04-90        ;; modify select-ent to avoid multiply occurring problems
+               ;; in specialization
+               ;; function delelte-sub-branches added for that purpose.
+
+3-21-90: updated (adjust-couple) and (select-ent)
+         took out (delete-sub-branches)
+
+6-5-90   ;;modify check enbase : previous (and (not (is_in_a_mbase))
+                                               (is_in_a_entstr_base))
+                                 current  (is_in_a_entstr_base)
+
+
+
+entrans.s(f)
+
+6-12-89        ;; new retrieve function
+
+6-26-89        ;; use original find-all
+               ;; modify ex-base-name    add "<"
+
+6-26-89        ;; do-runtime-pruning?
+               ;; modify the condition to do runtime pruning
+               ;; test (= (length mult-ch-nm-lst) 1) is not enough
+               ;; change to (group-pruning? (item-attr-lst (cur? en)))
+
+6-26-89        ;; add function (group-pruning? ..... )
+
+7-25-89        ;; define add-name to add instance to name-counter
+               ;; add (add-name name-ctr ...) in construct-digraph-model and
+               ;; construct-kernel-model
+
+3-19-90: added (send model tell-atomic-children-their-names) in
+        (construct-digraph-model) and (construct-kernel-model)
+3-22-90: change (construct-prune ent-name) to (construct-pruned indexed-name)
+
+
+runprun.s(f)   ;; runtime pruning
+
+6-26-89        ;; take out cut-mult
+               ;; add one more argument "en" to replace-coupling in transform1
+               ;; comment out something in transform2
+
+6-29-89        ;; take out first special-prune
+               ;; add new print-item to print items on current-output-port
+
+
+
+co-test.s(f)
+
+1/9/92         ;; initialize, restart, key-menu&zhang changed for
+               ;; new-window display
+
+
+ext-dis.s(f)
+1/9/92         ;; this file is newly created for new window display
+
+
+
+trans.s(f)
+1/10/92        ;; this file is newly created for level access
+               ;; various translation methods are in this file 
+
+
+
+
+

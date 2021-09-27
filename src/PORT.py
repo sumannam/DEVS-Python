@@ -1,12 +1,6 @@
 class PORT( object ):
-    _name = ""
-
-    def __init__( self, name ):
-        _name = name
+    def __init__( self, _name ):
+        self.name = _name
 
     def __eq__( self, PORT ):
-        return self._name == PORT._name
-
-
-
-
+        return self.name == PORT.name

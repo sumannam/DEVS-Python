@@ -1,0 +1,160 @@
+.PN1
+.OP
+.PL63
+.PO10
+.MT7
+.MB4
+.HM2
+.FM0
+.H1                        Guoqing Zhang       11/7/1987           Page #
+
+
+
+
+                    Algorithm for Flattening
+
+
+
+1. Command :   (FLAT-DEVS name_of_coupled_model) or
+               (FLAT_DEVS name_of_coupled_model)
+
+
+2. Command Notes
+
+    Any  instance  of a class which is the subclass  of  the  DIGRAPH-
+MODELS  is  eligible  for this command with  the  exception  that  the 
+instance  can not be the highest model in a DEVS model structure.   As 
+shown  in Figure 1, all models marked with * can be selected for  this 
+command.
+
+
+3. Notations
+
+    In the proposed algorithm that follows, the coupling list is a set 
+containing triples in the form (S T (a.b)).  Each triple in the set is 
+interpreted as : model S sends message to model B via the port 'a'  of 
+model S to port 'b' of model T.  
+
+    Five  selection  operators are defined to extract  each  piece  of 
+information from a triple defined above.  
+
+         (1) SOURCE
+         (2) TARGET
+         (3) IN
+         (4) OUT
+        
+For  example, if e = (S T (a.b)) is in the coupling list, we  get  the 
+following :
+
+         (1) e.source = S
+         (2) e.target = T
+         (3) e.in     = b
+         (4) e.out    = a
+
+
+4. Coupling Lists and Model Structure.
+
+
+    The  command  invoked is  (FLAT-DEVS COOR).  The father  model  of 
+COOR is named FATHER.  From the above description, we can assure  that 
+FATHER exists and COOR has a group of models as its children.   Figure 
+3 depicts the model structure.
+.H1     Flattening Algorithm   Guoqing Zhang   11/7/1987           Page #
+
+
+    Three types of couplings are : INTERNAL, EXT-INP, and OUT-EXT.
+
+    Associated  with COOR are three coupling lists :   int-coup,  ext-
+inp,  and  out-ext, representing respectively INTERNAL,  EXT-INP,  and 
+OUT-EXT.
+
+    Similarly,  three coupling lists for FATHER are  fint-coup,  fext-
+inp, and fout-ext.
+
+    Besides,  the  coupling lists for FATHER in  the  resulting  model 
+structure are Nint-coup, Next-inp, and Nout-ext.
+
+
+5. Algorithm
+
+
+STEP 1. Get Nint-coup : internal coupling list.
+
+
+    (1) Nint-coup has all e in int-coup.
+
+    (2) FOR any e in fint-coup
+            IF (e.source <> COOR) & (e.target <> COOR)
+            THEn e is in Ninp-coup.
+
+    (3) FOR any e in fint-coup and for all E in out-ext
+            IF (e.source = COOR) & (E.target = COOR) & 
+               (e.out = E.in)
+            THEN Nint-coup contains the triple NEW, where
+                    NEW.source = E.source,
+                    NEW.target = e.target,
+                    NEW.in     = e.in,
+             and    NEW.out    = E.out.
+
+    (4) FOR any e in fint-coup and for all E in ext-inp
+            IF (e.target = COOR) & (E.source = COOR) &
+               (e.in  =  E.out)
+            THEN Ninp-coup contains NEW, where
+                    NEW.source = e.source,
+                    NEW.target = E.target,
+                    NEW.in     = E.in,
+                    NEW.out    = e.out.
+
+STEP 2. Get Next-inp : EXT-INP coupling list.
+
+
+   (1) FOR all e in fext-inp
+           IF (e.target <> COOR)
+           THEn Next-inp contains e.
+
+   (2) FOR all e in fext-inp and all E in ext-inp
+           IF (e.target = COOR) & (e.in = E.out)
+           THEN Next-inp contains NEW, where
+                NEW.source = e.source,
+                NEW.target = E.target,
+                NEW.in     = E.in,
+          and   NEW.out    = e.out.
+
+STEP 3. Get Nout-ext : OUT-EXT coupling list.
+
+
+    (1) FOR all e in fout-ext
+            IF (e.source <> COOR) 
+            THEN Nout-ext contains e.
+    (2) FOR all e in fout-ext and all E in out-ext
+            IF (e.source = COOR) & (e.out = E.in)
+            THEN fext-out contains NEW, where
+                 NEW.source = E.source,
+                 NEW.target = e.target,
+                 NEW.in     = e.in,
+            and  NEW.out    = E.out.
+
+STEP 3. New Composition Tree.
+
+
+    FATHER  has  new  children FATHER's children  -  {COOR}  +  COOR's 
+children.
+
+STEP  4.  For  FATHER, set up influence digraph, based  on  the  newly 
+      obtained Nint-coup.
+
+STEP 5. For FATHER, set up internal coupling, based on Nint-coup.
+
+STEP 6. For FATHER, set up EXTERNAl to INTERNAL connections, based  on 
+        Next-inp.
+
+STEP 7. For FATHER, set up OUTPUT to EXTERNAL couplings, based on  the 
+        Nout-ext.
+
+
+6. Conclusion
+
+    The  proposed algorithm has been coded in SCHEME, tested in  DEVS-
+SCHEME environment, and turns to be correct.
+.pa
+

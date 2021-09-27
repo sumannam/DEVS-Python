@@ -1,41 +1,36 @@
 from ENTITIES import ENTITIES
 from PORT import PORT
 
-class MODELS( ENTITIES ):
-    inports = list([]) 
-    outports = list([])
+class MODELS(ENTITIES):
+    def __init__(self, model_name):
+        self.name = model_name
+        self.inport_list = []
+        self.outport_list = []
+    
+    def addInPort(self, port_name):
+        if port_name not in self.inport_list:
+            self.inport_list.append(port_name)
 
-    def __init__(self):
-        inports.clear()
-        outports.clear()
+    def addOutPort(self, port_name):
+        if port_name not in self.outport_list:
+            self.outport_list.append(port_name)
 
-    def addInport( self, PORT ):
-        if checkPortDuplicate( PORT._name ) == true:
-            inports.add( PORT )
+    def getInports(self):
+        return self.inport_list
 
-    def addOutport( self, PORT ):
-        if checkPortDuplicate( PORT._name ) == true:
-            outports.add( PORT )
+    def getOutports(self):
+        return self_outport_list
 
-    def checkPortDuplicate( port_name ):
-        return port_name not in inports
-
-    def getInports():
-        return inports
-
-    def getOutports():
-        return outports
-
-    def getInport(port_name):
+    def getInport(self, port_name):
         port = PORT(port_name)
-        if ( port in inports ) == true:
-            return port in inports
+        if (port in self.inport_list) == true:
+            return port in self.inport_list
         else:
             return None
 
-    def getOutport(port_name):
+    def getOutport(self, port_name):
         port = PORT(port_name)
-        if ( port in ouports ) == true:
-            return port in ouports
+        if (port in self.outport_list) == true:
+            return port in self.outport_list
         else:
             return None

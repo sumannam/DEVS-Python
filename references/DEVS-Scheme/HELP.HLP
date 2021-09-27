@@ -1,0 +1,22 @@
+Hierarchy
+<up>
+<down>
+<left>
+<right>:  Cursor control
+<Ctrl-Q>: Quit
+<W>:  Set window
+<C>:  Clear Window setting
+<E>:  Edit object attributes
+<P>:  Pan tree displayed
+<U>:  Pan up one level
+<F1>:     Help
+****
+Window Settings
+<PgUp> <PgDn>: Size window
+<Cursor Keys>: Move position
+****
+State Variable Settings
+<Cursor Keys>: Move Cursor
+<Cr>: Change variable value
+****
+
