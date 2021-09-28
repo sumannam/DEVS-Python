@@ -1,4 +1,5 @@
 import math
+import importlib
 
 from ATOMIC_MODELS import ATOMIC_MODELS
 from CONTENT import CONTENT
@@ -33,6 +34,10 @@ class P(ATOMIC_MODELS):
             return CONTENT("out", self.state["job-id"])
 
 
-#if __name__ == '__main__':
-#    p = P()
-#    p.modelTest(p)
+if __name__ == '__main__':
+    module_name = input()
+    module = __import__(module_name)
+    class_ = getattr(module, module_name)
+
+    instance = class_()
+    instance.modelTest(instance)
