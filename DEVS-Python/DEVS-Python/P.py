@@ -37,7 +37,7 @@ class P(ATOMIC_MODELS):
 if __name__ == '__main__':
     module_name = input()
     module = __import__(module_name)
-    class_ = getattr(module, module_name)
+    _class = getattr(module, module_name)
 
-    instance = class_()
+    instance = _class()
     instance.modelTest(instance)
