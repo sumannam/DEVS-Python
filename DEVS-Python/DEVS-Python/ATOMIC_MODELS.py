@@ -29,7 +29,6 @@ class ATOMIC_MODELS(MODELS):
     def passviate(self):
         self.state["sigma"] = math.inf
         self.state["phase"] = "passive"
-        print(self.state["phase"])
     
     # s: state, e: elased_time, x: content
     def externalTransitionFunc(self, s, e, x):
@@ -54,6 +53,7 @@ class ATOMIC_MODELS(MODELS):
 
                 self.sendInject(port_name, value, elased_time)
                 send_result = self.getInjectResult(type)
+            
             if type == "output?":
                 output = CONTENT()
                 output = self.outputFunc(self.state)
@@ -93,7 +93,7 @@ class ATOMIC_MODELS(MODELS):
         return result
         
     def getOutputResult(self, content):
-        result = "output y = " + content.port + " " + content.value
+        result = "y = " + content.port + " " + content.value
         return result;
 
     def getIntTransitionResult(self):

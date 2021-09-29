@@ -26,7 +26,7 @@ class P(ATOMIC_MODELS):
                 self.Continue()
 
     def internalTransitionFunc(self, s):
-        if self.state["phase"] == "passive":
+        if self.state["phase"] == "busy":
             self.passviate()
 
     def outputFunc(self, s):
