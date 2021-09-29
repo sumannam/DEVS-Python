@@ -31,7 +31,9 @@ class P(ATOMIC_MODELS):
 
     def outputFunc(self, s):
         if self.state["phase"] == "busy":
-            return CONTENT("out", self.state["job-id"])
+            content = CONTENT()
+            content.setContent("out", self.state["job-id"])
+            return content
 
 
 if __name__ == '__main__':
