@@ -1,4 +1,8 @@
-import PORT
+import sys
+
+sys.path.append('D:/Git/DEVS-Python')
+
+import src.PORT
 
 class CONTENT(object):
     value = ""

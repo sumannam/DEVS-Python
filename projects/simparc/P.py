@@ -1,8 +1,10 @@
+import sys
 import math
-import importlib
 
-from ATOMIC_MODELS import ATOMIC_MODELS
-from CONTENT import CONTENT
+sys.path.append('D:/Git/DEVS-Python')
+
+from src.ATOMIC_MODELS import ATOMIC_MODELS
+from src.CONTENT import CONTENT
 
 class P(ATOMIC_MODELS):
     def __init__(self):

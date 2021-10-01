@@ -1,8 +1,11 @@
+import sys
 import math
 
-from MODELS import MODELS
-from PORT import PORT
-from CONTENT import CONTENT
+sys.path.append('D:/Git/DEVS-Python')
+
+from src.MODELS import MODELS
+from src.PORT import PORT
+from src.CONTENT import CONTENT
 
 class ATOMIC_MODELS(MODELS):
     def __init__(self, model_name):
