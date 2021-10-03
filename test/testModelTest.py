@@ -35,5 +35,13 @@ class Test_testModelTest(unittest.TestCase):
 
         assert send_result == "state s = (inf passive g1 10)"
 
+    def test_modeltest_p_inject(self):
+        self.p.sendInject("in", "g1", 5)
+        self.p.sendInject("in", "g2", 1)
+
+        send_result = self.p.getInjectResult("inject")
+
+        assert send_result == "state s = (10 busy g1 10)"
+
 if __name__ == '__main__':
     unittest.main()

@@ -8,6 +8,10 @@ from src.PORT import PORT
 from src.CONTENT import CONTENT
 
 class ATOMIC_MODELS(MODELS):
+    """! ATOMIC_MODELS class.
+    모델링 시 원자 모델들에서 사용할 수 있는 함수들 정의
+    """
+
     def __init__(self, model_name):
         MODELS.__init__(self, model_name)
     
@@ -26,8 +30,26 @@ class ATOMIC_MODELS(MODELS):
         self.state["phase"] = _phase
 
     def Continue(self, e):
-        if self.sigma != math.inf:
-            self.sigma = self.sigma - self.e
+        """! 
+        @fn         Continue
+        @brief      외부상태전이함수에서 원자 모델이 실행 중인데 입력이 들어왔을 때 현재 시그마를 계산하는 함수
+        @details    현재 시그마 = 이전 시그마 - 경과시간
+
+        @param e    elapsed_time(경과 시간)
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2021.05.09        
+
+        @remarks    이전 소스 'self.state["sigma"] = self.state["sigma"] - e'로 계산하였으나 "AttributeError: 'P' object has no attribute 'e'"가 발생하여 임시 변수로 계산로 전달[2021.10.03; 남수만]
+        
+        """
+        if self.state["sigma"] != math.inf:
+            elapsed_time = e
+            previous_sigma = self.state["sigma"]
+            current_sigma = previous_sigma - e
+
+            self.state["sigma"] = current_sigma
+            
     
     def passviate(self):
         self.state["sigma"] = math.inf
