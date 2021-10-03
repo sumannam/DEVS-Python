@@ -20,7 +20,6 @@ class P(ATOMIC_MODELS):
 
     def externalTransitionFunc(self, s, e, x):
         if x.port == "in":
-        #if x.port.__eq__("in"):
             if self.state["phase"] == "passive":
                 self.state["job-id"] = x.value
                 self.holdIn("busy", self.state["processing_time"])
