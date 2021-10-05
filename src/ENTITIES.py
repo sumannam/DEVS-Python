@@ -6,9 +6,6 @@ class ENTITIES:
 
     def getName( self ):
         return self.name
-
-    def printName( self ):
-        print( self.name )
-    
+   
     def getEntity( self ):
         return self
