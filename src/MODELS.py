@@ -10,6 +10,8 @@ class MODELS(ENTITIES):
         self.name = model_name
         self.inport_list = []
         self.outport_list = []
+
+        print(self.name)
     
     def addInPort(self, port_name):
         if port_name not in self.inport_list:
