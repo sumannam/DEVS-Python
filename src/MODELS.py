@@ -1,5 +1,9 @@
-from ENTITIES import ENTITIES
-from PORT import PORT
+import sys
+
+sys.path.append('D:/Git/DEVS-Python')
+
+from src.ENTITIES import ENTITIES
+from src.PORT import PORT
 
 class MODELS(ENTITIES):
     def __init__(self, model_name):
