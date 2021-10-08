@@ -5,16 +5,19 @@ sys.path.append('D:/Git/DEVS-Python')
 from src.ENTITIES import ENTITIES
 
 class PROCESSORS(ENTITIES):
-    def __init__(self, model_name):
-        self.name = model_name
-
+    def __init__(self):
         self.parent = None
-        devs_cmponent = None
-
-        print(self.name)
+        self.devs_cmponent = None
     
     def setParent(self, processor):
         self.praent = processor
     
     def getParent(self):
         return self.parent
+
+    def setDevsComponent(self, model):
+        self.devs_cmponent = model
+        print(self.devs_cmponent)
+
+    def getDevsComponent(self):
+        return self.devs_cmponent
