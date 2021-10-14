@@ -14,10 +14,6 @@ class EF_P(COUPLED_MODELS):
         p = P()
         
         self.addModel(p)
-        
-        
-
-        
 
 
 if __name__ == '__main__':
