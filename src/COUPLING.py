@@ -26,4 +26,21 @@ class COUPLING():
 
 
     def addCoupling(self, from_model, from_port, to_model, to_port):
+        """! 
+        @fn         addCoupling
+        @brief      모델의 커플링 정보 추가
+        @details    커플링의 관계는 다음과 같이 저장된다.
+ 			    	Key (Source) 		| Value (Destination) 
+ 		    		--------------------|---------------------
+ 	    			[P, out]     		| [EF, in]			  
+
+
+        @param from_model   소스 모델
+        @param from_port    소스 모델의 포트
+        @param to_model     목적지 모델
+        @param to_port      목적지 모델의 포트
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2021.10.15        
+        """
         self.coupling_map = ([from_model, from_port], [to_model, to_port])

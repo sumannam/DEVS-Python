@@ -10,8 +10,8 @@ class P(ATOMIC_MODELS):
     def __init__(self):
         ATOMIC_MODELS.__init__(self, self.__class__.__name__)
         
-        self.addInPort("in")
-        self.addOutPort( "out" )
+        self.in_port = self.addInPort("in")
+        self.out_port = self.addOutPort( "out" )
 
         self.state["sigma"]=math.inf
         self.state["phase"]="passive"
