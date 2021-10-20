@@ -94,7 +94,7 @@ class ATOMIC_MODELS(MODELS):
             print(send_result)
 
     def sendInject(self, port_name, value, time):
-        port = PORT(port_name)
+        #port = PORT(port_name)
         content = CONTENT()
         content.setContent(port_name, value)
 

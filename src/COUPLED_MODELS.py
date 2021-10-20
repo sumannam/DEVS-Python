@@ -34,6 +34,11 @@ class COUPLED_MODELS(MODELS):
     def existChildModel(self, child):
         if(child == None):
             return False
+        
+        if (child in self.child_list) == True:
+            return True
+        else:
+            return False
 
     def addCoupling(self, src_model, src_port, dst_model, dst_port):
         """! 
@@ -67,10 +72,10 @@ class COUPLED_MODELS(MODELS):
         if(self.existChildModel(src_model)==True and self.existChildModel(dst_model)==True):
             # (IC) Internal Coupling
             self.internal_coupling.addCoupling(src_model, src_port, dst_model, dst_port)
-        if(self.existChildModel(src_model)==True and self.existChildModel(dst_model)==False):
+        elif(self.existChildModel(src_model)==True and self.existChildModel(dst_model)==False):
             # (EOC) External Output Coupling
             self.external_output_coupling.addCoupling(src_model, src_port, dst_model, dst_port)
-        elif(self.existChildModel(src_model)==False and self.existChildModel(dst_model) == False):
+        elif(self.existChildModel(src_model)==False and self.existChildModel(dst_model)==True):
             # (EIC) External Input Coupling
             self.external_input_coupling.addCoupling(src_model, src_port, dst_model, dst_port)
         else:
