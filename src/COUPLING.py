@@ -34,7 +34,6 @@ class COUPLING():
  		    		--------------------|---------------------
  	    			[P, out]     		| [EF, in]			  
 
-
         @param from_model   소스 모델
         @param from_port    소스 모델의 포트
         @param to_model     목적지 모델

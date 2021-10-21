@@ -4,7 +4,7 @@ import math
 sys.path.append('D:/Git/DEVS-Python')
 
 from src.MODELS import MODELS
-from src.PORT import PORT
+from src.PORT import PORT 
 from src.CONTENT import CONTENT
 
 class ATOMIC_MODELS(MODELS):
@@ -25,9 +25,9 @@ class ATOMIC_MODELS(MODELS):
     def addState(self, key, value):
         self.state[key] = value
         
-    def holdIn(self, _phase, _sigma):
-        self.state["sigma"] = _sigma
-        self.state["phase"] = _phase
+    def holdIn(self, phase, sigma):
+        self.state["sigma"] = sigma
+        self.state["phase"] = phase
 
     def Continue(self, e):
         """! 
@@ -40,13 +40,14 @@ class ATOMIC_MODELS(MODELS):
         @author     남수만(sumannam@gmail.com)
         @date       2021.05.09        
 
-        @remarks    이전 소스 'self.state["sigma"] = self.state["sigma"] - e'로 계산하였으나 "AttributeError: 'P' object has no attribute 'e'"가 발생하여 임시 변수로 계산로 전달[2021.10.03; 남수만]
+        @remarks    sigma가 정수인지 실수 계산에 따라 결과 통일(정수일 때는 '.0'이하 제외)[2021.10.20; 남수만]
+                    이전 소스 'self.state["sigma"] = self.state["sigma"] - e'로 계산하였으나 "AttributeError: 'P' object has no attribute 'e'"가 발생하여 임시 변수로 계산로 전달[2021.10.03; 남수만]
         
         """
         if self.state["sigma"] != math.inf:
-            elapsed_time = e
-            previous_sigma = self.state["sigma"]
-            current_sigma = previous_sigma - e
+            self.elapsed_time = e
+            previous_sigma = self.decideNumberType(self.state["sigma"])
+            current_sigma = previous_sigma - self.elapsed_time
 
             self.state["sigma"] = current_sigma
             
@@ -66,7 +67,6 @@ class ATOMIC_MODELS(MODELS):
         pass
 
     def modelTest(self, model):
-    
         while True:
             param = [x for x in input(">>> ").split()]
             type = param[2]
@@ -74,7 +74,7 @@ class ATOMIC_MODELS(MODELS):
             if type == "inject":
                 port_name = param[3]
                 value = param[4]
-                elased_time = param[5]
+                elased_time = self.decideNumberType(param[5])
 
                 self.sendInject(port_name, value, elased_time)
                 send_result = self.getInjectResult(type)
@@ -93,8 +93,28 @@ class ATOMIC_MODELS(MODELS):
 
             print(send_result)
 
+    def decideNumberType(self, time):
+        """! 
+        @fn         decideNumberType
+        @brief      상태변수의 sigma가 정수인지 실수인지 결정
+                    (sigma가 정수와 실수의 입력을 모두 허용할 경우 출력의 일관성이 없음)
+        @details    실수 값에서 정수 값을 빼서 0이면 정수, 0이 아니면 실수
+
+        @param time    sigma
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2021.10.21
+        """
+        float_time = float(time)
+        
+        if float_time - int(float_time) == 0:
+            return int(time)
+        elif float_time - int(float_time) != 0:
+            return float(time)
+        else:
+            return False
+
     def sendInject(self, port_name, value, time):
-        #port = PORT(port_name)
         content = CONTENT()
         content.setContent(port_name, value)
 
@@ -114,7 +134,6 @@ class ATOMIC_MODELS(MODELS):
         if type == "inject":
             result = "state s = (" + state_str + ")"
 
-        #print(result)
         return result
         
     def getOutputResult(self, content):
