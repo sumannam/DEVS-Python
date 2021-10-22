@@ -24,7 +24,7 @@ class MODELS(ENTITIES):
     
     def addInPort(self, port_name):
         """! 
-        @fn         addOutPort
+        @fn         addInPort
         @brief      모델의 입력 port 정의
         @details    port 이름으로 port 추가
 
@@ -36,6 +36,21 @@ class MODELS(ENTITIES):
         if port_name not in self.inport_list:
             self.inport_list.append(port_name)
 
+    def addInPorts(self, *ports):
+        """! 
+        @fn         addInPorts
+        @brief      모델의 다수 입력 port 정의
+        @details    여러 개 port 이름으로 port 추가
+
+        @param *ports    다수 port 이름
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2021.10.23      
+        """
+        for port_name in ports:
+            if port_name not in self.inport_list:
+                self.inport_list.append(port_name)
+    
     def addOutPort(self, port_name):
         """! 
         @fn         addOutPort
@@ -49,6 +64,21 @@ class MODELS(ENTITIES):
         """
         if port_name not in self.outport_list:
             self.outport_list.append(port_name)
+    
+    def addOutPorts(self, *ports):
+        """! 
+        @fn         addOutPorts
+        @brief      모델의 다수 출력 port 정의
+        @details    여러 개 port 이름으로 port 추가
+
+        @param *ports    다수 port 이름
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2021.10.23      
+        """
+        for port_name in ports:
+            if port_name not in self.outport_list:
+                self.outport_list.append(port_name)
 
     def getInports(self):
         return self.inport_list

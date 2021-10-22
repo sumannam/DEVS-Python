@@ -50,7 +50,6 @@ class ATOMIC_MODELS(MODELS):
             current_sigma = previous_sigma - self.elapsed_time
 
             self.state["sigma"] = current_sigma
-            
     
     def passviate(self):
         self.state["sigma"] = math.inf
