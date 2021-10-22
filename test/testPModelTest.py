@@ -6,7 +6,7 @@ sys.path.append('D:/Git/DEVS-Python')
 from projects.simparc.P import P
 from src.CONTENT import CONTENT
 
-class Test_testModelTest(unittest.TestCase):
+class Test_testPModelTest(unittest.TestCase):
     def setUp(self):
         self.p = P()
 
