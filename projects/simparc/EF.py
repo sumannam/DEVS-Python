@@ -8,24 +8,20 @@ sys.path.append('D:/Git/DEVS-Python/projects/simparc')
 
 from src.COUPLED_MODELS import COUPLED_MODELS
 
-from P import P
-from EF import EF
 
-#define __DEBUG
-
-class EF_P(COUPLED_MODELS):
+class EF(COUPLED_MODELS):
     def __init__(self):
         COUPLED_MODELS.__init__(self, self.__class__.__name__)
-        self.addInPort("in")        
+        #self.addInPort("in")        
 
-        p = P()
-        ef = EF()
+        #p = P()
+        #ifdef DEBUG
+        #print(self.getInports())
+        #print(p.getInports())
+        #endif
         
-        self.addModel(p)
-        self.addModel(ef)
-
-        self.addCoupling(ef, "out", p, "in")
-        self.addCoupling(p, "out", ef, "in")
+        #self.addModel(p)
+        #self.addCoupling(self, "in", p, "in")
 
 
 if __name__ == '__main__':

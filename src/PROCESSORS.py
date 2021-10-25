@@ -17,7 +17,7 @@ class PROCESSORS(ENTITIES):
 
     def setDevsComponent(self, model):
         self.devs_cmponent = model
-        print(self.devs_cmponent)
+        #print(self.devs_cmponent)
 
     def getDevsComponent(self):
         return self.devs_cmponent

@@ -41,5 +41,7 @@ class COUPLING():
 
         @author     남수만(sumannam@gmail.com)
         @date       2021.10.15        
+
+        @todo       map를 dictionary로 변경하고 key 중복 허용(https://kangprog.tistory.com/27) [남수만;2021.10.25]
         """
         self.coupling_map = ([from_model, from_port], [to_model, to_port])

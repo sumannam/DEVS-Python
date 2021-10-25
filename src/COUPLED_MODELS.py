@@ -8,8 +8,6 @@ from src.COUPLING import COUPLING
 # from pypreprocessor import pypreprocessor
 # pypreprocessor.parse()
 
-#define DEBUG
-
 
 class COUPLED_MODELS(MODELS):
     def __init__(self, model_name):
@@ -30,6 +28,9 @@ class COUPLED_MODELS(MODELS):
         self.child_list.append(child)
         child.setParent(self)
         child.getProcessor().setParent(self.getProcessor())
+
+    def getModels(self):
+        return self.child_list
 
     def existChildModel(self, child):
         if(child == None):
@@ -81,3 +82,6 @@ class COUPLED_MODELS(MODELS):
         else:
             print("ERROR: Coupling Addition")
             return False
+
+    def getInternalCoupling(self):
+        return self.internal_coupling
