@@ -7,6 +7,17 @@ class COUPLING_INFO():
         self.to_model = dst_model
         self.to_port = dst_port
 
+class COUP_MODEL():
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return "'"+self.name+"'"
+
+
 class COUPLING():
     def __init__(self):
         """! 
@@ -19,10 +30,12 @@ class COUPLING():
         @author     남수만(sumannam@gmail.com)
         @date       2021.10.14
        
+        @remark     모델 인스턴스로 map의 key로 설정하기 어려워 문자열로 변환하여 딕셔널리(coupling_dic)에 저장 [2021.10.26; 남수만]
         """
         self.this_model = None
-        self.coupling_map = defaultdict(list)
-        self.coupling_map_pair = [self.coupling_map, self.coupling_map]
+        self.coupling_dic = {}
+        # self.coupling_map = defaultdict(list)
+        # self.coupling_map_pair = [self.coupling_map, self.coupling_map]
 
 
     def addCoupling(self, from_model, from_port, to_model, to_port):
@@ -42,6 +55,12 @@ class COUPLING():
         @author     남수만(sumannam@gmail.com)
         @date       2021.10.15        
 
-        @todo       map를 dictionary로 변경하고 key 중복 허용(https://kangprog.tistory.com/27) [남수만;2021.10.25]
+        @remark     모델의 인스턴스로 바로 저장하고 사용하기가 어려워 커플링 정보를 문자열로 변경하여 저장 [남수만;2021.10.26]
+
+        @todo       [취소] map를 dictionary로 변경하고 key 중복 허용(https://kangprog.tistory.com/27) [남수만;2021.10.25]
         """
-        self.coupling_map = ([from_model, from_port], [to_model, to_port])
+        src_key = from_model.__class__.__name__ + "." + from_port
+        dst_value = to_model.__class__.__name__ + "." + to_port
+        self.coupling_dic[src_key] = dst_value
+        #self.coupling_map[from_model, from_port].append(model_list)
+        # self.coupling_map = ([from_model, from_port], [to_model, to_port])

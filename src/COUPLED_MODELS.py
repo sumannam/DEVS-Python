@@ -59,6 +59,8 @@ class COUPLED_MODELS(MODELS):
 
         @author     남수만(sumannam@gmail.com)
         @date       2021.10.15        
+
+        @todo       추가된 port로 입력이 되었는지 검증 필요 [남수만;2021.10.26]
         """
         if(src_model == dst_model):
             print("Source Model and Destination Model of Addcoupling are the same.")
