@@ -6,17 +6,17 @@ sys.path.append('D:/Git/DEVS-Python')
 from projects.simparc.P import P
 from src.CONTENT import CONTENT
 
-class Test_testPModelTest(unittest.TestCase):
+class testPModelTest(unittest.TestCase):
     def setUp(self):
         self.p = P()
 
     def test_modeltest_p_inject(self):
         """! 
         @fn         test_modeltest_p_inject
-        @brief      P 모델 External Transition Function �스
+        @brief      P 모델 External Transition Function 실행
         @details    >>> send p inject in g1 5
 
-        @author     �수�sumannam@gmail.com)
+        @author     남수만(sumannam@gmail.com)
         @date       2021.10.21
         """
         self.p.sendInject("in", "g1", 5)
@@ -27,11 +27,11 @@ class Test_testPModelTest(unittest.TestCase):
     def test_modeltest_p_output(self):
         """! 
         @fn         test_modeltest_p_output
-        @brief      P 모델 Output Function �스
+        @brief      P 모델 Output Function 실행
         @details    >>> send p inject in g1 5
                     >>> send p output?
 
-        @author     �수�sumannam@gmail.com)
+        @author     남수만(sumannam@gmail.com)
         @date       2021.10.21
         """
         self.p.sendInject("in", "g1", 5)
@@ -45,12 +45,12 @@ class Test_testPModelTest(unittest.TestCase):
     def test_modeltest_p_inttransition(self):
         """! 
         @fn         test_modeltest_p_output
-        @brief      P 모델 Internal Transition Function �스
+        @brief      P 모델 Internal Transition Function 실행
         @details    >>> send p inject in g1 5
                     >>> send p output?
                     >>> send p int-transition
 
-        @author     �수�sumannam@gmail.com)
+        @author     남수만(sumannam@gmail.com)
         @date       2021.10.21
         """
         self.p.sendInject("in", "g1", 5)
@@ -64,11 +64,11 @@ class Test_testPModelTest(unittest.TestCase):
     def test_modeltest_p_inject(self):
         """! 
         @fn         test_modeltest_p_output
-        @brief      P 모델 External Transition Function �스
+        @brief      P 모델 External Transition Function 실행
         @details    >>> send p inject in g1 5
                     >>> send p inject in g2 1
 
-        @author     �수�sumannam@gmail.com)
+        @author     �수�sumannam@gmail.com)
         @date       2021.10.21
         """
         self.p.sendInject("in", "g1", 5)
@@ -77,6 +77,3 @@ class Test_testPModelTest(unittest.TestCase):
         send_result = self.p.getInjectResult("inject")
 
         assert send_result == "state s = (9 busy g1 10)"
-
-if __name__ == '__main__':
-    unittest.main()

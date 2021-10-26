@@ -6,7 +6,7 @@ sys.path.append('D:/Git/DEVS-Python')
 from projects.simparc.EF_P import EF_P
 from src.CONTENT import CONTENT
 
-class Test_tesPModelTest(unittest.TestCase):
+class testEF_PModel(unittest.TestCase):
     def setUp(self):
         self.ef_p = EF_P()
     
@@ -21,10 +21,4 @@ class Test_tesPModelTest(unittest.TestCase):
     
     def testAddInteralCoupling(self):
         coupling_list = self.ef_p.getInternalCoupling()
-        
-        for coupling in coupling_list:
-            print(coupling)
-
-
-if __name__ == '__main__':
-    unittest.main()
+        assert coupling_list.coupling_dic == {'EF.out': 'P.in', 'P.out': 'EF.in'}
