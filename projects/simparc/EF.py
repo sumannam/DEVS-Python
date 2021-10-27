@@ -14,16 +14,9 @@ class EF(COUPLED_MODELS):
         COUPLED_MODELS.__init__(self, self.__class__.__name__)
 
         self.addInPorts("in")
-        self.addOutPorts("out")
+        self.addOutPorts("out", "result")
 
-        #p = P()
-        #ifdef DEBUG
-        #print(self.getInports())
-        #print(p.getInports())
-        #endif
-        
-        #self.addModel(p)
-        #self.addCoupling(self, "in", p, "in")
+        #self.addCoupling
 
 
 if __name__ == '__main__':
