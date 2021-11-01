@@ -17,7 +17,3 @@ class EF(COUPLED_MODELS):
         self.addOutPorts("out", "result")
 
         #self.addCoupling
-
-
-if __name__ == '__main__':
-    ef = EF()

@@ -87,3 +87,8 @@ class COUPLED_MODELS(MODELS):
 
     def getInternalCoupling(self):
         return self.internal_coupling
+
+    def initialize(self):
+        processor = self.getProcessor()
+        parent = processor.getParent()
+        parent.initialize()

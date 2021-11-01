@@ -39,12 +39,3 @@ class GENR(ATOMIC_MODELS):
             self.count+=1
             content.setContent("active", job_id)
             return content
-
-
-if __name__ == '__main__':
-    module_name = input()
-    module = __import__(module_name)
-    _class = getattr(module, module_name)
-
-    instance = _class()
-    instance.modelTest(instance)

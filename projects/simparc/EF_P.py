@@ -26,7 +26,3 @@ class EF_P(COUPLED_MODELS):
 
         self.addCoupling(ef, "out", p, "in")
         self.addCoupling(p, "out", ef, "in")
-
-
-if __name__ == '__main__':
-    ef_p = EF_P()
