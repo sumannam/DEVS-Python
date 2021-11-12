@@ -10,9 +10,9 @@ from src.COUPLING import COUPLING
 
 
 class COUPLED_MODELS(MODELS):
-    def __init__(self, model_name):
+    def __init__(self):
+        MODELS.__init__(self)
         self.child_list = []
-        MODELS.__init__(self, model_name)
         # PROCESSORS.__init__(self, model_name)
 
         self.processor = CO_ORDINATORS()
@@ -24,10 +24,15 @@ class COUPLED_MODELS(MODELS):
         self.external_input_coupling = COUPLING()
         self.internal_coupling = COUPLING()
 
+    def setName(self, name):
+        self.processor.setName(name)
+        super().setName(name)
+
     def addModel(self, child):
         self.child_list.append(child)
         child.setParent(self)
         child.getProcessor().setParent(self.getProcessor())
+        self.processor.addChild(child.getProcessor())
 
     def getModels(self):
         return self.child_list

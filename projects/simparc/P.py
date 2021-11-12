@@ -9,7 +9,8 @@ from src.PORT import PORT
 
 class P(ATOMIC_MODELS):
     def __init__(self):
-        ATOMIC_MODELS.__init__(self, self.__class__.__name__)
+        ATOMIC_MODELS.__init__(self)
+        self.setName(self.__class__.__name__)
         
         self.addInPorts("in")
         self.addOutPorts("out")

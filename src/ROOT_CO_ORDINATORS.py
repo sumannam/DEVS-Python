@@ -7,6 +7,7 @@ from src.PROCESSORS import PROCESSORS
 
 class ROOT_CO_ORDINATORS(PROCESSORS):
     def __init__(self):
+        PROCESSORS.__init__(self)
         self.name=""
         self.clock_base=0
         self.child = PROCESSORS()

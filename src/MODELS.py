@@ -7,14 +7,14 @@ from src.PROCESSORS import PROCESSORS
 from src.PORT import PORT
 
 class MODELS(ENTITIES):
-    def __init__(self, model_name):
-        self.name = model_name
-
+    def __init__(self):
         self.processor = PROCESSORS()
         self.parent = None;
 
         self.inport_list = []
         self.outport_list = []
+    
+    #def setName(self, name):
 
     def setProcessor(self, processor):
         self.processor = processor

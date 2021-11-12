@@ -12,7 +12,7 @@ class PROCESSORS(ENTITIES):
 
         self.tL = 0
         self.tN = math.inf
-    
+
     def setParent(self, processor):
         self.praent = processor
     
@@ -35,3 +35,6 @@ class PROCESSORS(ENTITIES):
     
     def getTimeOfLastEvent(self):
         return self.tL
+    
+    def setName(self, name):
+        self.name = name

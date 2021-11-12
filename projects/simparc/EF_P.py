@@ -15,7 +15,9 @@ from EF import EF
 
 class EF_P(COUPLED_MODELS):
     def __init__(self):
-        COUPLED_MODELS.__init__(self, self.__class__.__name__)
+        COUPLED_MODELS.__init__(self)
+        self.setName(self.__class__.__name__)
+
         self.addInPorts("in", "in1")
 
         p = P()
