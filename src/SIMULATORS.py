@@ -14,5 +14,5 @@ class SIMULATORS(PROCESSORS):
         self.parent.setChild(self)
 
     def initialize(self):
-        PROCESSORS.initialize()
+        super().initialize()
         self.tN=self.devs_cmponent.timeAdvancedFunc()

@@ -14,7 +14,7 @@ class CO_ORDINATORS(PROCESSORS):
         self.processor_list = []
         self.processor_time = {}
 
-        self.devs_cmponent = None
+        self.devs_component = None
 
     def addChild(self, processor):
         self.processor_list.append(processor)
@@ -25,5 +25,9 @@ class CO_ORDINATORS(PROCESSORS):
             time = processor.getTimeOfNextEvent()
             processor_name = processor.getName()
             self.processor_time[processor_name]=time
+        
+        self.setTimeOfNextEvent()
 
-
+    def setTimeOfNextEvent(self):
+        time_min = min(self.processor_time.values())
+        self.tN = time_min
