@@ -20,11 +20,11 @@ class EF_P(COUPLED_MODELS):
 
         self.addInPorts("in", "in1")
 
-        p = P()
         ef = EF()
+        p = P()        
         
-        self.addModel(p)
         self.addModel(ef)
+        self.addModel(p)
 
         self.addCoupling(ef, "out", p, "in")
         self.addCoupling(p, "out", ef, "in")
