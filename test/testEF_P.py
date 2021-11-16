@@ -4,9 +4,8 @@ import unittest
 sys.path.append('D:/Git/DEVS-Python')
 
 from projects.simparc.EF_P import EF_P
-from src.CONTENT import CONTENT
 
-class Test_tesPModelTest(unittest.TestCase):
+class testEF_P(unittest.TestCase):
     def setUp(self):
         self.ef_p = EF_P()
     
@@ -17,12 +16,8 @@ class Test_tesPModelTest(unittest.TestCase):
         for model in class_list:
             model_list.append(model.__class__.__name__)
 
-        assert model_list == ['P', 'EF']
+        assert model_list == ['EF', 'P']
     
     def testAddInteralCoupling(self):
         coupling_list = self.ef_p.getInternalCoupling()
         assert coupling_list.coupling_dic == {'EF.out': 'P.in', 'P.out': 'EF.in'}
-        
-
-if __name__ == '__main__':
-    unittest.main()

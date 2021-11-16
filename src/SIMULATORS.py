@@ -14,5 +14,13 @@ class SIMULATORS(PROCESSORS):
         self.parent.setChild(self)
 
     def initialize(self):
+        """! 
+        @fn         initialize
+        @brief      원자 모델의 sigma 시간 얻기
+        @details    시간 진행 함수를 통해 원자 모델 sigma 값 접근
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2021.11.16
+        """
         super().initialize()
         self.tN=self.devs_cmponent.timeAdvancedFunc()

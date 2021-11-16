@@ -97,3 +97,9 @@ class COUPLED_MODELS(MODELS):
         processor = self.getProcessor()
         parent = processor.getParent()
         parent.initialize()
+
+    def getClockBase(self):
+        processor = self.getProcessor()
+        parent = processor.getParent()
+        return parent.getClockBase()
+

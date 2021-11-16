@@ -14,12 +14,28 @@ class MODELS(ENTITIES):
         self.inport_list = []
         self.outport_list = []
     
-    #def setName(self, name):
-
     def setProcessor(self, processor):
+        """! 
+        @fn         setProcessor()
+        @brief      부모 프로세서 주소 설정
+        @details    시뮬레이션 과정에서 부모 프로세스 접근 시 사용
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2021.11.16
+        """
         self.processor = processor
 
     def getProcessor(self):
+        """! 
+        @fn         getProcessor()
+        @brief      프로세서 주소 전달
+        @details    시뮬레이션 과정에서 부모 프로세스 접근 시 사용
+
+        @return     프로세스 전환
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2021.11.16
+        """
         return self.processor
     
     def addInPort(self, port_name):
