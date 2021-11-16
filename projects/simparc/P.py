@@ -5,14 +5,15 @@ sys.path.append('D:/Git/DEVS-Python')
 
 from src.ATOMIC_MODELS import ATOMIC_MODELS
 from src.CONTENT import CONTENT
+from src.PORT import PORT
 
 class P(ATOMIC_MODELS):
     def __init__(self):
         ATOMIC_MODELS.__init__(self, self.__class__.__name__)
         
-        self.addInPort("in")
-        self.addOutPort( "out" )
-
+        self.addInPorts("in")
+        self.addOutPorts("out")
+        
         self.state["sigma"]=math.inf
         self.state["phase"]="passive"
         self.addState("job-id", "")
