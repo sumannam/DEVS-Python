@@ -1,9 +1,13 @@
 import sys
+import math
 
 sys.path.append('D:/Git/DEVS-Python')
 
 # from src.CO_ORDINATORS import CO_ORDINATORS
 from src.PROCESSORS import PROCESSORS
+from src.MESSAGE import MESSAGE
+
+import src.util
 
 class ROOT_CO_ORDINATORS(PROCESSORS):
     def __init__(self):
@@ -54,3 +58,14 @@ class ROOT_CO_ORDINATORS(PROCESSORS):
         
         self.child.initialize()
         self.clock_base = self.child.getTimeOfNextEvent()
+    
+    def restart(self):
+        while( self.clock_base >= 0 and self.clock_base < src.util.INFINITY):
+            print(MESSAGE.Type.STAR)
+            star_msg = MESSAGE(MESSAGE.Type.STAR, self.clock_base)
+            self.child.whenReceiveStar(star_msg)
+
+
+
+            if( self.clock_Base == src.util.INFINITY):
+                break;

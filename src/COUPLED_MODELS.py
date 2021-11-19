@@ -98,8 +98,25 @@ class COUPLED_MODELS(MODELS):
         parent = processor.getParent()
         parent.initialize()
 
+    # def 
+
     def getClockBase(self):
+        """! 
+        @fn         getClockBase()
+        @brief      Root-Coodinator로부터 clock_base 시간 얻기
+        @details    testROOT_CO_ORDINATORS.py에서 testInitialize()를 위해 사용
+
+        @return     시뮬레이션 초기 시간
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2021.11.16
+        """
         processor = self.getProcessor()
         parent = processor.getParent()
         return parent.getClockBase()
+
+    def restart(self):
+        processor = self.getProcessor()
+        parent = processor.getParent()
+        parent.restart()
 
