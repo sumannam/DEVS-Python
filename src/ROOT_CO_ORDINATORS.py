@@ -61,11 +61,15 @@ class ROOT_CO_ORDINATORS(PROCESSORS):
     
     def restart(self):
         while( self.clock_base >= 0 and self.clock_base < src.util.INFINITY):
-            print(MESSAGE.Type.STAR)
-            star_msg = MESSAGE(MESSAGE.Type.STAR, self.clock_base)
+            # print(MSG_TYPE.STAR.name)
+            print(MESSAGE.STAR)
+            print(self.clock_base)
+            star_msg = MESSAGE()
+            star_msg.setStar(MESSAGE.STAR, self.clock_base)
+
+### 오류 발생
+
             self.child.whenReceiveStar(star_msg)
-
-
 
             if( self.clock_Base == src.util.INFINITY):
                 break;

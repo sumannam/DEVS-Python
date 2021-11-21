@@ -7,11 +7,11 @@ from src.ENTITIES import ENTITIES
 
 class PROCESSORS(ENTITIES):
     def __init__(self):
-        self.parent = None
+        self.parent = None # 자신의 상위 모델 클래스를 가리키는 포인터
         self.devs_cmponent = None
 
-        self.tL = 0
-        self.tN = math.inf
+        self.tL = 0 # 최근 발생한 이벤트 시간
+        self.tN = math.inf # 다음 이벤트 발생 시간
 
     def setParent(self, processor):
         """! 
