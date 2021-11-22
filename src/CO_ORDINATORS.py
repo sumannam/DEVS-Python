@@ -59,5 +59,6 @@ class CO_ORDINATORS(PROCESSORS):
         time_min = min(self.processor_time.values())
         self.tN = time_min
     
-    def whenReceiveStar(input_message):
-        pass
+    # overriding abstract method
+    def whenReceiveStar(self, input_message):
+        print(__class__.__name__)

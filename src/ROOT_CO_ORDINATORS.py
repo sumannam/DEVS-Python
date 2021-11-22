@@ -67,8 +67,6 @@ class ROOT_CO_ORDINATORS(PROCESSORS):
             star_msg = MESSAGE()
             star_msg.setStar(MESSAGE.STAR, self.clock_base)
 
-### 오류 발생
-
             self.child.whenReceiveStar(star_msg)
 
             if( self.clock_Base == src.util.INFINITY):

@@ -1,3 +1,4 @@
+from abc import abstractmethod
 import sys
 import math
 
@@ -6,6 +7,7 @@ sys.path.append('D:/Git/DEVS-Python')
 from src.ENTITIES import ENTITIES
 
 class PROCESSORS(ENTITIES):
+
     def __init__(self):
         self.parent = None # 자신의 상위 모델 클래스를 가리키는 포인터
         self.devs_cmponent = None
@@ -108,3 +110,8 @@ class PROCESSORS(ENTITIES):
         @date       2021.11.16
         """
         self.name = name
+
+    @abstractmethod
+    def whenReceiveStar(self, input_message):
+        print(__class__.__name__)
+        
