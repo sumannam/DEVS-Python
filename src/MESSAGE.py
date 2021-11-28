@@ -15,4 +15,12 @@ class MESSAGE():
     def setStar(self, type, time):
         self.type = type
         self.time = time
+    
+    def setStar(self, type, model, time):
+        self.time = type
+        self.model = model
+        self.time = time
+    
+    def getTime(self):
+        return self.time
 

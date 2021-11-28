@@ -18,6 +18,7 @@ class COUPLED_MODELS(MODELS):
         self.processor = CO_ORDINATORS()
         self.setProcessor(self.processor)
         self.processor.setDevsComponent(self)
+        self.priority_list = []
 
         # 커플링 정보 설정
         self.external_output_coupling = COUPLING()
@@ -93,12 +94,13 @@ class COUPLED_MODELS(MODELS):
     def getInternalCoupling(self):
         return self.internal_coupling
 
+    def getPriorityList(self):
+        return self.priority_list
+
     def initialize(self):
         processor = self.getProcessor()
         parent = processor.getParent()
         parent.initialize()
-
-    # def 
 
     def getClockBase(self):
         """! 

@@ -10,7 +10,7 @@ class PROCESSORS(ENTITIES):
 
     def __init__(self):
         self.parent = None # 자신의 상위 모델 클래스를 가리키는 포인터
-        self.devs_cmponent = None
+        self.devs_component = None
 
         self.tL = 0 # 최근 발생한 이벤트 시간
         self.tN = math.inf # 다음 이벤트 발생 시간
@@ -50,7 +50,7 @@ class PROCESSORS(ENTITIES):
         @author     남수만(sumannam@gmail.com)
         @date       2021.11.16
         """
-        self.devs_cmponent = model
+        self.devs_component = model
 
     def getDevsComponent(self):
         """! 
@@ -63,7 +63,7 @@ class PROCESSORS(ENTITIES):
         @author     남수만(sumannam@gmail.com)
         @date       2021.11.16
         """
-        return self.devs_cmponent
+        return self.devs_component
     
     def initialize(self):
         """! 

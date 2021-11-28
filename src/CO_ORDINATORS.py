@@ -1,4 +1,6 @@
 import sys
+from COUPLED_MODELS import COUPLED_MODELS
+from MESSAGE import MESSAGE
 
 sys.path.append('D:/Git/DEVS-Python')
 
@@ -15,6 +17,8 @@ class CO_ORDINATORS(PROCESSORS):
         self.processor_time = {}
 
         self.devs_component = None
+        self.star_child = []
+        self.wait_list = []
 
     def addChild(self, processor):
         """! 
@@ -61,4 +65,17 @@ class CO_ORDINATORS(PROCESSORS):
     
     # overriding abstract method
     def whenReceiveStar(self, input_message):
-        print(__class__.__name__)
+        msg_time = input_message.getTime()
+
+        if( msg_time.getTime() == self.tN ):
+            self.tL = msg_time
+            output = MESSAGE()
+            output.setStar(MESSAGE.STAR, self.devs_component)
+    
+    #### self.devs_component.getPriorityList() 개발 중
+    def setStarChild(self):
+        self.star_child.clear()
+        coupled_model = COUPLED_MODELS()
+        coupled_model = self.devs_component
+        
+        priority_list = self.devs_component
