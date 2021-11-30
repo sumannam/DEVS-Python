@@ -30,10 +30,18 @@ class COUPLED_MODELS(MODELS):
         super().setName(name)
 
     def addModel(self, child):
+        """! 
+        @fn         addModel
+        @brief      자식 모델 추가
+        @details    추가 순서대로 우선순위 결정
+ 			    	
+        """
         self.child_list.append(child)
         child.setParent(self)
         child.getProcessor().setParent(self.getProcessor())
         self.processor.addChild(child.getProcessor())
+        self.priority_list.append(child)
+
 
     def getModels(self):
         return self.child_list

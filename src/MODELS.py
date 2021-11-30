@@ -164,3 +164,6 @@ class MODELS(ENTITIES):
         @date       2021.10.08      
         """
         return self.parent
+
+    def getPriorityList(slef):
+        print("priority_list")

@@ -1,6 +1,9 @@
 import sys
+
 sys.path.append('D:/Git/DEVS-Python')
 
+
+from src.MODELS import MODELS
 from src.PROCESSORS import PROCESSORS
 from src.MESSAGE import MESSAGE
 from src.ROOT_CO_ORDINATORS import ROOT_CO_ORDINATORS
@@ -70,12 +73,31 @@ class CO_ORDINATORS(PROCESSORS):
             self.tL = msg_time
             output = MESSAGE()
             output.setStar(MESSAGE.STAR, self.devs_component, msg_time)
+
+            self.setStarChild()
+
+            ## ToDo: 자식 코디네이터 또는 시뮬레이터 호출 부분 추가
+
+            self.star_child.clear()
     
     #### self.devs_component.getPriorityList() 개발 중
     def setStarChild(self):
         self.star_child.clear()
-        coupled_model = COUPLED_MODELS()
-        coupled_model = self.devs_component
-        # print(self.devs_component.__getattribute__)
+        priority_list = self.devs_component.priority_list
+        count = self.countSameTimeInChildren(self.tN)    
+
+        if len(priority_list) == 0 or count == 1:
+            for key in self.processor_time.keys():
+                if self.processor_time[key] == self.tN:
+                    self.star_child.append(key)
+        ## TODO: 다중 조건문 추가 필요
         
-        priority_list = self.devs_component
+        
+    
+    def countSameTimeInChildren(self, time):
+        count = 0
+        for value in self.processor_time.values():
+            if value == time:
+                count=count+1
+
+        return count
