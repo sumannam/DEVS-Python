@@ -1,11 +1,10 @@
 import sys
-from COUPLED_MODELS import COUPLED_MODELS
-from MESSAGE import MESSAGE
-
 sys.path.append('D:/Git/DEVS-Python')
 
 from src.PROCESSORS import PROCESSORS
+from src.MESSAGE import MESSAGE
 from src.ROOT_CO_ORDINATORS import ROOT_CO_ORDINATORS
+# from src.COUPLED_MODELS import COUPLED_MODELS
 
 class CO_ORDINATORS(PROCESSORS):
     def __init__(self):
@@ -67,15 +66,16 @@ class CO_ORDINATORS(PROCESSORS):
     def whenReceiveStar(self, input_message):
         msg_time = input_message.getTime()
 
-        if( msg_time.getTime() == self.tN ):
+        if( msg_time == self.tN ):
             self.tL = msg_time
             output = MESSAGE()
-            output.setStar(MESSAGE.STAR, self.devs_component)
+            output.setStar(MESSAGE.STAR, self.devs_component, msg_time)
     
     #### self.devs_component.getPriorityList() 개발 중
     def setStarChild(self):
         self.star_child.clear()
         coupled_model = COUPLED_MODELS()
         coupled_model = self.devs_component
+        # print(self.devs_component.__getattribute__)
         
         priority_list = self.devs_component

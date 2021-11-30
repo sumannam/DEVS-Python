@@ -65,9 +65,9 @@ class ROOT_CO_ORDINATORS(PROCESSORS):
             print(MESSAGE.STAR)
             print(self.clock_base)
             star_msg = MESSAGE()
-            star_msg.setStar(MESSAGE.STAR, self.clock_base)
+            star_msg.setRootStar(MESSAGE.STAR, self.clock_base)
 
             self.child.whenReceiveStar(star_msg)
 
-            if( self.clock_Base == src.util.INFINITY):
+            if( self.clock_base == src.util.INFINITY):
                 break;

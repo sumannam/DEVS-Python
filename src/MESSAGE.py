@@ -1,8 +1,7 @@
 import sys
-
 sys.path.append('D:/Git/DEVS-Python')
 
-from src.CONTENT import CONTENT
+# from src.CONTENT import CONTENT
 
 class MESSAGE():
     STAR = '*'
@@ -12,15 +11,14 @@ class MESSAGE():
         self.source = None
         self.time = -1
     
-    def setStar(self, type, time):
+    def setRootStar(self, type, time):
         self.type = type
         self.time = time
     
     def setStar(self, type, model, time):
-        self.time = type
+        self.type = type
         self.model = model
         self.time = time
     
     def getTime(self):
         return self.time
-

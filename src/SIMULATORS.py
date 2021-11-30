@@ -23,4 +23,4 @@ class SIMULATORS(PROCESSORS):
         @date       2021.11.16
         """
         super().initialize()
-        self.tN=self.devs_cmponent.timeAdvancedFunc()
+        self.tN=self.devs_component.timeAdvancedFunc()
