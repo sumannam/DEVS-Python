@@ -24,3 +24,7 @@ class SIMULATORS(PROCESSORS):
         """
         super().initialize()
         self.tN=self.devs_component.timeAdvancedFunc()
+
+    # overriding abstract method
+    def whenReceiveStar(self, input_message):
+        print("CLASS: SIMULATORS")

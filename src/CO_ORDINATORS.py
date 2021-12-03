@@ -1,7 +1,7 @@
 import sys
+#from abc import abstractmethod
 
 sys.path.append('D:/Git/DEVS-Python')
-
 
 from src.MODELS import MODELS
 from src.PROCESSORS import PROCESSORS
@@ -41,15 +41,16 @@ class CO_ORDINATORS(PROCESSORS):
         @brief      모든 Coordiantor와 Simulator을 접근하여 최소 시간 탐색
         @details    결합 모델일 경우 CO_ORDINATORS.initialize() 호출
                     원자 모델일 경우 SIMULATORS.initialize() 호출
-
+		
+		@remarks	whenReceiveStar에서 자식들에게 바로 접근하기 위해 모델 문자에서 인스턴스로 변경 'self.processor_time[processor_name]=time' -> 'self.processor_time[processor]=time' [21.12.04; 남수만]
         @author     남수만(sumannam@gmail.com)
         @date       2021.11.16
         """
         for processor in self.processor_list:
             processor.initialize()
             time = processor.getTimeOfNextEvent()
-            processor_name = processor.getName()
-            self.processor_time[processor_name]=time
+            # processor_name = processor.getName()
+            self.processor_time[processor]=time
         
         self.setTimeOfNextEvent()
 
@@ -76,7 +77,14 @@ class CO_ORDINATORS(PROCESSORS):
 
             self.setStarChild()
 
-            ## ToDo: 자식 코디네이터 또는 시뮬레이터 호출 부분 추가
+            ### DEBUG ###
+            model_name = self.getName()
+            if model_name == "EF":
+                print(model_name)
+
+            for child in self.star_child:
+                self.wait_list.append(child)
+                child.whenReceiveStar(output)
 
             self.star_child.clear()
     

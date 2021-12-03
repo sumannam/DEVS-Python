@@ -1,6 +1,6 @@
-from abc import abstractmethod
 import sys
 import math
+from abc import abstractmethod
 
 sys.path.append('D:/Git/DEVS-Python')
 
@@ -110,6 +110,9 @@ class PROCESSORS(ENTITIES):
         @date       2021.11.16
         """
         self.name = name
+    
+    def getName(self):
+        return self.name
 
     @abstractmethod
     def whenReceiveStar(self, input_message):
