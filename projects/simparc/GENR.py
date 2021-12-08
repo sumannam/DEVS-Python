@@ -24,18 +24,18 @@ class GENR(ATOMIC_MODELS):
 
         self.count = 1;
 
-    def externalTransitionFunc(self, s, e, x):
+    def externalTransitionFunc(self, e, x):
         if x.port == "stop":
             self.passviate()
         else:
             self.Continue(e)
 
-    def internalTransitionFunc(self, s):
-        if s["phase"] == "active":
-            self.holdIn("active", s["inter_arrival_time"])
+    def internalTransitionFunc(self):
+        if self.state["phase"] == "active":
+            self.holdIn("active", self.state["inter_arrival_time"])
 
-    def outputFunc(self, s):
-        if s["phase"] == "active":
+    def outputFunc(self):
+        if self.state["phase"] == "active":
             content = CONTENT()    
             job_id = "JOB-" + str(self.count)
             self.count+=1

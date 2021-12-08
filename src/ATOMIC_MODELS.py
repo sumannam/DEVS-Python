@@ -1,5 +1,7 @@
 import sys
 import math
+from abc import abstractmethod
+
 from src.ENTITIES import ENTITIES
 
 sys.path.append('D:/Git/DEVS-Python')
@@ -64,16 +66,6 @@ class ATOMIC_MODELS(MODELS):
         self.state["sigma"] = math.inf
         self.state["phase"] = "passive"
     
-    # s: state, e: elased_time, x: content
-    def externalTransitionFunc(self, s, e, x):
-        pass
-
-    def internalTransitionFunc(self, s):
-        pass
-
-    def outputFunc(self, state):
-        pass
-
     def timeAdvancedFunc(self):
         self.ta = self.state["sigma"]
         return self.ta
@@ -165,3 +157,16 @@ class ATOMIC_MODELS(MODELS):
         result = "state s = (" + state_str + ")"
 
         return result
+
+    # s: state, e: elased_time, x: content
+    @abstractmethod
+    def externalTransitionFunc(self, e, x):
+        pass
+
+    @abstractmethod
+    def internalTransitionFunc(self):
+        pass
+
+    @abstractmethod
+    def outputFunc(self):
+        pass

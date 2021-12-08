@@ -1,4 +1,5 @@
 import sys
+from abc import abstractmethod
 sys.path.append('D:/Git/DEVS-Python')
 
 from src.ENTITIES import ENTITIES
@@ -167,3 +168,7 @@ class MODELS(ENTITIES):
 
     def getPriorityList(slef):
         print("priority_list")
+
+    @abstractmethod
+    def outputFunc(self):
+        pass

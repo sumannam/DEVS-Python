@@ -77,11 +77,6 @@ class CO_ORDINATORS(PROCESSORS):
 
             self.setStarChild()
 
-            ### DEBUG ###
-            model_name = self.getName()
-            if model_name == "EF":
-                print(model_name)
-
             for child in self.star_child:
                 self.wait_list.append(child)
                 child.whenReceiveStar(output)
