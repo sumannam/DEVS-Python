@@ -172,3 +172,19 @@ class MODELS(ENTITIES):
     @abstractmethod
     def outputFunc(self):
         pass
+
+    @abstractmethod
+    def internalTransitionFunc(self):
+        pass
+
+    @abstractmethod
+    def timeAdvancedFunc(self):
+        pass
+
+    @abstractmethod
+    def hasExternalOutputCopling(self, src, port):
+        pass
+
+    def getModelPortName(self, model, port):
+        model_name = model.getName()
+        return model_name + "." + port

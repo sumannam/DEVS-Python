@@ -64,3 +64,21 @@ class COUPLING():
         self.coupling_dic[src_key] = dst_value
         #self.coupling_map[from_model, from_port].append(model_list)
         # self.coupling_map = ([from_model, from_port], [to_model, to_port])
+
+    def find(self, model_port_name):
+        """! 
+        @fn         find
+        @brief      소스 모델에서 일치된 모델.포트이름이 있는지 검색
+        @details    입력: 모델.포트이름
+
+        @param model_port_name   "모델 이름"."포트 이름"
+
+        @return     있으면 True, 없으면 False
+        
+        @author     남수만(sumannam@gmail.com)
+        @date       2021.12.13
+        """
+        if model_port_name in self.coupling_dic:
+            return True
+        else:
+            return False

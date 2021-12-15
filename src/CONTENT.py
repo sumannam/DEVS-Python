@@ -5,11 +5,9 @@ sys.path.append('D:/Git/DEVS-Python')
 import src.PORT
 
 class CONTENT(object):
-    value = ""
-    port = ""
-    #port = PORT("")
-
     def __init__(self):
+        self.value = ""
+        self.port = ""
         pass
 
     def setContent(self, port, value):

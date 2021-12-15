@@ -24,7 +24,7 @@ class PROCESSORS(ENTITIES):
         @author     남수만(sumannam@gmail.com)
         @date       2021.11.16
         """
-        self.praent = processor
+        self.parent = processor
     
     def getParent(self):
         """! 

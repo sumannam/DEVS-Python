@@ -39,5 +39,5 @@ class GENR(ATOMIC_MODELS):
             content = CONTENT()    
             job_id = "JOB-" + str(self.count)
             self.count+=1
-            content.setContent("active", job_id)
+            content.setContent("out", job_id)
             return content

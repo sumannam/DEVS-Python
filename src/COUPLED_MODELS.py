@@ -130,3 +130,6 @@ class COUPLED_MODELS(MODELS):
         parent = processor.getParent()
         parent.restart()
 
+    def hasExternalOutputCopling(self, src, port):
+        model_port_name = self.getModelPortName(src, port)
+        return self.external_output_coupling.find(model_port_name)

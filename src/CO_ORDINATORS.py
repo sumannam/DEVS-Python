@@ -82,7 +82,32 @@ class CO_ORDINATORS(PROCESSORS):
                 child.whenReceiveStar(output)
 
             self.star_child.clear()
+
+    def whenReceiveDone(self, intput_message):
+        pass
+        # self.wait_list.remove()
+        # eraseWaitList( input_message.getSource() );
+        # ProcessorsMap::iterator iter;
+        # iter = processors_time.find( input_message.getSource()->getProcessor() );
+        # if ( iter != processors_time.end() )
+        #     iter->second = input_message.getTime();
+
+        # if ( wait_list.size() == 0 )
+        # {
+        #     int imminent_time = getMintNChildren();
+
+        #     tN = imminent_time;
+        #     MESSAGES outport( DONE, devs_component, tN );
+
+        #     parent->whenReceiveDone( outport );
+        #     tN_children.clear();
+        # }
     
+
+    def eraseWaitList(self, model):
+        self.wait_list
+
+
     #### self.devs_component.getPriorityList() 개발 중
     def setStarChild(self):
         self.star_child.clear()

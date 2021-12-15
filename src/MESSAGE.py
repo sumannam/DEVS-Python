@@ -6,6 +6,7 @@ from src.CONTENT import CONTENT
 class MESSAGE():
     STAR = '*'
     EXT = 'Ext'
+    Done = 'Done'
 
     def __init__(self):
         self.type = None
@@ -23,6 +24,11 @@ class MESSAGE():
         self.time = time
 
     def setExt(self, type, model, time):
+        self.type = type
+        self.model = model
+        self.time = time
+
+    def setDone(self, type, model, time):
         self.type = type
         self.model = model
         self.time = time

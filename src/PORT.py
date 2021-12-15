@@ -7,3 +7,6 @@ class PORT( object ):
 
     def __eq__( self, _name ):
         return self.name == _name
+
+    def getName(self):
+        return self.name
