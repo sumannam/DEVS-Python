@@ -117,4 +117,7 @@ class PROCESSORS(ENTITIES):
     @abstractmethod
     def whenReceiveStar(self, input_message):
         print(__class__.__name__)
-        
+    
+    @abstractmethod
+    def whenReceiveY(self, input_message):
+        print(__class__.__name__)

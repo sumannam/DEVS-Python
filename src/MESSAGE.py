@@ -32,9 +32,15 @@ class MESSAGE():
         self.type = type
         self.model = model
         self.time = time
-    
+
+    def getSource(self):
+        return self.model
+
     def getTime(self):
         return self.time
+    
+    def getContent(self):
+        return self.content    
 
     def addContent(self, content):
         self.content=content

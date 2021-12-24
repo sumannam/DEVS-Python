@@ -5,9 +5,11 @@ sys.path.append('D:/Git/DEVS-Python')
 
 from src.MODELS import MODELS
 from src.PROCESSORS import PROCESSORS
-from src.MESSAGE import MESSAGE
 from src.ROOT_CO_ORDINATORS import ROOT_CO_ORDINATORS
-# from src.COUPLED_MODELS import COUPLED_MODELS
+
+from src.MESSAGE import MESSAGE
+from src.CONTENT import CONTENT
+from src.PORT import PORT
 
 class CO_ORDINATORS(PROCESSORS):
     def __init__(self):
@@ -83,6 +85,12 @@ class CO_ORDINATORS(PROCESSORS):
 
             self.star_child.clear()
 
+    def whenReceiveY(self, input_message):
+        outport = MESSAGE()
+        self.reconstructMessage( 1, input_message, self.devs_component, self.devs_component)
+
+        
+
     def whenReceiveDone(self, intput_message):
         pass
         # self.wait_list.remove()
@@ -129,3 +137,19 @@ class CO_ORDINATORS(PROCESSORS):
                 count=count+1
 
         return count
+
+    def reconstructMessage(self, coupling_type, message, coupled_model, destination):
+        content = CONTENT()
+        outport = PORT()
+
+        source = message.getSource()
+        time = message.getTime()
+        content = message.getContent()
+        output = content.getPort()
+        value = content.getValue()
+
+        print(source)
+        print(time)
+        print(value)
+        
+        

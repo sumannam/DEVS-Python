@@ -43,7 +43,7 @@ class SIMULATORS(PROCESSORS):
                 new_message.addContent(devs_output)
 
                 if(self.isPairParentCoupling(devs_output)==True):
-                    self.parent.whenReceiveStar(new_message)
+                    self.parent.whenReceiveY(new_message)
             
             self.devs_component.internalTransitionFunc()
             self.tL = input_message.getTime()
@@ -56,17 +56,6 @@ class SIMULATORS(PROCESSORS):
             output_message.setDone(MESSAGE.Done, source, time)
 
 
-
-
-#                 			if ( isPairParentCoupling( devs_output ) )
-# 			{
-# #ifdef EXPORT_LOG
-# 				SIM_MSG_LOG_NAME( "Before whenReceiveY" );
-# 				SIMULATOR_MSG_LOG( devs_component, tN, tL );
-# #endif
-
-# 				parent->whenReceiveY( new_mesasge );
-# 			}
 
     def isPairParentCoupling(self, content):
         """! 
