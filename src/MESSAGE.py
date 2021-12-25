@@ -1,13 +1,15 @@
 import sys
+from enum import Enum
 sys.path.append('D:/Git/DEVS-Python')
 
 from src.CONTENT import CONTENT
 
-class MESSAGE():
+class MESSAGE_TYPE(Enum):
     STAR = '*'
     EXT = 'Ext'
     Done = 'Done'
 
+class MESSAGE():
     def __init__(self):
         self.type = None
         self.source = None

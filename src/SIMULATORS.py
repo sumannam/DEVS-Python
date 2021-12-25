@@ -3,11 +3,12 @@ import math
 
 sys.path.append('D:/Git/DEVS-Python')
 
-from src.MESSAGE import MESSAGE
 from src.MODELS import MODELS
 
 from src.PROCESSORS import PROCESSORS
 from src.ROOT_CO_ORDINATORS import ROOT_CO_ORDINATORS
+
+from src.MESSAGE import *
 from src.CONTENT import CONTENT
 
 class SIMULATORS(PROCESSORS):
@@ -39,7 +40,7 @@ class SIMULATORS(PROCESSORS):
 
             if( devs_output.getPort() != None ):
                 new_message = MESSAGE()
-                new_message.setExt(MESSAGE.EXT, self.devs_component, input_time)
+                new_message.setExt(MESSAGE_TYPE.EXT, self.devs_component, input_time)
                 new_message.addContent(devs_output)
 
                 if(self.isPairParentCoupling(devs_output)==True):
@@ -53,7 +54,7 @@ class SIMULATORS(PROCESSORS):
             source = self.devs_component
             time = self.tN
             output_message = MESSAGE()
-            output_message.setDone(MESSAGE.Done, source, time)
+            output_message.setDone(MESSAGE_TYPE.Done, source, time)
 
 
 

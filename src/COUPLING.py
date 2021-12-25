@@ -1,4 +1,10 @@
+from enum import Enum
 from collections import defaultdict
+
+class COUPLING_TYPE(Enum):
+    EOC = 1
+    EIC = 2
+    IC = 3
 
 class COUPLING_INFO():
     def __init__(self, src_model, src_port, dst_model, dst_port):
@@ -16,7 +22,6 @@ class COUP_MODEL():
 
     def __repr__(self):
         return "'"+self.name+"'"
-
 
 class COUPLING():
     def __init__(self):

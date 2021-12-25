@@ -7,7 +7,8 @@ from src.MODELS import MODELS
 from src.PROCESSORS import PROCESSORS
 from src.ROOT_CO_ORDINATORS import ROOT_CO_ORDINATORS
 
-from src.MESSAGE import MESSAGE
+from src.COUPLING import COUPLING_TYPE
+from src.MESSAGE import *
 from src.CONTENT import CONTENT
 from src.PORT import PORT
 
@@ -75,7 +76,7 @@ class CO_ORDINATORS(PROCESSORS):
         if( msg_time == self.tN ):
             self.tL = msg_time
             output = MESSAGE()
-            output.setStar(MESSAGE.STAR, self.devs_component, msg_time)
+            output.setStar(MESSAGE_TYPE.STAR, self.devs_component, msg_time)
 
             self.setStarChild()
 
@@ -87,7 +88,7 @@ class CO_ORDINATORS(PROCESSORS):
 
     def whenReceiveY(self, input_message):
         outport = MESSAGE()
-        self.reconstructMessage( 1, input_message, self.devs_component, self.devs_component)
+        self.reconstructMessage( COUPLING_TYPE.EOC, input_message, self.devs_component, self.devs_component)
 
         
 
