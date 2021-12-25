@@ -149,8 +149,10 @@ class CO_ORDINATORS(PROCESSORS):
         output = content.getPort()
         value = content.getValue()
 
-        print(source)
-        print(time)
-        print(value)
+        # print(source)
+        # print(time)
+        # print(value)
+        
+        switch(coupling_type)
         
         
