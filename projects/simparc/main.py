@@ -1,7 +1,7 @@
 import sys
 
 sys.path.append('D:/Git/DEVS-Python')
-sys.path.append('D:/Git/DEVS-Python/projects/simparc')
+sys.path.append('D :/Git/DEVS-Python/projects/simparc')
 
 from projects.simparc.EF_P import EF_P
 

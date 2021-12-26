@@ -1,5 +1,6 @@
 import sys
 from abc import abstractmethod
+# from COUPLING import *
 sys.path.append('D:/Git/DEVS-Python')
 
 from src.ENTITIES import ENTITIES
@@ -183,6 +184,10 @@ class MODELS(ENTITIES):
 
     @abstractmethod
     def hasExternalOutputCopling(self, src, port):
+        pass
+
+    @abstractmethod
+    def translate(self, coupling_type, model, port):
         pass
 
     def getModelPortName(self, model, port):

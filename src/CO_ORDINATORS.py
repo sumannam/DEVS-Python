@@ -146,13 +146,23 @@ class CO_ORDINATORS(PROCESSORS):
         source = message.getSource()
         time = message.getTime()
         content = message.getContent()
-        output = content.getPort()
+        outport = content.getPort()
         value = content.getValue()
 
-        # print(source)
-        # print(time)
-        # print(value)
+        print(source)
+        print(time)
+        print(value)
+
+        model_port_list = []
         
-        switch(coupling_type)
+        if coupling_type == COUPLING_TYPE.EOC:
+            # print(self.devs_component.external_output_coupling)
+            model_port_list = self.devs_component.translate( COUPLING_TYPE.EOC, source, outport)
+            
+            
+        if coupling_type == COUPLING_TYPE.IC:
+            model_port_list = self.devs_component.translate( COUPLING_TYPE.EOC, source, outport)
+        if coupling_type == COUPLING_TYPE.EIC:
+            model_port_list = self.devs_component.translate( COUPLING_TYPE.EIC, coupled_model, outport)
         
         

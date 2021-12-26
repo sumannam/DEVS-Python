@@ -3,7 +3,7 @@ sys.path.append('D:/Git/DEVS-Python')
 
 from src.CO_ORDINATORS import CO_ORDINATORS
 from src.MODELS import MODELS
-from src.COUPLING import COUPLING
+from src.COUPLING import *
 
 # from pypreprocessor import pypreprocessor
 # pypreprocessor.parse()
@@ -133,3 +133,11 @@ class COUPLED_MODELS(MODELS):
     def hasExternalOutputCopling(self, src, port):
         model_port_name = self.getModelPortName(src, port)
         return self.external_output_coupling.find(model_port_name)
+
+    def translate(self, coupling_type, model, port):
+        model_port_list = []
+        model_port_name = self.getModelPortName(model, port)
+
+        if coupling_type == COUPLING_TYPE.EOC:
+            model_port_list = self.external_output_coupling.get(model_port_name)
+            print(model_port_list)

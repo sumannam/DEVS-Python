@@ -21,7 +21,7 @@ class COUP_MODEL():
         return self.name
 
     def __repr__(self):
-        return "'"+self.name+"'"
+        return "'" + self.name + "'"
 
 class COUPLING():
     def __init__(self):
@@ -67,8 +67,7 @@ class COUPLING():
         src_key = from_model.__class__.__name__ + "." + from_port
         dst_value = to_model.__class__.__name__ + "." + to_port
         self.coupling_dic[src_key] = dst_value
-        #self.coupling_map[from_model, from_port].append(model_list)
-        # self.coupling_map = ([from_model, from_port], [to_model, to_port])
+
 
     def find(self, model_port_name):
         """! 
@@ -87,3 +86,8 @@ class COUPLING():
             return True
         else:
             return False
+
+    def get(self, model_port):
+        model_port_list = []
+        model_port_list = self.coupling_dic.get(model_port)
+        return model_port_list
