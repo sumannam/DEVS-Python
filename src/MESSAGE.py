@@ -8,6 +8,7 @@ class MESSAGE_TYPE(Enum):
     STAR = '*'
     EXT = 'Ext'
     Done = 'Done'
+    Y = "Y"
 
 class MESSAGE():
     def __init__(self):
@@ -34,6 +35,9 @@ class MESSAGE():
         self.type = type
         self.model = model
         self.time = time
+    
+    def getType(self):
+        return self.type;
 
     def getSource(self):
         return self.model

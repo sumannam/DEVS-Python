@@ -74,7 +74,7 @@ class SIMULATORS(PROCESSORS):
         parent_model = MODELS()
         parent_model = self.parent.devs_component
 
-        print(self.devs_component, content.getPort())
+        # print(self.devs_component, content.getPort())
 
         bool_rslt = parent_model.hasExternalOutputCopling(self.devs_component, content.getPort())
 

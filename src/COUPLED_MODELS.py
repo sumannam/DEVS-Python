@@ -130,8 +130,8 @@ class COUPLED_MODELS(MODELS):
         parent = processor.getParent()
         parent.restart()
 
-    def hasExternalOutputCopling(self, src, port):
-        model_port_name = self.getModelPortName(src, port)
+    def hasExternalOutputCopling(self, src_model, port):
+        model_port_name = self.getModelPortName(src_model, port)
         return self.external_output_coupling.find(model_port_name)
 
     def translate(self, coupling_type, model, port):
@@ -140,4 +140,9 @@ class COUPLED_MODELS(MODELS):
 
         if coupling_type == COUPLING_TYPE.EOC:
             model_port_list = self.external_output_coupling.get(model_port_name)
-            print(model_port_list)
+        if coupling_type == COUPLING_TYPE.EIC:
+            model_port_list = self.external_input_coupling.get(model_port_name)
+        if coupling_type == COUPLING_TYPE.IC:
+            model_port_list = self.internal_coupling.get(model_port_name)        
+
+        return model_port_list

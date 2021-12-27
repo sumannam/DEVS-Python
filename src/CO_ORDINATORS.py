@@ -15,6 +15,8 @@ from src.PORT import PORT
 class CO_ORDINATORS(PROCESSORS):
     def __init__(self):
         PROCESSORS.__init__(self)
+
+        self.event_type = ""
         
         self.parent=ROOT_CO_ORDINATORS()
         self.parent.setChild(self)
@@ -87,10 +89,24 @@ class CO_ORDINATORS(PROCESSORS):
             self.star_child.clear()
 
     def whenReceiveY(self, input_message):
-        outport = MESSAGE()
-        self.reconstructMessage( COUPLING_TYPE.EOC, input_message, self.devs_component, self.devs_component)
+        output = MESSAGE()
+        output = self.reconstructMessage( COUPLING_TYPE.EOC, input_message, self.devs_component, self.devs_component)
 
-        
+        if output.getType() != None:
+            self.parent.whenReceiveY(output)
+
+        self.event_type = MESSAGE_TYPE.Y
+
+        for processor in self.processor_list:
+            if processor in self.wait_list:
+                continue
+            
+            output = self.reconstructMessage( COUPLING_TYPE.IC, input_message, self.devs_component, processor.getDevsComponent())
+
+            if output.getType() == None:
+                self.wait_list.insert(processor)
+                processor.whenReceiveX(output)
+                self.star_child.remove(processor)        
 
     def whenReceiveDone(self, intput_message):
         pass
@@ -156,13 +172,44 @@ class CO_ORDINATORS(PROCESSORS):
         model_port_list = []
         
         if coupling_type == COUPLING_TYPE.EOC:
-            # print(self.devs_component.external_output_coupling)
             model_port_list = self.devs_component.translate( COUPLING_TYPE.EOC, source, outport)
-            
-            
         if coupling_type == COUPLING_TYPE.IC:
             model_port_list = self.devs_component.translate( COUPLING_TYPE.EOC, source, outport)
         if coupling_type == COUPLING_TYPE.EIC:
             model_port_list = self.devs_component.translate( COUPLING_TYPE.EIC, coupled_model, outport)
+
+        emtyp_message = MESSAGE()
+        is_same_model = False
+        dst_name = destination.getName()
+
+        if model_port_list.__len__() == 0:
+            return emtyp_message
+        
+        for model_port in model_port_list:
+            if dst_name in model_port:
+                is_same_model = True
+                break
+        
+        if is_same_model == True:
+            new_message = MESSAGE()
+            new_message.setExt(MESSAGE_TYPE.EXT, self.devs_component, time)
+
+            port_name = self.extractPortName(model_port_list[0])
+            content.setContent(port_name, value)
+            new_message.addContent(content)
+
+            return new_message
+
+        else:
+            return emtyp_message
+
+    
+    def extractPortName(self, model_port_name):
+        lst = model_port_name.split(".")
+        return lst[1]
+
+
+
+
         
         

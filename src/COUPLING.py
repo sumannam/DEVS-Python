@@ -6,23 +6,6 @@ class COUPLING_TYPE(Enum):
     EIC = 2
     IC = 3
 
-class COUPLING_INFO():
-    def __init__(self, src_model, src_port, dst_model, dst_port):
-        self.from_model = src_model
-        self.from_port = src_port
-        self.to_model = dst_model
-        self.to_port = dst_port
-
-class COUP_MODEL():
-    def __init__(self, name):
-        self.name = name
-
-    def __str__(self):
-        return self.name
-
-    def __repr__(self):
-        return "'" + self.name + "'"
-
 class COUPLING():
     def __init__(self):
         """! 
@@ -43,6 +26,12 @@ class COUPLING():
         # self.coupling_map_pair = [self.coupling_map, self.coupling_map]
 
 
+    def addDictionaryValue(self, key, value):
+        if key in self.coupling_dic:
+            self.coupling_dic[key].append(value)
+        else:
+            self.coupling_dic[key]=[value]        
+
     def addCoupling(self, from_model, from_port, to_model, to_port):
         """! 
         @fn         addCoupling
@@ -60,29 +49,31 @@ class COUPLING():
         @author     남수만(sumannam@gmail.com)
         @date       2021.10.15        
 
-        @remark     모델의 인스턴스로 바로 저장하고 사용하기가 어려워 커플링 정보를 문자열로 변경하여 저장 [남수만;2021.10.26]
+        @remark     중복 키 허용을 위해 value를 list로 변경[남수만; 2021.12.27]
+                    모델의 인스턴스로 바로 저장하고 사용하기가 어려워 커플링 정보를 문자열로 변경하여 저장 [남수만; 2021.10.26]
 
-        @todo       [취소] map를 dictionary로 변경하고 key 중복 허용(https://kangprog.tistory.com/27) [남수만;2021.10.25]
+        @todo       [취소] map를 dictionary로 변경하고 key 중복 허용(https://kangprog.tistory.com/27) [남수만; 2021.10.25]
         """
+
         src_key = from_model.__class__.__name__ + "." + from_port
         dst_value = to_model.__class__.__name__ + "." + to_port
-        self.coupling_dic[src_key] = dst_value
+        
+        self.addDictionaryValue(src_key, dst_value)
 
-
-    def find(self, model_port_name):
+    def find(self, src_model_port):
         """! 
         @fn         find
         @brief      소스 모델에서 일치된 모델.포트이름이 있는지 검색
         @details    입력: 모델.포트이름
 
-        @param model_port_name   "모델 이름"."포트 이름"
+        @param src_model_port   "소스 모델 이름"."포트 이름"
 
         @return     있으면 True, 없으면 False
         
         @author     남수만(sumannam@gmail.com)
         @date       2021.12.13
         """
-        if model_port_name in self.coupling_dic:
+        if src_model_port in self.coupling_dic:
             return True
         else:
             return False
