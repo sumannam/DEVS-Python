@@ -28,13 +28,13 @@ class SIMULATORS(PROCESSORS):
         @date       2021.11.16
         """
         super().initialize()
-        self.tN=self.devs_component.timeAdvancedFunc()
+        self.time_next=self.devs_component.timeAdvancedFunc()
 
     # overriding abstract method
     def whenReceiveStar(self, input_message):
         input_time = input_message.getTime()
 
-        if( input_time == self.tN ):
+        if( input_time == self.time_next ):
             devs_output = CONTENT()
             devs_output = self.devs_component.outputFunc()
 
@@ -47,16 +47,14 @@ class SIMULATORS(PROCESSORS):
                     self.parent.whenReceiveY(new_message)
             
             self.devs_component.internalTransitionFunc()
-            self.tL = input_message.getTime()
-            self.tN = self.tL + self.devs_component.timeAdvancedFunc()
+            self.time_last = input_message.getTime()
+            self.time_next = self.time_last + self.devs_component.timeAdvancedFunc()
 
             source = MODELS()
             source = self.devs_component
-            time = self.tN
+            time = self.time_next
             output_message = MESSAGE()
             output_message.setDone(MESSAGE_TYPE.Done, source, time)
-
-
 
     def isPairParentCoupling(self, content):
         """! 
@@ -83,3 +81,21 @@ class SIMULATORS(PROCESSORS):
         else:
             return False
 
+
+    def whenReceiveX(self, input_message):    
+        if( self.time_last <= input_message.getTime() and input_message.getTime() <= self.time_next):
+            elapsed_time = input_message.getTime() - self.time_last
+            self.time_last = input_message.getTime()
+
+            content = CONTENT()
+            content = input_message.getContent()
+            self.devs_component.externalTransitionFunc(elapsed_time, content)
+
+            self.time_next = self.time_last + self.devs_component.timeAdvancedFunc()
+
+            source = self.devs_component
+            time = self.time_next
+            output = MESSAGE()
+            output.setDone(MESSAGE_TYPE.Done, source, time)
+
+            self.parent.whenReceiveDone(output)

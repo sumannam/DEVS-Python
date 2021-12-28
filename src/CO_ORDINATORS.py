@@ -69,13 +69,13 @@ class CO_ORDINATORS(PROCESSORS):
         @date       2021.11.16
         """
         time_min = min(self.processor_time.values())
-        self.tN = time_min
+        self.time_next = time_min
     
     # overriding abstract method
     def whenReceiveStar(self, input_message):
         msg_time = input_message.getTime()
 
-        if( msg_time == self.tN ):
+        if( msg_time == self.time_next ):
             self.tL = msg_time
             output = MESSAGE()
             output.setStar(MESSAGE_TYPE.STAR, self.devs_component, msg_time)
@@ -103,10 +103,29 @@ class CO_ORDINATORS(PROCESSORS):
             
             output = self.reconstructMessage( COUPLING_TYPE.IC, input_message, self.devs_component, processor.getDevsComponent())
 
-            if output.getType() == None:
-                self.wait_list.insert(processor)
+            if output.getType() != None:
+                self.wait_list.append(processor)
                 processor.whenReceiveX(output)
-                self.star_child.remove(processor)        
+                self.star_child.remove(processor)
+
+    def whenReceiveX(self, input_message):
+        self.event_type = MESSAGE_TYPE.X
+
+        if( self.time_last <= input_message.getTime() and input_message.getTime() <= self.time_next):
+            self.time_last = input_message.getTime()
+            output = MESSAGE()
+
+            ### TODO: broadcast 커플링 처리
+
+            for processor in self.processor_list:
+                if processor in self.wait_list:
+                    continue
+
+                output = self.reconstructMessage(COUPLING_TYPE.EIC, input_message, self.devs_component, processor.getDevsComponent())
+
+                if output.getType() == None:
+                    self.wait_list.append(processor)
+                    processor.whenReceiveX(output)
 
     def whenReceiveDone(self, intput_message):
         pass
@@ -137,11 +156,11 @@ class CO_ORDINATORS(PROCESSORS):
     def setStarChild(self):
         self.star_child.clear()
         priority_list = self.devs_component.priority_list
-        count = self.countSameTimeInChildren(self.tN)    
+        count = self.countSameTimeInChildren(self.time_next)    
 
         if len(priority_list) == 0 or count == 1:
             for key in self.processor_time.keys():
-                if self.processor_time[key] == self.tN:
+                if self.processor_time[key] == self.time_next:
                     self.star_child.append(key)
         ## TODO: 다중 조건문 추가 필요
         
@@ -174,7 +193,7 @@ class CO_ORDINATORS(PROCESSORS):
         if coupling_type == COUPLING_TYPE.EOC:
             model_port_list = self.devs_component.translate( COUPLING_TYPE.EOC, source, outport)
         if coupling_type == COUPLING_TYPE.IC:
-            model_port_list = self.devs_component.translate( COUPLING_TYPE.EOC, source, outport)
+            model_port_list = self.devs_component.translate( COUPLING_TYPE.IC, source, outport)
         if coupling_type == COUPLING_TYPE.EIC:
             model_port_list = self.devs_component.translate( COUPLING_TYPE.EIC, coupled_model, outport)
 
@@ -182,7 +201,7 @@ class CO_ORDINATORS(PROCESSORS):
         is_same_model = False
         dst_name = destination.getName()
 
-        if model_port_list.__len__() == 0:
+        if model_port_list == None:
             return emtyp_message
         
         for model_port in model_port_list:

@@ -21,22 +21,22 @@ class P(ATOMIC_MODELS):
         self.addState("job-id", "")
         self.addState("processing_time", 10)
 
-    def externalTransitionFunc(self, s, e, x):
+    def externalTransitionFunc(self, e, x):
         if x.port == "in":
-            if s["phase"] == "passive":
-                s["job-id"] = x.value
-                self.holdIn("busy", s["processing_time"])
-            elif s["phase"] == "busy":
+            if self.state["phase"] == "passive":
+                self.state["job-id"] = x.value
+                self.holdIn("busy", self.state["processing_time"])
+            elif self.state["phase"] == "busy":
                 self.Continue(e)
 
-    def internalTransitionFunc(self, s):
-        if s["phase"] == "busy":
+    def internalTransitionFunc(self):
+        if self.state["phase"] == "busy":
             self.passviate()
 
-    def outputFunc(self, s):
-        if s["phase"] == "busy":
+    def outputFunc(self):
+        if self.state["phase"] == "busy":
             content = CONTENT()
-            content.setContent("out", s["job-id"])
+            content.setContent("out", self.state["job-id"])
             return content
 
 

@@ -12,8 +12,8 @@ class PROCESSORS(ENTITIES):
         self.parent = None # 자신의 상위 모델 클래스를 가리키는 포인터
         self.devs_component = None
 
-        self.tL = 0 # 최근 발생한 이벤트 시간
-        self.tN = math.inf # 다음 이벤트 발생 시간
+        self.time_last = 0 # 최근 발생한 이벤트 시간
+        self.time_next = math.inf # 다음 이벤트 발생 시간
 
     def setParent(self, processor):
         """! 
@@ -73,8 +73,8 @@ class PROCESSORS(ENTITIES):
         @author     남수만(sumannam@gmail.com)
         @date       2021.11.16
         """
-        self.tL = 0
-        self.tN = math.inf
+        self.time_last = 0
+        self.time_next = math.inf
     
     def getTimeOfNextEvent(self):
         """! 
@@ -86,7 +86,7 @@ class PROCESSORS(ENTITIES):
         @author     남수만(sumannam@gmail.com)
         @date       2021.11.16
         """
-        return self.tN
+        return self.time_next
     
     def getTimeOfLastEvent(self):
         """! 
@@ -98,7 +98,7 @@ class PROCESSORS(ENTITIES):
         @author     남수만(sumannam@gmail.com)
         @date       2021.11.16
         """
-        return self.tL
+        return self.time_last
     
     def setName(self, name):
         """! 

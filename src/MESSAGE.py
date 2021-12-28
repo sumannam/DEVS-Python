@@ -8,7 +8,8 @@ class MESSAGE_TYPE(Enum):
     STAR = '*'
     EXT = 'Ext'
     Done = 'Done'
-    Y = "Y"
+    X = "X"
+    Y = "Y"    
 
 class MESSAGE():
     def __init__(self):
