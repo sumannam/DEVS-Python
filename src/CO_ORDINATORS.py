@@ -1,5 +1,5 @@
 import sys
-#from abc import abstractmethod
+import logging
 
 sys.path.append('D:/Git/DEVS-Python')
 
@@ -84,6 +84,14 @@ class CO_ORDINATORS(PROCESSORS):
 
             for child in self.star_child:
                 self.wait_list.append(child)
+                # logging.info(self.devs_component.getName(), self.time_next)
+                log = self.devs_component.getName() + " " \
+                        + str(self.time_next) + " " \
+                        + str(self.time_last) + " " \
+                        + str(self.wait_list)
+                        
+                logging.info(log)
+
                 child.whenReceiveStar(output)
 
             self.star_child.clear()
@@ -106,7 +114,10 @@ class CO_ORDINATORS(PROCESSORS):
             if output.getType() != None:
                 self.wait_list.append(processor)
                 processor.whenReceiveX(output)
-                self.star_child.remove(processor)
+                # self.wait_list.remove(processor)
+                if processor in self.star_child:
+                    self.star_child.remove(processor)
+            
 
     def whenReceiveX(self, input_message):
         self.event_type = MESSAGE_TYPE.X
@@ -127,30 +138,29 @@ class CO_ORDINATORS(PROCESSORS):
                     self.wait_list.append(processor)
                     processor.whenReceiveX(output)
 
-    def whenReceiveDone(self, intput_message):
-        pass
-        # self.wait_list.remove()
-        # eraseWaitList( input_message.getSource() );
-        # ProcessorsMap::iterator iter;
-        # iter = processors_time.find( input_message.getSource()->getProcessor() );
-        # if ( iter != processors_time.end() )
-        #     iter->second = input_message.getTime();
+    def whenReceiveDone(self, input_message):
+        source = input_message.getSource()
+        self.removeWaitList(source)
 
-        # if ( wait_list.size() == 0 )
-        # {
-        #     int imminent_time = getMintNChildren();
+        processor = source.getProcessor()
+        self.processor_time[processor]=input_message.getTime()
 
-        #     tN = imminent_time;
-        #     MESSAGES outport( DONE, devs_component, tN );
+        if self.wait_list.__len__ == 0:
+            self.time_next = min(self.processor_time.values())
+            output = MESSAGE()
+            output.setDone(MESSAGE_TYPE.Done, self.devs_component, self.time_next)
+            self.parent.whenReceiveDone(output)
 
-        #     parent->whenReceiveDone( outport );
-        #     tN_children.clear();
-        # }
+
+    def removeWaitList(self, source):
+        src_name = source.getName()
+
+        for model in self.wait_list:
+            model_name = model.getName()
+
+            if model_name == src_name:
+                self.wait_list.remove(model)
     
-
-    def eraseWaitList(self, model):
-        self.wait_list
-
 
     #### self.devs_component.getPriorityList() 개발 중
     def setStarChild(self):
@@ -159,9 +169,9 @@ class CO_ORDINATORS(PROCESSORS):
         count = self.countSameTimeInChildren(self.time_next)    
 
         if len(priority_list) == 0 or count == 1:
-            for key in self.processor_time.keys():
-                if self.processor_time[key] == self.time_next:
-                    self.star_child.append(key)
+            for model in self.processor_time.keys():
+                if self.processor_time[model] == self.time_next:
+                    self.star_child.append(model)
         ## TODO: 다중 조건문 추가 필요
         
         
