@@ -12,6 +12,8 @@ from src.MESSAGE import *
 from src.CONTENT import CONTENT
 from src.PORT import PORT
 
+from src.util import *
+
 class CO_ORDINATORS(PROCESSORS):
     def __init__(self):
         PROCESSORS.__init__(self)
@@ -73,6 +75,16 @@ class CO_ORDINATORS(PROCESSORS):
     
     # overriding abstract method
     def whenReceiveStar(self, input_message):
+        """! 
+        @fn         whenReceiveStar()
+        @brief      시뮬레이션 Star-Message
+        @details    
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2021.11.16
+
+        @remarks    로그 메시지(logInfoCoordinator) 출력[남수만; 2021.12.31]
+        """
         msg_time = input_message.getTime()
 
         if( msg_time == self.time_next ):
@@ -84,23 +96,38 @@ class CO_ORDINATORS(PROCESSORS):
 
             for child in self.star_child:
                 self.wait_list.append(child)
-                # logging.info(self.devs_component.getName(), self.time_next)
-                log = self.devs_component.getName() + " " \
-                        + str(self.time_next) + " " \
-                        + str(self.time_last) + " " \
-                        + str(self.wait_list)
-                        
-                logging.info(log)
+                
+                logInfoCoordinator(self.devs_component.getName()
+                                    , self.time_next
+                                    , self.time_last
+                                    , self.convertListToStr(self.star_child)
+                                    , self.convertListToStr(self.wait_list) )
 
                 child.whenReceiveStar(output)
 
             self.star_child.clear()
 
     def whenReceiveY(self, input_message):
+        """! 
+        @fn         whenReceiveY()
+        @brief      시뮬레이션 Y Message
+        @details    
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2021.11.16
+
+        @remarks    
+        """
         output = MESSAGE()
         output = self.reconstructMessage( COUPLING_TYPE.EOC, input_message, self.devs_component, self.devs_component)
 
         if output.getType() != None:
+            logInfoCoordinator(self.devs_component.getName()
+                              , self.time_next
+                              , self.time_last
+                              , self.convertListToStr(self.star_child)
+                              , self.convertListToStr(self.wait_list) )
+
             self.parent.whenReceiveY(output)
 
         self.event_type = MESSAGE_TYPE.Y
@@ -112,14 +139,38 @@ class CO_ORDINATORS(PROCESSORS):
             output = self.reconstructMessage( COUPLING_TYPE.IC, input_message, self.devs_component, processor.getDevsComponent())
 
             if output.getType() != None:
+                
                 self.wait_list.append(processor)
+
+                logInfoCoordinator(self.devs_component.getName()
+                                  , self.time_next
+                                  , self.time_last
+                                  , self.convertListToStr(self.star_child)
+                                  , self.convertListToStr(self.wait_list) )
+
                 processor.whenReceiveX(output)
                 # self.wait_list.remove(processor)
                 if processor in self.star_child:
                     self.star_child.remove(processor)
+
+                    logInfoCoordinator(self.devs_component.getName()
+                                      , self.time_next
+                                      , self.time_last
+                                      , self.convertListToStr(self.star_child)
+                                      , self.convertListToStr(self.wait_list) )
             
 
     def whenReceiveX(self, input_message):
+        """! 
+        @fn         whenReceiveX()
+        @brief      시뮬레이션 X Message
+        @details    
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2021.11.16
+
+        @remarks    
+        """
         self.event_type = MESSAGE_TYPE.X
 
         if( self.time_last <= input_message.getTime() and input_message.getTime() <= self.time_next):
@@ -136,11 +187,34 @@ class CO_ORDINATORS(PROCESSORS):
 
                 if output.getType() == None:
                     self.wait_list.append(processor)
+
+                    logInfoCoordinator(self.devs_component.getName()
+                                      , self.time_next
+                                      , self.time_last
+                                      , self.convertListToStr(self.star_child)
+                                      , self.convertListToStr(self.wait_list) )
+
                     processor.whenReceiveX(output)
 
     def whenReceiveDone(self, input_message):
+        """! 
+        @fn         whenReceiveDone()
+        @brief      시뮬레이션 Done Message
+        @details    
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2021.11.16
+
+        @remarks    
+        """
         source = input_message.getSource()
         self.removeWaitList(source)
+
+        logInfoCoordinator(self.devs_component.getName()
+                           , self.time_next
+                           , self.time_last
+                           , self.convertListToStr(self.star_child)
+                           , self.convertListToStr(self.wait_list) )
 
         processor = source.getProcessor()
         self.processor_time[processor]=input_message.getTime()
@@ -150,6 +224,15 @@ class CO_ORDINATORS(PROCESSORS):
             output = MESSAGE()
             output.setDone(MESSAGE_TYPE.Done, self.devs_component, self.time_next)
             self.parent.whenReceiveDone(output)
+
+            logInfoCoordinator(self.devs_component.getName()
+                               , self.time_next
+                               , self.time_last
+                               , self.convertListToStr(self.star_child)
+                               , self.convertListToStr(self.wait_list) )
+
+            # DEVS-ObjC에서 아래 소스는 왜 있는지 모르겠음[남수만; 2021.12.31]
+            # self.tN_children.clear()
 
 
     def removeWaitList(self, source):
@@ -237,6 +320,22 @@ class CO_ORDINATORS(PROCESSORS):
         lst = model_port_name.split(".")
         return lst[1]
 
+    
+    def convertListToStr(self, list):
+        """! 
+        @fn         convertModelListToStr()
+        @brief      시뮬레이션 로그 메시지 출력
+        @detail     리스트는 모델 리스트를 가지고 있어 모델 이름만 추출 필요
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2021.12.31
+        """
+        str = ""
+        for element in list:
+            name = element.getName()
+            str += name
+        
+        return str
 
 
 

@@ -11,6 +11,8 @@ from src.ROOT_CO_ORDINATORS import ROOT_CO_ORDINATORS
 from src.MESSAGE import *
 from src.CONTENT import CONTENT
 
+from src.util import *
+
 class SIMULATORS(PROCESSORS):
     def __init__(self):
         PROCESSORS.__init__(self)
@@ -32,6 +34,16 @@ class SIMULATORS(PROCESSORS):
 
     # overriding abstract method
     def whenReceiveStar(self, input_message):
+        """! 
+        @fn         whenReceiveStar()
+        @brief      시뮬레이션 Star-Message
+        @details    
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2021.11.16
+
+        @remarks    로그 메시지(logInfoSimulator) 출력[남수만; 2021.12.31]
+        """
         input_time = input_message.getTime()
 
         if( input_time == self.time_next ):
@@ -44,11 +56,22 @@ class SIMULATORS(PROCESSORS):
                 new_message.addContent(devs_output)
 
                 if(self.isPairParentCoupling(devs_output)==True):
+                    logInfoSimulator(self.devs_component.getName()
+                                    , self.time_next
+                                    , self.time_last)
                     self.parent.whenReceiveY(new_message)
             
+            logInfoSimulator(self.devs_component.getName()
+                            , self.time_next
+                            , self.time_last)
+
             self.devs_component.internalTransitionFunc()
             self.time_last = input_message.getTime()
             self.time_next = self.time_last + self.devs_component.timeAdvancedFunc()
+            
+            logInfoSimulator(self.devs_component.getName()
+                            , self.time_next
+                            , self.time_last)
 
             source = MODELS()
             source = self.devs_component
@@ -56,6 +79,50 @@ class SIMULATORS(PROCESSORS):
             output_message = MESSAGE()
             output_message.setDone(MESSAGE_TYPE.Done, source, time)
 
+            logInfoSimulator(self.devs_component.getName(), self.time_next, self.time_last)
+
+    
+    def whenReceiveX(self, input_message):
+        """! 
+        @fn         whenReceiveX()
+        @brief      시뮬레이션 X-Message
+        @details    
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2021.11.16
+
+        @remarks    로그 메시지(logInfoSimulator) 출력[남수만; 2021.12.31]
+        """
+        if( self.time_last <= input_message.getTime() and input_message.getTime() <= self.time_next):
+            elapsed_time = input_message.getTime() - self.time_last
+            self.time_last = input_message.getTime()
+
+            logInfoSimulator(self.devs_component.getName()
+                            , self.time_next
+                            , self.time_last)
+
+            content = CONTENT()
+            content = input_message.getContent()
+            self.devs_component.externalTransitionFunc(elapsed_time, content)
+
+            self.time_next = self.time_last + self.devs_component.timeAdvancedFunc()
+
+            logInfoSimulator(self.devs_component.getName()
+                            , self.time_next
+                            , self.time_last)
+
+            source = self.devs_component
+            time = self.time_next
+            output = MESSAGE()
+            output.setDone(MESSAGE_TYPE.Done, source, time)
+
+            self.parent.whenReceiveDone(output)
+
+            logInfoSimulator(self.devs_component.getName()
+                            , self.time_next
+                            , self.time_last)
+    
+    
     def isPairParentCoupling(self, content):
         """! 
         @fn         isPairParentCoupling()
@@ -82,20 +149,4 @@ class SIMULATORS(PROCESSORS):
             return False
 
 
-    def whenReceiveX(self, input_message):    
-        if( self.time_last <= input_message.getTime() and input_message.getTime() <= self.time_next):
-            elapsed_time = input_message.getTime() - self.time_last
-            self.time_last = input_message.getTime()
-
-            content = CONTENT()
-            content = input_message.getContent()
-            self.devs_component.externalTransitionFunc(elapsed_time, content)
-
-            self.time_next = self.time_last + self.devs_component.timeAdvancedFunc()
-
-            source = self.devs_component
-            time = self.time_next
-            output = MESSAGE()
-            output.setDone(MESSAGE_TYPE.Done, source, time)
-
-            self.parent.whenReceiveDone(output)
+    
