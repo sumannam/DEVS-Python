@@ -76,11 +76,17 @@ class SIMULATORS(PROCESSORS):
                             , self.time_next
                             , self.time_last)
 
+            devs_comp_name = self.devs_component.getName()
+            if devs_comp_name == "GENR":
+                print(devs_comp_name)
+
             source = MODELS()
             source = self.devs_component
             time = self.time_next
             output_message = MESSAGE()
             output_message.setDone(MESSAGE_TYPE.Done, source, time)
+
+            self.parent.whenReceiveDone(output_message)
 
             logging.info("")
             logInfoSimulator(self.devs_component.getName(), self.time_next, self.time_last)
@@ -105,10 +111,6 @@ class SIMULATORS(PROCESSORS):
             logInfoSimulator(self.devs_component.getName()
                             , self.time_next
                             , self.time_last)
-
-            devs_comp_name = self.devs_component.getName()
-            if devs_comp_name == "TRANSD":
-                print(devs_comp_name)
 
             content = CONTENT()
             content = input_message.getContent()

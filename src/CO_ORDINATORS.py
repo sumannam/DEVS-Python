@@ -95,7 +95,12 @@ class CO_ORDINATORS(PROCESSORS):
             self.setStarChild()
 
             for child in self.star_child:
-                self.wait_list.append(child)
+                if child not in self.star_child:
+                    self.wait_list.append(child)
+
+                devs_comp_name = self.devs_component.getName()
+                if devs_comp_name == "EF_P":
+                    print(devs_comp_name)
                 
                 logging.info("")
                 logInfoCoordinator(self.devs_component.getName()
@@ -302,12 +307,12 @@ class CO_ORDINATORS(PROCESSORS):
         if coupling_type == COUPLING_TYPE.EIC:
             model_port_list = self.devs_component.translate( COUPLING_TYPE.EIC, coupled_model, outport)
 
-        emtyp_message = MESSAGE()
+        empty_message = MESSAGE()
         is_same_model = False
         dst_name = destination.getName()
 
         if model_port_list == None:
-            return emtyp_message
+            return empty_message
         
         for model_port in model_port_list:
             if dst_name in model_port:
@@ -326,7 +331,7 @@ class CO_ORDINATORS(PROCESSORS):
             return new_message
 
         else:
-            return emtyp_message
+            return empty_message
 
     
     def extractPortName(self, model_port_name):
