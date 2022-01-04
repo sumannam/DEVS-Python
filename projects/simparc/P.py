@@ -38,12 +38,3 @@ class P(ATOMIC_MODELS):
             content = CONTENT()
             content.setContent("out", self.state["job-id"])
             return content
-
-
-# if __name__ == '__main__':
-#     module_name = input()
-#     module = __import__(module_name)
-#     _class = getattr(module, module_name)
-
-#     instance = _class()
-#     instance.modelTest(instance)

@@ -97,6 +97,7 @@ class CO_ORDINATORS(PROCESSORS):
             for child in self.star_child:
                 self.wait_list.append(child)
                 
+                logging.info("")
                 logInfoCoordinator(self.devs_component.getName()
                                     , self.time_next
                                     , self.time_last
@@ -122,6 +123,7 @@ class CO_ORDINATORS(PROCESSORS):
         output = self.reconstructMessage( COUPLING_TYPE.EOC, input_message, self.devs_component, self.devs_component)
 
         if output.getType() != None:
+            logging.info("")
             logInfoCoordinator(self.devs_component.getName()
                               , self.time_next
                               , self.time_last
@@ -136,12 +138,17 @@ class CO_ORDINATORS(PROCESSORS):
             if processor in self.wait_list:
                 continue
             
-            output = self.reconstructMessage( COUPLING_TYPE.IC, input_message, self.devs_component, processor.getDevsComponent())
+            # devs_comp_name = self.devs_component.getName()
+            # if devs_comp_name == "EF":
+            #     print(devs_comp_name)
 
+            output = self.reconstructMessage( COUPLING_TYPE.IC, input_message, self.devs_component, processor.getDevsComponent())
+            
             if output.getType() != None:
                 
                 self.wait_list.append(processor)
 
+                logging.info("")
                 logInfoCoordinator(self.devs_component.getName()
                                   , self.time_next
                                   , self.time_last
@@ -149,15 +156,17 @@ class CO_ORDINATORS(PROCESSORS):
                                   , self.convertListToStr(self.wait_list) )
 
                 processor.whenReceiveX(output)
+                
                 # self.wait_list.remove(processor)
                 if processor in self.star_child:
                     self.star_child.remove(processor)
 
-                    logInfoCoordinator(self.devs_component.getName()
-                                      , self.time_next
-                                      , self.time_last
-                                      , self.convertListToStr(self.star_child)
-                                      , self.convertListToStr(self.wait_list) )
+                logging.info("")
+                logInfoCoordinator(self.devs_component.getName()
+                                    , self.time_next
+                                    , self.time_last
+                                    , self.convertListToStr(self.star_child)
+                                    , self.convertListToStr(self.wait_list) )
             
 
     def whenReceiveX(self, input_message):
@@ -188,6 +197,7 @@ class CO_ORDINATORS(PROCESSORS):
                 if output.getType() == None:
                     self.wait_list.append(processor)
 
+                    logging.info("")
                     logInfoCoordinator(self.devs_component.getName()
                                       , self.time_next
                                       , self.time_last
@@ -210,6 +220,7 @@ class CO_ORDINATORS(PROCESSORS):
         source = input_message.getSource()
         self.removeWaitList(source)
 
+        logging.info("")
         logInfoCoordinator(self.devs_component.getName()
                            , self.time_next
                            , self.time_last
@@ -225,6 +236,7 @@ class CO_ORDINATORS(PROCESSORS):
             output.setDone(MESSAGE_TYPE.Done, self.devs_component, self.time_next)
             self.parent.whenReceiveDone(output)
 
+            logging.info("")
             logInfoCoordinator(self.devs_component.getName()
                                , self.time_next
                                , self.time_last
@@ -277,9 +289,9 @@ class CO_ORDINATORS(PROCESSORS):
         outport = content.getPort()
         value = content.getValue()
 
-        print(source)
-        print(time)
-        print(value)
+        # print(source)
+        # print(time)
+        # print(value)
 
         model_port_list = []
         
@@ -306,8 +318,9 @@ class CO_ORDINATORS(PROCESSORS):
             new_message = MESSAGE()
             new_message.setExt(MESSAGE_TYPE.EXT, self.devs_component, time)
 
+            new_content = CONTENT()
             port_name = self.extractPortName(model_port_list[0])
-            content.setContent(port_name, value)
+            new_content.setContent(port_name, value)
             new_message.addContent(content)
 
             return new_message
@@ -332,7 +345,7 @@ class CO_ORDINATORS(PROCESSORS):
         """
         str = ""
         for element in list:
-            name = element.getName()
+            name = element.getName() + " "
             str += name
         
         return str

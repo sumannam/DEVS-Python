@@ -25,7 +25,6 @@ class EF(COUPLED_MODELS):
 
         self.addCoupling(self, "in", transd, "sovled")
         self.addCoupling(genr, "out", self, "out")
-        self.addCoupling(genr, "out", self, "out1")
         self.addCoupling(transd, "out", self, "result")
         self.addCoupling(transd, "out", genr, "stop")
         self.addCoupling(genr, "out", transd, "arrived")

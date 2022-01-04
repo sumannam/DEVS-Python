@@ -39,7 +39,7 @@ class COUPLING():
         @details    커플링의 관계는 다음과 같이 저장된다.
  			    	Key (Source) 		| Value (Destination) 
  		    		--------------------|---------------------
- 	    			[P, out]     		| [EF, in]			  
+ 	    			[P, out]     		| [(EF, in1) (EF.in2)]
 
         @param from_model   소스 모델
         @param from_port    소스 모델의 포트

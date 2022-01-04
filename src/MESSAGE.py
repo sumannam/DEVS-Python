@@ -24,24 +24,24 @@ class MESSAGE():
     
     def setStar(self, type, model, time):
         self.type = type
-        self.model = model
+        self.source = model
         self.time = time
 
     def setExt(self, type, model, time):
         self.type = type
-        self.model = model
+        self.source = model
         self.time = time
 
     def setDone(self, type, model, time):
         self.type = type
-        self.model = model
+        self.source = model
         self.time = time
     
     def getType(self):
         return self.type;
 
     def getSource(self):
-        return self.model
+        return self.source
 
     def getTime(self):
         return self.time

@@ -28,34 +28,33 @@ class TRANSD(ATOMIC_MODELS):
         self.arrived_dic={}
         self.solved_dic={}
 
-    def externalTransitionFunc(self, s, e, x):
+    def externalTransitionFunc(self, e, x):
         if x.port == "arrived":
-            self.arrived_dic[x.value]=s["clock"]
+            self.arrived_dic[x.value]=self.state["clock"]
         if x.port == "solved":
-            self.arrived_dic[x.value]=s["clock"]
+            self.arrived_dic[x.value]=self.state["clock"]
         else:
             self.Continue(e)
 
-    def internalTransitionFunc(self, s):
-        if s["phase"] == "active":
-            clock = s["clock"]
-            sigma = s["sigma"]
-            s["clock"] = clock + sigma
+    def internalTransitionFunc(self):
+        if self.state["phase"] == "active":
+            clock = self.state["clock"]
+            sigma = self.state["sigma"]
+            self.state["clock"] = clock + sigma
             self.passviate()
 
-    def outputFunc(self, s):
+    def outputFunc(self):
         avg_ta_time = 0
         throughput = 0.0
-        time = s["clock"]
+        time = self.state["clock"]
 
-
-        if s["phase"] == "active":
+        if self.state["phase"] == "active":
             content = CONTENT()    
             job_id = "JOB-" + str(self.count)
             self.count+=1
 
             if(len(self.solved_dic)!=0):
-                avg_ta_time = s["total_ta"] / len(self.solved_dic)
+                avg_ta_time = self.state["total_ta"] / len(self.solved_dic)
 
             if(time!=0):
                 throughput = (len(self.solved_dic)-1) / (time-avg_ta_time)

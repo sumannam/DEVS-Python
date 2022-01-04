@@ -18,8 +18,6 @@ class EF_P(COUPLED_MODELS):
         COUPLED_MODELS.__init__(self)
         self.setName(self.__class__.__name__)
 
-        self.addInPorts("in", "in1")
-
         ef = EF()
         p = P()        
         

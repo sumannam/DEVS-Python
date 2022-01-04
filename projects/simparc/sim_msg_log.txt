@@ -1,0 +1,862 @@
+SEQ: 0
+[ 113 ]: ROOT_CO_ORDINATORS::initialize
+clock_base: 0
+
+***********************************************************
+[ 171 ]: CO_ORDINATORS::whenReceiveStar
+devs_component: EF_P
+tN: 0
+tL: 0
+star_child: ( EF )
+wait_list: ( EF )
+
+[ 171 ]: CO_ORDINATORS::whenReceiveStar
+devs_component: EF
+tN: 0
+tL: 0
+star_child: ( GENR )
+wait_list: ( GENR )
+
+[ 183 ]: SIMULATORS::whenReceiveStar
+Model: : GENR
+tN: 0
+tL: 0
+
+[ 333 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF
+tN: 0
+tL: 0
+star_child: ( GENR )
+wait_list: ( GENR )
+
+[ 363 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF_P
+tN: 0
+tL: 0
+star_child: ( EF )
+wait_list: ( EF P )
+
+[ 261 ]: SIMULATORS::whenReceiveX
+Model: : P
+tN: inf
+tL: 0
+
+[ 283 ]: SIMULATORS::whenReceiveX
+Model: : P
+tN: 10
+tL: 0
+
+[ 416 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF_P
+tN: 0
+tL: 0
+star_child: ( EF )
+wait_list: ( EF )
+
+[ 294 ]: SIMULATORS::whenReceiveX
+Model: : P
+tN: 10
+tL: 0
+
+***[ 372 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF_P
+tN: 0
+tL: 0
+star_child: ( EF )
+wait_list: ( EF )
+
+[ 363 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF
+tN: 0
+tL: 0
+star_child: ( GENR )
+wait_list: ( GENR TRANSD )
+
+[ 261 ]: SIMULATORS::whenReceiveX
+Model: : TRANSD
+tN: 11
+tL: 0
+
+[ 283 ]: SIMULATORS::whenReceiveX
+Model: : TRANSD
+tN: 11
+tL: 0
+
+[ 416 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF
+tN: 0
+tL: 0
+star_child: ( GENR )
+wait_list: ( GENR )
+
+[ 294 ]: SIMULATORS::whenReceiveX
+Model: : TRANSD
+tN: 11
+tL: 0
+
+[ 372 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF
+tN: 0
+tL: 0
+star_child: ( GENR )
+wait_list: ( GENR )
+
+[ 195 ]: SIMULATORS::whenReceiveStar
+Model: : GENR
+tN: 0
+tL: 0
+
+[ 204 ]: SIMULATORS::whenReceiveStar
+Model: : GENR
+tN: 3
+tL: 0
+
+[ 416 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF
+tN: 0
+tL: 0
+star_child: ( GENR )
+wait_list: ( )
+
+[ 416 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF_P
+tN: 0
+tL: 0
+star_child: ( EF )
+wait_list: ( )
+
+[ 463 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF_P
+tN: 3
+tL: 0
+star_child: ( EF )
+wait_list: ( )
+
+[ 463 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF
+tN: 3
+tL: 0
+star_child: ( GENR )
+wait_list: ( )
+
+[ 220 ]: SIMULATORS::whenReceiveStar
+Model: : GENR
+tN: 3
+tL: 0
+
+[ 180 ]: CO_ORDINATORS::whenReceiveStar
+devs_component: EF
+tN: 3
+tL: 0
+star_child: ( )
+wait_list: ( )
+
+[ 180 ]: CO_ORDINATORS::whenReceiveStar
+devs_component: EF_P
+tN: 3
+tL: 0
+star_child: ( )
+wait_list: ( )
+
+***********************************************************
+[ 171 ]: CO_ORDINATORS::whenReceiveStar
+devs_component: EF_P
+tN: 3
+tL: 3
+star_child: ( EF )
+wait_list: ( EF )
+
+[ 171 ]: CO_ORDINATORS::whenReceiveStar
+devs_component: EF
+tN: 3
+tL: 3
+star_child: ( GENR )
+wait_list: ( GENR )
+
+[ 183 ]: SIMULATORS::whenReceiveStar
+Model: : GENR
+tN: 3
+tL: 0
+
+[ 333 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF
+tN: 3
+tL: 3
+star_child: ( GENR )
+wait_list: ( GENR )
+
+[ 363 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF_P
+tN: 3
+tL: 3
+star_child: ( EF )
+wait_list: ( EF P )
+
+[ 261 ]: SIMULATORS::whenReceiveX
+Model: : P
+tN: 10
+tL: 3
+
+[ 283 ]: SIMULATORS::whenReceiveX
+Model: : P
+tN: 10
+tL: 3
+
+[ 416 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF_P
+tN: 3
+tL: 3
+star_child: ( EF )
+wait_list: ( EF )
+
+[ 294 ]: SIMULATORS::whenReceiveX
+Model: : P
+tN: 10
+tL: 3
+
+[ 372 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF_P
+tN: 3
+tL: 3
+star_child: ( EF )
+wait_list: ( EF )
+
+[ 363 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF
+tN: 3
+tL: 3
+star_child: ( GENR )
+wait_list: ( GENR TRANSD )
+
+[ 261 ]: SIMULATORS::whenReceiveX
+Model: : TRANSD
+tN: 11
+tL: 3
+
+[ 283 ]: SIMULATORS::whenReceiveX
+Model: : TRANSD
+tN: 11
+tL: 3
+
+[ 416 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF
+tN: 3
+tL: 3
+star_child: ( GENR )
+wait_list: ( GENR )
+
+[ 294 ]: SIMULATORS::whenReceiveX
+Model: : TRANSD
+tN: 11
+tL: 3
+
+[ 372 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF
+tN: 3
+tL: 3
+star_child: ( GENR )
+wait_list: ( GENR )
+
+[ 195 ]: SIMULATORS::whenReceiveStar
+Model: : GENR
+tN: 3
+tL: 0
+
+[ 204 ]: SIMULATORS::whenReceiveStar
+Model: : GENR
+tN: 6
+tL: 3
+
+[ 416 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF
+tN: 3
+tL: 3
+star_child: ( GENR )
+wait_list: ( )
+
+[ 416 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF_P
+tN: 3
+tL: 3
+star_child: ( EF )
+wait_list: ( )
+
+[ 463 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF_P
+tN: 6
+tL: 3
+star_child: ( EF )
+wait_list: ( )
+
+[ 463 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF
+tN: 6
+tL: 3
+star_child: ( GENR )
+wait_list: ( )
+
+[ 220 ]: SIMULATORS::whenReceiveStar
+Model: : GENR
+tN: 6
+tL: 3
+
+[ 180 ]: CO_ORDINATORS::whenReceiveStar
+devs_component: EF
+tN: 6
+tL: 3
+star_child: ( )
+wait_list: ( )
+
+[ 180 ]: CO_ORDINATORS::whenReceiveStar
+devs_component: EF_P
+tN: 6
+tL: 3
+star_child: ( )
+wait_list: ( )
+
+***********************************************************
+[ 171 ]: CO_ORDINATORS::whenReceiveStar
+devs_component: EF_P
+tN: 6
+tL: 6
+star_child: ( EF )
+wait_list: ( EF )
+
+[ 171 ]: CO_ORDINATORS::whenReceiveStar
+devs_component: EF
+tN: 6
+tL: 6
+star_child: ( GENR )
+wait_list: ( GENR )
+
+[ 183 ]: SIMULATORS::whenReceiveStar
+Model: : GENR
+tN: 6
+tL: 3
+
+[ 333 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF
+tN: 6
+tL: 6
+star_child: ( GENR )
+wait_list: ( GENR )
+
+[ 363 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF_P
+tN: 6
+tL: 6
+star_child: ( EF )
+wait_list: ( EF P )
+
+[ 261 ]: SIMULATORS::whenReceiveX
+Model: : P
+tN: 10
+tL: 6
+
+[ 283 ]: SIMULATORS::whenReceiveX
+Model: : P
+tN: 10
+tL: 6
+
+[ 416 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF_P
+tN: 6
+tL: 6
+star_child: ( EF )
+wait_list: ( EF )
+
+[ 294 ]: SIMULATORS::whenReceiveX
+Model: : P
+tN: 10
+tL: 6
+
+[ 372 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF_P
+tN: 6
+tL: 6
+star_child: ( EF )
+wait_list: ( EF )
+
+[ 363 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF
+tN: 6
+tL: 6
+star_child: ( GENR )
+wait_list: ( GENR TRANSD )
+
+[ 261 ]: SIMULATORS::whenReceiveX
+Model: : TRANSD
+tN: 11
+tL: 6
+
+[ 283 ]: SIMULATORS::whenReceiveX
+Model: : TRANSD
+tN: 11
+tL: 6
+
+[ 416 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF
+tN: 6
+tL: 6
+star_child: ( GENR )
+wait_list: ( GENR )
+
+[ 294 ]: SIMULATORS::whenReceiveX
+Model: : TRANSD
+tN: 11
+tL: 6
+
+[ 372 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF
+tN: 6
+tL: 6
+star_child: ( GENR )
+wait_list: ( GENR )
+
+[ 195 ]: SIMULATORS::whenReceiveStar
+Model: : GENR
+tN: 6
+tL: 3
+
+[ 204 ]: SIMULATORS::whenReceiveStar
+Model: : GENR
+tN: 9
+tL: 6
+
+[ 416 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF
+tN: 6
+tL: 6
+star_child: ( GENR )
+wait_list: ( )
+
+[ 416 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF_P
+tN: 6
+tL: 6
+star_child: ( EF )
+wait_list: ( )
+
+[ 463 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF_P
+tN: 9
+tL: 6
+star_child: ( EF )
+wait_list: ( )
+
+[ 463 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF
+tN: 9
+tL: 6
+star_child: ( GENR )
+wait_list: ( )
+
+[ 220 ]: SIMULATORS::whenReceiveStar
+Model: : GENR
+tN: 9
+tL: 6
+
+[ 180 ]: CO_ORDINATORS::whenReceiveStar
+devs_component: EF
+tN: 9
+tL: 6
+star_child: ( )
+wait_list: ( )
+
+[ 180 ]: CO_ORDINATORS::whenReceiveStar
+devs_component: EF_P
+tN: 9
+tL: 6
+star_child: ( )
+wait_list: ( )
+
+***********************************************************
+[ 171 ]: CO_ORDINATORS::whenReceiveStar
+devs_component: EF_P
+tN: 9
+tL: 9
+star_child: ( EF )
+wait_list: ( EF )
+
+[ 171 ]: CO_ORDINATORS::whenReceiveStar
+devs_component: EF
+tN: 9
+tL: 9
+star_child: ( GENR )
+wait_list: ( GENR )
+
+[ 183 ]: SIMULATORS::whenReceiveStar
+Model: : GENR
+tN: 9
+tL: 6
+
+[ 333 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF
+tN: 9
+tL: 9
+star_child: ( GENR )
+wait_list: ( GENR )
+
+[ 363 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF_P
+tN: 9
+tL: 9
+star_child: ( EF )
+wait_list: ( EF P )
+
+[ 261 ]: SIMULATORS::whenReceiveX
+Model: : P
+tN: 10
+tL: 9
+
+[ 283 ]: SIMULATORS::whenReceiveX
+Model: : P
+tN: 10
+tL: 9
+
+[ 416 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF_P
+tN: 9
+tL: 9
+star_child: ( EF )
+wait_list: ( EF )
+
+[ 294 ]: SIMULATORS::whenReceiveX
+Model: : P
+tN: 10
+tL: 9
+
+[ 372 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF_P
+tN: 9
+tL: 9
+star_child: ( EF )
+wait_list: ( EF )
+
+[ 363 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF
+tN: 9
+tL: 9
+star_child: ( GENR )
+wait_list: ( GENR TRANSD )
+
+[ 261 ]: SIMULATORS::whenReceiveX
+Model: : TRANSD
+tN: 11
+tL: 9
+
+[ 283 ]: SIMULATORS::whenReceiveX
+Model: : TRANSD
+tN: 11
+tL: 9
+
+[ 416 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF
+tN: 9
+tL: 9
+star_child: ( GENR )
+wait_list: ( GENR )
+
+[ 294 ]: SIMULATORS::whenReceiveX
+Model: : TRANSD
+tN: 11
+tL: 9
+
+[ 372 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF
+tN: 9
+tL: 9
+star_child: ( GENR )
+wait_list: ( GENR )
+
+[ 195 ]: SIMULATORS::whenReceiveStar
+Model: : GENR
+tN: 9
+tL: 6
+
+[ 204 ]: SIMULATORS::whenReceiveStar
+Model: : GENR
+tN: 12
+tL: 9
+
+[ 416 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF
+tN: 9
+tL: 9
+star_child: ( GENR )
+wait_list: ( )
+
+[ 416 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF_P
+tN: 9
+tL: 9
+star_child: ( EF )
+wait_list: ( )
+
+[ 463 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF_P
+tN: 10
+tL: 9
+star_child: ( EF )
+wait_list: ( )
+
+[ 463 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF
+tN: 11
+tL: 9
+star_child: ( GENR )
+wait_list: ( )
+
+[ 220 ]: SIMULATORS::whenReceiveStar
+Model: : GENR
+tN: 12
+tL: 9
+
+[ 180 ]: CO_ORDINATORS::whenReceiveStar
+devs_component: EF
+tN: 11
+tL: 9
+star_child: ( )
+wait_list: ( )
+
+[ 180 ]: CO_ORDINATORS::whenReceiveStar
+devs_component: EF_P
+tN: 10
+tL: 9
+star_child: ( )
+wait_list: ( )
+
+***********************************************************
+[ 171 ]: CO_ORDINATORS::whenReceiveStar
+devs_component: EF_P
+tN: 10
+tL: 10
+star_child: ( P )
+wait_list: ( P )
+
+[ 183 ]: SIMULATORS::whenReceiveStar
+Model: : P
+tN: 10
+tL: 9
+
+[ 363 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF_P
+tN: 10
+tL: 10
+star_child: ( P )
+wait_list: ( EF P )
+
+[ 262 ]: CO_ORDINATORS::whenReceiveX
+devs_component: EF
+tN: 11
+tL: 10
+star_child: ( )
+wait_list: ( TRANSD )
+
+[ 261 ]: SIMULATORS::whenReceiveX
+Model: : TRANSD
+tN: 11
+tL: 10
+
+[ 283 ]: SIMULATORS::whenReceiveX
+Model: : TRANSD
+tN: 11
+tL: 10
+
+[ 416 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF
+tN: 11
+tL: 10
+star_child: ( )
+wait_list: ( )
+
+[ 416 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF_P
+tN: 10
+tL: 10
+star_child: ( P )
+wait_list: ( P )
+
+[ 463 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF
+tN: 11
+tL: 10
+star_child: ( )
+wait_list: ( )
+
+[ 294 ]: SIMULATORS::whenReceiveX
+Model: : TRANSD
+tN: 11
+tL: 10
+
+[ 372 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF_P
+tN: 10
+tL: 10
+star_child: ( P )
+wait_list: ( P )
+
+[ 195 ]: SIMULATORS::whenReceiveStar
+Model: : P
+tN: 10
+tL: 9
+
+[ 204 ]: SIMULATORS::whenReceiveStar
+Model: : P
+tN: inf
+tL: 10
+
+[ 416 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF_P
+tN: 10
+tL: 10
+star_child: ( P )
+wait_list: ( )
+
+[ 463 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF_P
+tN: 11
+tL: 10
+star_child: ( P )
+wait_list: ( )
+
+[ 220 ]: SIMULATORS::whenReceiveStar
+Model: : P
+tN: inf
+tL: 10
+
+[ 180 ]: CO_ORDINATORS::whenReceiveStar
+devs_component: EF_P
+tN: 11
+tL: 10
+star_child: ( )
+wait_list: ( )
+
+***********************************************************
+[ 171 ]: CO_ORDINATORS::whenReceiveStar
+devs_component: EF_P
+tN: 11
+tL: 11
+star_child: ( EF )
+wait_list: ( EF )
+
+[ 171 ]: CO_ORDINATORS::whenReceiveStar
+devs_component: EF
+tN: 11
+tL: 11
+star_child: ( TRANSD )
+wait_list: ( TRANSD )
+
+[ 183 ]: SIMULATORS::whenReceiveStar
+Model: : TRANSD
+tN: 11
+tL: 10
+
+[ 333 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF
+tN: 11
+tL: 11
+star_child: ( TRANSD )
+wait_list: ( TRANSD )
+
+[ 333 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF_P
+tN: 11
+tL: 11
+star_child: ( EF )
+wait_list: ( EF )
+
+[ 363 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF
+tN: 11
+tL: 11
+star_child: ( TRANSD )
+wait_list: ( GENR TRANSD )
+
+[ 261 ]: SIMULATORS::whenReceiveX
+Model: : GENR
+tN: 12
+tL: 11
+
+[ 283 ]: SIMULATORS::whenReceiveX
+Model: : GENR
+tN: inf
+tL: 11
+
+[ 416 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF
+tN: 11
+tL: 11
+star_child: ( TRANSD )
+wait_list: ( TRANSD )
+
+[ 294 ]: SIMULATORS::whenReceiveX
+Model: : GENR
+tN: inf
+tL: 11
+
+[ 372 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF
+tN: 11
+tL: 11
+star_child: ( TRANSD )
+wait_list: ( TRANSD )
+
+[ 195 ]: SIMULATORS::whenReceiveStar
+Model: : TRANSD
+tN: 11
+tL: 10
+
+[ 204 ]: SIMULATORS::whenReceiveStar
+Model: : TRANSD
+tN: inf
+tL: 11
+
+[ 416 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF
+tN: 11
+tL: 11
+star_child: ( TRANSD )
+wait_list: ( )
+
+[ 416 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF_P
+tN: 11
+tL: 11
+star_child: ( EF )
+wait_list: ( )
+
+[ 463 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF_P
+tN: 1.79769e+308
+tL: 11
+star_child: ( EF )
+wait_list: ( )
+
+[ 463 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF
+tN: 1.79769e+308
+tL: 11
+star_child: ( TRANSD )
+wait_list: ( )
+
+[ 220 ]: SIMULATORS::whenReceiveStar
+Model: : TRANSD
+tN: inf
+tL: 11
+
+[ 180 ]: CO_ORDINATORS::whenReceiveStar
+devs_component: EF
+tN: 1.79769e+308
+tL: 11
+star_child: ( )
+wait_list: ( )
+
+[ 180 ]: CO_ORDINATORS::whenReceiveStar
+devs_component: EF_P
+tN: 1.79769e+308
+tL: 11
+star_child: ( )
+wait_list: ( )
+
+***********************************************************

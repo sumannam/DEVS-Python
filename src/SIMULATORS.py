@@ -56,11 +56,13 @@ class SIMULATORS(PROCESSORS):
                 new_message.addContent(devs_output)
 
                 if(self.isPairParentCoupling(devs_output)==True):
+                    logging.info("")
                     logInfoSimulator(self.devs_component.getName()
                                     , self.time_next
                                     , self.time_last)
                     self.parent.whenReceiveY(new_message)
             
+            logging.info("")
             logInfoSimulator(self.devs_component.getName()
                             , self.time_next
                             , self.time_last)
@@ -69,6 +71,7 @@ class SIMULATORS(PROCESSORS):
             self.time_last = input_message.getTime()
             self.time_next = self.time_last + self.devs_component.timeAdvancedFunc()
             
+            logging.info("")
             logInfoSimulator(self.devs_component.getName()
                             , self.time_next
                             , self.time_last)
@@ -79,6 +82,7 @@ class SIMULATORS(PROCESSORS):
             output_message = MESSAGE()
             output_message.setDone(MESSAGE_TYPE.Done, source, time)
 
+            logging.info("")
             logInfoSimulator(self.devs_component.getName(), self.time_next, self.time_last)
 
     
@@ -97,9 +101,14 @@ class SIMULATORS(PROCESSORS):
             elapsed_time = input_message.getTime() - self.time_last
             self.time_last = input_message.getTime()
 
+            logging.info("")
             logInfoSimulator(self.devs_component.getName()
                             , self.time_next
                             , self.time_last)
+
+            devs_comp_name = self.devs_component.getName()
+            if devs_comp_name == "TRANSD":
+                print(devs_comp_name)
 
             content = CONTENT()
             content = input_message.getContent()
@@ -107,6 +116,7 @@ class SIMULATORS(PROCESSORS):
 
             self.time_next = self.time_last + self.devs_component.timeAdvancedFunc()
 
+            logging.info("")
             logInfoSimulator(self.devs_component.getName()
                             , self.time_next
                             , self.time_last)
@@ -118,6 +128,7 @@ class SIMULATORS(PROCESSORS):
 
             self.parent.whenReceiveDone(output)
 
+            logging.info("")
             logInfoSimulator(self.devs_component.getName()
                             , self.time_next
                             , self.time_last)
