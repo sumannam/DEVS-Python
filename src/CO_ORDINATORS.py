@@ -88,15 +88,15 @@ class CO_ORDINATORS(PROCESSORS):
         msg_time = input_message.getTime()
 
         if( msg_time == self.time_next ):
-            self.tL = msg_time
+            self.time_last = msg_time
             output = MESSAGE()
             output.setStar(MESSAGE_TYPE.STAR, self.devs_component, msg_time)
 
             self.setStarChild()
 
             for child in self.star_child:
-                if child not in self.star_child:
-                    self.wait_list.append(child)
+                # if child not in self.star_child:
+                self.wait_list.append(child)
 
                 # devs_comp_name = self.devs_component.getName()
                 # if devs_comp_name == "EF_P":
@@ -112,6 +112,13 @@ class CO_ORDINATORS(PROCESSORS):
                 child.whenReceiveStar(output)
 
             self.star_child.clear()
+
+            logging.info("")
+            logInfoCoordinator(self.devs_component.getName()
+                                    , self.time_next
+                                    , self.time_last
+                                    , self.convertListToStr(self.star_child)
+                                    , self.convertListToStr(self.wait_list) )
 
     def whenReceiveY(self, input_message):
         """! 
