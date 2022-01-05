@@ -28,13 +28,13 @@ class TRANSD(ATOMIC_MODELS):
         self.arrived_dic={}
         self.solved_dic={}
 
-        self.count = 0
-
     def externalTransitionFunc(self, e, x):
+        time = self.state["clock"] + e
+
         if x.port == "arrived":
-            self.arrived_dic[x.value]=self.state["clock"]
+            self.arrived_dic[x.value]=time
         if x.port == "solved":
-            self.arrived_dic[x.value]=self.state["clock"]
+            self.arrived_dic[x.value]=time
         else:
             self.Continue(e)
 

@@ -76,9 +76,9 @@ class SIMULATORS(PROCESSORS):
                             , self.time_next
                             , self.time_last)
 
-            # devs_comp_name = self.devs_component.getName()
-            # if devs_comp_name == "GENR":
-            #     print(devs_comp_name)
+            devs_comp_name = self.devs_component.getName()
+            if devs_comp_name == "GENR":
+                print(devs_comp_name)
 
             source = MODELS()
             source = self.devs_component

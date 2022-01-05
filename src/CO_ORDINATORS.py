@@ -143,9 +143,9 @@ class CO_ORDINATORS(PROCESSORS):
             if processor in self.wait_list:
                 continue
             
-            # devs_comp_name = self.devs_component.getName()
-            # if devs_comp_name == "EF":
-            #     print(devs_comp_name)
+            devs_comp_name = self.devs_component.getName()
+            if devs_comp_name == "EF":
+                print(devs_comp_name)
 
             output = self.reconstructMessage( COUPLING_TYPE.IC, input_message, self.devs_component, processor.getDevsComponent())
             
@@ -326,7 +326,7 @@ class CO_ORDINATORS(PROCESSORS):
             new_content = CONTENT()
             port_name = self.extractPortName(model_port_list[0])
             new_content.setContent(port_name, value)
-            new_message.addContent(content)
+            new_message.addContent(new_content)
 
             return new_message
 
