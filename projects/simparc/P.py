@@ -19,7 +19,7 @@ class P(ATOMIC_MODELS):
         self.state["sigma"]=math.inf
         self.state["phase"]="passive"
         self.addState("job-id", "")
-        self.addState("processing_time", 10)
+        self.addState("processing_time", 4)
 
     def externalTransitionFunc(self, e, x):
         if x.port == "in":

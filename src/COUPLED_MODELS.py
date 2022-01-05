@@ -130,9 +130,9 @@ class COUPLED_MODELS(MODELS):
         parent = processor.getParent()
         parent.restart()
 
-    def hasExternalOutputCopling(self, src_model, port):
+    def hasOutputCopling(self, src_model, port):
         model_port_name = self.getModelPortName(src_model, port)
-        return self.external_output_coupling.find(model_port_name)
+        return self.internal_coupling.find(model_port_name)
 
     def translate(self, coupling_type, model, port):
         model_port_list = []

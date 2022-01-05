@@ -50,6 +50,10 @@ class SIMULATORS(PROCESSORS):
             devs_output = CONTENT()
             devs_output = self.devs_component.outputFunc()
 
+            devs_comp_name = self.devs_component.getName()
+            if devs_comp_name == "P":
+                print(devs_comp_name)
+
             if( devs_output.getPort() != None ):
                 new_message = MESSAGE()
                 new_message.setExt(MESSAGE_TYPE.EXT, self.devs_component, input_time)
@@ -154,7 +158,7 @@ class SIMULATORS(PROCESSORS):
 
         # print(self.devs_component, content.getPort())
 
-        bool_rslt = parent_model.hasExternalOutputCopling(self.devs_component, content.getPort())
+        bool_rslt = parent_model.hasOutputCopling(self.devs_component, content.getPort())
 
         if(bool_rslt == True):
             return True

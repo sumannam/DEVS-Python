@@ -1,5 +1,5 @@
 SEQ: 0
-[ 113 ]: ROOT_CO_ORDINATORS::initialize
+[ 126 ]: ROOT_CO_ORDINATORS::initialize
 clock_base: 0
 
 ***********************************************************
@@ -17,129 +17,129 @@ tL: 0
 star_child: ( GENR )
 wait_list: ( GENR )
 
-[ 183 ]: SIMULATORS::whenReceiveStar
+[ 115 ]: SIMULATORS::whenReceiveStar
 Model: : GENR
 tN: 0
 tL: 0
 
-[ 333 ]: CO_ORDINATORS::whenReceiveY
+[ 271 ]: CO_ORDINATORS::whenReceiveY
 devs_component: EF
 tN: 0
 tL: 0
 star_child: ( GENR )
 wait_list: ( GENR )
 
-[ 363 ]: CO_ORDINATORS::whenReceiveY
+[ 301 ]: CO_ORDINATORS::whenReceiveY
 devs_component: EF_P
 tN: 0
 tL: 0
 star_child: ( EF )
 wait_list: ( EF P )
 
-[ 261 ]: SIMULATORS::whenReceiveX
+[ 192 ]: SIMULATORS::whenReceiveX
 Model: : P
 tN: inf
 tL: 0
 
-[ 283 ]: SIMULATORS::whenReceiveX
+[ 214 ]: SIMULATORS::whenReceiveX
 Model: : P
-tN: 10
+tN: 4
 tL: 0
 
-[ 416 ]: CO_ORDINATORS::whenReceiveDone
+[ 353 ]: CO_ORDINATORS::whenReceiveDone
 devs_component: EF_P
 tN: 0
 tL: 0
 star_child: ( EF )
 wait_list: ( EF )
 
-[ 294 ]: SIMULATORS::whenReceiveX
+[ 225 ]: SIMULATORS::whenReceiveX
 Model: : P
-tN: 10
+tN: 4
 tL: 0
 
-***[ 372 ]: CO_ORDINATORS::whenReceiveY
+[ 310 ]: CO_ORDINATORS::whenReceiveY
 devs_component: EF_P
 tN: 0
 tL: 0
 star_child: ( EF )
 wait_list: ( EF )
 
-[ 363 ]: CO_ORDINATORS::whenReceiveY
+[ 301 ]: CO_ORDINATORS::whenReceiveY
 devs_component: EF
 tN: 0
 tL: 0
 star_child: ( GENR )
 wait_list: ( GENR TRANSD )
 
-[ 261 ]: SIMULATORS::whenReceiveX
+[ 192 ]: SIMULATORS::whenReceiveX
 Model: : TRANSD
-tN: 11
+tN: 6
 tL: 0
 
-[ 283 ]: SIMULATORS::whenReceiveX
+[ 214 ]: SIMULATORS::whenReceiveX
 Model: : TRANSD
-tN: 11
+tN: 6
 tL: 0
 
-[ 416 ]: CO_ORDINATORS::whenReceiveDone
+[ 353 ]: CO_ORDINATORS::whenReceiveDone
 devs_component: EF
 tN: 0
 tL: 0
 star_child: ( GENR )
 wait_list: ( GENR )
 
-[ 294 ]: SIMULATORS::whenReceiveX
+[ 225 ]: SIMULATORS::whenReceiveX
 Model: : TRANSD
-tN: 11
+tN: 6
 tL: 0
 
-[ 372 ]: CO_ORDINATORS::whenReceiveY
+[ 310 ]: CO_ORDINATORS::whenReceiveY
 devs_component: EF
 tN: 0
 tL: 0
 star_child: ( GENR )
 wait_list: ( GENR )
 
-[ 195 ]: SIMULATORS::whenReceiveStar
+[ 126 ]: SIMULATORS::whenReceiveStar
 Model: : GENR
 tN: 0
 tL: 0
 
-[ 204 ]: SIMULATORS::whenReceiveStar
+[ 135 ]: SIMULATORS::whenReceiveStar
 Model: : GENR
 tN: 3
 tL: 0
 
-****************[ 416 ]: CO_ORDINATORS::whenReceiveDone
+[ 353 ]: CO_ORDINATORS::whenReceiveDone
 devs_component: EF
 tN: 0
 tL: 0
 star_child: ( GENR )
 wait_list: ( )
 
-[ 416 ]: CO_ORDINATORS::whenReceiveDone
+[ 353 ]: CO_ORDINATORS::whenReceiveDone
 devs_component: EF_P
 tN: 0
 tL: 0
 star_child: ( EF )
 wait_list: ( )
 
-[ 463 ]: CO_ORDINATORS::whenReceiveDone
+[ 385 ]: CO_ORDINATORS::whenReceiveDone
 devs_component: EF_P
 tN: 3
 tL: 0
 star_child: ( EF )
 wait_list: ( )
 
-[ 463 ]: CO_ORDINATORS::whenReceiveDone
+[ 385 ]: CO_ORDINATORS::whenReceiveDone
 devs_component: EF
 tN: 3
 tL: 0
 star_child: ( GENR )
 wait_list: ( )
 
-[ 220 ]: SIMULATORS::whenReceiveStar
+[ 151 ]: SIMULATORS::whenReceiveStar
 Model: : GENR
 tN: 3
 tL: 0
@@ -173,129 +173,129 @@ tL: 3
 star_child: ( GENR )
 wait_list: ( GENR )
 
-[ 183 ]: SIMULATORS::whenReceiveStar
+[ 115 ]: SIMULATORS::whenReceiveStar
 Model: : GENR
 tN: 3
 tL: 0
 
-[ 333 ]: CO_ORDINATORS::whenReceiveY
+[ 271 ]: CO_ORDINATORS::whenReceiveY
 devs_component: EF
 tN: 3
 tL: 3
 star_child: ( GENR )
 wait_list: ( GENR )
 
-[ 363 ]: CO_ORDINATORS::whenReceiveY
+[ 301 ]: CO_ORDINATORS::whenReceiveY
 devs_component: EF_P
 tN: 3
 tL: 3
 star_child: ( EF )
 wait_list: ( EF P )
 
-[ 261 ]: SIMULATORS::whenReceiveX
+[ 192 ]: SIMULATORS::whenReceiveX
 Model: : P
-tN: 10
+tN: 4
 tL: 3
 
-[ 283 ]: SIMULATORS::whenReceiveX
+[ 214 ]: SIMULATORS::whenReceiveX
 Model: : P
-tN: 10
+tN: 4
 tL: 3
 
-[ 416 ]: CO_ORDINATORS::whenReceiveDone
+[ 353 ]: CO_ORDINATORS::whenReceiveDone
 devs_component: EF_P
 tN: 3
 tL: 3
 star_child: ( EF )
 wait_list: ( EF )
 
-[ 294 ]: SIMULATORS::whenReceiveX
+[ 225 ]: SIMULATORS::whenReceiveX
 Model: : P
-tN: 10
+tN: 4
 tL: 3
 
-[ 372 ]: CO_ORDINATORS::whenReceiveY
+[ 310 ]: CO_ORDINATORS::whenReceiveY
 devs_component: EF_P
 tN: 3
 tL: 3
 star_child: ( EF )
 wait_list: ( EF )
 
-[ 363 ]: CO_ORDINATORS::whenReceiveY
+[ 301 ]: CO_ORDINATORS::whenReceiveY
 devs_component: EF
 tN: 3
 tL: 3
 star_child: ( GENR )
 wait_list: ( GENR TRANSD )
 
-[ 261 ]: SIMULATORS::whenReceiveX
+[ 192 ]: SIMULATORS::whenReceiveX
 Model: : TRANSD
-tN: 11
+tN: 6
 tL: 3
 
-[ 283 ]: SIMULATORS::whenReceiveX
+[ 214 ]: SIMULATORS::whenReceiveX
 Model: : TRANSD
-tN: 11
+tN: 6
 tL: 3
 
-[ 416 ]: CO_ORDINATORS::whenReceiveDone
+[ 353 ]: CO_ORDINATORS::whenReceiveDone
 devs_component: EF
 tN: 3
 tL: 3
 star_child: ( GENR )
 wait_list: ( GENR )
 
-[ 294 ]: SIMULATORS::whenReceiveX
+[ 225 ]: SIMULATORS::whenReceiveX
 Model: : TRANSD
-tN: 11
+tN: 6
 tL: 3
 
-[ 372 ]: CO_ORDINATORS::whenReceiveY
+[ 310 ]: CO_ORDINATORS::whenReceiveY
 devs_component: EF
 tN: 3
 tL: 3
 star_child: ( GENR )
 wait_list: ( GENR )
 
-[ 195 ]: SIMULATORS::whenReceiveStar
+[ 126 ]: SIMULATORS::whenReceiveStar
 Model: : GENR
 tN: 3
 tL: 0
 
-[ 204 ]: SIMULATORS::whenReceiveStar
+[ 135 ]: SIMULATORS::whenReceiveStar
 Model: : GENR
 tN: 6
 tL: 3
 
-[ 416 ]: CO_ORDINATORS::whenReceiveDone
+[ 353 ]: CO_ORDINATORS::whenReceiveDone
 devs_component: EF
 tN: 3
 tL: 3
 star_child: ( GENR )
 wait_list: ( )
 
-[ 416 ]: CO_ORDINATORS::whenReceiveDone
+[ 353 ]: CO_ORDINATORS::whenReceiveDone
 devs_component: EF_P
 tN: 3
 tL: 3
 star_child: ( EF )
 wait_list: ( )
 
-[ 463 ]: CO_ORDINATORS::whenReceiveDone
+[ 385 ]: CO_ORDINATORS::whenReceiveDone
 devs_component: EF_P
-tN: 6
+tN: 4
 tL: 3
 star_child: ( EF )
 wait_list: ( )
 
-[ 463 ]: CO_ORDINATORS::whenReceiveDone
+[ 385 ]: CO_ORDINATORS::whenReceiveDone
 devs_component: EF
 tN: 6
 tL: 3
 star_child: ( GENR )
 wait_list: ( )
 
-[ 220 ]: SIMULATORS::whenReceiveStar
+[ 151 ]: SIMULATORS::whenReceiveStar
 Model: : GENR
 tN: 6
 tL: 3
@@ -309,8 +309,114 @@ wait_list: ( )
 
 [ 180 ]: CO_ORDINATORS::whenReceiveStar
 devs_component: EF_P
-tN: 6
+tN: 4
 tL: 3
+star_child: ( )
+wait_list: ( )
+
+***********************************************************
+[ 171 ]: CO_ORDINATORS::whenReceiveStar
+devs_component: EF_P
+tN: 4
+tL: 4
+star_child: ( P )
+wait_list: ( P )
+
+[ 115 ]: SIMULATORS::whenReceiveStar
+Model: : P
+tN: 4
+tL: 3
+
+[ 301 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF_P
+tN: 4
+tL: 4
+star_child: ( P )
+wait_list: ( EF P )   [DEVS-ObjC는 set, python은 리스트 타입이라 차이가 있음]
+
+***********************************************************[ 229 ]: CO_ORDINATORS::whenReceiveX
+devs_component: EF
+tN: 6
+tL: 4
+star_child: ( )
+wait_list: ( TRANSD )
+
+[ 192 ]: SIMULATORS::whenReceiveX
+Model: : TRANSD
+tN: 6
+tL: 4
+
+[ 214 ]: SIMULATORS::whenReceiveX
+Model: : TRANSD
+tN: 6
+tL: 4
+
+[ 353 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF
+tN: 6
+tL: 4
+star_child: ( )
+wait_list: ( )
+
+[ 353 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF_P
+tN: 4
+tL: 4
+star_child: ( P )
+wait_list: ( P )
+
+[ 385 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF
+tN: 6
+tL: 4
+star_child: ( )
+wait_list: ( )
+
+[ 225 ]: SIMULATORS::whenReceiveX
+Model: : TRANSD
+tN: 6
+tL: 4
+
+[ 310 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF_P
+tN: 4
+tL: 4
+star_child: ( P )
+wait_list: ( P )
+
+[ 126 ]: SIMULATORS::whenReceiveStar
+Model: : P
+tN: 4
+tL: 3
+
+[ 135 ]: SIMULATORS::whenReceiveStar
+Model: : P
+tN: inf
+tL: 4
+
+[ 353 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF_P
+tN: 4
+tL: 4
+star_child: ( P )
+wait_list: ( )
+
+[ 385 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF_P
+tN: 6
+tL: 4
+star_child: ( P )
+wait_list: ( )
+
+[ 151 ]: SIMULATORS::whenReceiveStar
+Model: : P
+tN: inf
+tL: 4
+
+[ 180 ]: CO_ORDINATORS::whenReceiveStar
+devs_component: EF_P
+tN: 6
+tL: 4
 star_child: ( )
 wait_list: ( )
 
@@ -326,146 +432,146 @@ wait_list: ( EF )
 devs_component: EF
 tN: 6
 tL: 6
-star_child: ( GENR )
+star_child: ( GENR TRANSD )
 wait_list: ( GENR )
 
-[ 183 ]: SIMULATORS::whenReceiveStar
+[ 115 ]: SIMULATORS::whenReceiveStar
 Model: : GENR
 tN: 6
 tL: 3
 
-[ 333 ]: CO_ORDINATORS::whenReceiveY
+[ 271 ]: CO_ORDINATORS::whenReceiveY
 devs_component: EF
 tN: 6
 tL: 6
-star_child: ( GENR )
+star_child: ( GENR TRANSD )
 wait_list: ( GENR )
 
-[ 363 ]: CO_ORDINATORS::whenReceiveY
+[ 301 ]: CO_ORDINATORS::whenReceiveY
 devs_component: EF_P
 tN: 6
 tL: 6
 star_child: ( EF )
 wait_list: ( EF P )
 
-[ 261 ]: SIMULATORS::whenReceiveX
+[ 192 ]: SIMULATORS::whenReceiveX
+Model: : P
+tN: inf
+tL: 6
+
+[ 214 ]: SIMULATORS::whenReceiveX
 Model: : P
 tN: 10
 tL: 6
 
-[ 283 ]: SIMULATORS::whenReceiveX
-Model: : P
-tN: 10
-tL: 6
-
-[ 416 ]: CO_ORDINATORS::whenReceiveDone
+[ 353 ]: CO_ORDINATORS::whenReceiveDone
 devs_component: EF_P
 tN: 6
 tL: 6
 star_child: ( EF )
 wait_list: ( EF )
 
-[ 294 ]: SIMULATORS::whenReceiveX
+[ 225 ]: SIMULATORS::whenReceiveX
 Model: : P
 tN: 10
 tL: 6
 
-[ 372 ]: CO_ORDINATORS::whenReceiveY
+[ 310 ]: CO_ORDINATORS::whenReceiveY
 devs_component: EF_P
 tN: 6
 tL: 6
 star_child: ( EF )
 wait_list: ( EF )
 
-[ 363 ]: CO_ORDINATORS::whenReceiveY
+[ 301 ]: CO_ORDINATORS::whenReceiveY
 devs_component: EF
 tN: 6
 tL: 6
-star_child: ( GENR )
+star_child: ( GENR TRANSD )
 wait_list: ( GENR TRANSD )
 
-[ 261 ]: SIMULATORS::whenReceiveX
+[ 192 ]: SIMULATORS::whenReceiveX
 Model: : TRANSD
-tN: 11
+tN: 6
 tL: 6
 
-[ 283 ]: SIMULATORS::whenReceiveX
+[ 214 ]: SIMULATORS::whenReceiveX
 Model: : TRANSD
-tN: 11
+tN: 6
 tL: 6
 
-[ 416 ]: CO_ORDINATORS::whenReceiveDone
+[ 353 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF
+tN: 6
+tL: 6
+star_child: ( GENR TRANSD )
+wait_list: ( GENR )
+
+[ 225 ]: SIMULATORS::whenReceiveX
+Model: : TRANSD
+tN: 6
+tL: 6
+
+[ 310 ]: CO_ORDINATORS::whenReceiveY
 devs_component: EF
 tN: 6
 tL: 6
 star_child: ( GENR )
 wait_list: ( GENR )
 
-[ 294 ]: SIMULATORS::whenReceiveX
-Model: : TRANSD
-tN: 11
-tL: 6
-
-[ 372 ]: CO_ORDINATORS::whenReceiveY
-devs_component: EF
-tN: 6
-tL: 6
-star_child: ( GENR )
-wait_list: ( GENR )
-
-[ 195 ]: SIMULATORS::whenReceiveStar
+[ 126 ]: SIMULATORS::whenReceiveStar
 Model: : GENR
 tN: 6
 tL: 3
 
-[ 204 ]: SIMULATORS::whenReceiveStar
+[ 135 ]: SIMULATORS::whenReceiveStar
 Model: : GENR
 tN: 9
 tL: 6
 
-[ 416 ]: CO_ORDINATORS::whenReceiveDone
+[ 353 ]: CO_ORDINATORS::whenReceiveDone
 devs_component: EF
 tN: 6
 tL: 6
 star_child: ( GENR )
 wait_list: ( )
 
-[ 416 ]: CO_ORDINATORS::whenReceiveDone
+[ 353 ]: CO_ORDINATORS::whenReceiveDone
 devs_component: EF_P
 tN: 6
 tL: 6
 star_child: ( EF )
 wait_list: ( )
 
-[ 463 ]: CO_ORDINATORS::whenReceiveDone
+[ 385 ]: CO_ORDINATORS::whenReceiveDone
 devs_component: EF_P
-tN: 9
+tN: 6
 tL: 6
 star_child: ( EF )
 wait_list: ( )
 
-[ 463 ]: CO_ORDINATORS::whenReceiveDone
+[ 385 ]: CO_ORDINATORS::whenReceiveDone
 devs_component: EF
-tN: 9
+tN: 6
 tL: 6
 star_child: ( GENR )
 wait_list: ( )
 
-[ 220 ]: SIMULATORS::whenReceiveStar
+[ 151 ]: SIMULATORS::whenReceiveStar
 Model: : GENR
 tN: 9
 tL: 6
 
 [ 180 ]: CO_ORDINATORS::whenReceiveStar
 devs_component: EF
-tN: 9
+tN: 6
 tL: 6
 star_child: ( )
 wait_list: ( )
 
 [ 180 ]: CO_ORDINATORS::whenReceiveStar
 devs_component: EF_P
-tN: 9
+tN: 6
 tL: 6
 star_child: ( )
 wait_list: ( )
@@ -473,156 +579,127 @@ wait_list: ( )
 ***********************************************************
 [ 171 ]: CO_ORDINATORS::whenReceiveStar
 devs_component: EF_P
-tN: 9
-tL: 9
+tN: 6
+tL: 6
 star_child: ( EF )
 wait_list: ( EF )
 
 [ 171 ]: CO_ORDINATORS::whenReceiveStar
 devs_component: EF
-tN: 9
-tL: 9
-star_child: ( GENR )
-wait_list: ( GENR )
+tN: 6
+tL: 6
+star_child: ( TRANSD )
+wait_list: ( TRANSD )
 
-[ 183 ]: SIMULATORS::whenReceiveStar
-Model: : GENR
-tN: 9
+[ 115 ]: SIMULATORS::whenReceiveStar
+Model: : TRANSD
+tN: 6
 tL: 6
 
-[ 333 ]: CO_ORDINATORS::whenReceiveY
+[ 271 ]: CO_ORDINATORS::whenReceiveY
 devs_component: EF
-tN: 9
-tL: 9
-star_child: ( GENR )
-wait_list: ( GENR )
+tN: 6
+tL: 6
+star_child: ( TRANSD )
+wait_list: ( TRANSD )
 
-[ 363 ]: CO_ORDINATORS::whenReceiveY
+[ 271 ]: CO_ORDINATORS::whenReceiveY
 devs_component: EF_P
-tN: 9
-tL: 9
-star_child: ( EF )
-wait_list: ( EF P )
-
-[ 261 ]: SIMULATORS::whenReceiveX
-Model: : P
-tN: 10
-tL: 9
-
-[ 283 ]: SIMULATORS::whenReceiveX
-Model: : P
-tN: 10
-tL: 9
-
-[ 416 ]: CO_ORDINATORS::whenReceiveDone
-devs_component: EF_P
-tN: 9
-tL: 9
+tN: 6
+tL: 6
 star_child: ( EF )
 wait_list: ( EF )
 
-[ 294 ]: SIMULATORS::whenReceiveX
-Model: : P
-tN: 10
-tL: 9
-
-[ 372 ]: CO_ORDINATORS::whenReceiveY
-devs_component: EF_P
-tN: 9
-tL: 9
-star_child: ( EF )
-wait_list: ( EF )
-
-[ 363 ]: CO_ORDINATORS::whenReceiveY
+[ 301 ]: CO_ORDINATORS::whenReceiveY
 devs_component: EF
-tN: 9
-tL: 9
-star_child: ( GENR )
+tN: 6
+tL: 6
+star_child: ( TRANSD )
 wait_list: ( GENR TRANSD )
 
-[ 261 ]: SIMULATORS::whenReceiveX
-Model: : TRANSD
-tN: 11
-tL: 9
-
-[ 283 ]: SIMULATORS::whenReceiveX
-Model: : TRANSD
-tN: 11
-tL: 9
-
-[ 416 ]: CO_ORDINATORS::whenReceiveDone
-devs_component: EF
-tN: 9
-tL: 9
-star_child: ( GENR )
-wait_list: ( GENR )
-
-[ 294 ]: SIMULATORS::whenReceiveX
-Model: : TRANSD
-tN: 11
-tL: 9
-
-[ 372 ]: CO_ORDINATORS::whenReceiveY
-devs_component: EF
-tN: 9
-tL: 9
-star_child: ( GENR )
-wait_list: ( GENR )
-
-[ 195 ]: SIMULATORS::whenReceiveStar
+[ 192 ]: SIMULATORS::whenReceiveX
 Model: : GENR
 tN: 9
 tL: 6
 
-[ 204 ]: SIMULATORS::whenReceiveStar
+[ 214 ]: SIMULATORS::whenReceiveX
 Model: : GENR
-tN: 12
-tL: 9
+tN: inf
+tL: 6
 
-[ 416 ]: CO_ORDINATORS::whenReceiveDone
+[ 353 ]: CO_ORDINATORS::whenReceiveDone
 devs_component: EF
-tN: 9
-tL: 9
-star_child: ( GENR )
+tN: 6
+tL: 6
+star_child: ( TRANSD )
+wait_list: ( TRANSD )
+
+[ 225 ]: SIMULATORS::whenReceiveX
+Model: : GENR
+tN: inf
+tL: 6
+
+[ 310 ]: CO_ORDINATORS::whenReceiveY
+devs_component: EF
+tN: 6
+tL: 6
+star_child: ( TRANSD )
+wait_list: ( TRANSD )
+
+[ 126 ]: SIMULATORS::whenReceiveStar
+Model: : TRANSD
+tN: 6
+tL: 6
+
+[ 135 ]: SIMULATORS::whenReceiveStar
+Model: : TRANSD
+tN: inf
+tL: 6
+
+[ 353 ]: CO_ORDINATORS::whenReceiveDone
+devs_component: EF
+tN: 6
+tL: 6
+star_child: ( TRANSD )
 wait_list: ( )
 
-[ 416 ]: CO_ORDINATORS::whenReceiveDone
+[ 353 ]: CO_ORDINATORS::whenReceiveDone
 devs_component: EF_P
-tN: 9
-tL: 9
+tN: 6
+tL: 6
 star_child: ( EF )
 wait_list: ( )
 
-[ 463 ]: CO_ORDINATORS::whenReceiveDone
+[ 385 ]: CO_ORDINATORS::whenReceiveDone
 devs_component: EF_P
 tN: 10
-tL: 9
+tL: 6
 star_child: ( EF )
 wait_list: ( )
 
-[ 463 ]: CO_ORDINATORS::whenReceiveDone
+[ 385 ]: CO_ORDINATORS::whenReceiveDone
 devs_component: EF
-tN: 11
-tL: 9
-star_child: ( GENR )
+tN: 2.14748e+09
+tL: 6
+star_child: ( TRANSD )
 wait_list: ( )
 
-[ 220 ]: SIMULATORS::whenReceiveStar
-Model: : GENR
-tN: 12
-tL: 9
+[ 151 ]: SIMULATORS::whenReceiveStar
+Model: : TRANSD
+tN: inf
+tL: 6
 
 [ 180 ]: CO_ORDINATORS::whenReceiveStar
 devs_component: EF
-tN: 11
-tL: 9
+tN: 2.14748e+09
+tL: 6
 star_child: ( )
 wait_list: ( )
 
 [ 180 ]: CO_ORDINATORS::whenReceiveStar
 devs_component: EF_P
 tN: 10
-tL: 9
+tL: 6
 star_child: ( )
 wait_list: ( )
 
@@ -634,228 +711,101 @@ tL: 10
 star_child: ( P )
 wait_list: ( P )
 
-[ 183 ]: SIMULATORS::whenReceiveStar
+[ 115 ]: SIMULATORS::whenReceiveStar
 Model: : P
 tN: 10
-tL: 9
+tL: 6
 
-[ 363 ]: CO_ORDINATORS::whenReceiveY
+[ 301 ]: CO_ORDINATORS::whenReceiveY
 devs_component: EF_P
 tN: 10
 tL: 10
 star_child: ( P )
 wait_list: ( EF P )
 
-[ 262 ]: CO_ORDINATORS::whenReceiveX
+[ 229 ]: CO_ORDINATORS::whenReceiveX
 devs_component: EF
-tN: 11
+tN: 2.14748e+09
 tL: 10
 star_child: ( )
 wait_list: ( TRANSD )
 
-[ 261 ]: SIMULATORS::whenReceiveX
+[ 192 ]: SIMULATORS::whenReceiveX
 Model: : TRANSD
-tN: 11
+tN: inf
 tL: 10
 
-[ 283 ]: SIMULATORS::whenReceiveX
+[ 214 ]: SIMULATORS::whenReceiveX
 Model: : TRANSD
-tN: 11
+tN: inf
 tL: 10
 
-[ 416 ]: CO_ORDINATORS::whenReceiveDone
+[ 353 ]: CO_ORDINATORS::whenReceiveDone
 devs_component: EF
-tN: 11
+tN: 2.14748e+09
 tL: 10
 star_child: ( )
 wait_list: ( )
 
-[ 416 ]: CO_ORDINATORS::whenReceiveDone
+[ 353 ]: CO_ORDINATORS::whenReceiveDone
 devs_component: EF_P
 tN: 10
 tL: 10
 star_child: ( P )
 wait_list: ( P )
 
-[ 463 ]: CO_ORDINATORS::whenReceiveDone
+[ 385 ]: CO_ORDINATORS::whenReceiveDone
 devs_component: EF
-tN: 11
+tN: 2.14748e+09
 tL: 10
 star_child: ( )
 wait_list: ( )
 
-[ 294 ]: SIMULATORS::whenReceiveX
+[ 225 ]: SIMULATORS::whenReceiveX
 Model: : TRANSD
-tN: 11
+tN: inf
 tL: 10
 
-[ 372 ]: CO_ORDINATORS::whenReceiveY
+[ 310 ]: CO_ORDINATORS::whenReceiveY
 devs_component: EF_P
 tN: 10
 tL: 10
 star_child: ( P )
 wait_list: ( P )
 
-[ 195 ]: SIMULATORS::whenReceiveStar
+[ 126 ]: SIMULATORS::whenReceiveStar
 Model: : P
 tN: 10
-tL: 9
+tL: 6
 
-[ 204 ]: SIMULATORS::whenReceiveStar
+[ 135 ]: SIMULATORS::whenReceiveStar
 Model: : P
 tN: inf
 tL: 10
 
-[ 416 ]: CO_ORDINATORS::whenReceiveDone
+[ 353 ]: CO_ORDINATORS::whenReceiveDone
 devs_component: EF_P
 tN: 10
 tL: 10
 star_child: ( P )
 wait_list: ( )
 
-[ 463 ]: CO_ORDINATORS::whenReceiveDone
+[ 385 ]: CO_ORDINATORS::whenReceiveDone
 devs_component: EF_P
-tN: 11
+tN: 2.14748e+09
 tL: 10
 star_child: ( P )
 wait_list: ( )
 
-[ 220 ]: SIMULATORS::whenReceiveStar
+[ 151 ]: SIMULATORS::whenReceiveStar
 Model: : P
 tN: inf
 tL: 10
 
 [ 180 ]: CO_ORDINATORS::whenReceiveStar
 devs_component: EF_P
-tN: 11
+tN: 2.14748e+09
 tL: 10
-star_child: ( )
-wait_list: ( )
-
-***********************************************************
-[ 171 ]: CO_ORDINATORS::whenReceiveStar
-devs_component: EF_P
-tN: 11
-tL: 11
-star_child: ( EF )
-wait_list: ( EF )
-
-[ 171 ]: CO_ORDINATORS::whenReceiveStar
-devs_component: EF
-tN: 11
-tL: 11
-star_child: ( TRANSD )
-wait_list: ( TRANSD )
-
-[ 183 ]: SIMULATORS::whenReceiveStar
-Model: : TRANSD
-tN: 11
-tL: 10
-
-[ 333 ]: CO_ORDINATORS::whenReceiveY
-devs_component: EF
-tN: 11
-tL: 11
-star_child: ( TRANSD )
-wait_list: ( TRANSD )
-
-[ 333 ]: CO_ORDINATORS::whenReceiveY
-devs_component: EF_P
-tN: 11
-tL: 11
-star_child: ( EF )
-wait_list: ( EF )
-
-[ 363 ]: CO_ORDINATORS::whenReceiveY
-devs_component: EF
-tN: 11
-tL: 11
-star_child: ( TRANSD )
-wait_list: ( GENR TRANSD )
-
-[ 261 ]: SIMULATORS::whenReceiveX
-Model: : GENR
-tN: 12
-tL: 11
-
-[ 283 ]: SIMULATORS::whenReceiveX
-Model: : GENR
-tN: inf
-tL: 11
-
-[ 416 ]: CO_ORDINATORS::whenReceiveDone
-devs_component: EF
-tN: 11
-tL: 11
-star_child: ( TRANSD )
-wait_list: ( TRANSD )
-
-[ 294 ]: SIMULATORS::whenReceiveX
-Model: : GENR
-tN: inf
-tL: 11
-
-[ 372 ]: CO_ORDINATORS::whenReceiveY
-devs_component: EF
-tN: 11
-tL: 11
-star_child: ( TRANSD )
-wait_list: ( TRANSD )
-
-[ 195 ]: SIMULATORS::whenReceiveStar
-Model: : TRANSD
-tN: 11
-tL: 10
-
-[ 204 ]: SIMULATORS::whenReceiveStar
-Model: : TRANSD
-tN: inf
-tL: 11
-
-[ 416 ]: CO_ORDINATORS::whenReceiveDone
-devs_component: EF
-tN: 11
-tL: 11
-star_child: ( TRANSD )
-wait_list: ( )
-
-[ 416 ]: CO_ORDINATORS::whenReceiveDone
-devs_component: EF_P
-tN: 11
-tL: 11
-star_child: ( EF )
-wait_list: ( )
-
-[ 463 ]: CO_ORDINATORS::whenReceiveDone
-devs_component: EF_P
-tN: 1.79769e+308
-tL: 11
-star_child: ( EF )
-wait_list: ( )
-
-[ 463 ]: CO_ORDINATORS::whenReceiveDone
-devs_component: EF
-tN: 1.79769e+308
-tL: 11
-star_child: ( TRANSD )
-wait_list: ( )
-
-[ 220 ]: SIMULATORS::whenReceiveStar
-Model: : TRANSD
-tN: inf
-tL: 11
-
-[ 180 ]: CO_ORDINATORS::whenReceiveStar
-devs_component: EF
-tN: 1.79769e+308
-tL: 11
-star_child: ( )
-wait_list: ( )
-
-[ 180 ]: CO_ORDINATORS::whenReceiveStar
-devs_component: EF_P
-tN: 1.79769e+308
-tL: 11
 star_child: ( )
 wait_list: ( )
 
