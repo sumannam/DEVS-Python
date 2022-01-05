@@ -16,12 +16,12 @@ def logInfoCoordinator(devs_name, time_next, time_last, star_child, wait_list):
         + "time_next: " + str(time_next) + "\n" \
         + "time_last: " + str(time_last) + "\n" \
         + "star_child: (" + star_child + ")\n" \
-        + "wait_list: (" + wait_list + ")"
+        + "wait_list: (" + wait_list + ")\n\n"
     logging.info(log)
 
 def logInfoSimulator(devs_name, time_next, time_last):
     log = "devs_comp: " + devs_name + "\n" \
         + "time_next: " + str(time_next) + "\n" \
-        + "time_last: " + str(time_last)
+        + "time_last: " + str(time_last) + "\n\n"
     logging.info(log)
 

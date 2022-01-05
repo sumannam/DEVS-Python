@@ -15,6 +15,8 @@ class PROCESSORS(ENTITIES):
         self.time_last = 0 # 최근 발생한 이벤트 시간
         self.time_next = math.inf # 다음 이벤트 발생 시간
 
+        self.runtime = 0
+
     def setParent(self, processor):
         """! 
         @fn         setParent()

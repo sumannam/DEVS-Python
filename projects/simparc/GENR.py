@@ -18,7 +18,7 @@ class GENR(ATOMIC_MODELS):
         
         self.state["sigma"]=0
         self.state["phase"]="active"
-        self.addState("inter_arrival_time", 3)
+        self.addState("inter_arrival_time", 5)
         
         self.holdIn("active", self.state["sigma"])
 

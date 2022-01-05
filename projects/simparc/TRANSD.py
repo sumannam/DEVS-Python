@@ -28,6 +28,8 @@ class TRANSD(ATOMIC_MODELS):
         self.arrived_dic={}
         self.solved_dic={}
 
+        self.count = 0
+
     def externalTransitionFunc(self, e, x):
         if x.port == "arrived":
             self.arrived_dic[x.value]=self.state["clock"]
@@ -44,15 +46,13 @@ class TRANSD(ATOMIC_MODELS):
             self.passviate()
 
     def outputFunc(self):
+        content = CONTENT()    
+
         avg_ta_time = 0
         throughput = 0.0
         time = self.state["clock"]
 
         if self.state["phase"] == "active":
-            content = CONTENT()    
-            job_id = "JOB-" + str(self.count)
-            self.count+=1
-
             if(len(self.solved_dic)!=0):
                 avg_ta_time = self.state["total_ta"] / len(self.solved_dic)
 
@@ -64,6 +64,6 @@ class TRANSD(ATOMIC_MODELS):
 
             value = avg_ta_time
 
-            content.setContent("out", avg_ta_time)
+            content.setContent("out", value)
 
             return content

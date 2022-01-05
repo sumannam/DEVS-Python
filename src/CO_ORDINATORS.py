@@ -98,9 +98,9 @@ class CO_ORDINATORS(PROCESSORS):
                 if child not in self.star_child:
                     self.wait_list.append(child)
 
-                devs_comp_name = self.devs_component.getName()
-                if devs_comp_name == "EF_P":
-                    print(devs_comp_name)
+                # devs_comp_name = self.devs_component.getName()
+                # if devs_comp_name == "EF_P":
+                #     print(devs_comp_name)
                 
                 logging.info("")
                 logInfoCoordinator(self.devs_component.getName()
@@ -220,7 +220,7 @@ class CO_ORDINATORS(PROCESSORS):
         @author     남수만(sumannam@gmail.com)
         @date       2021.11.16
 
-        @remarks    
+        @remarks    wait_list의 길이 측정을 기존__len__에서 len(self.wait_list)로 변경[2022.01.05; 남수만]
         """
         source = input_message.getSource()
         self.removeWaitList(source)
@@ -235,7 +235,7 @@ class CO_ORDINATORS(PROCESSORS):
         processor = source.getProcessor()
         self.processor_time[processor]=input_message.getTime()
 
-        if self.wait_list.__len__ == 0:
+        if len(self.wait_list) == 0:
             self.time_next = min(self.processor_time.values())
             output = MESSAGE()
             output.setDone(MESSAGE_TYPE.Done, self.devs_component, self.time_next)
