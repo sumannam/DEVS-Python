@@ -29,7 +29,9 @@ class TRANSD(ATOMIC_MODELS):
         self.solved_dic={}
 
     def externalTransitionFunc(self, e, x):
-        time = self.state["clock"] + e
+        clock = self.state["clock"]
+        self.state["clock"] = clock + e
+        time = clock
 
         if x.port == "arrived":
             self.arrived_dic[x.value]=time

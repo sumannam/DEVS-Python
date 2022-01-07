@@ -334,7 +334,7 @@ tL: 4
 star_child: ( P )
 wait_list: ( EF P )   [DEVS-ObjC는 set, python은 리스트 타입이라 차이가 있음]
 
-***********************************************************[ 229 ]: CO_ORDINATORS::whenReceiveX
+[ 229 ]: CO_ORDINATORS::whenReceiveX
 devs_component: EF
 tN: 6
 tL: 4
