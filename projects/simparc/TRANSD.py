@@ -2,49 +2,70 @@ import sys
 import math
 
 sys.path.append('D:/Git/DEVS-Python')
+sys.path.append('D:/Git/DEVS-Python/projects/simparc')
 
 from src.ATOMIC_MODELS import ATOMIC_MODELS
 from src.CONTENT import CONTENT
 from src.PORT import PORT
 
-class GENR(ATOMIC_MODELS):
+class TRANSD(ATOMIC_MODELS):
     def __init__(self):
-        ATOMIC_MODELS.__init__(self, self.__class__.__name__)
+        ATOMIC_MODELS.__init__(self)
+        self.setName(self.__class__.__name__)
         
-        self.addInPorts("stop")
+        self.addInPorts("solved", "arrived")
         self.addOutPorts("out")
+
+        self.observation_interval = 6
         
-        self.state["sigma"]=0
+        self.state["sigma"]=self.observation_interval
         self.state["phase"]="active"
-        self.addState("inter_arrival_time", 3)
-        
-        self.holdIn("active", self.state["sigma"])
+        self.addState("arrived_list", [])
+        self.addState("solved_list", [])
+        self.addState("clock", 0.0)
+        self.addState("total_ta", 0.0)
 
-        self.count = 1;
+        self.arrived_dic={}
+        self.solved_dic={}
 
-    def externalTransitionFunc(self, s, e, x):
-        if x.port == "stop":
-            self.passviate()
+    def externalTransitionFunc(self, e, x):
+        clock = self.state["clock"]
+        self.state["clock"] = clock + e
+        time = clock
+
+        if x.port == "arrived":
+            self.arrived_dic[x.value]=time
+        if x.port == "solved":
+            self.arrived_dic[x.value]=time
         else:
             self.Continue(e)
 
-    def internalTransitionFunc(self, s):
-        if s["phase"] == "active":
-            self.holdIn("active", s["inter_arrival_time"])
+    def internalTransitionFunc(self):
+        if self.state["phase"] == "active":
+            clock = self.state["clock"]
+            sigma = self.state["sigma"]
+            self.state["clock"] = clock + sigma
+            self.passviate()
 
-    def outputFunc(self, s):
-        if s["phase"] == "active":
-            content = CONTENT()    
-            job_id = "JOB-" + str(self.count)
-            self.count+=1
-            content.setContent("active", job_id)
+    def outputFunc(self):
+        content = CONTENT()    
+
+        avg_ta_time = 0
+        throughput = 0.0
+        time = self.state["clock"]
+
+        if self.state["phase"] == "active":
+            if(len(self.solved_dic)!=0):
+                avg_ta_time = self.state["total_ta"] / len(self.solved_dic)
+
+            if(time!=0):
+                throughput = (len(self.solved_dic)-1) / (time-avg_ta_time)
+            
+            print(avg_ta_time)
+            print(throughput)
+
+            value = avg_ta_time
+
+            content.setContent("out", value)
+
             return content
-
-
-if __name__ == '__main__':
-    module_name = input()
-    module = __import__(module_name)
-    _class = getattr(module, module_name)
-
-    instance = _class()
-    instance.modelTest(instance)

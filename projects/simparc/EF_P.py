@@ -15,18 +15,14 @@ from EF import EF
 
 class EF_P(COUPLED_MODELS):
     def __init__(self):
-        COUPLED_MODELS.__init__(self, self.__class__.__name__)
-        self.addInPorts("in", "in1")
+        COUPLED_MODELS.__init__(self)
+        self.setName(self.__class__.__name__)
 
-        p = P()
         ef = EF()
+        p = P()        
         
-        self.addModel(p)
         self.addModel(ef)
+        self.addModel(p)
 
         self.addCoupling(ef, "out", p, "in")
         self.addCoupling(p, "out", ef, "in")
-
-
-if __name__ == '__main__':
-    ef_p = EF_P()

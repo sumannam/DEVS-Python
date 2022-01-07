@@ -1,9 +1,13 @@
 import sys
 import math
+from abc import abstractmethod
+
+from src.ENTITIES import ENTITIES
 
 sys.path.append('D:/Git/DEVS-Python')
 
 from src.MODELS import MODELS
+from src.SIMULATORS import SIMULATORS
 from src.PORT import PORT 
 from src.CONTENT import CONTENT
 
@@ -12,8 +16,11 @@ class ATOMIC_MODELS(MODELS):
     모델링 시 원자 모델들에서 사용할 수 있는 함수들 정의
     """
 
-    def __init__(self, model_name):
-        MODELS.__init__(self, model_name)
+    def __init__(self):
+        MODELS.__init__(self)
+        self.processor = SIMULATORS()
+        self.setProcessor(self.processor)
+        self.processor.setDevsComponent(self)
     
         self.state = {}
         self.state["sigma"] = math.inf
@@ -21,6 +28,10 @@ class ATOMIC_MODELS(MODELS):
 
         self.ta = 0
         self.elapsed_time = 0        
+    
+    def setName(self, name):
+        self.processor.setName(name)
+        super().setName(name)
 
     def addState(self, key, value):
         self.state[key] = value
@@ -55,15 +66,9 @@ class ATOMIC_MODELS(MODELS):
         self.state["sigma"] = math.inf
         self.state["phase"] = "passive"
     
-    # s: state, e: elased_time, x: content
-    def externalTransitionFunc(self, s, e, x):
-        pass
-
-    def internalTransitionFunc(self, s):
-        pass
-
-    def outputFunc(self, state):
-        pass
+    def timeAdvancedFunc(self):
+        self.ta = self.state["sigma"]
+        return self.ta
 
     def modelTest(self, model):
         while True:
@@ -152,3 +157,16 @@ class ATOMIC_MODELS(MODELS):
         result = "state s = (" + state_str + ")"
 
         return result
+
+    # s: state, e: elased_time, x: content
+    @abstractmethod
+    def externalTransitionFunc(self, e, x):
+        pass
+
+    @abstractmethod
+    def internalTransitionFunc(self):
+        pass
+
+    @abstractmethod
+    def outputFunc(self):
+        pass

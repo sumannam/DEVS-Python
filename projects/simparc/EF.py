@@ -3,21 +3,28 @@ import sys
 sys.path.append('D:/Git/DEVS-Python')
 sys.path.append('D:/Git/DEVS-Python/projects/simparc')
 
-# from pypreprocessor import pypreprocessor
-# pypreprocessor.parse()
-
 from src.COUPLED_MODELS import COUPLED_MODELS
+
+from GENR import GENR
+from TRANSD import TRANSD
 
 
 class EF(COUPLED_MODELS):
     def __init__(self):
-        COUPLED_MODELS.__init__(self, self.__class__.__name__)
+        COUPLED_MODELS.__init__(self)
+        self.setName(self.__class__.__name__)
 
         self.addInPorts("in")
         self.addOutPorts("out", "result")
+   
+        genr = GENR()
+        transd = TRANSD()        
+        
+        self.addModel(genr)
+        self.addModel(transd)
 
-        #self.addCoupling
-
-
-if __name__ == '__main__':
-    ef = EF()
+        self.addCoupling(self, "in", transd, "sovled")
+        self.addCoupling(genr, "out", self, "out")
+        self.addCoupling(transd, "out", self, "result")
+        self.addCoupling(transd, "out", genr, "stop")
+        self.addCoupling(genr, "out", transd, "arrived")

@@ -3,31 +3,45 @@ sys.path.append('D:/Git/DEVS-Python')
 
 from src.CO_ORDINATORS import CO_ORDINATORS
 from src.MODELS import MODELS
-from src.COUPLING import COUPLING
+from src.COUPLING import *
 
 # from pypreprocessor import pypreprocessor
 # pypreprocessor.parse()
 
 
 class COUPLED_MODELS(MODELS):
-    def __init__(self, model_name):
+    def __init__(self):
+        MODELS.__init__(self)
         self.child_list = []
-        MODELS.__init__(self, model_name)
         # PROCESSORS.__init__(self, model_name)
 
         self.processor = CO_ORDINATORS()
         self.setProcessor(self.processor)
         self.processor.setDevsComponent(self)
+        self.priority_list = []
 
         # 커플링 정보 설정
         self.external_output_coupling = COUPLING()
         self.external_input_coupling = COUPLING()
         self.internal_coupling = COUPLING()
 
+    def setName(self, name):
+        self.processor.setName(name)
+        super().setName(name)
+
     def addModel(self, child):
+        """! 
+        @fn         addModel
+        @brief      자식 모델 추가
+        @details    추가 순서대로 우선순위 결정
+ 			    	
+        """
         self.child_list.append(child)
         child.setParent(self)
         child.getProcessor().setParent(self.getProcessor())
+        self.processor.addChild(child.getProcessor())
+        self.priority_list.append(child)
+
 
     def getModels(self):
         return self.child_list
@@ -87,3 +101,48 @@ class COUPLED_MODELS(MODELS):
 
     def getInternalCoupling(self):
         return self.internal_coupling
+
+    def getPriorityList(self):
+        return self.priority_list
+
+    def initialize(self):
+        processor = self.getProcessor()
+        parent = processor.getParent()
+        parent.initialize()
+
+    def getClockBase(self):
+        """! 
+        @fn         getClockBase()
+        @brief      Root-Coodinator로부터 clock_base 시간 얻기
+        @details    testROOT_CO_ORDINATORS.py에서 testInitialize()를 위해 사용
+
+        @return     시뮬레이션 초기 시간
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2021.11.16
+        """
+        processor = self.getProcessor()
+        parent = processor.getParent()
+        return parent.getClockBase()
+
+    def restart(self):
+        processor = self.getProcessor()
+        parent = processor.getParent()
+        parent.restart()
+
+    def hasOutputCopling(self, src_model, port):
+        model_port_name = self.getModelPortName(src_model, port)
+        return self.internal_coupling.find(model_port_name)
+
+    def translate(self, coupling_type, model, port):
+        model_port_list = []
+        model_port_name = self.getModelPortName(model, port)
+
+        if coupling_type == COUPLING_TYPE.EOC:
+            model_port_list = self.external_output_coupling.get(model_port_name)
+        if coupling_type == COUPLING_TYPE.EIC:
+            model_port_list = self.external_input_coupling.get(model_port_name)
+        if coupling_type == COUPLING_TYPE.IC:
+            model_port_list = self.internal_coupling.get(model_port_name)        
+
+        return model_port_list
