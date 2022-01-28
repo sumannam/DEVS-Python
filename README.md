@@ -1,13 +1,13 @@
 # DEVS-Python
 
 ```
-@software{DEVS-Python,
+@software{sumannamDEVS-Python},
   author = {Suman, Nam},
-  month = {01},
-  title = {{DEVS-Python}},
-  url = {https://github.com/sumannam/DEVS-Python},
-  version = {0.1.0},
-  year = {2022}
+  title = {DEVS-Python},
+  year = {2022},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  howpublished = {\url{https://github.com/sumannam/DEVS-Python},
 }
 ```
 
