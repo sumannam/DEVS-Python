@@ -11,14 +11,14 @@ from projects.simparc.P import P
 
 if __name__ == '__main__':
     p = P()
-    p.runModelTest(p)
-    # json_file = os.path.join(THIS_FOLDER, 'p_test.json')
+    json_file = os.path.join(THIS_FOLDER, 'p_test.json')
+    p.runAutoModelTest(p, json_file)
 
-    # script = open(json_file)
-    # json_dic = json.load(script)
 
-    # for i in json_dic["p"]:
-    #     print(json_dic["p"][i])
+
+    
+
+
 
 
 
