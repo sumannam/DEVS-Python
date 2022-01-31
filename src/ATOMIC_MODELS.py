@@ -70,7 +70,7 @@ class ATOMIC_MODELS(MODELS):
         self.ta = self.state["sigma"]
         return self.ta
 
-    def modelTest(self, model):
+    def runModelTest(self, model):
         while True:
             param = [x for x in input(">>> ").split()]
             type = param[2]
@@ -85,11 +85,11 @@ class ATOMIC_MODELS(MODELS):
             
             if type == "output?":
                 output = CONTENT()
-                output = self.outputFunc(self.state)
+                output = self.outputFunc()
                 send_result = self.getOutputResult(output)
 
             if type == "int-transition":
-                self.internalTransitionFunc(self.state)
+                self.internalTransitionFunc()
                 send_result = self.getIntTransitionResult()
 
             if type == "quit":
@@ -122,7 +122,7 @@ class ATOMIC_MODELS(MODELS):
         content = CONTENT()
         content.setContent(port_name, value)
 
-        self.externalTransitionFunc(self.state, time, content)
+        self.externalTransitionFunc(time, content)
 
     def getInjectResult(self, type):
         state_list = []

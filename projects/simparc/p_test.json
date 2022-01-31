@@ -1,0 +1,7 @@
+{
+    "p": {
+        "1": "send p inject in g1 1",
+        "2": "send p output?",
+        "3": "send p int-transition"
+    }
+}
