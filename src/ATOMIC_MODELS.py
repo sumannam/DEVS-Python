@@ -73,27 +73,29 @@ class ATOMIC_MODELS(MODELS):
     def runModelTest(self, model):
         while True:
             param = [x for x in input(">>> ").split()]
-            type = param[2]
+            
+            is_quit = param[0]
+            if is_quit == "quit":
+                break
 
-            if type == "inject":
+            input_type = param[2]
+
+            if input_type == "inject":
                 port_name = param[3]
                 value = param[4]
                 elased_time = self.decideNumberType(param[5])
 
                 self.sendInject(port_name, value, elased_time)
-                send_result = self.getInjectResult(type)
+                send_result = self.getInjectResult(input_type)
             
-            if type == "output?":
+            if input_type == "output?":
                 output = CONTENT()
                 output = self.outputFunc()
                 send_result = self.getOutputResult(output)
 
-            if type == "int-transition":
+            if input_type == "int-transition":
                 self.internalTransitionFunc()
                 send_result = self.getIntTransitionResult()
-
-            if type == "quit":
-                break
 
             print(send_result)
 
