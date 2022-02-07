@@ -1,6 +1,8 @@
 import os
 import sys
-import json
+import math
+import time
+
 
 sys.path.append('D:/Git/DEVS-Python')
 sys.path.append('D:/Git/DEVS-Python/projects/simparc')
@@ -12,7 +14,12 @@ from projects.simparc.P import P
 if __name__ == '__main__':
     p = P()
     json_file = os.path.join(THIS_FOLDER, 'p_test.json')
+
+    start = time.time()
     p.runAutoModelTest(p, json_file)
+    end = time.time()
+
+    print(f"{end - start:.5f} sec")
 
 
 
