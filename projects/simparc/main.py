@@ -1,6 +1,5 @@
 import os
 import sys
-import math
 import time
 
 
@@ -13,23 +12,24 @@ from projects.simparc.P import P
 
 if __name__ == '__main__':
     p = P()
+
+    ## 자동 테스트
     json_file = os.path.join(THIS_FOLDER, 'p_test.json')
 
-    start = time.time()
+    start = time.time()    
     p.runAutoModelTest(p, json_file)
     end = time.time()
 
     print(f"{end - start:.5f} sec")
 
 
-
-    
-
-
+    ## 수동 테스트
+    p.runModelTest(p)
 
 
 
-from projects.simparc.EF_P import EF_P
+# 시뮬레이션
+# from projects.simparc.EF_P import EF_P
 # if __name__ == '__main__':
 #     ef_p = EF_P()
 #     ef_p.initialize() 
