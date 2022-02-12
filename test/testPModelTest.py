@@ -22,7 +22,7 @@ class testPModelTest(unittest.TestCase):
         self.p.sendInject("in", "g1", 5)
         send_result = self.p.getInjectResult("inject")
 
-        assert send_result == "state s = (10 busy g1 10)"
+        assert send_result == "state s = (5 busy g1 5)"
 
     def test_modeltest_p_output(self):
         """! 
@@ -37,7 +37,7 @@ class testPModelTest(unittest.TestCase):
         self.p.sendInject("in", "g1", 5)
 
         output = CONTENT()
-        output = self.p.outputFunc(self.p.state)
+        output = self.p.outputFunc()
         send_result = self.p.getOutputResult(output)
 
         assert send_result == "y = " + output.port + " " + output.value
@@ -54,12 +54,12 @@ class testPModelTest(unittest.TestCase):
         @date       2021.10.21
         """
         self.p.sendInject("in", "g1", 5)
-        self.p.outputFunc(self.p.state)
+        self.p.outputFunc()
 
-        self.p.internalTransitionFunc(self.p.state)
+        self.p.internalTransitionFunc()
         send_result = self.p.getIntTransitionResult()
 
-        assert send_result == "state s = (inf passive g1 10)"
+        assert send_result == "state s = (inf passive g1 5)"
 
     def test_modeltest_p_inject(self):
         """! 
@@ -76,4 +76,16 @@ class testPModelTest(unittest.TestCase):
 
         send_result = self.p.getInjectResult("inject")
 
-        assert send_result == "state s = (9 busy g1 10)"
+        assert send_result == "state s = (4 busy g1 5)"
+
+if __name__ == '__main__':
+    test_p = unittest.TestLoader().loadTestsFromTestCase(testPModelTest)
+    # test_efp = unittest.TestLoader().loadTestsFromTestCase(testEF_P)
+    # test_root_coordinators = unittest.TestLoader().loadTestsFromTestCase(testROOT_CO_ORDINATORS)
+
+    allTests = unittest.TestSuite()
+    allTests.addTest(test_p)
+    # allTests.addTest(test_efp)
+    # allTests.addTest(test_root_coordinators)
+
+    unittest.TextTestRunner(verbosity=2, failfast=True).run(allTests)
