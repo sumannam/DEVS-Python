@@ -14,7 +14,7 @@ if __name__ == '__main__':
     p = P()
 
     ## 자동 테스트
-    json_file = os.path.join(THIS_FOLDER, 'p_test.json')
+    json_file = os.path.join(THIS_FOLDER, 'p_test1.json')
 
     start = time.time()    
     p.runAutoModelTest(p, json_file)
@@ -22,10 +22,8 @@ if __name__ == '__main__':
 
     print(f"{end - start:.5f} sec")
 
-
     ## 수동 테스트
     p.runModelTest(p)
-
 
 
 # 시뮬레이션

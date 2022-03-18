@@ -1,5 +1,6 @@
 import sys
 import unittest
+import time
 
 sys.path.append('D:/Git/DEVS-Python')
 
@@ -68,7 +69,7 @@ class testPModelTest(unittest.TestCase):
         @details    >>> send p inject in g1 5
                     >>> send p inject in g2 1
 
-        @author     �수�sumannam@gmail.com)
+        @author     남수만(sumannam@gmail.com)
         @date       2021.10.21
         """
         self.p.sendInject("in", "g1", 5)
@@ -79,13 +80,15 @@ class testPModelTest(unittest.TestCase):
         assert send_result == "state s = (4 busy g1 5)"
 
 if __name__ == '__main__':
-    test_p = unittest.TestLoader().loadTestsFromTestCase(testPModelTest)
-    # test_efp = unittest.TestLoader().loadTestsFromTestCase(testEF_P)
-    # test_root_coordinators = unittest.TestLoader().loadTestsFromTestCase(testROOT_CO_ORDINATORS)
+    start = time.time()    
+    test_p1 = unittest.TestLoader().loadTestsFromTestCase(testPModelTest)
+    # test_p2 = unittest.TestLoader().loadTestsFromTestCase(testPModelTest)
 
     allTests = unittest.TestSuite()
-    allTests.addTest(test_p)
-    # allTests.addTest(test_efp)
-    # allTests.addTest(test_root_coordinators)
+    allTests.addTest(test_p1)
+    # allTests.addTest(test_p2)
 
     unittest.TextTestRunner(verbosity=2, failfast=True).run(allTests)
+    end = time.time()
+
+    print(f"{end - start:.5f} sec")
