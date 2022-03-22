@@ -1,0 +1,7 @@
+{
+    "PLC": {
+        "1": "send plc inject in g1 1",
+        "2": "send plc output?",
+        "3": "send plc int-transition",
+    }
+}

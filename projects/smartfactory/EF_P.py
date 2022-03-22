@@ -8,7 +8,7 @@ sys.path.append('D:/Git/DEVS-Python/projects/simparc')
 
 from src.COUPLED_MODELS import COUPLED_MODELS
 
-from P import P
+from PLC import PLC
 from EF import EF
 
 #define __DEBUG
@@ -19,10 +19,10 @@ class EF_P(COUPLED_MODELS):
         self.setName(self.__class__.__name__)
 
         ef = EF()
-        p = P()        
+        plc = PLC()        
         
         self.addModel(ef)
-        self.addModel(p)
+        self.addModel(plc)
 
-        self.addCoupling(ef, "out", p, "in")
-        self.addCoupling(p, "out", ef, "in")
+        self.addCoupling(ef, "out", plc, "in")
+        self.addCoupling(plc, "out", ef, "in")
