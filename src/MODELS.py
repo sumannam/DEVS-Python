@@ -1,6 +1,5 @@
 import sys
 from abc import abstractmethod
-# from COUPLING import *
 
 from src.ENTITIES import ENTITIES
 from src.PROCESSORS import PROCESSORS

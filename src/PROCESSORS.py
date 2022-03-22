@@ -2,8 +2,6 @@ import sys
 import math
 from abc import abstractmethod
 
-sys.path.append('D:/Git/DEVS-Python')
-
 from src.ENTITIES import ENTITIES
 
 class PROCESSORS(ENTITIES):

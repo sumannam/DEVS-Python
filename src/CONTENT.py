@@ -1,7 +1,3 @@
-import sys
-
-import src.PORT
-
 class CONTENT(object):
     def __init__(self):
         self.value = ""

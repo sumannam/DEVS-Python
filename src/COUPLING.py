@@ -1,5 +1,4 @@
 from enum import Enum
-from collections import defaultdict
 
 class COUPLING_TYPE(Enum):
     EOC = 1

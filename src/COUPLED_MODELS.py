@@ -1,12 +1,6 @@
-import sys
-
 from src.CO_ORDINATORS import CO_ORDINATORS
 from src.MODELS import MODELS
 from src.COUPLING import *
-
-# from pypreprocessor import pypreprocessor
-# pypreprocessor.parse()
-
 
 class COUPLED_MODELS(MODELS):
     def __init__(self):

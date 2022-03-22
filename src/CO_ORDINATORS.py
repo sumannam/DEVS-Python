@@ -1,7 +1,5 @@
-import sys
 import logging
 
-from src.MODELS import MODELS
 from src.PROCESSORS import PROCESSORS
 from src.ROOT_CO_ORDINATORS import ROOT_CO_ORDINATORS
 
