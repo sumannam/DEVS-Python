@@ -1,8 +1,6 @@
 import sys
 import math
 
-sys.path.append('D:/Git/DEVS-Python')
-
 from src.MODELS import MODELS
 
 from src.PROCESSORS import PROCESSORS

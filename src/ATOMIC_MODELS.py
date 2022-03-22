@@ -4,8 +4,6 @@ from abc import abstractmethod
 
 from src.ENTITIES import ENTITIES
 
-sys.path.append('D:/Git/DEVS-Python')
-
 from src.MODELS import MODELS
 from src.SIMULATORS import SIMULATORS
 from src.PORT import PORT 

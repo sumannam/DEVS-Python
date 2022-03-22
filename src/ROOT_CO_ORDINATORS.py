@@ -1,7 +1,6 @@
 import sys
 import logging
 
-sys.path.append('D:/Git/DEVS-Python')
 
 # from src.CO_ORDINATORS import CO_ORDINATORS
 from src.PROCESSORS import PROCESSORS

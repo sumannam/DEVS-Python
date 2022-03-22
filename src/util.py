@@ -1,6 +1,19 @@
 import logging
+import os
+import sys
+from pathlib import Path
 
-# sys.path.append('D:/Git/DEVS-Python')
+PROJECT_NAME = "DEVS-Python"
+
+def setDevPath():
+    current_path = Path.cwd()
+    path_str = str(current_path)
+
+    if path_str[-11:] == PROJECT_NAME:
+        sys.path.append(path_str)
+        project_path = os.path.join(path_str, os.sep, "projects", os.sep, "simparc")
+        sys.path.append(project_path)
+
 
 logging.basicConfig(
     format = '(%(filename)s:%(funcName)s:%(lineno)d)\n%(message)s',

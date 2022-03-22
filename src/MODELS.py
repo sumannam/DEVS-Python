@@ -1,7 +1,6 @@
 import sys
 from abc import abstractmethod
 # from COUPLING import *
-sys.path.append('D:/Git/DEVS-Python')
 
 from src.ENTITIES import ENTITIES
 from src.PROCESSORS import PROCESSORS

@@ -1,5 +1,4 @@
 import sys
-sys.path.append('D:/Git/DEVS-Python')
 
 from src.CO_ORDINATORS import CO_ORDINATORS
 from src.MODELS import MODELS

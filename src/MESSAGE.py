@@ -1,6 +1,5 @@
 import sys
 from enum import Enum
-sys.path.append('D:/Git/DEVS-Python')
 
 from src.CONTENT import CONTENT
 
