@@ -1,6 +1,5 @@
 import sys
 import math
-import json
 from abc import abstractmethod
 
 from src.ENTITIES import ENTITIES
@@ -71,96 +70,32 @@ class ATOMIC_MODELS(MODELS):
         self.ta = self.state["sigma"]
         return self.ta
 
-    def runModelTest(self, model):
-        """! 
-        @fn         runModelTest
-        @brief      원자 모델 테스트
-        @details    원자 모델의 함수들(외부상태전이, 내부상태전이, 출력)을 검증
-
-        @param  model    원자 모델의 인스턴스
-
-        @author     남수만(sumannam@gmail.com)
-        @date       2021.10.21
-
-        @remark     원자 모델 테스트 시 종료 오류 #12[남수만;2022.01.31]
-        """
+    def modelTest(self, model):
         while True:
             param = [x for x in input(">>> ").split()]
+            type = param[2]
+
+            if type == "inject":
+                port_name = param[3]
+                value = param[4]
+                elased_time = self.decideNumberType(param[5])
+
+                self.sendInject(port_name, value, elased_time)
+                send_result = self.getInjectResult(type)
             
-            is_quit = param[0]
-            if is_quit == "quit":
+            if type == "output?":
+                output = CONTENT()
+                output = self.outputFunc()
+                send_result = self.getOutputResult(output)
+
+            if type == "int-transition":
+                self.internalTransitionFunc()
+                send_result = self.getIntTransitionResult()
+
+            if type == "quit":
                 break
 
-            input_type = param[2]
-
-            if input_type == "inject":
-                port_name = param[3]
-                value = param[4]
-                elased_time = self.decideNumberType(param[5])
-
-                self.sendInject(port_name, value, elased_time)
-                send_result = self.getInjectResult(input_type)
-            
-            if input_type == "output?":
-                output = CONTENT()
-                output = self.outputFunc()
-                send_result = self.getOutputResult(output)
-
-            if input_type == "int-transition":
-                self.internalTransitionFunc()
-                send_result = self.getIntTransitionResult()
-
             print(send_result)
-
-    def runAutoModelTest(self, model, json_file):
-        """! 
-        @fn         runAutoModelTest
-        @brief      원자 모델 테스트
-        @details    원자 모델의 함수들(외부상태전이, 내부상태전이, 출력)을 검증(논문 작성용)
-
-        @param  model       원자 모델의 인스턴스
-        @param  json_file   json 파일 경로와 파일이름
-
-        @author     남수만(sumannam@gmail.com)
-        @date       2022.01.31
-        """
-        script = open(json_file)
-        json_dic = json.load(script)
-
-        model_name = model.getName()
-
-        if model_name not in json_dic.keys():
-            print("There is no %s MODEL in %s" %(model_name, json_file))
-            return
-
-        for i in json_dic[model_name]:
-            x = json_dic[model_name][i]
-            print(">>> %s" %x)
-
-            param = [x for x in x.split(' ')]
-
-            input_type = param[2]
-
-            if input_type == "inject":
-                port_name = param[3]
-                value = param[4]
-                elased_time = self.decideNumberType(param[5])
-
-                self.sendInject(port_name, value, elased_time)
-                send_result = self.getInjectResult(input_type)
-            
-            if input_type == "output?":
-                output = CONTENT()
-                output = self.outputFunc()
-                send_result = self.getOutputResult(output)
-
-            if input_type == "int-transition":
-                self.internalTransitionFunc()
-                send_result = self.getIntTransitionResult()
-
-            print(send_result)
-
-
 
     def decideNumberType(self, time):
         """! 
