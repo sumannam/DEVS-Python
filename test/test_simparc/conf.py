@@ -5,6 +5,8 @@ from pathlib import Path
 PROJECT_NAME = "DEVS-Python"
 
 def setDevPath():
+    global project_path
+
     current_path = Path.cwd()
     path_str = str(current_path)
 

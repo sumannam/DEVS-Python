@@ -58,8 +58,8 @@ class TRANSD(ATOMIC_MODELS):
             if(time!=0):
                 throughput = (len(self.solved_dic)-1) / (time-avg_ta_time)
             
-            print(avg_ta_time)
-            print(throughput)
+            # print(avg_ta_time)
+            # print(throughput)
 
             value = avg_ta_time
 

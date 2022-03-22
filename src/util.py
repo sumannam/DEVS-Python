@@ -3,9 +3,14 @@ import os
 import sys
 from pathlib import Path
 
+global project_path
+project_path = ""
 PROJECT_NAME = "DEVS-Python"
+INFINITY = float('inf')
 
 def setDevPath():
+    global project_path
+
     current_path = Path.cwd()
     path_str = str(current_path)
 
@@ -22,13 +27,13 @@ def setDevPath():
         # print(parent_path)
 
 
+print(project_path)
+
 logging.basicConfig(
     format = '(%(filename)s:%(funcName)s:%(lineno)d)\n%(message)s',
-    level=logging.INFO
+    level=logging.INFO,
+    filename="sim_msg_log.txt"
 )
-
-INFINITY = float('inf')
-
 
 def logInfoCoordinator(devs_name, time_next, time_last, star_child, wait_list):
 

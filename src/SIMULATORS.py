@@ -44,9 +44,9 @@ class SIMULATORS(PROCESSORS):
             devs_output = CONTENT()
             devs_output = self.devs_component.outputFunc()
 
-            devs_comp_name = self.devs_component.getName()
-            if devs_comp_name == "P":
-                print(devs_comp_name)
+            # devs_comp_name = self.devs_component.getName()
+            # if devs_comp_name == "P":
+            #     print(devs_comp_name)
 
             if( devs_output.getPort() != None ):
                 new_message = MESSAGE()

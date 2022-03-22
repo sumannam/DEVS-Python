@@ -93,9 +93,9 @@ class CO_ORDINATORS(PROCESSORS):
             for child in self.star_child:
                 self.wait_list.append(child)
 
-                devs_comp_name = self.devs_component.getName()
-                if devs_comp_name == "EF" and self.time_last == 6 and self.time_next == 6:
-                    print(devs_comp_name)
+                # devs_comp_name = self.devs_component.getName()
+                # if devs_comp_name == "EF" and self.time_last == 6 and self.time_next == 6:
+                #     print(devs_comp_name)
                 
                 logging.info("")
                 logInfoCoordinator(self.devs_component.getName()
@@ -144,9 +144,9 @@ class CO_ORDINATORS(PROCESSORS):
             if processor in self.wait_list:
                 continue
             
-            devs_comp_name = self.devs_component.getName()
-            if devs_comp_name == "EF":
-                print(devs_comp_name)
+            # devs_comp_name = self.devs_component.getName()
+            # if devs_comp_name == "EF":
+            #     print(devs_comp_name)
 
             output = self.reconstructMessage( COUPLING_TYPE.IC, input_message, self.devs_component, processor.getDevsComponent())
             
@@ -200,9 +200,9 @@ class CO_ORDINATORS(PROCESSORS):
 
                 output = self.reconstructMessage(COUPLING_TYPE.EIC, input_message, self.devs_component, processor.getDevsComponent())
 
-                model_name = self.devs_component.getName()
-                if model_name == "EF" and self.time_next == 6:
-                    print(model_name);
+                # model_name = self.devs_component.getName()
+                # if model_name == "EF" and self.time_next == 6:
+                #     print(model_name);
 
                 if output.getType() != None:
                     self.wait_list.append(processor)

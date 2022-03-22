@@ -55,7 +55,7 @@ class ROOT_CO_ORDINATORS(PROCESSORS):
     
     def restart(self):
         while( self.clock_base >= 0 and self.clock_base < src.util.INFINITY):
-            print("***********************************************************")
+            # print("***********************************************************")
             star_msg = MESSAGE()
             star_msg.setRootStar(MESSAGE_TYPE.STAR, self.clock_base)
 
