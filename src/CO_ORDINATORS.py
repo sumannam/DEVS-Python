@@ -95,12 +95,11 @@ class CO_ORDINATORS(PROCESSORS):
             self.setStarChild()
 
             for child in self.star_child:
-                # if child not in self.star_child:
                 self.wait_list.append(child)
 
-                # devs_comp_name = self.devs_component.getName()
-                # if devs_comp_name == "EF_P":
-                #     print(devs_comp_name)
+                devs_comp_name = self.devs_component.getName()
+                if devs_comp_name == "EF" and self.time_last == 6 and self.time_next == 6:
+                    print(devs_comp_name)
                 
                 logging.info("")
                 logInfoCoordinator(self.devs_component.getName()
@@ -108,7 +107,6 @@ class CO_ORDINATORS(PROCESSORS):
                                     , self.time_last
                                     , self.convertListToStr(self.star_child)
                                     , self.convertListToStr(self.wait_list) )
-
                 child.whenReceiveStar(output)
 
             self.star_child.clear()
@@ -206,7 +204,11 @@ class CO_ORDINATORS(PROCESSORS):
 
                 output = self.reconstructMessage(COUPLING_TYPE.EIC, input_message, self.devs_component, processor.getDevsComponent())
 
-                if output.getType() == None:
+                model_name = self.devs_component.getName()
+                if model_name == "EF" and self.time_next == 6:
+                    print(model_name);
+
+                if output.getType() != None:
                     self.wait_list.append(processor)
 
                     logging.info("")
@@ -258,6 +260,7 @@ class CO_ORDINATORS(PROCESSORS):
             # DEVS-ObjC에서 아래 소스는 왜 있는지 모르겠음[남수만; 2021.12.31]
             # self.tN_children.clear()
 
+
     def removeWaitList(self, source):
         src_name = source.getName()
 
@@ -278,7 +281,12 @@ class CO_ORDINATORS(PROCESSORS):
             for model in self.processor_time.keys():
                 if self.processor_time[model] == self.time_next:
                     self.star_child.append(model)
-        ## TODO: 다중 조건문 추가 필요
+        elif len(priority_list) >= 2:
+            for model in priority_list:
+                processor = model.getProcessor()
+                time = self.processor_time[processor]
+                if time == self.time_next:
+                    self.star_child.append(processor)
         
         
     
@@ -299,10 +307,6 @@ class CO_ORDINATORS(PROCESSORS):
         content = message.getContent()
         outport = content.getPort()
         value = content.getValue()
-
-        # print(source)
-        # print(time)
-        # print(value)
 
         model_port_list = []
         
