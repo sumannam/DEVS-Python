@@ -3,15 +3,10 @@ import sys
 from conf import setDevPath
 setDevPath()
 
-# from pypreprocessor import pypreprocessor
-# pypreprocessor.parse()
-
 from src.COUPLED_MODELS import COUPLED_MODELS
 
 from P import P
 from EF import EF
-
-#define __DEBUG
 
 class EF_P(COUPLED_MODELS):
     def __init__(self):

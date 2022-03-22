@@ -2,8 +2,6 @@ import os
 import sys
 import time
 
-print(sys.path)
-
 from conf import setDevPath
 setDevPath()
 
@@ -28,9 +26,8 @@ THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 #     p.runModelTest(p)
 
 
-
 # 시뮬레이션
-from projects.simparc.EF_P import EF_P
+from EF_P import EF_P
 if __name__ == '__main__':
     ef_p = EF_P()
     ef_p.initialize() 
