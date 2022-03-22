@@ -1,7 +1,7 @@
 import sys
 
 sys.path.append('D:/Git/DEVS-Python')
-sys.path.append('D:/Git/DEVS-Python/projects/simparc')
+sys.path.append('D:/Git/DEVS-Python/projects/smartfactory')
 
 # from pypreprocessor import pypreprocessor
 # pypreprocessor.parse()
