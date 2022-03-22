@@ -1,9 +1,6 @@
 import sys
 import math
 
-sys.path.append('D:/Git/DEVS-Python')
-sys.path.append('D:/Git/DEVS-Python/projects/simparc')
-
 from src.ATOMIC_MODELS import ATOMIC_MODELS
 from src.CONTENT import CONTENT
 from src.PORT import PORT
@@ -16,7 +13,7 @@ class TRANSD(ATOMIC_MODELS):
         self.addInPorts("solved", "arrived")
         self.addOutPorts("out")
 
-        self.observation_interval = 6
+        self.observation_interval = 10
         
         self.state["sigma"]=self.observation_interval
         self.state["phase"]="active"

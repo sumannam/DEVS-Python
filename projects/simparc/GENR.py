@@ -1,9 +1,6 @@
 import sys
 import math
 
-sys.path.append('D:/Git/DEVS-Python')
-sys.path.append('D:/Git/DEVS-Python/projects/simparc')
-
 from src.ATOMIC_MODELS import ATOMIC_MODELS
 from src.CONTENT import CONTENT
 from src.PORT import PORT

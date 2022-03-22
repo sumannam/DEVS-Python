@@ -1,8 +1,5 @@
 import sys
 
-sys.path.append('D:/Git/DEVS-Python')
-sys.path.append('D:/Git/DEVS-Python/projects/simparc')
-
 from src.COUPLED_MODELS import COUPLED_MODELS
 
 from GENR import GENR
