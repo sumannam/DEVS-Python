@@ -3,9 +3,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# C extensions
-*.so
-*.suo
 
 # Distribution / packaging
 .Python
@@ -103,3 +100,7 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+
+# DEVS-Python
+sim_msg_log.txt

@@ -1,4 +1,6 @@
+from fileinput import filename
 import os
+import shutil
 import sys
 import time
 
@@ -25,6 +27,22 @@ THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 #     ## 수동 테스트
 #     p.runModelTest(p)
 
+def moveLogFile():
+    file_name = 'sim_msg_log.txt'
+    index = THIS_FOLDER.find("test")
+    source_path = THIS_FOLDER[:index]
+
+    if index != -1:
+        source = source_path + file_name
+        destin = THIS_FOLDER + "\\" + file_name
+        
+        while True:
+            try:
+                shutil.copy(source, destin)
+            except PermissionError:
+                continue
+            break
+    
 
 # 시뮬레이션
 from EF_P import EF_P
@@ -33,3 +51,4 @@ if __name__ == '__main__':
     ef_p.initialize() 
     ef_p.restart()
     
+    moveLogFile()
