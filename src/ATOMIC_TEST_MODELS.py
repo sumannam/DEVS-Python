@@ -8,11 +8,13 @@ sys.path.append('D:/Git/DEVS-Python')
 from src.ATOMIC_MODELS import ATOMIC_MODELS
 from src.CONTENT import CONTENT
 
-
-class ATOMIC_TEST_MODELS(ATOMIC_MODELS):
+class ATOMIC_TEST_MODELS():
 
     def __init__(self):
-        ATOMIC_MODELS.__init__(self)
+        # pass 
+        # ATOMIC_MODELS.__init__(self)
+        self.atomic_model = ATOMIC_MODELS()
+
 
     def runAutoModelTest(self, model, json_file):
         """! 
@@ -46,18 +48,18 @@ class ATOMIC_TEST_MODELS(ATOMIC_MODELS):
             if input_type == "inject":
                 port_name = param[3]
                 value = param[4]
-                elased_time = self.decideNumberType(param[5])
+                elased_time = self.atomic_model.decideNumberType(param[5])
 
-                self.sendInject(port_name, value, elased_time)
-                send_result = self.getInjectResult(input_type)
+                model.sendInject(port_name, value, elased_time)
+                send_result = self.atomic_model.getInjectResult(input_type)
             
             if input_type == "output?":
                 output = CONTENT()
-                output = self.outputFunc()
-                send_result = self.getOutputResult(output)
+                output = model.outputFunc()
+                send_result = self.atomic_model.getOutputResult(output)
 
             if input_type == "int-transition":
-                self.internalTransitionFunc()
-                send_result = self.getIntTransitionResult()
+                model.internalTransitionFunc()
+                send_result = self.atomic_model.getIntTransitionResult()
 
             print(send_result)

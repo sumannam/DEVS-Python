@@ -1,7 +1,6 @@
 from src.ATOMIC_MODELS import *
-from src.ATOMIC_TEST_MODELS import *
 
-class P(ATOMIC_TEST_MODELS):
+class P(ATOMIC_MODELS):
     def __init__(self):
         ATOMIC_MODELS.__init__(self)
         self.setName(self.__class__.__name__)
