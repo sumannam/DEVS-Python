@@ -58,7 +58,7 @@ class GENR(ATOMIC_MODELS):
         """
         # 확률적 공격 실행
         random_attack = random.randrange(1, 11)
-        if random_attack == 1:
+        if random_attack <= 10:
             job_id = "ATT-" + str(self.count)
         else:
             job_id = "JOB-" + str(self.count)

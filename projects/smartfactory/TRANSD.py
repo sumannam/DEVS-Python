@@ -16,7 +16,7 @@ class TRANSD(ATOMIC_MODELS):
         self.addInPorts("solved", "arrived")
         self.addOutPorts("out")
 
-        self.observation_interval = 6
+        self.observation_interval = 50
         
         self.state["sigma"]=self.observation_interval
         self.state["phase"]="active"

