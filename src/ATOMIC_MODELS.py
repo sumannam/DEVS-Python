@@ -116,7 +116,7 @@ class ATOMIC_MODELS(MODELS):
         content = CONTENT()
         content.setContent(port_name, value)
 
-        self.externalTransitionFunc(self.state, time, content)
+        self.externalTransitionFunc(time, content)
 
     def getInjectResult(self, type):
         state_list = []
