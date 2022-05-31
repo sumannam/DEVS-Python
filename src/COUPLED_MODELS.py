@@ -18,9 +18,11 @@ class COUPLED_MODELS(MODELS):
         self.external_input_coupling = COUPLING()
         self.internal_coupling = COUPLING()
 
+
     def setName(self, name):
         self.processor.setName(name)
         super().setName(name)
+
 
     def addModel(self, child):
         """! 
@@ -39,6 +41,7 @@ class COUPLED_MODELS(MODELS):
     def getModels(self):
         return self.child_list
 
+
     def existChildModel(self, child):
         if(child == None):
             return False
@@ -47,6 +50,7 @@ class COUPLED_MODELS(MODELS):
             return True
         else:
             return False
+
 
     def addCoupling(self, src_model, src_port, dst_model, dst_port):
         """! 
@@ -92,16 +96,20 @@ class COUPLED_MODELS(MODELS):
             print("ERROR: Coupling Addition")
             return False
 
+
     def getInternalCoupling(self):
         return self.internal_coupling
 
+
     def getPriorityList(self):
         return self.priority_list
+
 
     def initialize(self):
         processor = self.getProcessor()
         parent = processor.getParent()
         parent.initialize()
+
 
     def getClockBase(self):
         """! 
@@ -118,16 +126,41 @@ class COUPLED_MODELS(MODELS):
         parent = processor.getParent()
         return parent.getClockBase()
 
+
     def restart(self):
         processor = self.getProcessor()
         parent = processor.getParent()
         parent.restart()
 
-    def hasOutputCopling(self, src_model, port):
+
+    def hasOutputCoupling(self, src_model, port):
+        """! 
+        @fn         hasOutputCoupling()
+        @brief      한 결합 모델에서 출력과 연결된 커플링 정보가 있는지 확인
+        @details    
+
+        @return     한 커플링(모델과 포트) 정보
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2021.11.01
+
+        @todo       함수명 수정(hasOutputCopling -> hasOutputCoupling) [완료: 22.05.31; 남수만] [작성: 22.05.31; 남수만] 
+        """
         model_port_name = self.getModelPortName(src_model, port)
         return self.internal_coupling.find(model_port_name)
 
+
     def translate(self, coupling_type, model, port):
+        """! 
+        @fn         translate()
+        @brief      커플링 유형(EOC, EIC, IC)에 따라 입력된 model, port와 연결된 커플링 정보 반환
+        @details    
+
+        @return     커플링(모델과 포트) 리스트 정보
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2021.11.01
+        """
         model_port_list = []
         model_port_name = self.getModelPortName(model, port)
 

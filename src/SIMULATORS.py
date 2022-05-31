@@ -152,7 +152,7 @@ class SIMULATORS(PROCESSORS):
 
         # print(self.devs_component, content.getPort())
 
-        bool_rslt = parent_model.hasOutputCopling(self.devs_component, content.getPort())
+        bool_rslt = parent_model.hasOutputCoupling(self.devs_component, content.getPort())
 
         if(bool_rslt == True):
             return True
