@@ -8,11 +8,11 @@ sys.path.append('D:/Git/DEVS-Python/projects/simparc')
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 from projects.simparc.P import P
-from src.ATOMIC_TEST_MODELS import ATOMIC_TEST_MODELS
+from TEST_ATOMIC_MODELS import TEST_ATOMIC_MODELS
 
 if __name__ == '__main__':
     p = P()
-    model_test = ATOMIC_TEST_MODELS()
+    model_test = TEST_ATOMIC_MODELS()
     
     ## 자동 테스트
     json_file = os.path.join(THIS_FOLDER, 'p_test1.json')
