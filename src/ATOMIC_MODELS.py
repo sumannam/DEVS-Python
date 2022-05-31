@@ -1,20 +1,13 @@
-import sys
 import math
-import json
 from abc import abstractmethod
-
-from src.ENTITIES import ENTITIES
-
-sys.path.append('D:/Git/DEVS-Python')
 
 from src.MODELS import MODELS
 from src.SIMULATORS import SIMULATORS
-from src.PORT import PORT 
 from src.CONTENT import CONTENT
 
 class ATOMIC_MODELS(MODELS):
     """! ATOMIC_MODELS class.
-    모델말자 모델�에�용�는 �수�의
+    모델링 시 원자 모델들에서 사용할 수 있는 함수들 정의
     """
 
     def __init__(self):
@@ -44,16 +37,16 @@ class ATOMIC_MODELS(MODELS):
     def Continue(self, e):
         """! 
         @fn         Continue
-        @brief      ��태�이�수�서 �자 모델�행 중인�력�어�을 �재 �그마� 계산�는 �수
-        @details    �재 �그�= �전 �그�- 경과�간
+        @brief      외부상태전이함수에서 원자 모델이 실행 중인데 입력이 들어왔을 때 현재 시그마를 계산하는 함수
+        @details    현재 시그마 = 이전 시그마 - 경과시간
 
-        @param e    elapsed_time(경과 �간)
+        @param e    elapsed_time(경과 시간)
 
-        @author     �수�sumannam@gmail.com)
+        @author     남수만(sumannam@gmail.com)
         @date       2021.05.09        
 
-        @remarks    sigma가 �수�� �수 계산�라 결과 �일(�수�는 '.0'�하 �외)[2021.10.20; �수�
-                    �전 �스 'self.state["sigma"] = self.state["sigma"] - e'�계산��나 "AttributeError: 'P' object has no attribute 'e'"가 발생�여 �시 변�로 계산롄달[2021.10.03; �수�
+        @remarks    sigma가 정수인지 실수 계산에 따라 결과 통일(정수일 때는 '.0'이하 제외)[2021.10.20; 남수만]
+                    이전 소스 'self.state["sigma"] = self.state["sigma"] - e'로 계산하였으나 "AttributeError: 'P' object has no attribute 'e'"가 발생하여 임시 변수로 계산로 전달[2021.10.03; 남수만]
         
         """
         if self.state["sigma"] != math.inf:
@@ -96,16 +89,18 @@ class ATOMIC_MODELS(MODELS):
             if type == "quit":
                 break
 
+            print(send_result)
+
     def decideNumberType(self, time):
         """! 
         @fn         decideNumberType
-        @brief      �태변�의 sigma가 �수�� �수�� 결정
-                    (sigma가 �수� �수�력모두 �용경우 출력��이 �음)
-        @details    �수 값에�수 값을 빼서 0�면 �수, 0�니멤수
+        @brief      상태변수의 sigma가 정수인지 실수인지 결정
+                    (sigma가 정수와 실수의 입력을 모두 허용할 경우 출력의 일관성이 없음)
+        @details    실수 값에서 정수 값을 빼서 0이면 정수, 0이 아니면 실수
 
         @param time    sigma
 
-        @author     �수�sumannam@gmail.com)
+        @author     남수만(sumannam@gmail.com)
         @date       2021.10.21
         """
         float_time = float(time)
@@ -121,7 +116,7 @@ class ATOMIC_MODELS(MODELS):
         content = CONTENT()
         content.setContent(port_name, value)
 
-        self.externalTransitionFunc(self.state, time, content)
+        self.externalTransitionFunc(time, content)
 
     def getInjectResult(self, type):
         state_list = []
