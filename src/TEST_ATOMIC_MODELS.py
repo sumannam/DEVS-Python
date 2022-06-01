@@ -51,15 +51,15 @@ class TEST_ATOMIC_MODELS():
                 elased_time = self.atomic_model.decideNumberType(param[5])
 
                 model.sendInject(port_name, value, elased_time)
-                send_result = self.atomic_model.getInjectResult(input_type)
+                send_result = model.getInjectResult(input_type)
             
             if input_type == "output?":
                 output = CONTENT()
                 output = model.outputFunc()
-                send_result = self.atomic_model.getOutputResult(output)
+                send_result = model.getOutputResult(output)
 
             if input_type == "int-transition":
                 model.internalTransitionFunc()
-                send_result = self.atomic_model.getIntTransitionResult()
+                send_result = model.getIntTransitionResult()
 
             print(send_result)

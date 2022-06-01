@@ -15,7 +15,7 @@ if __name__ == '__main__':
     model_test = TEST_ATOMIC_MODELS()
     
     ## 자동 테스트
-    json_file = os.path.join(THIS_FOLDER, 'p_test1.json')
+    json_file = os.path.join(THIS_FOLDER, 'p_test.json')
 
     start = time.time() 
 
