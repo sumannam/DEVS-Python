@@ -7,14 +7,14 @@
     "1": {
         "func": "delta_ext",
         "inject": "in g1 1",
-        "assert": "5 busy in 5"
+        "assert": "state s = ( 10 busy g1 10 )"
     },
 	"2": {
         "func": "lambda_out",
-        "assert": "out job-1"
+        "assert": "y = out g1"
     },
 	"3": {
         "func": "delta_int",
-        "assert": "5 passive in 5"
+        "assert": "state s = ( inf passive g1 10 )"
     }
 }
