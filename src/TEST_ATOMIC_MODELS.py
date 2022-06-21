@@ -1,10 +1,12 @@
 import sys
 import json
-from diff_match_patch import diff_match_patch
+import difflib
+from loguru import logger
+# from diff_match_patch import diff_match_patch
 
-from tokenize import tokenize, untokenize, NUMBER, STRING, NAME, OP
+# from tokenize import tokenize, untokenize, NUMBER, STRING, NAME, OP
 
-from abc import abstractmethod
+# from abc import abstractmethod
 
 sys.path.append('D:/Git/DEVS-Python')
 
@@ -66,9 +68,9 @@ class TEST_ATOMIC_MODELS():
                 model.internalTransitionFunc()
                 model_result = model.getIntTransitionResult()
             
-            self.diffResult(model_result, atom_content['assert'])
-            print(model_result)
-
+            print(self.diffStrings(model_result, atom_content['assert']))
+            # logger.opt(raw=True, colors=True).info(self.diffStrings(model_result, atom_content['assert'], use_loguru_colors=True))
+            print("\n")
 
     def makeCommand(self, model_name, atom_content):
         """! 
@@ -96,55 +98,41 @@ class TEST_ATOMIC_MODELS():
             command = "send " + model_name + " int-transition"            
 
         return command
-
     
-    def diffResult(self, rslt1, rslt2):
-        """! 
-        @fn         diffResult
-        @brief      원자 모델의 테스트 결과(A)와 스크립트의 결과(B)를 비교
-        @details    비교 결과 0이면 A==B, 1이면 B에 추가된 문자열 발견, -1이면 B에 삭제된 문자열 발견
 
-        @param  rslt1   원자 모델의 테스트 결과(A)
-        @param  rslt2   JSON assert의 스크립트의 결과(B)
+    def diffStrings(self, a: str, b: str, *, use_loguru_colors: bool = False) -> str:
+        """! 
+        @fn         diffStrings
+        @brief      문자열 비교
+        @details    원자 모델 테스트를 위한 문자열 비교(추가 글자: 녹색, 삭제 글자: 빨강)
+
+        @param  a    원자 모델 테스트 결과
+        @param  b    JSON의 assert
 
         @author     남수만(sumannam@gmail.com)
-        @date       2022.06.19
+        @date       2022.06.20
         """
-        dmp = diff_match_patch()
-        diff = dmp.diff_main(rslt1, rslt2)
-        dmp.diff_cleanupSemantic(diff)
+        output = []
+        matcher = difflib.SequenceMatcher(None, a, b)
+        if use_loguru_colors:
+            green = '<GREEN><black>'
+            red = '<RED><black>'
+            endgreen = '</black></GREEN>'
+            endred = '</black></RED>'
+        else:
+            green = '\x1b[38;5;16;48;5;2m'
+            red = '\x1b[38;5;16;48;5;1m'
+            endgreen = '\x1b[0m'
+            endred = '\x1b[0m'
 
-        for d in diff:
-            print(d)
-
-
-            # if model_name not in json_dic.keys():
-        #     print("There is no %s MODEL in %s" %(model_name, json_file))
-        #     return
-
-        # for i in json_dic[model_name]:
-        #     x = json_dic[model_name][i]
-        #     print(">>> %s" %x)
-
-        #     param = [x for x in x.split(' ')]
-
-        #     input_type = param[2]
-
-        #     if input_type == "inject":
-        #         port_name = param[3]
-        #         value = param[4]
-        #         elased_time = self.atomic_model.decideNumberType(param[5])
-
-        #         model.sendInject(port_name, value, elased_time)
-        #         send_result = model.getInjectResult(input_type)
-            
-        #     if input_type == "output?":
-        #         output = CONTENT()
-        #         output = model.outputFunc()
-        #         send_result = model.getOutputResult(output)
-
-        #     if input_type == "int-transition":
-        #         model.internalTransitionFunc()
-        #         send_result = model.getIntTransitionResult()
-
-        #     print(send_result)
+        for opcode, a0, a1, b0, b1 in matcher.get_opcodes():
+            if opcode == 'equal':
+                output.append(a[a0:a1])
+            elif opcode == 'insert':
+                output.append(f'{green}{b[b0:b1]}{endgreen}')
+            elif opcode == 'delete':
+                output.append(f'{red}{a[a0:a1]}{endred}')
+            elif opcode == 'replace':
+                output.append(f'{green}{b[b0:b1]}{endgreen}')
+                output.append(f'{red}{a[a0:a1]}{endred}')
+        return ''.join(output)

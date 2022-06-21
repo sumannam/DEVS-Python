@@ -7,7 +7,7 @@
     "1": {
         "func": "delta_ext",
         "inject": "in g1 1",
-        "assert": "state s = ( 10 busy g1 10 )"
+        "assert": "state s = ( 10 busy g2 10 )"
     },
 	"2": {
         "func": "lambda_out",
