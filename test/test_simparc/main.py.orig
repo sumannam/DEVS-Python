@@ -10,18 +10,33 @@ setDevPath()
 
 PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 
-index = PROJECT_PATH.find("test")
-THIS_PATH = PROJECT_PATH[:index] + "test\\test_simparc"
+<<<<<<< HEAD
+from projects.simparc.P import P
+
+if __name__ == '__main__':
+    p = P()
+
+    ## 자동 테스트
+    json_file = os.path.join(THIS_FOLDER, 'p_test.json')
+
+    start = time.time()    
+    p.runModelTest(p, json_file)
+    end = time.time()
+
+    print(f"{end - start:.5f} sec")
+
+
+    ## 수동 테스트
+    p.runModelTest(p)
 
 # def moveLogFile():
 #     file_name = 'sim_msg_log.txt'
-    index = THIS_PATH.find("test")
-    source_path = THIS_PATH[:index]
-    destin = ""
+#     index = THIS_FOLDER.find("test")
+#     source_path = THIS_FOLDER[:index]
 
 #     if index != -1:
 #         source = source_path + file_name
-        destin = THIS_PATH + "\\" + file_name
+#         destin = THIS_FOLDER + "\\" + file_name
         
 #         while True:
 #             try:
@@ -29,6 +44,27 @@ THIS_PATH = PROJECT_PATH[:index] + "test\\test_simparc"
 #             except PermissionError:
 #                 continue
 #             break
+    
+=======
+index = PROJECT_PATH.find("test")
+THIS_PATH = PROJECT_PATH[:index] + "test\\test_simparc"
+
+def moveLogFile():
+    file_name = 'sim_msg_log.txt'
+    index = THIS_PATH.find("test")
+    source_path = THIS_PATH[:index]
+    destin = ""
+
+    if index != -1:
+        source = source_path + file_name
+        destin = THIS_PATH + "\\" + file_name
+        
+        while True:
+            try:
+                shutil.copy(source, destin)
+            except PermissionError:
+                continue
+            break
 
     return destin
 
@@ -52,14 +88,18 @@ def compareLogFile(source, destin):
     else:
         return False
 
+>>>>>>> origin/dev/tdd
 
-# # ��이
+# # 시뮬레이션
 # from EF_P import EF_P
 # if __name__ == '__main__':
 #     ef_p = EF_P()
 #     ef_p.initialize() 
 #     ef_p.restart()
     
+<<<<<<< HEAD
+#     moveLogFile()
+=======
     destin = moveLogFile()
 
     sim_msg_log_orig_file = 'sim_msg_log_orig.txt'
@@ -68,4 +108,5 @@ def compareLogFile(source, destin):
     comp_result = compareLogFile(source, destin)
 
     if comp_result == True:
-        print("sim_msg_log �일 �치")
+        print("sim_msg_log 파일 일치")
+>>>>>>> origin/dev/tdd

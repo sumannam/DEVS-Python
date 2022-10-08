@@ -2,8 +2,8 @@ import sys
 
 from src.COUPLED_MODELS import COUPLED_MODELS
 
-from GENR import GENR
-from TRANSD import TRANSD
+from projects.simparc.mbase.GENR import GENR
+from projects.simparc.mbase.TRANSD import TRANSD
 
 
 class EF(COUPLED_MODELS):
