@@ -1,12 +1,7 @@
 import sys
 import json
 import difflib
-from loguru import logger
-# from diff_match_patch import diff_match_patch
-
-# from tokenize import tokenize, untokenize, NUMBER, STRING, NAME, OP
-
-# from abc import abstractmethod
+from loguru import logger   # pip install loguru
 
 sys.path.append('D:/Git/DEVS-Python')
 
@@ -135,4 +130,5 @@ class TEST_ATOMIC_MODELS():
             elif opcode == 'replace':
                 output.append(f'{green}{b[b0:b1]}{endgreen}')
                 output.append(f'{red}{a[a0:a1]}{endred}')
+
         return ''.join(output)
