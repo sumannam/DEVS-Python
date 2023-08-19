@@ -7,25 +7,25 @@ sys.path.append('D:/Git/DEVS-Python/projects/simparc')
 
 TBASE_FOLDER = os.path.dirname(os.path.abspath(__file__)) + "\\tbase"
 
-from projects.simparc.mbase.P import P
+from projects.simparc.mbase.IP import IP
 from TEST_ATOMIC_MODELS import TEST_ATOMIC_MODELS
 
 if __name__ == '__main__':
-    p = P()
+    ip = IP()
     model_test = TEST_ATOMIC_MODELS()
     
     ## 자동 테스트
-    json_file = os.path.join(TBASE_FOLDER, 'test_script1.json')
+    # json_file = os.path.join(TBASE_FOLDER, 'ip_test_script.json')
 
-    start = time.time() 
+    # start = time.time() 
 
-    model_test.runAutoModelTest(p, json_file)
-    end = time.time()
+    # model_test.runAutoModelTest(ip, json_file)
+    # end = time.time()
 
-    print(f"{end - start:.5f} sec")
+    # print(f"{end - start:.5f} sec")
 
     ## 수동 테스트
-    # p.runModelTest(p)
+    ip.modelTest(ip)
 
 
 # 시뮬레이션

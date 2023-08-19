@@ -70,6 +70,7 @@ class ATOMIC_MODELS(MODELS):
             type = param[2]
 
             if type == "inject":
+                type = "delta_ext"
                 port_name = param[3]
                 value = param[4]
                 elased_time = self.decideNumberType(param[5])
@@ -79,11 +80,11 @@ class ATOMIC_MODELS(MODELS):
             
             if type == "output?":
                 output = CONTENT()
-                output = self.outputFunc(self.state)
+                output = self.outputFunc()
                 send_result = self.getOutputResult(output)
 
             if type == "int-transition":
-                self.internalTransitionFunc(self.state)
+                self.internalTransitionFunc()
                 send_result = self.getIntTransitionResult()
 
             if type == "quit":
