@@ -129,9 +129,7 @@ class ATOMIC_MODELS(MODELS):
             state_list.append(temp_str)
 
         state_str = ' '.join(state_list)
-
-        if type == "delta_ext":
-            result = "state s = ( " + state_str + " )"
+        result = "state s = ( " + state_str + " )"
 
         return result
         

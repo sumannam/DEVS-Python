@@ -4,12 +4,13 @@ import unittest
 sys.path.append('D:/Git/DEVS-Python')
 sys.path.append('D:/Git/DEVS-Python/projects/simparc')
 
-from projects.simparc.EF_P import EF_P
+from projects.simparc.coupbase.EF_P import EF_P
 
 class testROOT_CO_ORDINATORS(unittest.TestCase):
     def setUp(self):
         self.ef_p = EF_P()
 
+    # CORE-1 | https://www.notion.so/modsim-devs/initialize-clock-base-32268a08426e4c63b44946aaef0efea5?pvs=4
     def testInitialize(self):
         """! 
         @fn         testInitialize

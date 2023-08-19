@@ -4,7 +4,7 @@ import time
 
 sys.path.append('D:/Git/DEVS-Python')
 
-from projects.simparc.P import P
+from projects.simparc.mbase.P import P
 from src.CONTENT import CONTENT
 
 class testPModelTest(unittest.TestCase):
@@ -23,7 +23,7 @@ class testPModelTest(unittest.TestCase):
         self.p.sendInject("in", "g1", 5)
         send_result = self.p.getInjectResult("inject")
 
-        assert send_result == "state s = (5 busy g1 5)"
+        assert send_result == "state s = ( 5 busy g1 5 )"
 
     def test_modeltest_p_output(self):
         """! 
@@ -60,7 +60,7 @@ class testPModelTest(unittest.TestCase):
         self.p.internalTransitionFunc()
         send_result = self.p.getIntTransitionResult()
 
-        assert send_result == "state s = (inf passive g1 5)"
+        assert send_result == "state s = ( inf passive g1 5 )"
 
     def test_modeltest_p_inject(self):
         """! 
@@ -77,7 +77,7 @@ class testPModelTest(unittest.TestCase):
 
         send_result = self.p.getInjectResult("inject")
 
-        assert send_result == "state s = (4 busy g1 5)"
+        assert send_result == "state s = ( 4 busy g1 5 )"
 
 if __name__ == '__main__':
     start = time.time()    

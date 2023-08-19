@@ -5,7 +5,7 @@ sys.path.append('D:/Git/DEVS-Python')
 
 from testPModelTest import testPModelTest
 # from testEF_P import testEF_P
-# from testROOT_CO_ORDINATORS import testROOT_CO_ORDINATORS
+from testROOT_CO_ORDINATORS import testROOT_CO_ORDINATORS
 
 if __name__ == '__main__':
     test_p0 = unittest.TestLoader().loadTestsFromTestCase(testPModelTest)
@@ -19,7 +19,7 @@ if __name__ == '__main__':
     # test_p8 = unittest.TestLoader().loadTestsFromTestCase(testPModelTest)
     # test_p9 = unittest.TestLoader().loadTestsFromTestCase(testPModelTest)
     # test_efp = unittest.TestLoader().loadTestsFromTestCase(testEF_P)
-    # test_root_coordinators = unittest.TestLoader().loadTestsFromTestCase(testROOT_CO_ORDINATORS)
+    test_root_coordinators = unittest.TestLoader().loadTestsFromTestCase(testROOT_CO_ORDINATORS)
 
     allTests = unittest.TestSuite()
     allTests.addTest(test_p0)
@@ -33,7 +33,7 @@ if __name__ == '__main__':
     # allTests.addTest(test_p8)
     # allTests.addTest(test_p9)
     # allTests.addTest(test_efp)
-    # allTests.addTest(test_root_coordinators)
+    allTests.addTest(test_root_coordinators)
 
     unittest.TextTestRunner(verbosity=2, failfast=True).run(allTests)
     
