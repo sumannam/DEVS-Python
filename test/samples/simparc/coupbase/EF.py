@@ -1,9 +1,13 @@
 import sys
 
+sys.path.append('D:/Git/DEVS-Python')
+sys.path.append('D:/Git/DEVS-Python/test')
+
+
 from src.COUPLED_MODELS import COUPLED_MODELS
 
-from test.samples.simparc.mbase.GENR import GENR
-from test.samples.simparc.mbase.TRANSD import TRANSD
+from samples.simparc.mbase.GENR import GENR
+from samples.simparc.mbase.TRANSD import TRANSD
 
 
 class EF(COUPLED_MODELS):

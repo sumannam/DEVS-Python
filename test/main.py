@@ -10,15 +10,14 @@ from models.test_EF_P import test_EF_P
 from simulation.test_ATOMIC_MODELS_TEST import test_ATOMIC_MODELS_TEST
 from simulation.test_ROOT_CO_ORDINATORS import test_ROOT_CO_ORDINATORS
 
+from samples.simparc.coupbase.EF_P import EF_P  
 
-from conf import setDevPath
-setDevPath()
+sys.path.append('D:/Git/DEVS-Python')
 
-sys.path.append('D:\\Git\\DEVS-Python')
-PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
+allTests = unittest.TestSuite()
 
-index = PROJECT_PATH.find("test")
-THIS_PATH = PROJECT_PATH[:index] + "test\\samples\\simparc"
+DEVS_PYTHON_TEST_PATH = os.path.dirname(os.path.abspath(__file__))
+THIS_PATH = DEVS_PYTHON_TEST_PATH + "\\samples\\simparc\\"
 
 def moveLogFile():
     file_name = 'sim_msg_log.txt'
@@ -28,7 +27,7 @@ def moveLogFile():
 
     if index != -1:
         source = source_path + file_name
-        destin = THIS_PATH + "\\" + file_name
+        destin = THIS_PATH + file_name
         
         while True:
             try:
@@ -60,25 +59,6 @@ def compareLogFile(source, destin):
         return False
 
 
-# # ��이
-# from EF_P import EF_P
-# if __name__ == '__main__':
-#     ef_p = EF_P()
-#     ef_p.initialize() 
-#     ef_p.restart()
-    
-    destin = moveLogFile()
-
-    sim_msg_log_orig_file = 'sim_msg_log_orig.txt'
-    source = THIS_PATH + "\\" + sim_msg_log_orig_file
-
-    comp_result = compareLogFile(source, destin)
-
-    if comp_result == True:
-        print("sim_msg_log �일 �치")
-
-allTests = unittest.TestSuite()
-
 def test_models():
     # [EF-P Coupled-Model]
     test_ef_p = unittest.TestLoader().loadTestsFromTestCase(test_EF_P)
@@ -99,3 +79,19 @@ if __name__ == '__main__':
     test_simulation()
 
     unittest.TextTestRunner(verbosity=2, failfast=True).run(allTests)
+
+
+    # [DEVS-Core 출력 메시지 확인]
+    ef_p = EF_P()
+    ef_p.initialize() 
+    ef_p.restart()
+    
+    destin = moveLogFile()
+
+    sim_msg_log_orig_file = 'sim_msg_log_orig.txt'
+    source = THIS_PATH + sim_msg_log_orig_file
+
+    comp_result = compareLogFile(source, destin)
+
+    if comp_result == True:
+        print("sim_msg_log_orig correspond with sim_msg_log")

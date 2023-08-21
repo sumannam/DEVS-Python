@@ -1,12 +1,12 @@
 import sys
 
-# from test.conf import setDevPath
-# setDevPath()
+sys.path.append('D:/Git/DEVS-Python')
+sys.path.append('D:/Git/DEVS-Python/test')
 
 from src.COUPLED_MODELS import COUPLED_MODELS
 
-from test.samples.simparc.mbase.P import P
-from test.samples.simparc.coupbase.EF import EF
+from samples.simparc.mbase.P import P
+from samples.simparc.coupbase.EF import EF
 
 class EF_P(COUPLED_MODELS):
     def __init__(self):
