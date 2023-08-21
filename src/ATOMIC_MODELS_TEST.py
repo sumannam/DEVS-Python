@@ -8,7 +8,7 @@ sys.path.append('D:/Git/DEVS-Python')
 from src.ATOMIC_MODELS import ATOMIC_MODELS
 from src.CONTENT import CONTENT
 
-class TEST_ATOMIC_MODELS():
+class test_ATOMIC_MODELS_TEST():
 
     def __init__(self):
         # pass 

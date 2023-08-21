@@ -1,12 +1,12 @@
 import sys
 
-from conf import setDevPath
-setDevPath()
+# from test.conf import setDevPath
+# setDevPath()
 
 from src.COUPLED_MODELS import COUPLED_MODELS
 
-from P import P
-from EF import EF
+from test.samples.simparc.mbase.P import P
+from test.samples.simparc.coupbase.EF import EF
 
 class EF_P(COUPLED_MODELS):
     def __init__(self):

@@ -6,18 +6,19 @@ import unittest
 
 from fileinput import filename
 
-from models.testPModelTest import testPModelTest
-from simulation.testROOT_CO_ORDINATORS import testROOT_CO_ORDINATORS
+from models.test_EF_P import test_EF_P
+from simulation.test_ATOMIC_MODELS_TEST import test_ATOMIC_MODELS_TEST
+from simulation.test_ROOT_CO_ORDINATORS import test_ROOT_CO_ORDINATORS
 
 
 from conf import setDevPath
 setDevPath()
 
-sys.path.append('D:/Git/DEVS-Python')
+sys.path.append('D:\\Git\\DEVS-Python')
 PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 
 index = PROJECT_PATH.find("test")
-THIS_PATH = PROJECT_PATH[:index] + "test\\test_simparc"
+THIS_PATH = PROJECT_PATH[:index] + "test\\samples\\simparc"
 
 def moveLogFile():
     file_name = 'sim_msg_log.txt'
@@ -79,43 +80,22 @@ def compareLogFile(source, destin):
 allTests = unittest.TestSuite()
 
 def test_models():
-    test_p0 = unittest.TestLoader().loadTestsFromTestCase(testPModelTest)
-    test_p1 = unittest.TestLoader().loadTestsFromTestCase(testPModelTest)
-    test_p2 = unittest.TestLoader().loadTestsFromTestCase(testPModelTest)
-    test_p3 = unittest.TestLoader().loadTestsFromTestCase(testPModelTest)
-    test_p4 = unittest.TestLoader().loadTestsFromTestCase(testPModelTest)
-
-    allTests.addTest(test_p0)
-    allTests.addTest(test_p1)
-    allTests.addTest(test_p2)
-    allTests.addTest(test_p3)
-    allTests.addTest(test_p4)
+    # [EF-P Coupled-Model]
+    test_ef_p = unittest.TestLoader().loadTestsFromTestCase(test_EF_P)
+    allTests.addTest(test_ef_p)
 
 def test_simulation():
-    test_root_coordinators = unittest.TestLoader().loadTestsFromTestCase(testROOT_CO_ORDINATORS)
+    # [ATOMIC_MODELS_TEST]
+    test_p = unittest.TestLoader().loadTestsFromTestCase(test_ATOMIC_MODELS_TEST)
+    allTests.addTest(test_p)
+
+    # [ROOT_CO_ORDINATORS]
+    test_root_coordinators = unittest.TestLoader().loadTestsFromTestCase(test_ROOT_CO_ORDINATORS)
     allTests.addTest(test_root_coordinators)
 
 
 if __name__ == '__main__':
     test_models()
     test_simulation()
-
-    # test_p5 = unittest.TestLoader().loadTestsFromTestCase(testPModelTest)
-    # test_p6 = unittest.TestLoader().loadTestsFromTestCase(testPModelTest)
-    # test_p7 = unittest.TestLoader().loadTestsFromTestCase(testPModelTest)
-    # test_p8 = unittest.TestLoader().loadTestsFromTestCase(testPModelTest)
-    # test_p9 = unittest.TestLoader().loadTestsFromTestCase(testPModelTest)
-    # test_efp = unittest.TestLoader().loadTestsFromTestCase(testEF_P)
-    
-
-    
-    
-    # allTests.addTest(test_p5)
-    # allTests.addTest(test_p6)
-    # allTests.addTest(test_p7)
-    # allTests.addTest(test_p8)
-    # allTests.addTest(test_p9)
-    # allTests.addTest(test_efp)
-    
 
     unittest.TextTestRunner(verbosity=2, failfast=True).run(allTests)

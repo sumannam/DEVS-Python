@@ -7,7 +7,7 @@ sys.path.append('D:/Git/DEVS-Python')
 from projects.simparc.mbase.P import P
 from src.CONTENT import CONTENT
 
-class testPModelTest(unittest.TestCase):
+class test_ATOMIC_MODELS_TEST(unittest.TestCase):
     def setUp(self):
         self.p = P()
 
