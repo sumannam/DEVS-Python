@@ -37,6 +37,7 @@ class ROOT_CO_ORDINATORS(PROCESSORS):
         """
         return self.clock_base
     
+    # TDD | CORE-1
     def initialize(self):
         """! 
         @fn         initialize
@@ -64,6 +65,7 @@ class ROOT_CO_ORDINATORS(PROCESSORS):
             if( self.clock_base == src.util.INFINITY):
                 break;
     
+    # TDD | CORE-2
     def whenReceiveDone(self, input_message):
         self.clock_base = input_message.getTime()
         self.runtime = self.clock_base

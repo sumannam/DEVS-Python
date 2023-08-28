@@ -6,8 +6,8 @@ sys.path.append('D:/Git/DEVS-Python/test')
 
 from src.COUPLED_MODELS import COUPLED_MODELS
 
-from samples.simparc.mbase.GENR import GENR
-from samples.simparc.mbase.TRANSD import TRANSD
+from models.samples.simparc.mbase.GENR import GENR
+from models.samples.simparc.mbase.TRANSD import TRANSD
 
 
 class EF(COUPLED_MODELS):

@@ -4,20 +4,24 @@ import hashlib
 import sys
 import unittest
 
+sys.path.append('D:/Git/DEVS-Python')
+sys.path.append('D:/Git/DEVS-Python/test')
+
 from fileinput import filename
 
 from models.test_EF_P import test_EF_P
+from models.samples.simparc.coupbase.EF_P import EF_P  
+
 from simulation.test_ATOMIC_MODELS_TEST import test_ATOMIC_MODELS_TEST
 from simulation.test_ROOT_CO_ORDINATORS import test_ROOT_CO_ORDINATORS
 
-from samples.simparc.coupbase.EF_P import EF_P  
 
 sys.path.append('D:/Git/DEVS-Python')
 
 allTests = unittest.TestSuite()
 
 DEVS_PYTHON_TEST_PATH = os.path.dirname(os.path.abspath(__file__))
-THIS_PATH = DEVS_PYTHON_TEST_PATH + "\\samples\\simparc\\"
+THIS_PATH = DEVS_PYTHON_TEST_PATH + "\\models\\samples\\simparc\\"
 
 def moveLogFile():
     file_name = 'sim_msg_log.txt'

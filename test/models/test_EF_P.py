@@ -1,7 +1,6 @@
-import sys
 import unittest
 
-from samples.simparc.coupbase.EF_P import EF_P
+from models.samples.simparc.coupbase.EF_P import EF_P
 
 
 class test_EF_P(unittest.TestCase):
