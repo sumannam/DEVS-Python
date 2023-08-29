@@ -3,12 +3,10 @@ import json
 import difflib
 from loguru import logger   # pip install loguru
 
-sys.path.append('D:/Git/DEVS-Python')
-
 from src.ATOMIC_MODELS import ATOMIC_MODELS
 from src.CONTENT import CONTENT
 
-class test_ATOMIC_MODELS_TEST():
+class ATOMIC_MODELS_TEST():
 
     def __init__(self):
         # pass 

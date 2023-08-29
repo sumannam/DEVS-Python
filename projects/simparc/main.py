@@ -8,11 +8,11 @@ sys.path.append('D:/Git/DEVS-Python/projects/simparc')
 TBASE_FOLDER = os.path.dirname(os.path.abspath(__file__)) + "\\tbase"
 
 from projects.simparc.mbase.IP import IP
-from TEST_ATOMIC_MODELS import TEST_ATOMIC_MODELS
+from src.utils.ATOMIC_MODELS_TEST import ATOMIC_MODELS_TEST
 
 if __name__ == '__main__':
     ip = IP()
-    model_test = TEST_ATOMIC_MODELS()
+    model_test = ATOMIC_MODELS_TEST()
     
     ## 자동 테스트
     # json_file = os.path.join(TBASE_FOLDER, 'ip_test_script.json')

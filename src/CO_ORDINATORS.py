@@ -8,7 +8,7 @@ from src.MESSAGE import *
 from src.CONTENT import CONTENT
 from src.PORT import PORT
 
-from src.util import *
+from src.utils.util import *
 
 class CO_ORDINATORS(PROCESSORS):
     def __init__(self):

@@ -1,4 +1,5 @@
-from src.util import setDevPath
+from src.utils.util import setDevPath
+
 setDevPath()
 
 class ENTITIES:

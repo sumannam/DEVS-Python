@@ -1,5 +1,3 @@
-import sys
-
 from src.COUPLED_MODELS import COUPLED_MODELS
 
 from models.samples.simparc.mbase.P import P
