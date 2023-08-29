@@ -33,17 +33,17 @@ class ROOT_CO_ORDINATORS(PROCESSORS):
         @return     시뮬레이션 다음 시간
 
         @author     남수만(sumannam@gmail.com)
-        @date       2021.11.16
+        @date       2023.11.16
         """
         return self.clock_base
     
-    # TDD | CORE-1
     def initialize(self):
         """! 
         @fn         initialize
         @brief      시뮬레이션의 최초 시간 결정
         @details    초기화 메시지(i)를 통해 원자 모델들의 최초 시간을 획득하여 clock_base 저장
 
+        @remarks    TDD_ROOT_CO_ORDINATORS-01 추가[23.08.19] | https://www.notion.so/modsim-devs/initialize-clock-base-32268a08426e4c63b44946aaef0efea5?pvs=4
         @author     남수만(sumannam@gmail.com)
         @date       2021.11.16
         """
@@ -65,7 +65,16 @@ class ROOT_CO_ORDINATORS(PROCESSORS):
             if( self.clock_base == src.util.INFINITY):
                 break;
     
-    # TDD | CORE-2
     def whenReceiveDone(self, input_message):
+        """! 
+        @fn         whenReceiveDone()
+        @brief      Done 메시지를 받을 때
+
+        @param  input_message   Coordinator로부터 받은 메시지
+
+        @remarks    TDD_ROOT_CO_ORDINATORS-02 추가[23.08.28] | https://www.notion.so/modsim-devs/getClockBase-clock-base-6208a07a97d743c2a3f8dca9cd32d03c?pvs=4
+        @author     남수만(sumannam@gmail.com)
+        @date       2021.11.16
+        """
         self.clock_base = input_message.getTime()
         self.runtime = self.clock_base

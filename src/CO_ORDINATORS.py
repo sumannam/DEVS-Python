@@ -27,12 +27,13 @@ class CO_ORDINATORS(PROCESSORS):
 
     def addChild(self, processor):
         """! 
-        @fn         initialize()
+        @fn         addChild()
         @brief      자식 모델 저장
         @details    자식 모델을 접근하기 위해 리스트 형태로 저장
 
         @param  processor   프로세스
 
+        @remarks    TDD_CO_ORDINATORS-01 추가[23.08.29] | https://www.notion.so/modsim-devs/addChild-processor_list-62ce46420d754ab7919708081a9b2c42?pvs=4
         @author     남수만(sumannam@gmail.com)
         @date       2021.11.16
         """

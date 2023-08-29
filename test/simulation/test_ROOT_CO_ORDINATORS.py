@@ -14,7 +14,7 @@ class test_ROOT_CO_ORDINATORS(unittest.TestCase):
         self.ef_p = EF_P()
         self.root_coordinator = ROOT_CO_ORDINATORS()
 
-    # CORE-1 | https://www.notion.so/modsim-devs/initialize-clock-base-32268a08426e4c63b44946aaef0efea5?pvs=4
+    # TDD_ROOT_CO_ORDINATORS-01 | https://www.notion.so/modsim-devs/initialize-clock-base-32268a08426e4c63b44946aaef0efea5?pvs=4
     def testInitialize(self):
         self.ef_p.initialize()
         clock_base = self.ef_p.getClockBase()
@@ -22,8 +22,8 @@ class test_ROOT_CO_ORDINATORS(unittest.TestCase):
         assert clock_base == 0
 
     
-    # CORE-2 | https://www.notion.so/modsim-devs/6208a07a97d743c2a3f8dca9cd32d03c?pvs=4
-    def test(self):
+    # TDD_ROOT_CO_ORDINATORS-02 | https://www.notion.so/modsim-devs/6208a07a97d743c2a3f8dca9cd32d03c?pvs=4
+    def testWhenReceiveDone(self):
         input_message = MESSAGE()
         input_message.setDone(MESSAGE_TYPE.Done, "Test", 3)
         

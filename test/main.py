@@ -2,6 +2,7 @@ import os
 import shutil
 import hashlib
 import sys
+
 import unittest
 
 sys.path.append('D:/Git/DEVS-Python')
@@ -12,8 +13,10 @@ from fileinput import filename
 from models.test_EF_P import test_EF_P
 from models.samples.simparc.coupbase.EF_P import EF_P  
 
-from simulation.test_ATOMIC_MODELS_TEST import test_ATOMIC_MODELS_TEST
+
 from simulation.test_ROOT_CO_ORDINATORS import test_ROOT_CO_ORDINATORS
+from simulation.test_CO_ORDINATORS import test_CO_ORDINATORS
+from simulation.test_ATOMIC_MODELS_TEST import test_ATOMIC_MODELS_TEST
 
 
 sys.path.append('D:/Git/DEVS-Python')
@@ -69,13 +72,19 @@ def test_models():
     allTests.addTest(test_ef_p)
 
 def test_simulation():
-    # [ATOMIC_MODELS_TEST]
-    test_p = unittest.TestLoader().loadTestsFromTestCase(test_ATOMIC_MODELS_TEST)
-    allTests.addTest(test_p)
+    
 
     # [ROOT_CO_ORDINATORS]
     test_root_coordinators = unittest.TestLoader().loadTestsFromTestCase(test_ROOT_CO_ORDINATORS)
     allTests.addTest(test_root_coordinators)
+
+    # [CO_ORDINATORS]
+    test_coordinators = unittest.TestLoader().loadTestsFromTestCase(test_CO_ORDINATORS)
+    allTests.addTest(test_coordinators)
+
+    # [ATOMIC_MODELS_TEST]
+    test_p = unittest.TestLoader().loadTestsFromTestCase(test_ATOMIC_MODELS_TEST)
+    allTests.addTest(test_p)
 
 
 if __name__ == '__main__':
