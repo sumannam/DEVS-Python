@@ -14,7 +14,7 @@ class test_CO_ORDINATORS(unittest.TestCase):
     def setUp(self):
         self.coordinator = CO_ORDINATORS()
 
-    # CORE-3
+    # CORE-3 | https://www.notion.so/modsim-devs/addChild-processor_list-62ce46420d754ab7919708081a9b2c42?pvs=4
     def testAddChild(self):
         self.ef_p = EF_P()
         self.ef = EF()
