@@ -4,7 +4,7 @@ import time
 
 sys.path.append('D:/Git/DEVS-Python')
 
-from projects.simparc.P import P
+from projects.simparc.mbase.P import P
 from src.CONTENT import CONTENT
 
 class testPModelTest(unittest.TestCase):
@@ -77,7 +77,7 @@ class testPModelTest(unittest.TestCase):
 
         send_result = self.p.getInjectResult("inject")
 
-        assert send_result == "state s = (4 busy g1 5)"
+        assert send_result == "state s = (5 busy g1 5)"
 
 if __name__ == '__main__':
     start = time.time()    

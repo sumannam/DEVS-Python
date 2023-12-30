@@ -1,6 +1,6 @@
 import sys
 
-from conf import setDevPath
+from projects.simparc.config import setDevPath
 setDevPath()
 
 # from pypreprocessor import pypreprocessor

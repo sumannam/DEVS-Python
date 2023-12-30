@@ -3,6 +3,16 @@ import sys
 from pathlib import Path
 
 PROJECT_NAME = "DEVS-Python"
+TBASE_FOLDER = ""
+
+if 'win' in sys.platform:  # Windows
+    sys.path.append('D:/Git/DEVS-Python')
+    sys.path.append('D:/Git/DEVS-Python/projects/simparc')
+    TBASE_FOLDER = os.path.dirname(os.path.abspath(__file__)) + "\\tbase"
+else:  # Linux, Unix, MacOS
+    sys.path.append('.')
+    TBASE_FOLDER = os.path.dirname(os.path.abspath(__file__)) + "/tbase"
+
 
 def setDevPath():
     current_path = Path.cwd()

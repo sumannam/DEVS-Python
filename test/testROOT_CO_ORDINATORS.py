@@ -4,7 +4,7 @@ import unittest
 sys.path.append('D:/Git/DEVS-Python')
 sys.path.append('D:/Git/DEVS-Python/projects/simparc')
 
-from projects.simparc.EF_P import EF_P
+from projects.simparc.coupbase.EF_P import EF_P
 
 class testROOT_CO_ORDINATORS(unittest.TestCase):
     def setUp(self):
