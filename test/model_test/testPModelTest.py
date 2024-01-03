@@ -12,14 +12,7 @@ class testPModelTest(unittest.TestCase):
         self.p = P()
 
     def test_modeltest_p_inject(self):
-        """! 
-        @fn         test_modeltest_p_inject
-        @brief      P 모델 External Transition Function 수행
-        @details    >>> send p inject in g1 5
-
-        @author     남수만(sumannam@gmail.com)
-        @date       2021.10.21
-        """
+        
         self.p.sendInject("in", "g1", 5)
         send_result = self.p.getInjectResult("inject")
 
