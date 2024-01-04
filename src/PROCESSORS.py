@@ -65,6 +65,19 @@ class PROCESSORS(ENTITIES):
         """
         return self.devs_component
     
+    def getRunTime(self):
+        """! 
+        @fn         getRunTime()
+        @brief      현재 시뮬레이션 실행 시간
+        @details    ROOT_CO_ORINDATOR의 testWhenReceiveDone 메소드의 단위테스트 생성을 위해 작성
+
+        @return     시뮬레이션 실행 시간
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2024.01.04
+        """
+        return self.runtime
+    
     def initialize(self):
         """! 
         @fn         initialize()
