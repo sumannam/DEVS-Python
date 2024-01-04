@@ -9,6 +9,7 @@ from src.MESSAGE import MESSAGE
 from src.CO_ORDINATORS import CO_ORDINATORS
 
 from projects.simparc.coupbase.EF import EF
+from projects.simparc.mbase.GENR import GENR
 
 class testCO_ORDINATORS(unittest.TestCase):
     """
@@ -20,6 +21,7 @@ class testCO_ORDINATORS(unittest.TestCase):
         테스트 환경을 설정합니다.
         """
         self.ef = EF()
+        self.ef.initialize()
 
     def testInitialize(self):
         """
@@ -34,11 +36,48 @@ class testCO_ORDINATORS(unittest.TestCase):
         :TDD: 
         :노션: https://www.notion.so/modsim-devs/TDD-c80a15fcb34c40319b7a4e3d9b0211a7?pvs=4
         """
-        self.ef.initialize()
-
         time_list = list(self.ef.processor.processor_time.values())
         
         assert time_list == [0, 10]
+        
+    def testWhenReceiveStar(self):
+        """
+        모델의 whenReceiveStar 함수를 테스트합니다.
+
+        이 함수는 초기화 후 모델의 whenReceiveStar 함수를 테스트합니다.
+        'Star' 메시지를 수신한 후의 다음 시간이 클록 베이스와 같은지 검사합니다.
+
+        :작성자: 남수만(sumannam@gmail.com)
+        :작성일: 2024.01.04
+        """
+        
+        star_msg = MESSAGE()
+        star_msg.setRootStar('Star', 0)
+        self.ef.processor.whenReceiveStar(star_msg)
+        
+        time_next = self.ef.processor.getTimeOfNextEvent()
+        
+        assert time_next == 3
+        
+    def testWhenReceiveY(self):
+        """
+        모델의 whenReceiveY 함수를 테스트합니다.
+
+        이 함수는 초기화 후 모델의 whenReceiveY 함수를 테스트합니다.
+        'Y' 메시지를 수신한 후의 다음 시간이 클록 베이스와 같은지 검사합니다.
+
+        :작성자: 남수만(
+        :작성일: 2024.01.04
+        """
+        self.genr = GENR()
+        
+        
+        input_message = MESSAGE()
+        input_message.setExt('Y', self.genr, 0)
+        
+        self.ef.processor.whenReceiveY(input_message)
+        
+        
     
     # def testRestart(self):
     #     """
