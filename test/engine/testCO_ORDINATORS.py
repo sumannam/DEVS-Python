@@ -2,6 +2,8 @@ import os
 import sys
 import unittest
 
+import src.util as util
+
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 import config
 
@@ -69,8 +71,9 @@ class testCO_ORDINATORS(unittest.TestCase):
         :작성자: 남수만(
         :작성일: 2024.01.04
         """
-        self.genr = GENR()
+        util.UNITEST_METHOD = 'testWhenReceiveY'
         
+        self.genr = GENR()       
         
         input_message = MESSAGE()
         input_message.setExt('Y', self.genr, 0)
