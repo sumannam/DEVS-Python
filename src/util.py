@@ -17,12 +17,12 @@ logging.basicConfig(
 )
 
 def logInfoCoordinator(devs_name, time_next, time_last, star_child, wait_list):
-    if UNITEST_METHOD == 'testWhenReceiveY':
-        devs_engine_log = logging.getLogger('coordinator_log')
-        handler = logging.FileHandler('coordinator_log.txt')
+    if UNITEST_METHOD == 'testCoordinatorWhenReceiveY':
+        coordinator_y_log = logging.getLogger('coordinator_y_log')
+        handler = logging.FileHandler('coordinator_y_log.txt')
         formatter = logging.Formatter('')
         handler.setFormatter(formatter)
-        devs_engine_log.addHandler(handler)
+        coordinator_y_log.addHandler(handler)
         
         log = "devs_comp: " + devs_name + "\n" \
             + "time_next: " + str(time_next) + "\n" \
@@ -30,7 +30,21 @@ def logInfoCoordinator(devs_name, time_next, time_last, star_child, wait_list):
             + "star_child: (" + star_child + ")\n" \
             + "wait_list: (" + wait_list + ")\n\n"
         
-        devs_engine_log.info(log)
+        coordinator_y_log.info(log)
+    elif UNITEST_METHOD == 'testCoordinatorWhenReceiveDone':
+        coordinator_done_log = logging.getLogger('coordinator_done_log')
+        handler = logging.FileHandler('coordinator_done_log.txt')
+        formatter = logging.Formatter('')
+        handler.setFormatter(formatter)
+        coordinator_done_log.addHandler(handler)
+        
+        log = "devs_comp: " + devs_name + "\n" \
+            + "time_next: " + str(time_next) + "\n" \
+            + "time_last: " + str(time_last) + "\n" \
+            + "star_child: (" + star_child + ")\n" \
+            + "wait_list: (" + wait_list + ")\n\n"
+        
+        coordinator_done_log.info(log)
     else:
         log = "devs_comp: " + devs_name + "\n" \
             + "time_next: " + str(time_next) + "\n" \
