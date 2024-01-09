@@ -1,0 +1,74 @@
+(CO_ORDINATORS.py:whenReceiveY:135)
+
+(util.py:logInfoCoordinator:45)
+devs_comp: EF
+time_next: 0
+time_last: 0
+star_child: ()
+wait_list: ()
+
+
+(CO_ORDINATORS.py:whenReceiveY:160)
+
+(util.py:logInfoCoordinator:45)
+devs_comp: EF
+time_next: 0
+time_last: 0
+star_child: ()
+wait_list: (TRANSD )
+
+
+(SIMULATORS.py:whenReceiveX:108)
+
+(util.py:logInfoSimulator:51)
+devs_comp: TRANSD
+time_next: 10
+time_last: 0
+
+
+(SIMULATORS.py:whenReceiveX:119)
+
+(util.py:logInfoSimulator:51)
+devs_comp: TRANSD
+time_next: 10
+time_last: 0
+
+
+(CO_ORDINATORS.py:whenReceiveDone:236)
+
+(util.py:logInfoCoordinator:45)
+devs_comp: EF
+time_next: 0
+time_last: 0
+star_child: ()
+wait_list: ()
+
+
+(CO_ORDINATORS.py:whenReceiveDone:252)
+
+(util.py:logInfoCoordinator:45)
+devs_comp: EF
+time_next: 0
+time_last: 0
+star_child: ()
+wait_list: ()
+
+
+(SIMULATORS.py:whenReceiveX:131)
+
+(util.py:logInfoSimulator:51)
+devs_comp: TRANSD
+time_next: 10
+time_last: 0
+
+
+(CO_ORDINATORS.py:whenReceiveY:173)
+
+(util.py:logInfoCoordinator:45)
+devs_comp: EF
+time_next: 0
+time_last: 0
+star_child: ()
+wait_list: ()
+
+

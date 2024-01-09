@@ -6,6 +6,7 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 import config
 
 from src.MESSAGE import MESSAGE
+from src.CONTENT import CONTENT
 from src.CO_ORDINATORS import CO_ORDINATORS
 
 from projects.simparc.coupbase.EF import EF
@@ -71,53 +72,31 @@ class testCO_ORDINATORS(unittest.TestCase):
         """
         self.genr = GENR()
         
-        
         input_message = MESSAGE()
         input_message.setExt('Y', self.genr, 0)
+
+        input_content = CONTENT()
+        input_content.setContent("out", "TEST-1")
+        input_message.addContent(input_content)        
         
+        current_path = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
+        parent_path = os.path.abspath(os.path.join(current_path, os.pardir))
+
+        log_file = parent_path + "\\" + "sim_msg_log.txt"
+                                       
+        # 파일이 존재하는 경우 삭제
+        if os.path.isfile(log_file):
+            os.remove(log_file)
+        else:
+            print("Error: {} 파일이 존재하지 않습니다.".format(log_file))
+
         self.ef.processor.whenReceiveY(input_message)
         
         
-    
-    # def testRestart(self):
-    #     """
-    #     모델의 재시작 함수를 테스트합니다.
+        
+    def testWhenReceiveX(self):
+        self.genr = GENR()
 
-    #     이 함수는 초기화 후 모델의 재시작 함수를 테스트합니다.
-
-    #     :작성자: 남수만(sumannam@gmail.com)
-    #     :작성일: 2024.01.04
-
-    #     :TDD: TDD_ROOT_CO_ORDINATORS-02
-    #     :노션: https://www.notion.so/modsim-devs/TDD_ROOT_CO_ORDINATORS-02-6253f47e8d394427bdf5936573fe34e5?pvs=4
-    #     """
-    #     self.ef_p.initialize()
-    #     self.ef_p.restart()
-
-    #     clock_base = self.ef_p.getClockBase()
-
-    #     assert clock_base == float('inf')
-
-    # def testWhenReceiveDone(self):
-    #     """
-    #     모델의 whenReceiveDone 함수를 테스트합니다.
-
-    #     이 함수는 초기화 후 모델의 whenReceiveDone 함수를 테스트합니다.
-    #     'Done' 메시지를 수신한 후의 다음 시간이 클록 베이스와 같은지 검사합니다.
-
-    #     :작성자: 남수만(sumannam@gmail.com)
-    #     :작성일: 2024.01.04
-
-    #     :TDD: TDD_ROOT_CO_ORDINATORS-03
-    #     :노션: https://www.notion.so/modsim-devs/initialize-clock-base-32268a08426e4c63b44946aaef0efea5?pvs=4
-    #     """
-    #     self.ef_p.initialize()
-
-    #     time_next = 15
-    #     output = MESSAGE()
-    #     output.setDone('Done', self.ef_p, time_next)
-
-    #     self.ef_p.processor.parent.whenReceiveDone(output)
-    #     clock_base = self.ef_p.getClockBase()
-
-    #     assert clock_base == 15
+        input_message = MESSAGE()
+        input_message.setExt('X', self.genr, 0)
+        
