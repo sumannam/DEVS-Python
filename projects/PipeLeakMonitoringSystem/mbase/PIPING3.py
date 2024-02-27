@@ -18,6 +18,9 @@ class PIPING3(ATOMIC_MODELS):
             if self.state["phase"] == "passive":
                 self.state["job-id"] = x.value
                 self.holdIn("busy", self.state["processing_time"])
+                
+                print("Piping1: ", self.state["job-id"])
+                
             elif self.state["phase"] == "busy":
                 self.Continue(e)
 
