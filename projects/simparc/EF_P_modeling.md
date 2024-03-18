@@ -5,12 +5,9 @@ flowchart LR
     subgraph 1
         direction TB
         EF{{EF}}
-
-        subgraph 2
-            direction LR
-            GENR
-            TRANSD
-        end
+            
+        GENR
+        TRANSD
 
         EF -- in to sovled --> TRANSD
         TRANSD --  out to result --> EF

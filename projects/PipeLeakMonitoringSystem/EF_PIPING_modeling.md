@@ -1,18 +1,5 @@
 ```mermaid
-flowchart TB
-    subgraph EF coupled model
-        direction TB
-        EF{{EF}}
-
-        GENR
-        TRANSD
-
-        EF -- in to sovled --> TRANSD
-        TRANSD --  out to result --> EF
-        GENR -- out to out --> EF
-        TRANSD -- out to stop --> GENR
-        GENR -- out to arrive --> TRANSD
-    end
+flowchart LR
 
     subgraph PIPING coupled model
         PIPING{{PIPING}}
@@ -36,6 +23,22 @@ flowchart TB
         PIPING3 -- out to y3 --> PIPING_CNTR
         PIPING4 -- out to y4 --> PIPING_CNTR
     end
+
+    subgraph EF coupled model
+        direction TB
+        EF{{EF}}
+
+        GENR
+        TRANSD
+
+        EF -- in to sovled --> TRANSD
+        TRANSD --  out to result --> EF
+        GENR -- out to out --> EF
+        TRANSD -- out to stop --> GENR
+        GENR -- out to arrive --> TRANSD
+    end
+
+    
 
 
     EF -- out to in --> PIPING
