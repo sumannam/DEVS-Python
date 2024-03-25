@@ -39,5 +39,11 @@ class PIPING(COUPLED_MODELS):
         
         self.addCoupling(piping_cntr, "x1", piping1, "in")
         self.addCoupling(piping1, "out", piping_cntr, "y1")
+        self.addCoupling(piping_cntr, "x2", piping2, "in")
+        self.addCoupling(piping2, "out", piping_cntr, "y2")
+        self.addCoupling(piping_cntr, "x3", piping3, "in")
+        self.addCoupling(piping3, "out", piping_cntr, "y3")
+        self.addCoupling(piping_cntr, "x4", piping4, "in")
+        self.addCoupling(piping4, "out", piping_cntr, "y4")
         
         self.addCoupling(piping_cntr, "out", self, "out")

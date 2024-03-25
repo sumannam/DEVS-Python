@@ -20,6 +20,7 @@ class PIPING_CNTR(ATOMIC_MODELS):
 
     def externalTransitionFunc(self, e, x):
         self.state["job-id"]=x.value
+        print("Piping_CNTR: ", self.state["job-id"])
         
         if x.port == "in":
             if(self.state["piping1_state"] == "passive"):
@@ -34,6 +35,7 @@ class PIPING_CNTR(ATOMIC_MODELS):
             elif(self.state["piping4_state"] == "passive"):
                 self.state["piping4_state"] = "busy"
                 self.state["outport"] = "x4"
+        
         elif(x.port == "y1"):
             self.state["piping1_state"] = "passive"
             self.state["outport"] = "out"
@@ -42,6 +44,9 @@ class PIPING_CNTR(ATOMIC_MODELS):
             self.state["outport"] = "out"
         elif(x.port == "y3"):
             self.state["piping3_state"] = "passive"
+            self.state["outport"] = "out"
+        elif(x.port == "y4"):
+            self.state["piping4_state"] = "passive"
             self.state["outport"] = "out"
         
         self.holdIn("busy", 0)
@@ -59,8 +64,8 @@ class PIPING_CNTR(ATOMIC_MODELS):
                     or self.state["outport"] == "out" ):
                 content = CONTENT()
                 
-                print("Piping_CNTR: ", self.state["outport"])
-                print("Piping_CNTR: ", self.state["job-id"])
+                # print("Piping_CNTR: ", self.state["outport"])
+                # print("Piping_CNTR: ", self.state["job-id"])
                 
                 outport = self.state["outport"]
                 content.setContent(outport, self.state["job-id"])

@@ -1,3 +1,4 @@
+import re
 from src.ATOMIC_MODELS import *
 
 class PIPING1(ATOMIC_MODELS):
@@ -16,11 +17,12 @@ class PIPING1(ATOMIC_MODELS):
     def externalTransitionFunc(self, e, x):
         if x.port == "in":
             if self.state["phase"] == "passive":
-                self.state["job-id"] = x.value
+                self.state["job-id"] = x.value                
+                
+                # Forwarding Digital Twin Message
+                print(self.getName() + " : ", self.state["job-id"])
+                
                 self.holdIn("busy", self.state["processing_time"])
-                
-                print("Piping1: ", self.state["job-id"])
-                
             elif self.state["phase"] == "busy":
                 self.Continue(e)
 

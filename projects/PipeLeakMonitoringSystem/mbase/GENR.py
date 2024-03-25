@@ -15,7 +15,7 @@ class GENR(ATOMIC_MODELS):
         
         self.state["sigma"]=0
         self.state["phase"]="active"
-        self.addState("inter_arrival_time", 3)
+        self.addState("inter_arrival_time", 2)
         
         self.holdIn("active", self.state["sigma"])
 
@@ -35,6 +35,6 @@ class GENR(ATOMIC_MODELS):
         if self.state["phase"] == "active":
             content = CONTENT()    
             job_id = "JOB-" + str(self.count)
-            self.count+=1
+            self.count += 1
             content.setContent("out", job_id)
             return content
