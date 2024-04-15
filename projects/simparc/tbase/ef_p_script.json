@@ -1,0 +1,19 @@
+{
+	"log": {
+        "author": "Su Man Nam",
+		"data": "2024-04-15",
+		"ver1": "Coupling Information of EF-P, EF Model"
+    },
+    "EF_P": [
+		{"EF.out": "P.in"},
+		{"P.out": "ef.in"}
+	],
+	"EF": [
+		{"EF.in": "TRANSD.solved"},
+		{"GENR.out": "EF.out"},
+		{"TRANSD.out": "EF.result"},
+		{"TRANSD.out": "GENR.stop"},
+		{"GENR.out": "TRANSD.arrived"}
+	]
+}
+
