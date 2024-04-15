@@ -29,7 +29,6 @@ class COUPLED_MODELS(MODELS):
         @fn         addModel
         @brief      자식 모델 추가
         @details    추가 순서대로 우선순위 결정
- 			    	
         """
         self.child_list.append(child)
         child.setParent(self)
@@ -50,6 +49,12 @@ class COUPLED_MODELS(MODELS):
             return True
         else:
             return False
+        
+    def getChildModel(self, child_name):
+        for child in self.child_list:
+            if child.getName() == child_name:
+                return child
+        return None
 
 
     def addCoupling(self, src_model, src_port, dst_model, dst_port):
@@ -147,7 +152,27 @@ class COUPLED_MODELS(MODELS):
         @todo       함수명 수정(hasOutputCopling -> hasOutputCoupling) [완료: 22.05.31; 남수만] [작성: 22.05.31; 남수만] 
         """
         model_port_name = self.getModelPortName(src_model, port)
-        return self.internal_coupling.find(model_port_name)
+        
+        print(model_port_name)
+        
+
+    def getDestinationCoupling(self, src_model, port):
+        """! 
+        @fn         getDestinationCoupling()
+        @brief      단위 테스트를 위한 
+        @details    
+
+        @return     
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2024.04.15
+
+        @todo       
+        """
+        model_port_name = self.getModelPortName(src_model, port)
+        model_port_list = self.internal_coupling.get(model_port_name)
+        
+        return model_port_list        
 
 
     def translate(self, coupling_type, model, port):

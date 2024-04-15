@@ -6,18 +6,55 @@ from loguru import logger   # pip install loguru
 sys.path.append('D:/Git/DEVS-Python')
 
 from src.ATOMIC_MODELS import ATOMIC_MODELS
+from src.COUPLED_MODELS import COUPLED_MODELS
 from src.CONTENT import CONTENT
 
-class TEST_ATOMIC_MODELS():
+class UNITEST_MODELS():
 
     def __init__(self):
         # pass 
         # ATOMIC_MODELS.__init__(self)
         self.atomic_model = ATOMIC_MODELS()
-
-    def runAutoModelTest(self, model, json_file):
+        self.coupled_model = COUPLED_MODELS()
+        
+        self.coupling_list = []
+        
+    def runCoupledModelTest(self, model, json_file):
         """! 
-        @fn         runAutoModelTest
+        @fn         runCoupledModelTest
+        @brief      결합 모델 테스트
+        @details    결합 모델의 함수들
+
+        @param  model       결합 모델의 인스턴스
+        @param  json_file   json 파일 경로와 파일이름
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2024.04.15
+
+        @remarks    
+        """
+        test_script = open(json_file)
+        json_dic = json.load(test_script)
+
+        model_name = model.getName()
+        
+        
+        
+        self.coupling_list = json_dic.get(model_name)
+        
+        for coupling in self.coupling_list:
+            for key in coupling.keys():
+                src_model_port = key.split('.')
+                
+                src_model = model.getChildModel(src_model_port[0])
+                dst_model_port = model.getDestinationCoupling(src_model, src_model_port[1])
+                
+                if coupling.get(key) == dst_model_port[0]:
+                    print("IC")
+    
+    def runAtomicModelTest(self, model, json_file):
+        """! 
+        @fn         runAtomicModelTest
         @brief      원자 모델 테스트
         @details    원자 모델의 함수들(외부상태전이, 내부상태전이, 출력)을 검증(논문 작성용)
 
@@ -27,7 +64,8 @@ class TEST_ATOMIC_MODELS():
         @author     남수만(sumannam@gmail.com)
         @date       2022.01.31
 
-        @remarks    수정된 test_script1.json 버전으로 로직 변경[2022.06.19; 남수만]
+        @remarks    결합 모델 추가로, 함수명(runAutoModelTest -> runAtomicModelTest) 변경[2024.04.15; 남수만]
+                    수정된 test_script1.json 버전으로 로직 변경[2022.06.19; 남수만]
                     결과들의 문자열 비교문 추가[2022.06.19; 남수만]
         """
         test_script = open(json_file)
