@@ -37,6 +37,9 @@ class CO_ORDINATORS(PROCESSORS):
         @date       2021.11.16
         """
         self.processor_list.append(processor)
+    
+    def getWaitList(self):
+        return self.wait_list
 
     def initialize(self):
         """! 

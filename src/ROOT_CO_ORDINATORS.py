@@ -62,7 +62,7 @@ class ROOT_CO_ORDINATORS(PROCESSORS):
             self.child.whenReceiveStar(star_msg)
 
             if( self.clock_base == src.util.INFINITY):
-                break;
+                break
     
     def whenReceiveDone(self, input_message):
         self.clock_base = input_message.getTime()

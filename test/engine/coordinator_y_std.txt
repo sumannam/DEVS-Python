@@ -1,0 +1,105 @@
+devs_comp: EF
+time_next: 0
+time_last: 0
+star_child: ()
+wait_list: ()
+
+
+devs_comp: EF
+time_next: 0
+time_last: 0
+star_child: ()
+wait_list: (TRANSD )
+
+
+devs_comp: EF
+time_next: 0
+time_last: 0
+star_child: ()
+wait_list: (TRANSD )
+
+
+devs_comp: EF
+time_next: 0
+time_last: 0
+star_child: ()
+wait_list: ()
+
+
+devs_comp: EF
+time_next: 0
+time_last: 0
+star_child: ()
+wait_list: ()
+
+
+devs_comp: EF
+time_next: 0
+time_last: 0
+star_child: ()
+wait_list: ()
+
+
+devs_comp: EF
+time_next: 0
+time_last: 0
+star_child: ()
+wait_list: ()
+
+
+devs_comp: EF
+time_next: 0
+time_last: 0
+star_child: ()
+wait_list: ()
+
+
+devs_comp: EF
+time_next: 0
+time_last: 0
+star_child: ()
+wait_list: ()
+
+
+devs_comp: EF
+time_next: 0
+time_last: 0
+star_child: ()
+wait_list: ()
+
+
+devs_comp: EF
+time_next: 0
+time_last: 0
+star_child: ()
+wait_list: ()
+
+
+devs_comp: EF
+time_next: 0
+time_last: 0
+star_child: ()
+wait_list: ()
+
+
+devs_comp: EF
+time_next: 0
+time_last: 0
+star_child: ()
+wait_list: ()
+
+
+devs_comp: EF
+time_next: 0
+time_last: 0
+star_child: ()
+wait_list: ()
+
+
+devs_comp: EF
+time_next: 0
+time_last: 0
+star_child: ()
+wait_list: ()
+
+

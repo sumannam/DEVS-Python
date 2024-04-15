@@ -1,6 +1,3 @@
-from src.util import setDevPath
-setDevPath()
-
 class ENTITIES:
     def __init__(self):
         self.name = ""
