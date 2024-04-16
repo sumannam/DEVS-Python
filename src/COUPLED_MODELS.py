@@ -170,7 +170,26 @@ class COUPLED_MODELS(MODELS):
         @todo       
         """
         model_port_name = self.getModelPortName(src_model, port)
-        model_port_list = self.internal_coupling.get(model_port_name)
+        
+        model_port_list = []
+        
+        # if model_port_name == "TRANSD.out":
+        #     print(model_port_name)
+        
+        if self.external_output_coupling.get(model_port_name) != None:
+            model_port = ''.join(self.external_output_coupling.get(model_port_name))
+            model_port_list.append(model_port)
+            
+        if self.external_input_coupling.get(model_port_name) != None:
+            model_port = ''.join(self.external_input_coupling.get(model_port_name))
+            model_port_list.append(model_port)
+            
+        if self.internal_coupling.get(model_port_name) != None:            
+            model_port = ''.join(self.internal_coupling.get(model_port_name))
+            model_port_list.append(model_port)
+        
+        if model_port_list == None:
+            print("ERROR: getDestinationCoupling")        
         
         return model_port_list        
 

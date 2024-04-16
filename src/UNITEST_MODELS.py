@@ -29,7 +29,7 @@ class UNITEST_MODELS():
         @author     남수만(sumannam@gmail.com)
         @date       2024.04.15
 
-        @remarks    
+        @remarks    커플링 정보에서 소스 모델이 자기 자신일 때가 있어 조건문 추가[2024.04.16; 남수만]
         """
         test_script = open(json_file)
         json_dic = json.load(test_script)
@@ -41,18 +41,25 @@ class UNITEST_MODELS():
             for key in coupling.keys():
                 src_model_port = key.split('.')
                 
-                src_model = model.getChildModel(src_model_port[0])
-                dst_model_port = model.getDestinationCoupling(src_model, src_model_port[1])
+                if model_name == src_model_port[0]:
+                    src_model = model
+                else:
+                    src_model = model.getChildModel(src_model_port[0])
+                    
+                dst_model_port_list = model.getDestinationCoupling(src_model, src_model_port[1])
                 
-                if coupling.get(key) == dst_model_port[0]:
+                if coupling.get(key) in dst_model_port_list:
                     continue
                 else:                    
                     json_coupling = key + " -> " + coupling[key]
-                    model_coupling = src_model_port[0] + "." + src_model_port[1] + " -> " + dst_model_port[0]
                     
-                    print(f"\t json_file : {json_coupling}")
-                    print(f"\t model_coulping : {model_coupling}")
-                    print("\t", self.diffStrings(json_coupling, model_coupling))
+                    for dst_model_port in dst_model_port_list:
+                        model_coupling = src_model_port[0] + "." + src_model_port[1] + " -> " + dst_model_port
+                        
+                        print(f"\t json_file : {json_coupling}")
+                        print(f"\t model_coulping : {model_coupling}")
+                        print("\t", self.diffStrings(json_coupling, model_coupling))
+                        print("\n")
                     
                     return -1
             

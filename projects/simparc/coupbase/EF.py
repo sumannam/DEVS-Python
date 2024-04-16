@@ -20,7 +20,7 @@ class EF(COUPLED_MODELS):
         self.addModel(genr)
         self.addModel(transd)
 
-        self.addCoupling(self, "in", transd, "sovled")
+        self.addCoupling(self, "in", transd, "solved")
         self.addCoupling(genr, "out", self, "out")
         self.addCoupling(transd, "out", self, "result")
         self.addCoupling(transd, "out", genr, "stop")
