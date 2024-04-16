@@ -1,11 +1,22 @@
-import sys
+import time
+import os
 import unittest
-
-import config
+import psutil
 
 from models.testEF_P import testEF_P
 from models.testEF import testEF
 from models.testP import testP
+
+def printSystemInfo():
+    pid = os.getpid() 
+    current_process = psutil.Process(pid)
+    current_process_memory_usage_as_KB = current_process.memory_info()[0] / 2.**20
+    print(f"Current memory KB   : {current_process_memory_usage_as_KB: 9.3f} KB")
+
+    cpu_percent = psutil.cpu_percent()
+    cpu_count = psutil.cpu_count()
+    print(f"CPU 사용률: {cpu_percent}%")
+    print(f"CPU 코어 수: {cpu_count}")
 
 def test_models():
     test_efp = unittest.TestLoader().loadTestsFromTestCase(testEF_P)
@@ -19,5 +30,14 @@ def test_models():
     allTests.addTest(test_p)
 
     unittest.TextTestRunner(verbosity=2, failfast=True).run(allTests)
-    
+
+start = time.time() 
+
+printSystemInfo()
+
 test_models()
+
+printSystemInfo()
+
+end = time.time()
+print(f"{end - start:.5f} sec")

@@ -21,7 +21,7 @@ class UNITEST_MODELS():
         """! 
         @fn         runCoupledModelTest
         @brief      결합 모델 테스트
-        @details    결합 모델의 함수들
+        @details    Jira-DEVS-49
 
         @param  model       결합 모델의 인스턴스
         @param  json_file   json 파일 경로와 파일이름
@@ -29,7 +29,9 @@ class UNITEST_MODELS():
         @author     남수만(sumannam@gmail.com)
         @date       2024.04.15
 
-        @remarks    커플링 정보에서 소스 모델이 자기 자신일 때가 있어 조건문 추가[2024.04.16; 남수만]
+        @remarks    2) 소스 모델과 포트에서 다수의 목적 모델과 포트가 나올 수 있어, 이를 위한 처리[2024.04.16; 남수만]
+                        예를 들어, TRANSD.out -> GENR.stop / TRANSD.out -> EF.result
+                    1) 커플링 정보에서 소스 모델이 자기 자신일 때가 있어 조건문 추가[2024.04.16; 남수만]
         """
         test_script = open(json_file)
         json_dic = json.load(test_script)
@@ -45,14 +47,16 @@ class UNITEST_MODELS():
                     src_model = model
                 else:
                     src_model = model.getChildModel(src_model_port[0])
-                    
+                
                 dst_model_port_list = model.getDestinationCoupling(src_model, src_model_port[1])
                 
+                # remarks 2) 이슈 처리
                 if coupling.get(key) in dst_model_port_list:
                     continue
                 else:                    
                     json_coupling = key + " -> " + coupling[key]
                     
+                    # remarks 2) 이슈 처리
                     for dst_model_port in dst_model_port_list:
                         model_coupling = src_model_port[0] + "." + src_model_port[1] + " -> " + dst_model_port
                         
@@ -62,7 +66,6 @@ class UNITEST_MODELS():
                         print("\n")
                     
                     return -1
-            
         return 0
     
     def runAtomicModelTest(self, model, json_file):
