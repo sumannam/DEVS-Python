@@ -17,8 +17,6 @@ class UNITEST_MODELS():
         self.atomic_model = ATOMIC_MODELS()
         self.coupled_model = COUPLED_MODELS()
         
-        self.coupling_list = []
-        
     def runCoupledModelTest(self, model, json_file):
         """! 
         @fn         runCoupledModelTest
@@ -36,13 +34,10 @@ class UNITEST_MODELS():
         test_script = open(json_file)
         json_dic = json.load(test_script)
 
-        model_name = model.getName()
+        model_name = model.getName()        
+        coupling_list = json_dic.get(model_name)
         
-        
-        
-        self.coupling_list = json_dic.get(model_name)
-        
-        for coupling in self.coupling_list:
+        for coupling in coupling_list:
             for key in coupling.keys():
                 src_model_port = key.split('.')
                 
@@ -50,7 +45,18 @@ class UNITEST_MODELS():
                 dst_model_port = model.getDestinationCoupling(src_model, src_model_port[1])
                 
                 if coupling.get(key) == dst_model_port[0]:
-                    print("IC")
+                    continue
+                else:                    
+                    json_coupling = key + " -> " + coupling[key]
+                    model_coupling = src_model_port[0] + "." + src_model_port[1] + " -> " + dst_model_port[0]
+                    
+                    print(f"\t json_file : {json_coupling}")
+                    print(f"\t model_coulping : {model_coupling}")
+                    print("\t", self.diffStrings(json_coupling, model_coupling))
+                    
+                    return -1
+            
+        return 0
     
     def runAtomicModelTest(self, model, json_file):
         """! 

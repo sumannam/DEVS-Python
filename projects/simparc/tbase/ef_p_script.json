@@ -6,7 +6,7 @@
     },
     "EF_P": [
 		{"EF.out": "P.in"},
-		{"P.out": "ef.in"}
+		{"P.out": "EF.in"}
 	],
 	"EF": [
 		{"EF.in": "TRANSD.solved"},

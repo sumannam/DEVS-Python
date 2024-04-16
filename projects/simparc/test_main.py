@@ -10,6 +10,7 @@ from src.UNITEST_MODELS import UNITEST_MODELS
 
 if __name__ == '__main__':
     ef_p = EF_P()
+    ef = EF()
     ip = IP()    
     
     atomic_model_test = UNITEST_MODELS()
@@ -21,7 +22,14 @@ if __name__ == '__main__':
 
     start = time.time() 
 
-    coupled_model_test.runCoupledModelTest(ef_p, coupled_model_json)
+    rtn = coupled_model_test.runCoupledModelTest(ef, coupled_model_json)
+    if rtn == 0:
+        print("Success: Coupled Model Test")
+    else:
+        print("Fail: Coupled Model Test")
+        
+    
+    
     # atomic_model_test.runAtomicModelTest(ip, atomic_model_json)
     end = time.time()
 
