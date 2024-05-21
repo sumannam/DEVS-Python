@@ -24,3 +24,5 @@ class EF_P(COUPLED_MODELS):
 
         self.addCoupling(ef, "out", p, "in")
         self.addCoupling(p, "out", ef, "in")
+        
+        self.priority_list([ef, p])

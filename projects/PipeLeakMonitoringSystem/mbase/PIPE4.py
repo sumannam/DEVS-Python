@@ -1,6 +1,6 @@
 from src.ATOMIC_MODELS import *
 
-class PIPING3(ATOMIC_MODELS):
+class PIPE4(ATOMIC_MODELS):
     def __init__(self):
         ATOMIC_MODELS.__init__(self)
         self.setName(self.__class__.__name__)
@@ -11,7 +11,7 @@ class PIPING3(ATOMIC_MODELS):
         self.state["sigma"]=math.inf
         self.state["phase"]="passive"
         self.addState("job-id", "")
-        self.addState("processing_time", 10)
+        self.addState("processing_time", 2)
 
     def externalTransitionFunc(self, e, x):
         if x.port == "in":
