@@ -1,3 +1,5 @@
+import config
+
 from src.ATOMIC_MODELS import *
 
 class PIPE1(ATOMIC_MODELS):
@@ -6,7 +8,10 @@ class PIPE1(ATOMIC_MODELS):
         self.setName(self.__class__.__name__)
         
         self.addInPorts("in")
+        self.addInPorts("tsunami_in")
+        
         self.addOutPorts("out")
+        self.addOutPorts("mqtt_out")
         
         self.state["sigma"]=math.inf
         self.state["phase"]="passive"
@@ -17,11 +22,8 @@ class PIPE1(ATOMIC_MODELS):
         if x.port == "in":
             if self.state["phase"] == "passive":
                 self.state["job-id"] = x.value                
-                
-                # Forwarding Digital Twin Message
-                print(self.getName() + " : ", self.state["job-id"])
-                
                 self.holdIn("busy", self.state["processing_time"])
+                
             elif self.state["phase"] == "busy":
                 self.Continue(e)
 

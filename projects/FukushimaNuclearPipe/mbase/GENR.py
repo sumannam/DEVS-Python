@@ -1,6 +1,9 @@
+import random
+
 from src.ATOMIC_MODELS import ATOMIC_MODELS
 from src.CONTENT import CONTENT
-from src.PORT import PORT
+from src.util import convertJsonToString
+
 
 class GENR(ATOMIC_MODELS):
     def __init__(self):
@@ -30,8 +33,41 @@ class GENR(ATOMIC_MODELS):
 
     def outputFunc(self):
         if self.state["phase"] == "active":
-            content = CONTENT()    
-            job_id = "JOB_" + str(self.count)
-            self.count += 1
-            content.setContent("out", job_id)
+            content = CONTENT()            
+            content_value = self.generateJobs()            
+            content.setContent("out", content_value)
             return content
+
+    def generateJobs(self):
+        job_dict = {}
+        job_dict["id"] = self.count
+        
+        random_number = random.randint(0, 999)
+        
+        if random_number < 5:
+            # 지진 7.5 규모로 쓰나미 발생
+            job_dict["type"] = "tsunami"
+            job_dict["earthquake"] = 7.5
+            job_dict["tsunamiPoint"] = self.getTsunamiPoint()
+            
+        elif random_number < 25:
+            # 지진 7.0 규모로 쓰나미 발생
+            job_dict["type"] = "tsunami"
+            job_dict["earthquake"] = 7.0
+            job_dict["tsunamiPoint"] = self.getTsunamiPoint()
+            
+        elif random_number < 1000:
+            job_dict["type"] = "water"
+            job_dict["earthquake"] = -1
+            job_dict["tsunamiPoint"] = -1
+            
+        else:
+            print("Random number is out of range")
+            
+        self.count += 1        
+        json_str = convertJsonToString(job_dict)        
+        
+        return json_str
+    
+    def getTsunamiPoint(self):
+        return random.randint(1, 10)

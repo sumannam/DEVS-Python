@@ -1,6 +1,7 @@
 import logging
 import os
 import sys
+import json
 from pathlib import Path
 
 global project_path
@@ -59,3 +60,19 @@ def logInfoSimulator(devs_name, time_next, time_last):
         + "time_last: " + str(time_last) + "\n\n"
     logging.info(log)
 
+
+def convertJsonToString(dict):
+    # str = ""
+    # for key, value in json.items():
+    #     str += key + ": " + value + "\n"
+     return json.dumps(dict)
+
+def convertStringToJson(str):
+    json = {}
+    lines = str.split("\n")
+    for line in lines:
+        if line == "":
+            continue
+        key, value = line.split(": ")
+        json[key] = value
+    return json
