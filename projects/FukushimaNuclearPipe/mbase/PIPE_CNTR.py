@@ -10,7 +10,7 @@ class PIPE_CNTR(ATOMIC_MODELS):
         
         self.state["sigma"]=math.inf
         self.state["phase"]="passive"
-        self.addState("job-id", "")
+        self.addState("json_job", "")
         self.addState("pipe1_state", "passive")
         self.addState("pipe2_state", "passive")
         self.addState("pipe3_state", "passive")
@@ -19,8 +19,7 @@ class PIPE_CNTR(ATOMIC_MODELS):
         
 
     def externalTransitionFunc(self, e, x):
-        self.state["job-id"]=x.value
-        # print("pipe_CNTR: ", self.state["job-id"])
+        self.state["json_job"]=x.value
         
         if x.port == "in":
             if(self.state["pipe1_state"] == "passive"):
@@ -46,8 +45,10 @@ class PIPE_CNTR(ATOMIC_MODELS):
             self.passviate()
 
     def outputFunc(self):
+        content = CONTENT()
+        
         print("CNTR's OUTPORT: ", self.state["outport"])
-        print("CNTR's JOB: ", self.state["job-id"])
+        print("CNTR's JOB's Value: ", self.state["json_job"])
         
         if self.state["phase"] == "forwarding":
             if( ( self.state["outport"] == "x1") 
@@ -55,8 +56,9 @@ class PIPE_CNTR(ATOMIC_MODELS):
                         or self.state["outport"] == "x3" 
                         or self.state["outport"] == "x4"
                         or self.state["outport"] == "out"):
-                content = CONTENT()
+                
                 
                 outport = self.state["outport"]
-                content.setContent(outport, self.state["job-id"])
-                return content
+                content.setContent(outport, self.state["json_job"])
+                
+        return content
