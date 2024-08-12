@@ -47,8 +47,8 @@ class PIPE_CNTR(ATOMIC_MODELS):
     def outputFunc(self):
         content = CONTENT()
         
-        print("CNTR's OUTPORT: ", self.state["outport"])
-        print("CNTR's JOB's Value: ", self.state["json_job"])
+        # print("CNTR's OUTPORT: ", self.state["outport"])
+        # print("CNTR's JOB's Value: ", self.state["json_job"])
         
         if self.state["phase"] == "forwarding":
             if( ( self.state["outport"] == "x1") 
@@ -56,8 +56,6 @@ class PIPE_CNTR(ATOMIC_MODELS):
                         or self.state["outport"] == "x3" 
                         or self.state["outport"] == "x4"
                         or self.state["outport"] == "out"):
-                
-                
                 outport = self.state["outport"]
                 content.setContent(outport, self.state["json_job"])
                 

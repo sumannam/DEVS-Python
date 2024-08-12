@@ -20,7 +20,6 @@ class PIPE3(ATOMIC_MODELS):
     def externalTransitionFunc(self, e, x):
         if  self.state["phase"] == "passive":
             if x.port == "in":
-                print(x.value)
                 self.job_json = convertStringToJson(x.value)
                 self.state["job_json"] = self.job_json               
                 self.holdIn("calculating", self.state["processing_time"])
@@ -36,7 +35,7 @@ class PIPE3(ATOMIC_MODELS):
             type = self.job_json.get("type")
             
             if type == "water":
-                damage_rate = 0
+                damage_rate = self.state["damage_rate"]
                 damage_rate += 2
                 self.state["damage_rate"] = damage_rate
                 
@@ -48,7 +47,9 @@ class PIPE3(ATOMIC_MODELS):
             
             self.setCalculatingToNextPhase()
 
-        elif self.state["phase"] == "normal":
+        elif ( self.state["phase"] == "normal" 
+                or self.state["phase"] == "warning"
+                or self.state["phase"] == "danger" ) :
             self.passviate()
             
         else:
@@ -57,7 +58,10 @@ class PIPE3(ATOMIC_MODELS):
     def outputFunc(self):
         content = CONTENT()
         
-        if self.state["phase"] == "normal":
+        # TODO: warning and danger phase should be modified
+        if ( self.state["phase"] == "normal"
+            or self.state["phase"] == "warning"
+            or self.state["phase"] == "danger" ) :
             value = convertJsonToString(self.state["job_json"])
             content.setContent("out", value)
         
@@ -66,11 +70,15 @@ class PIPE3(ATOMIC_MODELS):
     def setCalculatingToNextPhase(self):
         damage_rate = self.state["damage_rate"]
         
-        if damage_rate < 30:
+        if damage_rate < 50:
             self.holdIn("normal", 0)
-        elif damage_rate < 50:
+        elif damage_rate >= 50 and damage_rate <= 70:
+            print(self.job_json)
+            print(self.__class__.__name__, " Warning: Damage rate is between 50 and 70%")
             self.holdIn("warning", 0)
-        elif damage_rate < 70:
+        elif damage_rate > 70:
+            print(self.job_json)
+            print(self.__class__.__name__, " Danger: Damage rate is over 70%")
             self.holdIn("danger", 0)
         else:
             print("Error: Damage rate is out of range")
