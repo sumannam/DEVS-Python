@@ -90,10 +90,3 @@ if current_mac_address == SRC_MAC_ADDR:
             print(f"권한 오류: {e}")
         except Exception as e:
             print(f"오류 발생: {e}")
-        
-        
-        # if os.path.isdir(source_path):
-        #     shutil.copy(source_path, destination_path)
-        #     print(f"Copy {source_path} to {destination_path}")
-        # else:
-        #     print(f"Skip {source_path}")
