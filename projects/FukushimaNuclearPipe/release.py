@@ -5,13 +5,24 @@ import uuid
 
 PIPE_MODEL_NUM = 4
 SOURCE_MODEL_FILE_NAME = "PIPE1.py"
-SRC_MAC_ADDR = "04:6C:59:97:DE:1F" # 실험 노트북
-# SRC_MAC_ADDR = "D0:35:7E:6A:5F:9D" # 집PC
-NPP_PDES_PATH = "C:\\NPP_PDES\\Simulation"
-GIT_PROJECT_PATH = "C:\\Git\\DEVS-Python\\Projects\\FukushimaNuclearPipe"
 
-# NPP_PDES_PATH = "C:/NPP_PDES/Simulation"
-# GIT_PROJECT_PATH = "C:/Git/DEVS-Python/Projects/FukushimaNuclearPipe"
+mac=uuid.getnode()
+current_mac_address=':'.join(("%012X" % mac)[i:i+2] for i in range(0, 12, 2))
+
+# 집PC 설정
+if current_mac_address == "D0:35:7E:6A:5F:9D":
+    SRC_MAC_ADDR = "D0:35:7E:6A:5F:9D" 
+    NPP_PDES_PATH = "D:\\NPP_PDES\\Simulation"
+    GIT_PROJECT_PATH = "D:\\Git\\DEVS-Python\\Projects\\FukushimaNuclearPipe"
+
+# 실험 노트북
+elif current_mac_address == "04:6C:59:97:DE:1F":    
+    SRC_MAC_ADDR = "D0:35:7E:6A:5F:9D"
+    NPP_PDES_PATH = "C:\\NPP_PDES\\Simulation"
+    GIT_PROJECT_PATH = "C:\\Git\\DEVS-Python\\Projects\\FukushimaNuclearPipe"
+
+NPP_PDES_COUPBASE_PATH = os.path.join(NPP_PDES_PATH, "coupbase")
+NPP_PDES_MBASE_PATH = os.path.join(NPP_PDES_PATH, "mbase")
 
 current_path = os.path.dirname(os.path.abspath(__file__))
 mbase_path = os.path.join(current_path, "mbase")
@@ -55,8 +66,7 @@ for i in range(PIPE_MODEL_NUM):
     
 
 # 실험 노트북 Git -> NP_PDES로 폴더와 파일 복사
-mac=uuid.getnode()
-current_mac_address=':'.join(("%012X" % mac)[i:i+2] for i in range(0, 12, 2))
+
 
 if current_mac_address == SRC_MAC_ADDR:
     
@@ -90,3 +100,40 @@ if current_mac_address == SRC_MAC_ADDR:
             print(f"권한 오류: {e}")
         except Exception as e:
             print(f"오류 발생: {e}")
+
+            
+    # 결합 모델의 소스 코드 수정
+    for coupbase_file in os.listdir(NPP_PDES_COUPBASE_PATH):
+        coupbase_file_path = os.path.join(NPP_PDES_COUPBASE_PATH, coupbase_file)
+        
+        if os.path.isfile(coupbase_file_path):
+            with open(coupbase_file_path, "r", encoding='utf-8') as file:
+                lines = file.readlines()
+    
+            with open(coupbase_file_path, "w", encoding='utf-8') as file:
+                for line in lines:
+                    if "from src.COUPLED_MODELS import COUPLED_MODELS" in line:
+                        file.write(f"from devsbase.COUPLED_MODELS import COUPLED_MODELS\n")
+                    elif "from projects.FukushimaNuclearPipe.coupbase.PIPES import PIPES" in line:
+                        file.write(f"from coupbase.PIPES import PIPES\n")
+                    elif "from projects.FukushimaNuclearPipe.coupbase.EF import EF" in line:
+                        file.write(f"from coupbase.EF import EF\n")
+                    else:
+                        file.write(line)
+        
+    # 결합 모델의 소스 코드 수정
+    for mbase_file in os.listdir(NPP_PDES_MBASE_PATH):
+        mbase_file_path = os.path.join(NPP_PDES_MBASE_PATH, mbase_file)
+        
+        if os.path.isfile(mbase_file_path):
+            with open(mbase_file_path, "r", encoding='utf-8') as file:
+                lines = file.readlines()
+    
+            with open(mbase_file_path, "w", encoding='utf-8') as file:
+                for line in lines:
+                    if "from src.ATOMIC_MODELS import *" in line:
+                        file.write(f"from devsbase.ATOMIC_MODELS import *\n")
+                    elif "from src.util import *" in line:
+                        file.write(f"from devsbase.util import *\n")
+                    else:
+                        file.write(line)
