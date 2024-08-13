@@ -37,7 +37,7 @@ class PIPE2(ATOMIC_MODELS):
         
         self.job_json = {}
         
-        self.unity_model_name = "PIPE114_6000_1"
+        self.unity_model_name = "PIPE114_6000_2"
         self.msgQueue = msgQueue
     
     def externalTransitionFunc(self, e, x):
