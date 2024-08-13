@@ -30,7 +30,7 @@ mbase_path = os.path.join(current_path, "mbase")
 
 source_file = os.path.join(mbase_path, SOURCE_MODEL_FILE_NAME)
 
-# 파일 복사
+# 1. 파일 복사
 for i in range(PIPE_MODEL_NUM):
     destination_file = os.path.join(mbase_path, f"PIPE{i+1}.py")
     
@@ -42,7 +42,7 @@ for i in range(PIPE_MODEL_NUM):
     print(f"Copy {source_file} to {destination_file}")
 
 
-# 배관 모델의 소스 코드 수정
+# 2. 배관 모델의 소스 코드 수정
 for i in range(PIPE_MODEL_NUM):
     destination_file = os.path.join(mbase_path, f"PIPE{i+1}.py")
     
@@ -65,9 +65,7 @@ for i in range(PIPE_MODEL_NUM):
     print(f"Modify {destination_file}")
     
 
-# 실험 노트북 Git -> NP_PDES로 폴더와 파일 복사
-
-
+# 3. 실험 노트북 Git -> NP_PDES로 폴더와 파일 복사
 if current_mac_address == SRC_MAC_ADDR:
     
     # NPP_PDES_PATH 디렉토리와 파일 삭제
@@ -102,7 +100,7 @@ if current_mac_address == SRC_MAC_ADDR:
             print(f"오류 발생: {e}")
 
             
-    # 결합 모델의 소스 코드 수정
+    # 4. 결합 모델의 소스 코드 수정
     for coupbase_file in os.listdir(NPP_PDES_COUPBASE_PATH):
         coupbase_file_path = os.path.join(NPP_PDES_COUPBASE_PATH, coupbase_file)
         
@@ -121,7 +119,7 @@ if current_mac_address == SRC_MAC_ADDR:
                     else:
                         file.write(line)
         
-    # 결합 모델의 소스 코드 수정
+    # 5. 원자 모델의 소스 코드 수정
     for mbase_file in os.listdir(NPP_PDES_MBASE_PATH):
         mbase_file_path = os.path.join(NPP_PDES_MBASE_PATH, mbase_file)
         
