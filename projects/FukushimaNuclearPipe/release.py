@@ -17,7 +17,7 @@ if current_mac_address == "D0:35:7E:6A:5F:9D":
 
 # 실험 노트북
 elif current_mac_address == "04:6C:59:97:DE:1F":    
-    SRC_MAC_ADDR = "D0:35:7E:6A:5F:9D"
+    SRC_MAC_ADDR = "04:6C:59:97:DE:1F"
     NPP_PDES_PATH = "C:\\NPP_PDES\\Simulation"
     GIT_PROJECT_PATH = "C:\\Git\\DEVS-Python\\Projects\\FukushimaNuclearPipe"
 
@@ -133,5 +133,14 @@ if current_mac_address == SRC_MAC_ADDR:
                         file.write(f"from devsbase.ATOMIC_MODELS import *\n")
                     elif "from src.util import *" in line:
                         file.write(f"from devsbase.util import *\n")
+                    elif "from src.ATOMIC_MODELS import ATOMIC_MODELS" in line:
+                        file.write(f"from devsbase.ATOMIC_MODELS import ATOMIC_MODELS\n")
+                    elif "from src.CONTENT import CONTENT" in line:
+                        file.write(f"from devsbase.CONTENT import CONTENT\n")
+                    elif "from src.util import convertJsonToString" in line:
+                        file.write(f"from devsbase.util import convertJsonToString\n")
+                    elif "from src.PORT import PORT" in line:
+                        file.write(f"from devsbase.PORT import PORT\n")
                     else:
                         file.write(line)
+                        
