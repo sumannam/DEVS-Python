@@ -13,7 +13,7 @@ class GENR(ATOMIC_MODELS):
         self.addInPorts("stop")
         self.addOutPorts("out")
         
-        self.state["sigma"]=0
+        self.state["sigma"]=2
         self.state["phase"]="active"
         self.addState("inter_arrival_time", 2)
         

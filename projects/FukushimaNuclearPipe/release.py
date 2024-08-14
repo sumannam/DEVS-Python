@@ -19,8 +19,8 @@ mac=uuid.getnode()
 current_mac_address=':'.join(("%012X" % mac)[i:i+2] for i in range(0, 12, 2))
 
 # 집PC 설정
-if current_mac_address == "D0:35:7E:6A:5F:9D":
-    SRC_MAC_ADDR = "D0:35:7E:6A:5F:9D" 
+if current_mac_address == "F9:2C:4E:79:23:3E":
+    SRC_MAC_ADDR = "F9:2C:4E:79:23:3E" 
     NPP_PDES_PATH = "D:\\NPP_PDES\\Simulation"
     GIT_PROJECT_PATH = "D:\\Git\\DEVS-Python\\Projects\\FukushimaNuclearPipe"
 
