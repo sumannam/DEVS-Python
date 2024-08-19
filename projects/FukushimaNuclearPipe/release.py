@@ -9,18 +9,31 @@ import uuid
 """
 
 # 원자 모델의 수
-PIPE_MODEL_NUM = 4
+PIPE_MODEL_NUM = 10
 
 # 복제할 원자 모델 소스 파일 이름
 SOURCE_MODEL_FILE_NAME = "PIPE1.py"
 
 # 작업하는 PC의 경로가 달라, 맥 주소로 초기 값 설정
-mac=uuid.getnode()
-current_mac_address=':'.join(("%012X" % mac)[i:i+2] for i in range(0, 12, 2))
+import psutil
+
+current_mac_address = None
+
+# 이더넷 인터페이스에 대한 정보를 가져옵니다.
+for interface, addresses in psutil.net_if_addrs().items():
+    if interface.startswith(('eth', 'en', 'Ethernet', '이더넷')):  # 이더넷 인터페이스 필터링
+        for addr in addresses:
+            if addr.family == psutil.AF_LINK:  # AF_LINK는 MAC 주소를 의미합니다.
+                if current_mac_address is None: # 첫 번째 MAC 주소를 사용합니다.
+                    current_mac_address = addr.address.replace("-", ":").upper()
+                    print(f"인터페이스: {interface}, MAC 주소: {current_mac_address}")
+
+# 맥 주소가 없는 경우, 임의의 값을 설정합니다.
+print(current_mac_address)
 
 # 집PC 설정
-if current_mac_address == "F9:2C:4E:79:23:3E":
-    SRC_MAC_ADDR = "F9:2C:4E:79:23:3E" 
+if current_mac_address == "08:BF:B8:D4:F6:6F":
+    SRC_MAC_ADDR = "08:BF:B8:D4:F6:6F" 
     NPP_PDES_PATH = "D:\\NPP_PDES\\Simulation"
     GIT_PROJECT_PATH = "D:\\Git\\DEVS-Python\\Projects\\FukushimaNuclearPipe"
 
