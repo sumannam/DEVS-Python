@@ -15,7 +15,7 @@ class EF(COUPLED_MODELS):
         self.addOutPorts("out", "result")
    
         genr = GENR()
-        transd = TRANSD()        
+        transd = TRANSD()
         
         self.addModel(genr)
         self.addModel(transd)

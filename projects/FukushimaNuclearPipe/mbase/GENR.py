@@ -20,6 +20,11 @@ class GENR(ATOMIC_MODELS):
         self.holdIn("active", self.state["sigma"])
 
         self.count = 1;
+        
+        # seed(1) is 지진 7.5 발생
+        # seed(2) is 지진 발생 없음
+        # seed(3) is 지진 7.0 발생  
+        random.seed(1)
 
     def externalTransitionFunc(self, e, x):
         if x.port == "stop":
@@ -33,8 +38,8 @@ class GENR(ATOMIC_MODELS):
 
     def outputFunc(self):
         if self.state["phase"] == "active":
-            content = CONTENT()            
-            content_value = self.generateJobs()            
+            content = CONTENT()
+            content_value = self.generateJobs()
             content.setContent("out", content_value)
             return content
 
@@ -44,12 +49,15 @@ class GENR(ATOMIC_MODELS):
         
         random_number = random.randint(0, 999)
         
+        random_number = 1
+        
         if random_number < 5:
             # 지진 7.5 규모로 쓰나미 발생
             job_dict["type"] = "tsunami"
             job_dict["earthquake"] = 7.5
-            job_dict["tsunamiPoint"] = self.getTsunamiPoint()
-            
+            # job_dict["tsunamiPoint"] = self.getTsunamiPoint()
+            job_dict["tsunamiPoint"] = 1
+
         elif random_number < 25:
             # 지진 7.0 규모로 쓰나미 발생
             job_dict["type"] = "tsunami"
@@ -65,7 +73,7 @@ class GENR(ATOMIC_MODELS):
             print("Random number is out of range")
             
         self.count += 1        
-        json_str = convertJsonToString(job_dict)        
+        json_str = convertJsonToString(job_dict)
         
         return json_str
     

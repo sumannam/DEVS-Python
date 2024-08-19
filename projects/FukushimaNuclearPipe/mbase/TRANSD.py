@@ -5,6 +5,8 @@ from src.ATOMIC_MODELS import ATOMIC_MODELS
 from src.CONTENT import CONTENT
 from src.PORT import PORT
 
+from src.util import *
+
 class TRANSD(ATOMIC_MODELS):
     def __init__(self):
         ATOMIC_MODELS.__init__(self)
@@ -24,18 +26,24 @@ class TRANSD(ATOMIC_MODELS):
 
         self.arrived_dic={}
         self.solved_dic={}
+        
+        self.job_json = {}
 
     def externalTransitionFunc(self, e, x):
         clock = self.state["clock"]
         self.state["clock"] = clock + e
         time = clock
-
+        
         if x.port == "arrived":
             self.arrived_dic[x.value]=time
-        if x.port == "solved":
+        # TODO : solved 포트가 실행되지 않는다. 왜 그럴까? [남수만; 24.08.19]
+        # 결합 모델들(EF-PIPE, EF) 커플링 정보도 이상이 없어 보인다.
+        elif x.port == "solved":
+            self.job_json = convertStringToJson(x.value)
             self.arrived_dic[x.value]=time
-        else:
-            self.Continue(e)
+        
+        self.Continue(e)
+        
 
     def internalTransitionFunc(self):
         if self.state["phase"] == "active":
@@ -43,6 +51,7 @@ class TRANSD(ATOMIC_MODELS):
             sigma = self.state["sigma"]
             self.state["clock"] = clock + sigma
             self.passviate()
+
 
     def outputFunc(self):
         content = CONTENT()    
