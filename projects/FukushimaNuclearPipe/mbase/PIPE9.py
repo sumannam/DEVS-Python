@@ -5,7 +5,7 @@ from queue import Queue
 from mqttMsg import MqttMsg
 
 
-class PIPE4(ATOMIC_MODELS):
+class PIPE9(ATOMIC_MODELS):
     def __init__(self):
         ATOMIC_MODELS.__init__(self)
         self.setName(self.__class__.__name__)
@@ -37,7 +37,7 @@ class PIPE4(ATOMIC_MODELS):
         
         self.job_json = {}
         
-        self.unity_model_name = "PIPE114_6000_4"
+        self.unity_model_name = "PIPE114_6000_9"
         self.msgQueue = msgQueue
     
     def externalTransitionFunc(self, e, x):
