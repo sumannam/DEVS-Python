@@ -146,8 +146,13 @@ class COUPLED_MODELS(MODELS):
 
         @todo       함수명 수정(hasOutputCopling -> hasOutputCoupling) [완료: 22.05.31; 남수만] [작성: 22.05.31; 남수만] 
         """
+        model_port_name = None
         model_port_name = self.getModelPortName(src_model, port)
-        return self.internal_coupling.find(model_port_name)
+        
+        if self.internal_coupling.find(model_port_name) == True:
+            return self.internal_coupling.find(model_port_name)
+        if self.external_output_coupling.find(model_port_name) == True:
+            return self.external_output_coupling.find(model_port_name)
 
 
     def translate(self, coupling_type, model, port):
