@@ -34,3 +34,5 @@ class EF_PIPE(COUPLED_MODELS):
 
         self.addCoupling(ef, "out", pipes, "in")
         self.addCoupling(pipes, "out", ef, "in")
+        
+        # self.priority_list.extend([ef, pipes])

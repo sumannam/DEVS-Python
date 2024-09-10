@@ -25,3 +25,5 @@ class EF(COUPLED_MODELS):
         self.addCoupling(transd, "out", self, "result")
         self.addCoupling(transd, "out", genr, "stop")
         self.addCoupling(genr, "out", transd, "arrived")
+        
+        # self.priority_list.extend([genr, transd])

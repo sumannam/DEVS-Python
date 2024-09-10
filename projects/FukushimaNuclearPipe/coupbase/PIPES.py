@@ -51,6 +51,7 @@ class PIPES(COUPLED_MODELS):
         self.addModel(pipe10)
 
         self.addCoupling(self, "in", pipe_cntr, "in")
+        self.addCoupling(pipe_cntr, "out", self, "out")
         
         self.addCoupling(pipe_cntr, "x1", pipe1, "in")
         self.addCoupling(pipe1, "out", pipe_cntr, "y1")
@@ -73,7 +74,7 @@ class PIPES(COUPLED_MODELS):
         self.addCoupling(pipe_cntr, "x10", pipe10, "in")
         self.addCoupling(pipe10, "out", pipe_cntr, "y10")
         
-        self.addCoupling(pipe_cntr, "out", self, "out")
+        
     
     # 디지털트윈(유니티)과 연결을 위한 MQTT에 메시지를 전달하는 큐 파라미터 설정[24.08.13; 남수만]
     def __init__(self, msgQueue: Queue):
@@ -108,7 +109,8 @@ class PIPES(COUPLED_MODELS):
         self.addModel(pipe10)
 
         self.addCoupling(self, "in", pipe_cntr, "in")
-        
+        self.addCoupling(pipe_cntr, "out", self, "out")
+                
         self.addCoupling(pipe_cntr, "x1", pipe1, "in")
         self.addCoupling(pipe1, "out", pipe_cntr, "y1")
         self.addCoupling(pipe_cntr, "x2", pipe2, "in")
@@ -130,4 +132,4 @@ class PIPES(COUPLED_MODELS):
         self.addCoupling(pipe_cntr, "x10", pipe10, "in")
         self.addCoupling(pipe10, "out", pipe_cntr, "y10")
         
-        self.addCoupling(pipe_cntr, "out", self, "out")
+        
