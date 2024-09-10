@@ -33,13 +33,13 @@ print(current_mac_address)
 
 # 집PC 설정
 if current_mac_address == "08:BF:B8:D4:F6:6F":
-    SRC_MAC_ADDR = "08:BF:B8:D4:F6:6F" 
+    SRC_MAC_ADDR = current_mac_address
     NPP_PDES_PATH = "D:\\NPP_PDES\\Simulation"
     GIT_PROJECT_PATH = "D:\\Git\\DEVS-Python\\Projects\\FukushimaNuclearPipe"
 
 # 실험 노트북
-elif current_mac_address == "04:6C:59:97:DE:1F":    
-    SRC_MAC_ADDR = "04:6C:59:97:DE:1F"
+elif current_mac_address == "54:05:DB:36:F2:03":    
+    SRC_MAC_ADDR = current_mac_address
     NPP_PDES_PATH = "C:\\NPP_PDES\\Simulation"
     GIT_PROJECT_PATH = "C:\\Git\\DEVS-Python\\Projects\\FukushimaNuclearPipe"
 
