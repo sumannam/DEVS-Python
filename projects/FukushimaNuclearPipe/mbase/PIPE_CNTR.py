@@ -115,9 +115,6 @@ class PIPE_CNTR(ATOMIC_MODELS):
                         or self.state["outport"] == "out"):
                 outport = self.state["outport"]
                 
-                if outport == "out":
-                    print(self.__class__.__name__, ": ", outport)
-                
                 content.setContent(outport, self.state["json_job"])
                 
         return content
