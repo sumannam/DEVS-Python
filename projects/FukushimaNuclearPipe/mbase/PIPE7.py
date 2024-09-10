@@ -108,7 +108,7 @@ class PIPE7(ATOMIC_MODELS):
             id = self.job_json.get("id")
             if id == 50:
                 json_payload = json.dumps({"name": self.unity_model_name, "damage": damage_rate})
-                self.msgQueue.put(MqttMsg(topic="sim/result/PIPE01", payload=json_payload))
+                self.msgQueue.put(MqttMsg(topic="sim/result/PIPE07", payload=json_payload))
                 # print(self.__class__.__name__, " Danger: Damage rate is over ", damage_rate, "%")
             
             self.holdIn("danger", 0)

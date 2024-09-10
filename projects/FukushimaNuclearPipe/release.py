@@ -88,6 +88,14 @@ for i in range(PIPE_MODEL_NUM):
                 file.write(f"class PIPE{i+1}(ATOMIC_MODELS)"+":\n")
             elif "self.unity_model_name = \"PIPE114_6000_1\"" in line:
                 file.write(f"        self.unity_model_name = \"PIPE114_6000_{i+1}\"\n")
+            elif "self.msgQueue.put(MqttMsg(topic=\"sim/result/PIPE01\", payload=json_payload))" in line:
+                # self.msgQueue.put(MqttMsg(topic="sim/result/PIPE01", payload=json_payload))
+                if i < 9:
+                    file.write(f"                self.msgQueue.put(MqttMsg(topic=\"sim/result/PIPE0{i+1}\", payload=json_payload))\n")
+                elif i == 9:
+                    file.write(f"                self.msgQueue.put(MqttMsg(topic=\"sim/result/PIPE10\", payload=json_payload))\n")                               
+                
+                
             else:
                 file.write(line)
     
