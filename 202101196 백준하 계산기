@@ -1,0 +1,141 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+/**
+ * 계산기 GUI 애플리케이션으로, 덧셈, 뺄셈, 곱셈, 나눗셈과 같은 기본 산술 연산을 수행.
+ * <p>
+ * Calculator 클래스는 JFrame을 확장하고 ActionListener를 구현하여 버튼 이벤트를 처리.
+ * </p>
+ */
+public class Calculator extends JFrame implements ActionListener {
+
+    /**
+     * 입력과 결과를 보여주는 디스플레이 필드.
+     */
+    private JTextField display;
+
+    /**
+     * 계산을 위한 첫 번째 피연산자를 저장.
+     */
+    private double firstNumber = 0;
+
+    /**
+     * 현재 계산의 연산자를 저장.
+     */
+    private String operator = "";
+
+    /**
+     * 연산자 버튼이 클릭되었는지 확인하는 플래그.
+     */
+    private boolean isOperatorClicked = false;
+
+    /**
+     * 계산기 GUI를 생성하고 디스플레이와 버튼을 초기화.
+     */
+    public Calculator() {
+        setTitle("계산기");
+        setSize(300, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        // 디스플레이 필드를 초기화.
+        display = new JTextField();
+        display.setFont(new Font("Arial", Font.PLAIN, 24));
+        display.setHorizontalAlignment(SwingConstants.RIGHT);
+        display.setEditable(false);
+        add(display, BorderLayout.NORTH);
+
+        // 그리드 레이아웃에 버튼을 초기화.
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(4, 4, 10, 10));
+
+        String[] buttons = {
+            "7", "8", "9", "/",
+            "4", "5", "6", "*",
+            "1", "2", "3", "-",
+            "0", "C", "=", "+"
+        };
+
+        // 버튼을 패널에 추가하고 이벤트 리스너를 설정.
+        for (String text : buttons) {
+            JButton button = new JButton(text);
+            button.setFont(new Font("Arial", Font.PLAIN, 24));
+            button.addActionListener(this);
+            buttonPanel.add(button);
+        }
+
+        add(buttonPanel, BorderLayout.CENTER);
+    }
+
+    /**
+     * 버튼 클릭 이벤트를 처리.
+     * <p>
+     * 숫자 버튼이 클릭되면 텍스트 필드에 표시하고,
+     * 연산자 버튼이 클릭되면 첫 번째 숫자와 연산자를 저장.
+     * = 버튼은 결과를 계산하여 표시하고, C 버튼은 초기화.
+     * </p>
+     *
+     * @param e 버튼 클릭으로 발생한 액션 이벤트.
+     */
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+
+        // C 버튼이 클릭되었을 때: 디스플레이와 값을 초기화.
+        if (command.equals("C")) {
+            display.setText("");
+            firstNumber = 0;
+            operator = "";
+            isOperatorClicked = false;
+        }
+        // = 버튼이 클릭되었을 때: 연산자에 따라 결과를 계산.
+        else if (command.equals("=")) {
+            double secondNumber = Double.parseDouble(display.getText());
+            switch (operator) {
+                case "+":
+                    display.setText(String.valueOf(firstNumber + secondNumber));
+                    break;
+                case "-":
+                    display.setText(String.valueOf(firstNumber - secondNumber));
+                    break;
+                case "*":
+                    display.setText(String.valueOf(firstNumber * secondNumber));
+                    break;
+                case "/":
+                    display.setText(String.valueOf(firstNumber / secondNumber));
+                    break;
+            }
+            operator = "";
+            isOperatorClicked = true;
+        }
+        // 연산자 버튼이 클릭되었을 때: 첫 번째 숫자와 연산자를 저장.
+        else if ("+-*/".contains(command)) {
+            firstNumber = Double.parseDouble(display.getText());
+            operator = command;
+            isOperatorClicked = true;
+        }
+        // 숫자 버튼이 클릭되었을 때: 디스플레이에 숫자를 추가.
+        else {
+            if (isOperatorClicked) {
+                display.setText(command);
+                isOperatorClicked = false;
+            } else {
+                display.setText(display.getText() + command);
+            }
+        }
+    }
+
+    /**
+     * 계산기 애플리케이션을 실행하는 메인 메서드.
+     *
+     * @param args 커맨드라인 인자 (사용되지 않음).
+     */
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            Calculator calculator = new Calculator();
+            calculator.setVisible(true);
+        });
+    }
+}
