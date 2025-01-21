@@ -17,39 +17,50 @@ def printSystemInfo():
 
     cpu_percent = psutil.cpu_percent()
     cpu_count = psutil.cpu_count()
-    print(f"CPU ì‚¬ìš©ë¥ : {cpu_percent}%")
-    print(f"CPU ì½”ì–´ ìˆ˜: {cpu_count}")
+    print(f"CPU ¬ì?ë¥ {cpu_percent}%")
+    print(f"CPU ì½??  {cpu_count}")
 
 if __name__ == '__main__':
     ef_p = EF_P()
     ef = EF()
-    ip = IP()    
+    # ip = IP()    
     
-    atomic_model_test = UNITEST_MODELS()
+    cpu_percent = psutil.cpu_percent()
+    # cpu_count = psutil.cpu_count()
+    print(f"CPU ¬ì?ë¥ {cpu_percent}%")
+    # print(f"CPU ì½??  {cpu_count}")
+    mem_usage()
+    # atomic_model_test = UNITEST_MODELS()
     coupled_model_test = UNITEST_MODELS()
     
     start = time.time() 
     
     printSystemInfo()
         
-    # ìë™ í…ŒìŠ¤íŠ¸
+    # ?? ??
     coupled_model_json = os.path.join(config.TBASE_FOLDER, 'ef_p_script.json')
     atomic_model_json = os.path.join(config.TBASE_FOLDER, 'test_script2.json')        
     
     
 
     rtn = coupled_model_test.runCoupledModelTest(ef, coupled_model_json)
+    # cpu_percent = psutil.cpu_percent()
+    cpu_count = psutil.cpu_count()
+    print(f"CPU ¬ì?ë¥ {cpu_percent}%")
+    # print(f"CPU ì½??  {cpu_count}")
+    mem_usage()
+
     if rtn == 0:
         print("Success: Coupled Model Test")
     else:
         print("Fail: Coupled Model Test")        
     
     printSystemInfo()
-    
     # atomic_model_test.runAtomicModelTest(ip, atomic_model_json)
     end = time.time()
 
     print(f"{end - start:.5f} sec")
+    
 
-    ## ìˆ˜ë™ í…ŒìŠ¤íŠ¸
+    ## ?? ??
     # ip.modelTest(ip)

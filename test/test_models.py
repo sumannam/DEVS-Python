@@ -1,5 +1,6 @@
 import time
 import os
+import psutil
 import unittest
 import psutil
 
@@ -15,21 +16,29 @@ def printSystemInfo():
 
     cpu_percent = psutil.cpu_percent()
     cpu_count = psutil.cpu_count()
-    print(f"CPU ì‚¬ìš©ë¥ : {cpu_percent}%")
-    print(f"CPU ì½”ì–´ ìˆ˜: {cpu_count}")
+    print(f"CPU ¬ìš©ë¥ {cpu_percent}%")
+    print(f"CPU ì½”ì–´  {cpu_count}")
 
 def test_models():
     test_efp = unittest.TestLoader().loadTestsFromTestCase(testEF_P)
     test_ef = unittest.TestLoader().loadTestsFromTestCase(testEF)
-    test_p = unittest.TestLoader().loadTestsFromTestCase(testP)
+    # test_p = unittest.TestLoader().loadTestsFromTestCase(testP)
 
     allTests = unittest.TestSuite()
-    
+
     allTests.addTest(test_efp)
     allTests.addTest(test_ef)
-    allTests.addTest(test_p)
+    # allTests.addTest(test_p)
+
+    cpu_percent = psutil.cpu_percent()
+    print(f"CPU ¬ìš©ë¥ {cpu_percent}%")
+    mem_usage()
 
     unittest.TextTestRunner(verbosity=2, failfast=True).run(allTests)
+
+    cpu_percent = psutil.cpu_percent()
+    print(f"CPU ¬ìš©ë¥ {cpu_percent}%")
+    mem_usage()
 
 start = time.time() 
 
