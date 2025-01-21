@@ -17,8 +17,12 @@ def printSystemInfo():
 
     cpu_percent = psutil.cpu_percent()
     cpu_count = psutil.cpu_count()
-    print(f"CPU ¬ì?ë¥ {cpu_percent}%")
-    print(f"CPU ì½??  {cpu_count}")
+    print(f"CPU ì‚¬ìš©ëŸ‰: {cpu_percent}%")
+    print(f"CPU ì½”ì–´ìˆ˜:  {cpu_count}")
+
+def mem_usage():
+    process = psutil.Process(os.getpid())
+    print(f'mem usage : {process.memory_info().rss/2**20}MB')
 
 if __name__ == '__main__':
     ef_p = EF_P()
@@ -27,8 +31,7 @@ if __name__ == '__main__':
     
     cpu_percent = psutil.cpu_percent()
     # cpu_count = psutil.cpu_count()
-    print(f"CPU ¬ì?ë¥ {cpu_percent}%")
-    # print(f"CPU ì½??  {cpu_count}")
+    print(f"CPU ì‚¬ìš©ëŸ‰: {cpu_percent}%")
     mem_usage()
     # atomic_model_test = UNITEST_MODELS()
     coupled_model_test = UNITEST_MODELS()
@@ -46,8 +49,7 @@ if __name__ == '__main__':
     rtn = coupled_model_test.runCoupledModelTest(ef, coupled_model_json)
     # cpu_percent = psutil.cpu_percent()
     cpu_count = psutil.cpu_count()
-    print(f"CPU ¬ì?ë¥ {cpu_percent}%")
-    # print(f"CPU ì½??  {cpu_count}")
+    print(f"CPU ì‚¬ìš©ëŸ‰: {cpu_percent}%")
     mem_usage()
 
     if rtn == 0:
