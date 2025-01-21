@@ -13,7 +13,7 @@ class COUPLED_MODELS(MODELS):
         self.processor.setDevsComponent(self)
         self.priority_list = []
 
-        # 커플맕보 �정
+        # 커플링 정보 설정
         self.external_output_coupling = COUPLING()
         self.external_input_coupling = COUPLING()
         self.internal_coupling = COUPLING()
@@ -27,8 +27,8 @@ class COUPLED_MODELS(MODELS):
     def addModel(self, child):
         """! 
         @fn         addModel
-        @brief      �식 모델 추�
-        @details    추� �서�롰선�위 결정
+        @brief      자식 모델 추가
+        @details    추가 순서대로 우선순위 결정
         """
         self.child_list.append(child)
         child.setParent(self)
@@ -60,23 +60,23 @@ class COUPLED_MODELS(MODELS):
     def addCoupling(self, src_model, src_port, dst_model, dst_port):
         """! 
         @fn         addCoupling
-        @brief      모델커플맠형 분류 �추�
-        @details    커플링의 관계는 �음�같이 ��된
- 			    	Coupling Type  | �용
+        @brief      모델의 커플링 유형 분류 및 추가
+        @details    커플링의 관계는 다음과 같이 저장된다.
+ 			    	Coupling Type  | 내용
  		    		---------------------------------
- 	    			IC     		   | src_model�dst_model 모두 �식
-                    EOC            | src_model말식
-                    EIC            | dst_model말식
+ 	    			IC     		   | src_model과 dst_model 모두 자식일 때
+                    EOC            | src_model만 자식일 때
+                    EIC            | dst_model만 자식일 때
 
-        @param from_model   �스 모델
-        @param from_port    �스 모델�트
+        @param from_model   소스 모델
+        @param from_port    소스 모델의 포트
         @param to_model     목적지 모델
-        @param to_port      목적지 모델�트
+        @param to_port      목적지 모델의 포트
 
-        @author     �수�sumannam@gmail.com)
+        @author     남수만(sumannam@gmail.com)
         @date       2021.10.15        
 
-        @todo       추�port롅력�었�� 검즄요 [�수�2021.10.26]
+        @todo       추가된 port로 입력이 되었는지 검증 필요 [남수만;2021.10.26]
         """
         if(src_model == dst_model):
             print("Source Model and Destination Model of Addcoupling are the same.")
@@ -119,12 +119,12 @@ class COUPLED_MODELS(MODELS):
     def getClockBase(self):
         """! 
         @fn         getClockBase()
-        @brief      Root-Coodinator로�clock_base �간 �기
-        @details    testROOT_CO_ORDINATORS.py�서 testInitialize()륄해 �용
+        @brief      Root-Coodinator로부터 clock_base 시간 얻기
+        @details    testROOT_CO_ORDINATORS.py에서 testInitialize()를 위해 사용
 
-        @return     ��이초기 �간
+        @return     시뮬레이션 초기 시간
 
-        @author     �수�sumannam@gmail.com)
+        @author     남수만(sumannam@gmail.com)
         @date       2021.11.16
         """
         processor = self.getProcessor()
@@ -141,31 +141,32 @@ class COUPLED_MODELS(MODELS):
     def hasOutputCoupling(self, src_model, port):
         """! 
         @fn         hasOutputCoupling()
-        @brief      결합 모델�서 출력곰결커플맕보가 �는지 �인
+        @brief      한 결합 모델에서 출력과 연결된 커플링 정보가 있는지 확인
         @details    
 
-        @return     커플�모델곬트) �보
+        @return     한 커플링(모델과 포트) 정보
 
-        @author     �수�sumannam@gmail.com)
+        @author     남수만(sumannam@gmail.com)
         @date       2021.11.01
 
-        @todo       �수몘정(hasOutputCopling -> hasOutputCoupling) [�료: 22.05.31; �수� [�성: 22.05.31; �수� 
+        @todo       함수명 수정(hasOutputCopling -> hasOutputCoupling) [완료: 22.05.31; 남수만] [작성: 22.05.31; 남수만] 
         """
         model_port_name = None
         model_port_name = self.getModelPortName(src_model, port)
         
+<<<<<<< HEAD
         print(model_port_name)
         
 
     def getDestinationCoupling(self, src_model, port):
         """! 
         @fn         getDestinationCoupling()
-        @brief      �위 �스�� �한 
+        @brief      단위 테스트를 위한 
         @details    
 
         @return     
 
-        @author     �수�sumannam@gmail.com)
+        @author     남수만(sumannam@gmail.com)
         @date       2024.04.15
 
         @todo       
@@ -193,17 +194,23 @@ class COUPLED_MODELS(MODELS):
             print("ERROR: getDestinationCoupling")        
         
         return model_port_list        
+=======
+        if self.internal_coupling.find(model_port_name) == True:
+            return self.internal_coupling.find(model_port_name)
+        if self.external_output_coupling.find(model_port_name) == True:
+            return self.external_output_coupling.find(model_port_name)
+>>>>>>> paper/Github-Issue-27
 
 
     def translate(self, coupling_type, model, port):
         """! 
         @fn         translate()
-        @brief      커플맠형(EOC, EIC, IC)�라 �력model, port� �결커플맕보 반환
+        @brief      커플링 유형(EOC, EIC, IC)에 따라 입력된 model, port와 연결된 커플링 정보 반환
         @details    
 
-        @return     커플�모델곬트) 리스�보
+        @return     커플링(모델과 포트) 리스트 정보
 
-        @author     �수�sumannam@gmail.com)
+        @author     남수만(sumannam@gmail.com)
         @date       2021.11.01
         """
         model_port_list = []
