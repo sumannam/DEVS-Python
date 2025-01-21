@@ -29,6 +29,7 @@ class COUPLED_MODELS(MODELS):
         @fn         addModel
         @brief      자식 모델 추가
         @details    추가 순서대로 우선순위 결정
+ 			    	
         """
         self.child_list.append(child)
         child.setParent(self)
@@ -154,9 +155,10 @@ class COUPLED_MODELS(MODELS):
         model_port_name = None
         model_port_name = self.getModelPortName(src_model, port)
         
-<<<<<<< HEAD
-        print(model_port_name)
-        
+        if self.internal_coupling.find(model_port_name) == True:
+            return self.internal_coupling.find(model_port_name)
+        if self.external_output_coupling.find(model_port_name) == True:
+            return self.external_output_coupling.find(model_port_name)
 
     def getDestinationCoupling(self, src_model, port):
         """! 
@@ -171,8 +173,7 @@ class COUPLED_MODELS(MODELS):
 
         @todo       
         """
-        model_port_name = self.getModelPortName(src_model, port)
-        
+        model_port_name = self.getModelPortName(src_model, port)        
         model_port_list = []
         
         # if model_port_name == "TRANSD.out":
@@ -193,13 +194,7 @@ class COUPLED_MODELS(MODELS):
         if model_port_list == None:
             print("ERROR: getDestinationCoupling")        
         
-        return model_port_list        
-=======
-        if self.internal_coupling.find(model_port_name) == True:
-            return self.internal_coupling.find(model_port_name)
-        if self.external_output_coupling.find(model_port_name) == True:
-            return self.external_output_coupling.find(model_port_name)
->>>>>>> paper/Github-Issue-27
+        return model_port_list    
 
 
     def translate(self, coupling_type, model, port):
