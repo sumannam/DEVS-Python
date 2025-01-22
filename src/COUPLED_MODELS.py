@@ -56,6 +56,22 @@ class COUPLED_MODELS(MODELS):
             if child.getName() == child_name:
                 return child
         return None
+    
+    def getChildModelNameList(self):
+        """! 
+        @fn         getChildModelNameList
+        @brief      결합 모델 테스트를 위한 자식 모델 이름 추출
+        @details    
+        
+        @reference  https://github.com/sumannam/DEVS-Python/issues/31
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2025.01.22
+        """
+        child_list = []
+        for child in self.child_list:
+            child_list.append(child.getName())
+        return child_list
 
 
     def addCoupling(self, src_model, src_port, dst_model, dst_port):
@@ -109,6 +125,23 @@ class COUPLED_MODELS(MODELS):
 
     def getPriorityList(self):
         return self.priority_list
+    
+    
+    def getPrioriryModelNameList(self):
+        """! 
+        @fn         getPrioriryModelNameList
+        @brief      결합 모델 테스트를 위한 우선순위 모델 이름 추출
+        @details    
+        
+        @reference  https://github.com/sumannam/DEVS-Python/issues/31
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2025.01.22
+        """
+        priority_list = []
+        for model in self.priority_list:
+            priority_list.append(model.getName())
+        return priority_list
 
 
     def initialize(self):

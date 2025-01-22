@@ -1,0 +1,24 @@
+{
+    "log": {
+        "author": "Su Man Nam",
+        "date": "2025-01-22",
+        "version": "1.0",
+        "description": "Test Description for ACLUSTERS Model"
+    },
+    "ACLUSTERS": [
+        {"child_models": "CLUSTER1, CONTROLLER"},
+        {"priority": "CONTROLLER, CLUSTER1"},
+
+        {"ACLUSTERS.in": "CONTROLLER.in"},
+
+        {"CONTROLLER.out": "ACLUSTERS.out"},
+
+        {"CONTROLLER.event_out": "CLUSTER.event_in"},
+        {"CONTROLLER.packet_ach_out": "CLUSTER.packet_ach_in"},
+        {"CONTROLLER.packet_amb_out": "CLUSTER.packet_amb_in"},
+        {"CONTROLLER.knowledge_out": "CLUSTER.knowledge_in"},
+
+        {"CLUSTER.knowledge_out": "CONTROLLER.knowledge_in"},
+        {"CLUSTER.result_out": "CONTROLLER.result_in"}
+    ]
+}

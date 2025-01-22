@@ -21,15 +21,18 @@ class UNITEST_MODELS():
         """! 
         @fn         runCoupledModelTest
         @brief      결합 모델 테스트
-        @details    Jira-DEVS-49
+        @details    Figma 순서도 : https://www.figma.com/board/HSxCbkqkyyEQFaKFjmcJqN/Coupled-Model-Test?node-id=0-1&t=xBPKIzNqFDd5kIB2-1
+        
+        @reference  https://github.com/sumannam/DEVS-Python/issues/27
 
         @param  model       결합 모델의 인스턴스
         @param  json_file   json 파일 경로와 파일이름
 
         @author     남수만(sumannam@gmail.com)
-        @date       2024.04.15
+        @date       2024.04.15        
 
-        @remarks    2) 소스 모델과 포트에서 다수의 목적 모델과 포트가 나올 수 있어, 이를 위한 처리[2024.04.16; 남수만]
+        @remarks    3) 자식 모델 비교, 우선순위 정보 리스트, 커플링 정보 비교 별 메소드 생성[2025.01.22; 남수만]
+                    2) (Jira-DEVS-49) 소스 모델과 포트에서 다수의 목적 모델과 포트가 나올 수 있어, 이를 위한 처리[2024.04.16; 남수만]
                         예를 들어, TRANSD.out -> GENR.stop / TRANSD.out -> EF.result
                     1) 커플링 정보에서 소스 모델이 자기 자신일 때가 있어 조건문 추가[2024.04.16; 남수만]
         """
@@ -37,18 +40,101 @@ class UNITEST_MODELS():
         json_dic = json.load(test_script)
 
         model_name = model.getName()        
-        coupling_list = json_dic.get(model_name)
+        cm_info_list = json_dic.get(model_name)
+    
+        self.diffChildModel(model, cm_info_list[0])
+        self.diffPriorityModel(model, cm_info_list[1])
+        self.diffCoupling(model, cm_info_list[2:])      
+    
+    
+    def diffChildModel(self, target_model, json_child_list):
+        """! 
+        @fn         diffChildModel
+        @brief      타겟 결합 모델의 하위 모델 비교
+        @details    
+        
+        @reference  https://github.com/sumannam/DEVS-Python/issues/31
+        
+        @param  target_model        결합 모델 인스턴스 
+        @param  json_child_list     json 파일의 하위 모델 리스트
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2025.01.22
+        """
+        child_list = target_model.getChildModelNameList()
+        
+        # 리스트를 스트링으로 변환
+        child_list_str = ', '.join(child_list)
+        json_list_str = json_child_list.get('child_models')
+        
+        # 비교 결과 출력
+        print("=== Child Model ===")
+        print(f"\t child_models : {child_list_str}")
+        print("\t", self.diffStrings(child_list_str, json_list_str))
+        print("\n")
+        
+    
+    def diffPriorityModel(self, target_model, json_priority_list):
+        """! 
+        @fn         diffPriorityModel
+        @brief      타겟 결합 모델의 우선순위 모델 비교
+        @details    
+        
+        @reference  https://github.com/sumannam/DEVS-Python/issues/31
+        
+        @param  target_model        결합 모델 인스턴스
+        @param  json_priority_list  json 파일의 우선순위 모델 리스트
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2025.01.22
+        """
+        priority_list = target_model.getPrioriryModelNameList()
+        
+        # 리스트를 스트링으로 변환
+        priority_list_str = ', '.join(priority_list)
+        json_list_str = json_priority_list.get('priority')
+        
+        # 비교 결과 출력
+        print("=== priority ===")
+        print(f"\t priority : {priority_list_str}")
+        print("\t", self.diffStrings(priority_list_str, json_list_str))
+        print("\n")
+        
+    
+    def diffCoupling(self, target_model, coupling_list):
+        """! 
+        @fn         diffCoupling
+        @brief      타겟 결합 모델의 커플링 정보 비교
+        @details    
+        
+        @reference  https://github.com/sumannam/DEVS-Python/issues/27
+        
+        @param  target_model           결합 모델 인스턴스
+        @param  coupling_list   커플링 정보 리스트
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2025.01.22
+        
+        @remarks    2) (Jira-DEVS-49) 소스 모델과 포트에서 다수의 목적 모델과 포트가 나올 수 있어, 이를 위한 처리[2024.04.16; 남수만]
+                        예를 들어, TRANSD.out -> GENR.stop / TRANSD.out -> EF.result
+                    1) 커플링 정보에서 소스 모델이 자기 자신일 때가 있어 조건문 추가[2024.04.16; 남수만]
+        """
+        model_name = target_model.getName()
         
         for coupling in coupling_list:
             for key in coupling.keys():
+                
+                if key in 'model' 'select':
+                    continue
+                
                 src_model_port = key.split('.')
                 
                 if model_name == src_model_port[0]:
-                    src_model = model
+                    src_model = target_model
                 else:
-                    src_model = model.getChildModel(src_model_port[0])
+                    src_model = target_model.getChildModel(src_model_port[0])
                 
-                dst_model_port_list = model.getDestinationCoupling(src_model, src_model_port[1])
+                dst_model_port_list = target_model.getDestinationCoupling(src_model, src_model_port[1])
                 
                 # remarks 2) 이슈 처리
                 if coupling.get(key) in dst_model_port_list:

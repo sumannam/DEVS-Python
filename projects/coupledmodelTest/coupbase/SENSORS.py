@@ -2,8 +2,8 @@ import sys
 
 from src.COUPLED_MODELS import COUPLED_MODELS
 
-from projects.simparc_for_CMtest.mbase.SENSOR import SENSOR
-from projects.simparc_for_CMtest.mbase.SENSOR_CONTROLLER import SENSOR_CONTROLLER
+from projects.coupledmodelTest.mbase.SENSOR import SENSOR
+from projects.coupledmodelTest.mbase.SENSOR_CONTROLLER import SENSOR_CONTROLLER
 
 class SENSORS(COUPLED_MODELS):
    def __init__(self, name):
