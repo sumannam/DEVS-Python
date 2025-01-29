@@ -20,22 +20,21 @@ class UNITEST_MODELS():
     def runCoupledModelTest(self, model, json_file):
         """! 
         @fn         runCoupledModelTest
-        @brief      결합 모델 �스
-        @details    
-        @details    Figma �서: https://www.figma.com/board/HSxCbkqkyyEQFaKFjmcJqN/Coupled-Model-Test?node-id=0-1&t=xBPKIzNqFDd5kIB2-1
+        @brief      결합 모델 테스트
+        @details    Figma 순서도 : https://www.figma.com/board/HSxCbkqkyyEQFaKFjmcJqN/Coupled-Model-Test?node-id=0-1&t=xBPKIzNqFDd5kIB2-1
         
         @reference  https://github.com/sumannam/DEVS-Python/issues/27
 
-        @param  model       결합 모델�스�스
-        @param  json_file   json �일 경로� �일�름
+        @param  model       결합 모델의 인스턴스
+        @param  json_file   json 파일 경로와 파일이름
 
-        @author     �수�sumannam@gmail.com)
+        @author     남수만(sumannam@gmail.com)
         @date       2024.04.15        
 
-        @remarks    3) �식 모델 비교, �선�위 �보 리스 커플맕보 비교 �메소�성[2025.01.22; �수�
-                    2) (Jira-DEVS-49) �스 모델곬트�서 �수목적 모델곬트가 �올 �어, �� �한 처리[2024.04.16; �수�
-                        �� �어, TRANSD.out -> GENR.stop / TRANSD.out -> EF.result
-                    1) 커플맕보�서 �스 모델�기 �신�� �어 조건�추�[2024.04.16; �수�
+        @remarks    3) 자식 모델 비교, 우선순위 정보 리스트, 커플링 정보 비교 별 메소드 생성[2025.01.22; 남수만]
+                    2) (Jira-DEVS-49) 소스 모델과 포트에서 다수의 목적 모델과 포트가 나올 수 있어, 이를 위한 처리[2024.04.16; 남수만]
+                        예를 들어, TRANSD.out -> GENR.stop / TRANSD.out -> EF.result
+                    1) 커플링 정보에서 소스 모델이 자기 자신일 때가 있어 조건문 추가[2024.04.16; 남수만]
         """
         test_script = open(json_file)
         json_dic = json.load(test_script)
@@ -51,20 +50,20 @@ class UNITEST_MODELS():
     def diffChildModel(self, target_model, json_child_list):
         """! 
         @fn         diffChildModel
-        @brief      ��결합 모델�위 모델 비교
+        @brief      타겟 결합 모델의 하위 모델 비교
         @details    
         
         @reference  https://github.com/sumannam/DEVS-Python/issues/31
         
-        @param  target_model        결합 모델 �스�스 
-        @param  json_child_list     json �일�위 모델 리스
+        @param  target_model        결합 모델 인스턴스 
+        @param  json_child_list     json 파일의 하위 모델 리스트
 
-        @author     �수�sumannam@gmail.com)
+        @author     남수만(sumannam@gmail.com)
         @date       2025.01.22
         """
         child_list = target_model.getChildModelNameList()
         
-        # 리스�� �트링으�변
+        # 리스트를 스트링으로 변환
         child_list_str = ', '.join(child_list)
         json_list_str = json_child_list.get('child_models')
         
@@ -78,20 +77,20 @@ class UNITEST_MODELS():
     def diffPriorityModel(self, target_model, json_priority_list):
         """! 
         @fn         diffPriorityModel
-        @brief      ��결합 모델�선�위 모델 비교
+        @brief      타겟 결합 모델의 우선순위 모델 비교
         @details    
         
         @reference  https://github.com/sumannam/DEVS-Python/issues/31
         
-        @param  target_model        결합 모델 �스�스
-        @param  json_priority_list  json �일�선�위 모델 리스
+        @param  target_model        결합 모델 인스턴스
+        @param  json_priority_list  json 파일의 우선순위 모델 리스트
 
-        @author     �수�sumannam@gmail.com)
+        @author     남수만(sumannam@gmail.com)
         @date       2025.01.22
         """
         priority_list = target_model.getPrioriryModelNameList()
         
-        # 리스�� �트링으�변
+        # 리스트를 스트링으로 변환
         priority_list_str = ', '.join(priority_list)
         json_list_str = json_priority_list.get('priority')
         
@@ -105,20 +104,20 @@ class UNITEST_MODELS():
     def diffCoupling(self, target_model, coupling_list):
         """! 
         @fn         diffCoupling
-        @brief      ��결합 모델커플맕보 비교
+        @brief      타겟 결합 모델의 커플링 정보 비교
         @details    
         
         @reference  https://github.com/sumannam/DEVS-Python/issues/27
         
-        @param  target_model           결합 모델 �스�스
-        @param  coupling_list   커플맕보 리스
+        @param  target_model           결합 모델 인스턴스
+        @param  coupling_list   커플링 정보 리스트
 
-        @author     �수�sumannam@gmail.com)
+        @author     남수만(sumannam@gmail.com)
         @date       2025.01.22
         
-        @remarks    2) (Jira-DEVS-49) �스 모델곬트�서 �수목적 모델곬트가 �올 �어, �� �한 처리[2024.04.16; �수�
-                        �� �어, TRANSD.out -> GENR.stop / TRANSD.out -> EF.result
-                    1) 커플맕보�서 �스 모델�기 �신�� �어 조건�추�[2024.04.16; �수�
+        @remarks    2) (Jira-DEVS-49) 소스 모델과 포트에서 다수의 목적 모델과 포트가 나올 수 있어, 이를 위한 처리[2024.04.16; 남수만]
+                        예를 들어, TRANSD.out -> GENR.stop / TRANSD.out -> EF.result
+                    1) 커플링 정보에서 소스 모델이 자기 자신일 때가 있어 조건문 추가[2024.04.16; 남수만]
         """
         model_name = target_model.getName()
         
@@ -137,13 +136,13 @@ class UNITEST_MODELS():
                 
                 dst_model_port_list = target_model.getDestinationCoupling(src_model, src_model_port[1])
                 
-                # remarks 2) �슈 처리
+                # remarks 2) 이슈 처리
                 if coupling.get(key) in dst_model_port_list:
                     continue
                 else:                    
                     json_coupling = key + " -> " + coupling[key]
                     
-                    # remarks 2) �슈 처리
+                    # remarks 2) 이슈 처리
                     for dst_model_port in dst_model_port_list:
                         model_coupling = src_model_port[0] + "." + src_model_port[1] + " -> " + dst_model_port
                         
@@ -158,18 +157,18 @@ class UNITEST_MODELS():
     def runAtomicModelTest(self, model, json_file):
         """! 
         @fn         runAtomicModelTest
-        @brief      �자 모델 �스
-        @details    �자 모델�수��태�이, ��태�이, 출력)검즼문 �성
+        @brief      원자 모델 테스트
+        @details    원자 모델의 함수들(외부상태전이, 내부상태전이, 출력)을 검증(논문 작성용)
 
-        @param  model       �자 모델�스�스
-        @param  json_file   json �일 경로� �일�름
+        @param  model       원자 모델의 인스턴스
+        @param  json_file   json 파일 경로와 파일이름
 
-        @author     �수�sumannam@gmail.com)
+        @author     남수만(sumannam@gmail.com)
         @date       2022.01.31
 
-        @remarks    결합 모델 추�� �수�runAutoModelTest -> runAtomicModelTest) 변�2024.04.15; �수�
-                    �정test_script1.json 버전�로 로직 변�2022.06.19; �수�
-                    결과�의 문자비교�추�[2022.06.19; �수�
+        @remarks    결합 모델 추가로, 함수명(runAutoModelTest -> runAtomicModelTest) 변경[2024.04.15; 남수만]
+                    수정된 test_script1.json 버전으로 로직 변경[2022.06.19; 남수만]
+                    결과들의 문자열 비교문 추가[2022.06.19; 남수만]
         """
         test_script = open(json_file)
         json_dic = json.load(test_script)
@@ -211,13 +210,13 @@ class UNITEST_MODELS():
     def makeCommand(self, model_name, atom_content):
         """! 
         @fn         makeCommand
-        @brief      �자 모델�스결과(A)� �크립트결과(B)�비교
-        @details    비교 결과 0�면 A==B, 1�면 B추�문자발견, -1�면 B��문자발견
+        @brief      원자 모델의 테스트 결과(A)와 스크립트의 결과(B)를 비교
+        @details    비교 결과 0이면 A==B, 1이면 B에 추가된 문자열 발견, -1이면 B에 삭제된 문자열 발견
 
-        @param  model_name      �자 모델�름
-        @param  atom_content    �스�크립트 문자
+        @param  model_name      원자 모델의 이름
+        @param  atom_content    테스트 스크립트 문자열
 
-        @author     �수�sumannam@gmail.com)
+        @author     남수만(sumannam@gmail.com)
         @date       2022.06.19
         """
         command = ""
@@ -239,13 +238,13 @@ class UNITEST_MODELS():
     def diffStrings(self, a: str, b: str, *, use_loguru_colors: bool = False) -> str:
         """! 
         @fn         diffStrings
-        @brief      문자비교
-        @details    �자 모델 �스�� �한 문자비교(추� 글 �색, �� 글 빨강)
+        @brief      문자열 비교
+        @details    원자 모델 테스트를 위한 문자열 비교(추가 글자: 녹색, 삭제 글자: 빨강)
 
-        @param  a    �자 모델 �스결과
-        @param  b    JSONassert
+        @param  a    원자 모델 테스트 결과
+        @param  b    JSON의 assert
 
-        @author     �수�sumannam@gmail.com)
+        @author     남수만(sumannam@gmail.com)
         @date       2022.06.20
         """
         output = []
