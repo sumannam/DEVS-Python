@@ -1,6 +1,6 @@
 import sys
 
-from projects.simparc.config import setDevPath
+from projects.coupledmodelTest.config import setDevPath
 setDevPath()
 
 # from pypreprocessor import pypreprocessor
