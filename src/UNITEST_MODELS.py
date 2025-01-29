@@ -21,7 +21,7 @@ class UNITEST_MODELS():
         """! 
         @fn         runCoupledModelTest
         @brief      결합 모델 테스트
-        @details    Jira-DEVS-49
+        @details    
 
         @param  model       결합 모델의 인스턴스
         @param  json_file   json 파일 경로와 파일이름
@@ -29,7 +29,7 @@ class UNITEST_MODELS():
         @author     남수만(sumannam@gmail.com)
         @date       2024.04.15
 
-        @remarks    2) 소스 모델과 포트에서 다수의 목적 모델과 포트가 나올 수 있어, 이를 위한 처리[2024.04.16; 남수만]
+        @remarks    2) (Jira-DEVS-49) 소스 모델과 포트에서 다수의 목적 모델과 포트가 나올 수 있어, 이를 위한 처리[2024.04.16; 남수만]
                         예를 들어, TRANSD.out -> GENR.stop / TRANSD.out -> EF.result
                     1) 커플링 정보에서 소스 모델이 자기 자신일 때가 있어 조건문 추가[2024.04.16; 남수만]
         """
