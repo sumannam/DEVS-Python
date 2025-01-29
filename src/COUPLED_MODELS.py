@@ -50,6 +50,28 @@ class COUPLED_MODELS(MODELS):
             return True
         else:
             return False
+        
+    def getChildModel(self, child_name):
+        for child in self.child_list:
+            if child.getName() == child_name:
+                return child
+        return None
+    
+    def getChildModelNameList(self):
+        """! 
+        @fn         getChildModelNameList
+        @brief      결합 모델 테스트를 위한 자식 모델 이름 추출
+        @details    
+        
+        @reference  https://github.com/sumannam/DEVS-Python/issues/31
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2025.01.22
+        """
+        child_list = []
+        for child in self.child_list:
+            child_list.append(child.getName())
+        return child_list
 
 
     def addCoupling(self, src_model, src_port, dst_model, dst_port):
@@ -103,6 +125,23 @@ class COUPLED_MODELS(MODELS):
 
     def getPriorityList(self):
         return self.priority_list
+    
+    
+    def getPrioriryModelNameList(self):
+        """! 
+        @fn         getPrioriryModelNameList
+        @brief      결합 모델 테스트를 위한 우선순위 모델 이름 추출
+        @details    
+        
+        @reference  https://github.com/sumannam/DEVS-Python/issues/31
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2025.01.22
+        """
+        priority_list = []
+        for model in self.priority_list:
+            priority_list.append(model.getName())
+        return priority_list
 
 
     def initialize(self):
@@ -153,6 +192,42 @@ class COUPLED_MODELS(MODELS):
             return self.internal_coupling.find(model_port_name)
         if self.external_output_coupling.find(model_port_name) == True:
             return self.external_output_coupling.find(model_port_name)
+
+    def getDestinationCoupling(self, src_model, port):
+        """! 
+        @fn         getDestinationCoupling()
+        @brief      단위 테스트를 위한 
+        @details    
+
+        @return     
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2024.04.15
+
+        @todo       
+        """
+        model_port_name = self.getModelPortName(src_model, port)        
+        model_port_list = []
+        
+        # if model_port_name == "TRANSD.out":
+        #     print(model_port_name)
+        
+        if self.external_output_coupling.get(model_port_name) != None:
+            model_port = ''.join(self.external_output_coupling.get(model_port_name))
+            model_port_list.append(model_port)
+            
+        if self.external_input_coupling.get(model_port_name) != None:
+            model_port = ''.join(self.external_input_coupling.get(model_port_name))
+            model_port_list.append(model_port)
+            
+        if self.internal_coupling.get(model_port_name) != None:            
+            model_port = ''.join(self.internal_coupling.get(model_port_name))
+            model_port_list.append(model_port)
+        
+        if model_port_list == None:
+            print("ERROR: getDestinationCoupling")        
+        
+        return model_port_list    
 
 
     def translate(self, coupling_type, model, port):

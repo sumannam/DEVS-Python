@@ -26,7 +26,7 @@ class testEF(unittest.TestCase):
         
     def testAddExternalInputCoupling(self):
         coupling_list = self.ef.external_input_coupling
-        assert coupling_list.coupling_dic == {'EF.in': ['TRANSD.sovled']}
+        assert coupling_list.coupling_dic == {'EF.in': ['TRANSD.solved']}
         
     def testAddExternalOutputCoupling(self):
         coupling_list = self.ef.external_output_coupling
