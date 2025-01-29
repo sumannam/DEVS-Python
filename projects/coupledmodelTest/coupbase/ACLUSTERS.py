@@ -8,7 +8,7 @@ from projects.coupledmodelTest.mbase.CONTROLLER import CONTROLLER
 class ACLUSTERS(COUPLED_MODELS):
 	def __init__(self):
 		COUPLED_MODELS.__init__(self)
-		self.setName(self.__class__.__name__)        
+		self.setName(self.__class__.__name__)
 
 		cluster = CLUSTER()
 		controller = CONTROLLER()

@@ -124,6 +124,7 @@ class UNITEST_MODELS():
         for coupling in coupling_list:
             for key in coupling.keys():
                 
+                # dictionary에 model, select 키가 포함될 경우를 대비해서 continue 실행
                 if key in 'model' 'select':
                     continue
                 
