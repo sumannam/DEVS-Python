@@ -12,10 +12,10 @@ class testEF(unittest.TestCase):
         self.ef = EF()
     
     def testAddModels(self):
-        class_list = self.ef.getModels()
+        object_list = self.ef.getModels()
         model_list = []
 
-        for model in class_list:
+        for model in object_list:
             model_list.append(model.__class__.__name__)
 
         assert model_list == ['GENR', 'TRANSD']
