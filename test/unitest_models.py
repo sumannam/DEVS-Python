@@ -2,7 +2,7 @@ import time
 import os
 import psutil
 import unittest
-import psutil
+from datetime import datetime
 
 # List of Atomic Models
 from models.testP import testP
@@ -13,118 +13,71 @@ from models.testEF import testEF
 from models.testACLUSTERS import testACLUSTERS
 from models.testSENSORS import testSENSORS
 
+def format_monitoring_data(start_time, test_result):
+   """실행 결과를 CSV 형식의 문자열로 반환"""
+   pid = os.getpid()
+   process = psutil.Process(pid)
+   end_time = time.time()
+   execution_time = end_time - start_time
 
-def printSystemInfo():
-    pid = os.getpid() 
-    current_process = psutil.Process(pid)
-    current_process_memory_usage_as_KB = current_process.memory_info()[0] / 2.**20
-    print(f"Current memory KB   : {current_process_memory_usage_as_KB: 9.3f} KB")
+   # 시스템 정보 수집
+   memory_usage = process.memory_info()[0] / 2.**20
+   cpu_percent = psutil.cpu_percent()
+   cpu_count = psutil.cpu_count()
+   timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+   
+   # CSV 형식으로 출력
+   headers = "타임스탬프,메모리(MB),CPU(%),CPU코어수,실행시간(초),테스트결과"
+   data = f"{timestamp},{memory_usage:.3f},{cpu_percent},{cpu_count},{execution_time:.5f},{test_result}"
+   
+   return f"{headers}\n{data}"
 
-    cpu_percent = psutil.cpu_percent()
-    cpu_count = psutil.cpu_count()
-    print(f"CPU 사용률 {cpu_percent}%")
-    print(f"CPU 코어  {cpu_count}")
-    
+def run_test(test_function):
+   """테스트 실행 및 결과 수집"""
+   start_time = time.time()
+   
+   try:
+       # 테스트 실행
+       test_suite = test_function()
+       result = unittest.TextTestRunner(verbosity=2, failfast=True).run(test_suite)
+       
+       # 테스트 결과 확인
+       test_result = "성공" if result.wasSuccessful() else "실패"
+       
+   except Exception:
+       test_result = "실패"
+   
+   # 결과 출력
+   return format_monitoring_data(start_time, test_result)
 
 def test_atomic_models():
-    """! 
-        @fn         test_atomic_models
-        @brief      원자 모델 테스트
-        @details    
-        
-        @reference  
-
-        @author     남수만(sumannam@gmail.com)
-        @date       2025.01.31
-        
-        @remarks    1) test_coupled_models에서 소스 코드 단순화를 위해 원자 모델 테스트 방법 분리[2025.01.31; 남수만]
-    """
-    print("--- test_atomic_models ---")
-    test_p = unittest.TestLoader().loadTestsFromTestCase(testP)
-    
-    allTests = unittest.TestSuite()
-    
-    allTests.addTest(test_p)
-    
-    cpu_percent = psutil.cpu_percent()
-    print(f"CPU 사용률 {cpu_percent}%")
-    
-    unittest.TextTestRunner(verbosity=2, failfast=True).run(allTests)
-    
-    cpu_percent = psutil.cpu_percent()
-    print(f"CPU 사용률 {cpu_percent}%")
-
+   """원자 모델 테스트"""
+   allTests = unittest.TestSuite()
+   allTests.addTest(unittest.TestLoader().loadTestsFromTestCase(testP))
+   return allTests
 
 def test_coupled_models():
-    """! 
-        @fn         test_coupled_models
-        @brief      결합합 모델 테스트
-        @details    
-        
-        @reference  
+   """결합 모델 테스트"""
+   allTests = unittest.TestSuite()
+   allTests.addTest(unittest.TestLoader().loadTestsFromTestCase(testEF_P))
+#    allTests.addTest(unittest.TestLoader().loadTestsFromTestCase(testEF))
+   return allTests
 
-        @author     남수만(sumannam@gmail.com)
-        @date       2025.01.31
-        
-        @remarks    1) 기존 test_models에서 소스 코드 단순화를 위해 원자 모델 테스트 방법 분리[2025.01.31; 남수만]
-    """
-    print("--- test_coupled_models ---")
-    test_efp = unittest.TestLoader().loadTestsFromTestCase(testEF_P)
-    test_ef = unittest.TestLoader().loadTestsFromTestCase(testEF)    
+def test_wsn_coupled_models():
+   """WSN 결합 모델 테스트"""
+   allTests = unittest.TestSuite()
+   allTests.addTest(unittest.TestLoader().loadTestsFromTestCase(testACLUSTERS))
+   allTests.addTest(unittest.TestLoader().loadTestsFromTestCase(testSENSORS))
+   return allTests
 
-    allTests = unittest.TestSuite()
-
-    allTests.addTest(test_efp)
-    allTests.addTest(test_ef)
-    
-
-    cpu_percent = psutil.cpu_percent()
-    print(f"CPU 사용률 {cpu_percent}%")
-
-    unittest.TextTestRunner(verbosity=2, failfast=True).run(allTests)
-
-    cpu_percent = psutil.cpu_percent()
-    print(f"CPU 사용률 {cpu_percent}%")
-
-
-def test_wsn_coupled_models(): 
-    """! 
-        @fn         test_wsn_coupled_models
-        @brief      WSN 결합 모델들 테스트
-        @details    
-        
-        @reference  
-
-        @author     남수만(sumannam@gmail.com)
-        @date       2025.01.31
-    """
-    print("--- test_wsn_coupled_models ---")
-    test_aclusters = unittest.TestLoader().loadTestsFromTestCase(testACLUSTERS)
-    test_sensors = unittest.TestLoader().loadTestsFromTestCase(testSENSORS)
-    
-    allTests = unittest.TestSuite()
-    
-    allTests.addTest(test_aclusters)
-    allTests.addTest(test_sensors)
-    
-    cpu_percent = psutil.cpu_percent()
-    print(f"CPU 사용률 {cpu_percent}%")
-    
-    unittest.TextTestRunner(verbosity=2, failfast=True).run(allTests)
-    
-    cpu_percent = psutil.cpu_percent()
-    print(f"CPU 사용률 {cpu_percent}%")
-
-
-start = time.time() 
-
-printSystemInfo()
-
-# test_atomic_models()
-# test_coupled_models()
-test_wsn_coupled_models()
-
-printSystemInfo()
-
-end = time.time()
-print(f"{end - start:.5f} sec")
+if __name__ == '__main__':
+   print("\n=== 테스트 결과 (CSV 형식) ===")
+   print("아래 내용을 Excel에 붙여넣기 하세요.")
+   print("-" * 50)
+   
+   # 원하는 테스트 실행
+   # print(run_test(test_atomic_models))
+   print(run_test(test_coupled_models))
+#    print(run_test(test_wsn_coupled_models))
+   
+   print("-" * 50)

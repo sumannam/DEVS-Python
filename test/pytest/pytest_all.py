@@ -2,48 +2,52 @@ import os
 import time
 import psutil
 import pytest
+from datetime import datetime
 
+def format_monitoring_data(start_time, test_result):
+   """실행 결과를 CSV 형식의 문자열로 반환"""
+   pid = os.getpid()
+   process = psutil.Process(pid)
+   end_time = time.time()
+   execution_time = end_time - start_time
 
-def printSystemInfo():
-    pid = os.getpid() 
-    current_process = psutil.Process(pid)
-    current_process_memory_usage_as_KB = current_process.memory_info()[0] / 2.**20
-    print(f"Current memory KB   : {current_process_memory_usage_as_KB: 9.3f} KB")
+   # 시스템 정보 수집
+   memory_usage = process.memory_info()[0] / 2.**20
+   cpu_percent = psutil.cpu_percent()
+   cpu_count = psutil.cpu_count()
+   timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+   
+   # CSV 형식으로 출력
+   headers = "타임스탬프,메모리(MB),CPU(%),CPU코어수,실행시간(초),테스트결과"
+   data = f"{timestamp},{memory_usage:.3f},{cpu_percent},{cpu_count},{execution_time:.5f},{test_result}"
+   
+   return f"{headers}\n{data}"
 
-    cpu_percent = psutil.cpu_percent()
-    cpu_count = psutil.cpu_count()
-    print(f"CPU 사용량: {cpu_percent}%")
-    print(f"CPU 코어수:  {cpu_count}")
+def run_pytest():
+   """pytest 실행 및 결과 수집"""
+   start_time = time.time()
+   
+   try:
+       # pytest 실행
+       pytest_result = pytest.main(["--rootdir=d:/Git/DEVS-Python",
+                                  "d:/Git/DEVS-Python/test/pytest/pytest_EF_P.py"
+                                  # "d:/Git/DEVS-Python/test/pytest/pytest_EF.py",
+                                  # "d:/Git/DEVS-Python/test/pytest/pytest_ACLUSTERS.py",
+                                  # "d:/Git/DEVS-Python/test/pytest/pytest_SENSORS.py"
+                                ])
+       
+       # 테스트 결과 확인
+       test_result = "성공" if pytest_result == 0 else "실패"
+       
+   except Exception:
+       test_result = "실패"
+   
+   # 결과 출력
+   return format_monitoring_data(start_time, test_result)
 
-def mem_usage():
-    process = psutil.Process(os.getpid())
-    print(f'mem usage : {process.memory_info().rss/2**20}MB')
-
-
-cpu_percent = psutil.cpu_percent()
-print(f"CPU 사용량: {cpu_percent}%")
-mem_usage()
-start = time.time() 
-
-# 테스트 실행
-pytest_result = pytest.main(["--rootdir=d:/Git/DEVS-Python"
-                             , "d:/Git/DEVS-Python/test/pytest/pytest_EF_P.py"
-                            #  , "d:/Git/DEVS-Python/test/pytest/pytest_EF.py"
-                            #  , "d:/Git/DEVS-Python/test/pytest/pytest_ACLUSTERS.py"
-                            #  , "d:/Git/DEVS-Python/test/pytest/pytest_SENSORS.py"
-                             ])
-end = time.time()
-
-mem_usage()
-printSystemInfo()
-print(f"{end - start:.5f} sec")
-
-
-if pytest_result == 0:
-    print("테스트가 모두 성공했습니다!")
-else:
-    print("테스트에 실패했습니다!")
-
-
-
-
+if __name__ == '__main__':
+   print("\n=== 테스트 결과 (CSV 형식) ===")
+   print("아래 내용을 Excel에 붙여넣기 하세요.")
+   print("-" * 50)
+   print(run_pytest())
+   print("-" * 50)
