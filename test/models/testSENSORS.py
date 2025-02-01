@@ -2,9 +2,6 @@ import sys
 import os
 import unittest
 
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-import config
-
 from projects.coupledmodelTest.coupbase.SENSORS import SENSORS
 
 class testSENSORS(unittest.TestCase):

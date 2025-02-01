@@ -17,10 +17,10 @@ class testACLUSTERS(unittest.TestCase):
         @date       2025.01.31
 	"""
     def setUp(self):
-        self.acluster = ACLUSTERS()
+        self.aclusters = ACLUSTERS()
     
     def testAddModels(self):
-        object_list = self.acluster.getModels()
+        object_list = self.aclusters.getModels()
         model_list = []        
 
         for model in object_list:
@@ -29,19 +29,19 @@ class testACLUSTERS(unittest.TestCase):
         assert model_list == ['CLUSTER', 'CONTROLLER']
         
     def testPriority(self):
-        priority_list = self.acluster.getPrioriryModelNameList()
+        priority_list = self.aclusters.getPrioriryModelNameList()
         assert priority_list == ['CLUSTER', 'CONTROLLER']
     
     def testAddExternalInputCoupling(self):
-        coupling_list = self.acluster.external_input_coupling
+        coupling_list = self.aclusters.external_input_coupling
         assert coupling_list.coupling_dic == {'ACLUSTERS.in': ['CONTROLLER.in']}
         
     def testAddExternalOutputCoupling(self):
-        coupling_list = self.acluster.external_output_coupling
+        coupling_list = self.aclusters.external_output_coupling
         assert coupling_list.coupling_dic == {'CONTROLLER.out': ['ACLUSTERS.out']}
         
     def testAddInteralCoupling(self):
-        coupling_list = self.acluster.internal_coupling
+        coupling_list = self.aclusters.internal_coupling
         assert coupling_list.coupling_dic == {'CONTROLLER.event_out': ['CLUSTER.event_in']
                                         , 'CONTROLLER.packet_ach_out': ['CLUSTER.packet_ach_in']
                                         , 'CONTROLLER.packet_amb_out': ['CLUSTER.packet_amb_in']
