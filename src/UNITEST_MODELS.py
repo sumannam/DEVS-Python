@@ -17,7 +17,8 @@ class UNITEST_MODELS():
         self.atomic_model = ATOMIC_MODELS()
         self.coupled_model = COUPLED_MODELS()
         
-    def runCoupledModelTest(self, model, json_file):
+        
+    def runCoupledModelTest(self, target_model, json_file):
         """! 
         @fn         runCoupledModelTest
         @brief      결합 모델 테스트
@@ -31,20 +32,32 @@ class UNITEST_MODELS():
         @author     남수만(sumannam@gmail.com)
         @date       2024.04.15        
 
-        @remarks    3) 자식 모델 비교, 우선순위 정보 리스트, 커플링 정보 비교 별 메소드 생성[2025.01.22; 남수만]
+        @remarks    4) test_main.py에서 성공과 실패 시 return 반환 처리를 위해 try-except 구문 추가[2025.02.01; 남수만]
+                    3) 자식 모델 비교, 우선순위 정보 리스트, 커플링 정보 비교 별 메소드 생성[2025.01.22; 남수만]
                     2) (Jira-DEVS-49) 소스 모델과 포트에서 다수의 목적 모델과 포트가 나올 수 있어, 이를 위한 처리[2024.04.16; 남수만]
                         예를 들어, TRANSD.out -> GENR.stop / TRANSD.out -> EF.result
                     1) 커플링 정보에서 소스 모델이 자기 자신일 때가 있어 조건문 추가[2024.04.16; 남수만]
         """
-        test_script = open(json_file)
-        json_dic = json.load(test_script)
+        try:
+            test_script = open(json_file)
+            json_dic = json.load(test_script)
+            
+            model_name = target_model.getName()        
+            cm_info_list = json_dic.get(model_name)
+            
+            if cm_info_list is None:
+                logger.error(f"JSON에서 모델 정보를 찾을 수 없음: {model_name}")
+                return -1       
+            
+            self.diffChildModel(target_model, cm_info_list[0])
+            self.diffPriorityModel(target_model, cm_info_list[1])
+            self.diffCoupling(target_model, cm_info_list[2:]) 
+            
+        except Exception as e:
+            logger.error(f"결합 모델 테스트 실패: {str(e)}")
+            return -1
 
-        model_name = model.getName()        
-        cm_info_list = json_dic.get(model_name)
-    
-        self.diffChildModel(model, cm_info_list[0])
-        self.diffPriorityModel(model, cm_info_list[1])
-        self.diffCoupling(model, cm_info_list[2:])      
+        return 0
     
     
     def diffChildModel(self, target_model, json_child_list):
@@ -60,6 +73,8 @@ class UNITEST_MODELS():
 
         @author     남수만(sumannam@gmail.com)
         @date       2025.01.22
+        
+        @remarks    1) DEBUG 레벨에서만 출력[2025.02.01; 남수만]
         """
         child_list = target_model.getChildModelNameList()
         
@@ -67,11 +82,11 @@ class UNITEST_MODELS():
         child_list_str = ', '.join(child_list)
         json_list_str = json_child_list.get('child_models')
         
-        # 비교 결과 출력
-        print("=== Child Model ===")
-        print(f"\t child_models : {child_list_str}")
-        print("\t", self.diffStrings(child_list_str, json_list_str))
-        print("\n")
+        # DEBUG 레벨에서만 출력
+        logger.debug("=== Child Model ===")
+        logger.debug(f"\t child_models : {child_list_str}")
+        logger.debug(f"\t {self.diffStrings(child_list_str, json_list_str)}")
+        logger.debug("\n")
         
     
     def diffPriorityModel(self, target_model, json_priority_list):
@@ -87,6 +102,8 @@ class UNITEST_MODELS():
 
         @author     남수만(sumannam@gmail.com)
         @date       2025.01.22
+        
+        @remarks    1) DEBUG 레벨에서만 출력[2025.02.01; 남수만]
         """
         priority_list = target_model.getPrioriryModelNameList()
         
@@ -94,11 +111,11 @@ class UNITEST_MODELS():
         priority_list_str = ', '.join(priority_list)
         json_list_str = json_priority_list.get('priority')
         
-        # 비교 결과 출력
-        print("=== priority ===")
-        print(f"\t priority : {priority_list_str}")
-        print("\t", self.diffStrings(priority_list_str, json_list_str))
-        print("\n")
+        # DEBUG 레벨에서만 출력
+        logger.debug("=== priority ===")
+        logger.debug(f"\t priority : {priority_list_str}")
+        logger.debug("\t", self.diffStrings(priority_list_str, json_list_str))
+        logger.debug("\n")
         
     
     def diffCoupling(self, target_model, coupling_list):
@@ -115,7 +132,8 @@ class UNITEST_MODELS():
         @author     남수만(sumannam@gmail.com)
         @date       2025.01.22
         
-        @remarks    2) (Jira-DEVS-49) 소스 모델과 포트에서 다수의 목적 모델과 포트가 나올 수 있어, 이를 위한 처리[2024.04.16; 남수만]
+        @remarks    3) DEBUG 레벨에서만 출력[2025.02.01; 남수만]
+                    2) (Jira-DEVS-49) 소스 모델과 포트에서 다수의 목적 모델과 포트가 나올 수 있어, 이를 위한 처리[2024.04.16; 남수만]
                         예를 들어, TRANSD.out -> GENR.stop / TRANSD.out -> EF.result
                     1) 커플링 정보에서 소스 모델이 자기 자신일 때가 있어 조건문 추가[2024.04.16; 남수만]
         """
@@ -147,13 +165,15 @@ class UNITEST_MODELS():
                     for dst_model_port in dst_model_port_list:
                         model_coupling = src_model_port[0] + "." + src_model_port[1] + " -> " + dst_model_port
                         
-                        print(f"\t json_file : {json_coupling}")
-                        print(f"\t model_coulping : {model_coupling}")
-                        print("\t", self.diffStrings(json_coupling, model_coupling))
-                        print("\n")
+                        # DEBUG 레벨에서만 출력
+                        logger.debug(f"\t json_file : {json_coupling}")
+                        logger.debug(f"\t model_coulping : {model_coupling}")
+                        logger.debug("\t", self.diffStrings(json_coupling, model_coupling))
+                        logger.debug("\n")
                     
                     return -1
         return 0
+    
     
     def runAtomicModelTest(self, model, json_file):
         """! 
@@ -207,6 +227,7 @@ class UNITEST_MODELS():
             print(self.diffStrings(model_result, atom_content['assert']))
             # logger.opt(raw=True, colors=True).info(self.diffStrings(model_result, atom_content['assert'], use_loguru_colors=True))
             print("\n")
+
 
     def makeCommand(self, model_name, atom_content):
         """! 
