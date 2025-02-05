@@ -6,7 +6,7 @@
 %%
 %% 주석
 %%      (v1.0) Original DEVS 기반 클래스 다이어그램 생성 완료[2025.02.04; 남수만]
-%%          URL : https://github.com/sumannam/DEVS-Python/issues/43
+%%          Ref : https://github.com/sumannam/DEVS-Python/issues/43
 
 classDiagram
 direction TB
