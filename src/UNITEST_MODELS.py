@@ -83,10 +83,10 @@ class UNITEST_MODELS():
         json_list_str = json_child_list.get('child_models')
         
         # DEBUG 레벨에서만 출력
-        logger.debug("=== Child Model ===")
-        logger.debug(f"\t child_models : {child_list_str}")
-        logger.debug(f"\t {self.diffStrings(child_list_str, json_list_str)}")
-        logger.debug("\n")
+        # logger.debug("=== Child Model ===")
+        # logger.debug(f"\t child_models : {child_list_str}")
+        # logger.debug(f"\t {self.diffStrings(child_list_str, json_list_str)}")
+        # logger.debug("\n")
         
     
     def diffPriorityModel(self, target_model, json_priority_list):
@@ -112,10 +112,10 @@ class UNITEST_MODELS():
         json_list_str = json_priority_list.get('priority')
         
         # DEBUG 레벨에서만 출력
-        logger.debug("=== priority ===")
-        logger.debug(f"\t priority : {priority_list_str}")
-        logger.debug("\t", self.diffStrings(priority_list_str, json_list_str))
-        logger.debug("\n")
+        # logger.debug("=== priority ===")
+        # logger.debug(f"\t priority : {priority_list_str}")
+        # logger.debug("\t", self.diffStrings(priority_list_str, json_list_str))
+        # logger.debug("\n")
         
     
     def diffCoupling(self, target_model, coupling_list):
