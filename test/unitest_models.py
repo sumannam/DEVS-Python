@@ -78,6 +78,6 @@ if __name__ == '__main__':
    # 원하는 테스트 실행
    # print(run_test(test_atomic_models))
    print(run_test(test_coupled_models))
-#    print(run_test(test_wsn_coupled_models))
+   print(run_test(test_wsn_coupled_models))
    
    print("-" * 50)

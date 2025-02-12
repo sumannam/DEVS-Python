@@ -31,9 +31,9 @@ def run_pytest():
        # pytest 실행
        pytest_result = pytest.main(["--rootdir=d:/Git/DEVS-Python",
                                   "d:/Git/DEVS-Python/test/pytest/pytest_EF_P.py"
-                                  # "d:/Git/DEVS-Python/test/pytest/pytest_EF.py",
-                                  # "d:/Git/DEVS-Python/test/pytest/pytest_ACLUSTERS.py",
-                                  # "d:/Git/DEVS-Python/test/pytest/pytest_SENSORS.py"
+                                  "d:/Git/DEVS-Python/test/pytest/pytest_EF.py",
+                                  "d:/Git/DEVS-Python/test/pytest/pytest_ACLUSTERS.py",
+                                  "d:/Git/DEVS-Python/test/pytest/pytest_SENSORS.py"
                                 ])
        
        # 테스트 결과 확인
