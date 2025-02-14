@@ -39,37 +39,65 @@ def format_monitoring_data(start_time, test_result, model_name):
     }
 
 def run_test():
-    """4개 모델을 포함한 테스트 실행 및 결과 수집"""
-    start_time = time.time()
-    
-    try:
-        # 테스트 스위트 생성
-        all_tests = unittest.TestSuite()
-        all_tests.addTest(unittest.TestLoader().loadTestsFromTestCase(testEF_P))
-        all_tests.addTest(unittest.TestLoader().loadTestsFromTestCase(testEF))
-        all_tests.addTest(unittest.TestLoader().loadTestsFromTestCase(testACLUSTERS))
-        all_tests.addTest(unittest.TestLoader().loadTestsFromTestCase(testSENSORS))
-        
-        # 테스트 실행
-        result = unittest.TextTestRunner(verbosity=2, failfast=True).run(all_tests)
-        
-        # 테스트 결과 확인
-        test_result = "성공" if result.wasSuccessful() else "실패"
-        
-    except Exception:
-        test_result = "실패"
-    
-    return format_monitoring_data(start_time, test_result)
+   """4개 모델을 포함한 테스트 실행 및 결과 수집"""
+   try:
+       # 시작 시 메모리 측정
+       process = psutil.Process(os.getpid())
+       start_memory = process.memory_info()[0] / 2.**20
+       start_time = time.time()
+
+       # 테스트 스위트 생성
+       all_tests = unittest.TestSuite()
+       all_tests.addTest(unittest.TestLoader().loadTestsFromTestCase(testEF_P))
+       all_tests.addTest(unittest.TestLoader().loadTestsFromTestCase(testEF))
+       all_tests.addTest(unittest.TestLoader().loadTestsFromTestCase(testACLUSTERS))
+       all_tests.addTest(unittest.TestLoader().loadTestsFromTestCase(testSENSORS))
+       
+       # 테스트 실행
+       result = unittest.TextTestRunner(verbosity=2, failfast=True).run(all_tests)
+       
+       # 테스트 완료 후 메모리 측정
+       end_memory = process.memory_info()[0] / 2.**20
+       memory_used = end_memory - start_memory  # 실제 사용된 메모리
+       
+       # 테스트 결과 확인
+       test_result = "성공" if result.wasSuccessful() else "실패"
+       
+   except Exception:
+       test_result = "실패"
+       memory_used = 0
+   
+   end_time = time.time()
+   
+   # 결과 반환
+   return {
+       "순서": "",  # run_multiple_tests에서 설정됨
+       "타임스탬프": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+       "메모리(MB)": f"{memory_used:.3f}",
+       "CPU(%)": str(psutil.cpu_percent()),
+       "CPU코어수": str(psutil.cpu_count()),
+       "실행시간(초)": f"{(end_time - start_time):.6f}",
+       "테스트결과": test_result
+   }
 
 def run_multiple_tests(num_tests=20):
-    """지정된 횟수만큼 테스트를 실행하고 결과를 반환"""
-    results = []
-    for i in range(num_tests):
-        result = run_test()
-        result["순서"] = str(i + 1)  # 순서 추가
-        results.append(result)
-        time.sleep(1)  # 각 테스트 사이에 1초 간격
-    return results
+   """지정된 횟수만큼 테스트를 실행하고 결과를 반환"""
+   results = []
+   
+   # 가비지 컬렉션 설정
+   import gc
+   gc.enable()
+   
+   for i in range(num_tests):
+       # 각 테스트 전에 가비지 컬렉션 실행
+       gc.collect()
+       
+       result = run_test()
+       result["순서"] = str(i + 1)
+       results.append(result)
+       time.sleep(1)  # 각 테스트 사이에 1초 간격
+   
+   return results
 
 def format_monitoring_data(start_time, test_result):
     """실행 결과를 CSV 형식의 문자열로 반환"""
