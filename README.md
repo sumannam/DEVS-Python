@@ -12,6 +12,6 @@ DEVS-Python은 Python 기반으로 DEVS 모델들을 모델링하고 시뮬레�
   publisher = {GitHub},
   journal = {GitHub repository},
   howpublished = {\url{https://github.com/sumannam/DEVS-Python},
-}
+} 
 ```
 

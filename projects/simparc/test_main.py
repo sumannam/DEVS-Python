@@ -42,7 +42,7 @@ if __name__ == '__main__':
         
     # ?? ??
     coupled_model_json = os.path.join(config.TBASE_FOLDER, 'ef_p_script.json')
-    atomic_model_json = os.path.join(config.TBASE_FOLDER, 'test_script2.json')        
+    # atomic_model_json = os.path.join(config.TBASE_FOLDER, 'test_script2.json')        
     
     
 

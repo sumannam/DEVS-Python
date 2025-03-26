@@ -5,10 +5,14 @@
 		"ver1": "Coupling Information of EF-P, EF Model"
     },
     "EF_P": [
+		{"child_models": "P, EF"},
+        {"priority": "P, EF"},
 		{"EF.out": "P.in"},
 		{"P.out": "EF.in"}
 	],
 	"EF": [
+		{"child_models": "GENR, TRANSD"},
+        {"priority": "GENR, TRANSD"},
 		{"EF.in": "TRANSD.solved"},
 		{"GENR.out": "EF.out"},
 		{"TRANSD.out": "EF.result"},

@@ -1,0 +1,53 @@
+{
+    "log": {
+        "author": "Su Man Nam",
+        "date": "2025-01-22",
+        "version": "1.0",
+        "description": "Test Description for ACLUSTERS Model"
+    },
+	    "EF_P": [
+		{"child_models": "P, EF"},
+        {"priority": "P, EF"},
+		{"EF.out": "P.in"},
+		{"P.out": "EF.in"}
+	],
+	"EF": [
+		{"child_models": "GENR, TRANSD"},
+        {"priority": "GENR, TRANSD"},
+		{"EF.in": "TRANSD.solved"},
+		{"GENR.out": "EF.out"},
+		{"TRANSD.out": "EF.result"},
+		{"TRANSD.out": "GENR.stop"},
+		{"GENR.out": "TRANSD.arrived"}
+	],
+    "ACLUSTERS": [
+        {"child_models": "CLUSTER1, CONTROLLER"},
+        {"priority": "CONTROLLER, CLUSTER1"},
+
+        {"ACLUSTERS.in": "CONTROLLER.in"},
+
+        {"CONTROLLER.out": "ACLUSTERS.out"},
+
+        {"CONTROLLER.event_out": "CLUSTER.event_in"},
+        {"CONTROLLER.packet_ach_out": "CLUSTER.packet_ach_in"},
+        {"CONTROLLER.packet_amb_out": "CLUSTER.packet_amb_in"},
+        {"CONTROLLER.knowledge_out": "CLUSTER.knowledge_in"},
+
+        {"CLUSTER.knowledge_out": "CONTROLLER.knowledge_in"},
+        {"CLUSTER.result_out": "CONTROLLER.result_in"}
+    ],
+    "SENSORS": [
+        {"child_models": "SENSOR, SENSOR_CONTROLLER"},
+        {"priority": "SENSOR, SENSOR_CONTROLLER"},
+        
+        {"SENSORS.in": "SENSOR_CONTROLLER.in"},
+        
+        {"SENSOR_CONTROLLER.out": "SENSORS.out"},
+        
+        {"SENSOR_CONTROLLER.event_out": "SENSOR.event_in"},
+        {"SENSOR_CONTROLLER.packet_out": "SENSOR.packet_in"},
+        
+        {"SENSOR.packet_out": "SENSOR_CONTROLLER.packet_in"},
+        {"SENSOR.sensor_out": "SENSOR_CONTROLLER.sensor_in"}
+    ]
+}
