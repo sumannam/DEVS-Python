@@ -1,3 +1,5 @@
+from abc import abstractmethod
+
 from src.CO_ORDINATORS import CO_ORDINATORS
 from src.MODELS import MODELS
 from src.COUPLING import *
@@ -43,8 +45,23 @@ class COUPLED_MODELS(MODELS):
 
 
     def existChildModel(self, child):
+        """! 
+        @fn         existChildModel
+        @brief      자식 모델이 있는지 확인
+        @details    
+        
+        @reference  https://github.com/sumannam/DEVS-Python/issues/55
+
+        @author     남수만(sumannam@gmail.com)
+        @date       2025.03.26
+        
+        @chagelog   커널 모델에서 controllee_list처럼 리스트 타입이 입력되므로 if type(child) == list: 추가 [완료: 25.03.26; 남수만]
+        """
         if(child == None):
             return False
+        
+        if type(child) == list:
+            return set(child) == set(self.child_list)
         
         if (child in self.child_list) == True:
             return True
