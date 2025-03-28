@@ -19,4 +19,4 @@ class PS(BROADCAST_MODELS):
         
         self.addCoupling(self, "in", bp_list, "in")
         self.addCoupling(bp_list, "out", self, "out")
-        self.addCoupling(bp_list, "unsolved", self, "out")
+        self.addCoupling(bp_list, "unsolved", bp_list, "in")

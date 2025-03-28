@@ -105,20 +105,27 @@ class BROADCAST_MODELS(KERNEL_MODELS):
             List of model-port pairs
         """
         model_port_list = []
+        src_model_port_name = model.getName()+"."+port
         
         if coupling_type == COUPLING_TYPE.EOC:  # External Output Coupling
-            key = (model, port)
-            if key in self.external_output_coupling:
-                model_port_list = self.external_output_coupling[key].copy()
-                
-        elif coupling_type == COUPLING_TYPE.IC:  # Internal Coupling
-            key = (model, port)
-            if key in self.internal_coupling:
-                model_port_list = self.internal_coupling[key].copy()
-                
+            model_port_list = self.external_output_coupling.get(src_model_port_name)
+            if model_port_list is None:
+                model_port_list = []
+            else:
+                model_port_list = model_port_list.copy()
+        
         elif coupling_type == COUPLING_TYPE.EIC:  # External Input Coupling
-            port_name = port
-            if port_name in self.external_input_coupling:
-                model_port_list = self.external_input_coupling[port_name].copy()
+            model_port_list = self.external_input_coupling.get(src_model_port_name)
+            if model_port_list is None:
+                model_port_list = []
+            else:
+                model_port_list = model_port_list.copy()
+        
+        elif coupling_type == COUPLING_TYPE.IC:  # Internal Coupling
+            model_port_list = self.internal_coupling.get(src_model_port_name)
+            if model_port_list is None:
+                model_port_list = []
+            else:
+                model_port_list = model_port_list.copy()
         
         return model_port_list

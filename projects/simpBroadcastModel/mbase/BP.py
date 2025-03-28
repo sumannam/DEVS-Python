@@ -27,7 +27,13 @@ class BP(ATOMIC_MODELS):
             self.passviate()
 
     def outputFunc(self):
-        if self.state["phase"] == "busy":
-            content = CONTENT()
+        content = CONTENT()
+        
+        # 모델 이름이 bp2이면 무조건 나가기
+        if self.getName() == "bp2":
             content.setContent("out", self.state["job-id"])
-            return content
+        elif self.state["phase"] == "busy":
+            content.setContent("unsolved", self.state["job-id"])
+        
+            
+        return content

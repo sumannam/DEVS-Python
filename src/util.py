@@ -67,9 +67,6 @@ def logInfoSimulator(devs_name, time_next, time_last):
         + "time_next: " + str(time_next) + "\n" \
         + "time_last: " + str(time_last) + "\n\n"
     logging.info(log)
-    
-
-
 
 def convertJsonToString(dict):
      return json.dumps(dict)
