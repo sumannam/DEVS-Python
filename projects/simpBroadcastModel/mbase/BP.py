@@ -3,7 +3,8 @@ from src.ATOMIC_MODELS import *
 class BP(ATOMIC_MODELS):
     def __init__(self, bp_name):
         ATOMIC_MODELS.__init__(self)
-        self.setName(bp_name)
+        self.model_name = bp_name
+        self.setName(self.model_name)
         
         self.addInPorts("in")
         self.addOutPorts("out")
@@ -30,7 +31,7 @@ class BP(ATOMIC_MODELS):
         content = CONTENT()
         
         # 모델 이름이 bp2이면 무조건 나가기
-        if self.getName() == "bp2":
+        if self.model_name == "BP2":
             content.setContent("out", self.state["job-id"])
         elif self.state["phase"] == "busy":
             content.setContent("unsolved", self.state["job-id"])
