@@ -35,6 +35,5 @@ class BP(ATOMIC_MODELS):
             content.setContent("out", self.state["job-id"])
         elif self.state["phase"] == "busy":
             content.setContent("unsolved", self.state["job-id"])
-        
             
         return content
