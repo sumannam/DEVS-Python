@@ -5,8 +5,6 @@ import unittest
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 import config
 
-from projects.simparc.mbase.P import P
-
 class testP(unittest.TestCase):
     def setUp(self):
         self.p = P()

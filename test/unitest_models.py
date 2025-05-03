@@ -10,9 +10,9 @@ from models.testP import testP
 
 # List of Coupled Models 
 from models.testEF_P import testEF_P
-from models.testEF import testEF
+from test.models.EF import testEF
 from models.testACLUSTERS import testACLUSTERS
-from models.testSENSORS import testSENSORS
+from test.models.SENSORS import testSENSORS
 
 def format_monitoring_data(start_time, test_result, model_name):
     """실행 결과를 CSV 형식의 문자열로 반환"""

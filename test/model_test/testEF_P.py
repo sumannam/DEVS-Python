@@ -5,11 +5,11 @@ import unittest
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 import config
 
-from projects.simparc.coupbase.EF_P import EF_P
+from models.testEF_P import testEF_P
 
 class testEF_P(unittest.TestCase):
     def setUp(self):
-        self.ef_p = EF_P()
+        self.ef_p = testEF_P()
     
     def testAddModels(self):
         class_list = self.ef_p.getModels()
@@ -22,4 +22,4 @@ class testEF_P(unittest.TestCase):
     
     def testAddInteralCoupling(self):
         coupling_list = self.ef_p.internal_coupling
-        assert coupling_list.coupling_dic == {'EF.out': ['P.in'], 'P.out': ['EF.in']}
+        assert coupling_list.coupling_dic == {'testEF.out': ['testP.in'], 'testP.out': ['testEF.in']}

@@ -5,8 +5,8 @@ import config
 # pypreprocessor.parse()
 
 from src.COUPLED_MODELS import COUPLED_MODELS
-from coupbase.PS import PS
-from coupbase.EF import EF
+from .PS import PS
+from .EF import EF
 
 class EF_P(COUPLED_MODELS):
     def __init__(self):

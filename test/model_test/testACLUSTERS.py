@@ -5,7 +5,7 @@ import unittest
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 import config
 
-from projects.coupledmodelTest.coupbase.ACLUSTERS import ACLUSTERS
+from test.models.testACLUSTERS import ACLUSTERS
 
 class testACLUSTERS(unittest.TestCase):
     """! 

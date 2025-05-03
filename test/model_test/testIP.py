@@ -1,6 +1,6 @@
 from src.ATOMIC_MODELS import *
 
-class IP(ATOMIC_MODELS):
+class testIP(ATOMIC_MODELS):
     def __init__(self):
         ATOMIC_MODELS.__init__(self)
         self.setName(self.__class__.__name__)
