@@ -2,7 +2,7 @@ import random
 
 from src.ATOMIC_MODELS import ATOMIC_MODELS
 from src.CONTENT import CONTENT
-from src.util import convertJsonToString
+from src.log import convertJsonToString
 
 
 class GENR(ATOMIC_MODELS):

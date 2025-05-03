@@ -4,9 +4,9 @@ import psutil
 
 import config
 
-from projects.simparc.coupbase.EF_P import EF_P
-from projects.simparc.coupbase.EF import EF
-from projects.simparc.mbase.IP import IP
+from coupbase.EF_P import EF_P
+from coupbase.EF import EF
+from mbase.IP import IP
 from src.UNITEST_MODELS import UNITEST_MODELS
 
 def printSystemInfo():

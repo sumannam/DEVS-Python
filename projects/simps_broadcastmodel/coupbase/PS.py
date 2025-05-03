@@ -2,8 +2,7 @@ import sys
 
 # from src.COUPLED_MODELS import COUPLED_MODELS
 from src.BROADCAST_MODELS import BROADCAST_MODELS
-
-from projects.simpBroadcastModel.mbase.BP import BP
+from mbase.BP import BP
 
 
 class PS(BROADCAST_MODELS):

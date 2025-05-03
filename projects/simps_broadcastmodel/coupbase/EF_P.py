@@ -1,15 +1,12 @@
 import sys
-
-from projects.simpBroadcastModel.config import setDevPath
-setDevPath()
+import config
 
 # from pypreprocessor import pypreprocessor
 # pypreprocessor.parse()
 
 from src.COUPLED_MODELS import COUPLED_MODELS
-
-from projects.simpBroadcastModel.coupbase.PS import PS
-from projects.simpBroadcastModel.coupbase.EF import EF
+from coupbase.PS import PS
+from coupbase.EF import EF
 
 class EF_P(COUPLED_MODELS):
     def __init__(self):
