@@ -40,8 +40,7 @@ class TestChildModel(MODELS):
         self.addInPorts("in_port1", "in_port2")
         self.addOutPorts("out_port2", "out_port2")
 
-class TestBroadcastModels(unittest.TestCase):
-    
+class testBroadcastModels(unittest.TestCase):
     def setUp(self):
         """테스트 전 설정"""
         self.broadcast_model = BROADCAST_MODELS("TestBroadcast")

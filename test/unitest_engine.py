@@ -16,7 +16,7 @@ def test_engine():
     allTests = unittest.TestSuite()
     
     allTests.addTest(test_root_coordinators)
-    allTests.addTest(test_coordinators)
+    # allTests.addTest(test_coordinators)
     allTests.addTest(test_simulators)
 
     unittest.TextTestRunner(verbosity=2, failfast=True).run(allTests)

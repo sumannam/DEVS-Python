@@ -14,7 +14,7 @@ from src.CO_ORDINATORS import CO_ORDINATORS
 from src.MESSAGE import MESSAGE, MESSAGE_TYPE
 from src.COUPLED_MODELS import COUPLED_MODELS
 
-class TestRootCoordinators(unittest.TestCase):
+class testROOT_CO_ORDINATORS(unittest.TestCase):
     def setUp(self):
         """테스트 전 설정"""
         # Set log level to DEBUG for detailed logging
