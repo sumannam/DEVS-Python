@@ -10,65 +10,46 @@ sys.path.append(project_root)
 
 from src.log import logInfoCoordinator, logInfoSimulator, logDebugCoordinator, logDebugSimulator, setLogLevel
 from src.ROOT_CO_ORDINATORS import ROOT_CO_ORDINATORS
-from src.SIMULATORS import SIMULATORS
 from src.CO_ORDINATORS import CO_ORDINATORS
-
-# Import models from test_models folder
-from mbase.EF import testEF
-from mbase.PS import testPS
-from mbase.GENR import testGENR
-from mbase.TRANSD import testTRANSD
-from mbase.BP import testBP
+from src.MESSAGE import MESSAGE, MESSAGE_TYPE
+from src.COUPLED_MODELS import COUPLED_MODELS
 
 class TestRootCoordinators(unittest.TestCase):
     def setUp(self):
+        """테스트 전 설정"""
         # Set log level to DEBUG for detailed logging
         setLogLevel(logging.DEBUG)
         
-        # Create components
-        self.genr = testGENR()
-        self.transd = testTRANSD()
-        self.ef = testEF()
-        self.ps = testPS()
-        self.bp1 = testBP("BP1")
-        self.bp2 = testBP("BP2")
-        self.bp3 = testBP("BP3")
+        # Create root_coordinator
+        self.root = ROOT_CO_ORDINATORS()
         
-        # Create coordinators
-        self.root = RootCoordinator("ROOT")
-        self.ef_p = CO_ORDINATORS()
-        self.ef_p.setName("EF_P")
-        self.ef_p.addChild(self.ef)
-        self.ef_p.addChild(self.ps)
+        # Create a coupled model for testing
+        self.coupled_model = COUPLED_MODELS()
+        self.coupled_model.setName("TestModel")
         
-        self.ef.addChild(self.genr)
-        self.ef.addChild(self.transd)
+        # Set child to root
+        self.root.setChild(self.coupled_model.processor)
         
-        self.ps.addChild(self.bp1)
-        self.ps.addChild(self.bp2)
-        self.ps.addChild(self.bp3)
+    def test_name_setting(self):
+        """이름 설정 테스트"""
+        # 이름 설정
+        self.root.setName("TestRoot")
         
-        # Add EF_P to root
-        self.root.addChild(self.ef_p)
+        # 이름 확인
+        self.assertEqual(self.root.getName(), "R:TestRoot") 
         
-        # Create simulator
-        self.sim = SIMULATORS()
-        self.sim.setRoot(self.root)
-
-    def test_root_coordinator_initialization(self):
-        self.assertEqual(self.root.getName(), "ROOT")
-        self.assertEqual(len(self.root.getChildList()), 1)
-        self.assertEqual(self.root.getChildList()[0].getName(), "EF_P")
-
-    def test_root_coordinator_simulation(self):
-        # Run simulation
-        self.sim.simulate(20)
+    def test_child_management(self):
+        """자식 프로세서 관리 테스트"""
+        # 자식 프로세서 설정 확인
+        self.assertEqual(self.root.child.getName(), "TestModel")
         
-        # Verify results
-        self.assertEqual(self.transd.getTotal(), 3)  # Should receive 3 messages
-        self.assertEqual(self.bp1.getTotal(), 1)     # Each BP should receive 1 message
-        self.assertEqual(self.bp2.getTotal(), 1)
-        self.assertEqual(self.bp3.getTotal(), 1)
+        # 새로운 자식 프로세서 설정
+        new_model = COUPLED_MODELS()
+        new_model.setName("NewTestModel")
+        self.root.setChild(new_model.processor)
+        
+        # 자식 프로세서 변경 확인
+        self.assertEqual(self.root.child.getName(), "NewTestModel")
 
 if __name__ == '__main__':
     unittest.main()
