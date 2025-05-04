@@ -6,13 +6,13 @@ import csv
 from datetime import datetime
 
 # List of Atomic Models
-from models.testP import testP
+from model_test.testP import testP
 
 # List of Coupled Models 
-from models.testEF_P import testEF_P
-from test.models.EF import testEF
-from models.testACLUSTERS import testACLUSTERS
-from test.models.SENSORS import testSENSORS
+from model_test.testEF_P import testEF_P
+from model_test.testEF import testEF
+from model_test.testACLUSTERS import testACLUSTERS
+from model_test.testSENSORS import testSENSORS
 
 def format_monitoring_data(start_time, test_result, model_name):
     """실행 결과를 CSV 형식의 문자열로 반환"""
@@ -135,20 +135,15 @@ def save_results_to_csv(results, filename="test_results.csv"):
         writer.writerows(results)
 
 if __name__ == '__main__':
-    print("\n=== 테스트 결과 (CSV 형식) ===")
-    print("테스트를 20회 실행합니다.")
+    print("\n=== 테스트 실행 ===")
     print("-" * 50)
     
-    # 20회 테스트 실행
-    results = run_multiple_tests()
+    # 테스트 스위트 생성
+    all_tests = unittest.TestSuite()
+    all_tests.addTest(unittest.TestLoader().loadTestsFromTestCase(testEF_P))
+    all_tests.addTest(unittest.TestLoader().loadTestsFromTestCase(testEF))
+    all_tests.addTest(unittest.TestLoader().loadTestsFromTestCase(testACLUSTERS))
+    all_tests.addTest(unittest.TestLoader().loadTestsFromTestCase(testSENSORS))
     
-    # 결과를 화면에 출력
-    headers = "순서,타임스탬프,메모리(MB),CPU(%),CPU코어수,실행시간(초),테스트결과"
-    print("\n" + headers)
-    for result in results:
-        print(",".join([result[field] for field in headers.split(",")]))
-    
-    # 결과를 CSV 파일로 저장
-    save_results_to_csv(results)
-    print("\n테스트 결과가 test_results.csv 파일로 저장되었습니다.")
-    print("-" * 50)
+    # 테스트 실행
+    result = unittest.TextTestRunner(verbosity=2).run(all_tests)

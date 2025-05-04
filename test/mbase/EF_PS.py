@@ -1,14 +1,11 @@
 import sys
-
-from projects.simparc.config import setDevPath
-setDevPath()
+import config
 
 # from pypreprocessor import pypreprocessor
 # pypreprocessor.parse()
 
 from src.COUPLED_MODELS import COUPLED_MODELS
-
-from .P import P
+from .PS import PS
 from .EF import EF
 
 class EF_P(COUPLED_MODELS):
@@ -17,12 +14,12 @@ class EF_P(COUPLED_MODELS):
         self.setName(self.__class__.__name__)
 
         ef = EF()
-        p = P()        
+        ps = PS()
         
         self.addModel(ef)
-        self.addModel(p)
+        self.addModel(ps)
 
-        self.addCoupling(ef, "out", p, "in")
-        self.addCoupling(p, "out", ef, "in")
+        self.addCoupling(ef, "out", ps, "in")
+        self.addCoupling(ps, "out", ef, "in")
         
         # self.priority_list.extend([ef, p])

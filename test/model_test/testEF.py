@@ -11,12 +11,11 @@ from config import setup_paths
 setup_paths()
 
 from src.COUPLED_MODELS import COUPLED_MODELS
-from models.testGENR import testGENR
-from test.model_test.testTRANSD import testTRANSD
+from mbase.EF import EF
 
 class testEF(unittest.TestCase):
     def setUp(self):
-        self.ef = testEF()
+        self.ef = EF()
     
     def testAddModels(self):
         object_list = self.ef.getModels()
@@ -25,16 +24,19 @@ class testEF(unittest.TestCase):
         for model in object_list:
             model_list.append(model.__class__.__name__)
 
-        assert model_list == ['testGENR', 'testTRANSD']
+        assert model_list == ['GENR', 'TRANSD']
     
     def testAddInteralCoupling(self):
         coupling_list = self.ef.internal_coupling
-        assert coupling_list.coupling_dic == {'testTRANSD.out': ['testGENR.stop'], 'testGENR.out': ['testTRANSD.arrived']}
+        assert coupling_list.coupling_dic == {'TRANSD.out': ['GENR.stop'], 'GENR.out': ['TRANSD.arrived']}
         
     def testAddExternalInputCoupling(self):
         coupling_list = self.ef.external_input_coupling
-        assert coupling_list.coupling_dic == {'EF.in': ['testTRANSD.solved']}
+        assert coupling_list.coupling_dic == {'EF.in': ['TRANSD.solved']}
         
     def testAddExternalOutputCoupling(self):
         coupling_list = self.ef.external_output_coupling
-        assert coupling_list.coupling_dic == {'testGENR.out': ['EF.out'], 'testTRANSD.out': ['EF.result']}
+        assert coupling_list.coupling_dic == {'GENR.out': ['EF.out'], 'TRANSD.out': ['EF.result']}
+
+if __name__ == '__main__':
+    unittest.main()
