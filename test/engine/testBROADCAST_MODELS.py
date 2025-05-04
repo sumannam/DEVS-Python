@@ -3,6 +3,7 @@ import sys
 import unittest
 import logging
 from pathlib import Path
+import math
 
 # Add test directory to sys.path to access config.py
 test_dir = Path(__file__).parent.parent
@@ -14,15 +15,13 @@ setup_paths()
 from src.log import logInfoCoordinator, logInfoSimulator, logDebugCoordinator, logDebugSimulator, setLogLevel
 from src.MODELS import MODELS
 from src.PORT import PORT
-from src.MESSAGE import MESSAGE
+from src.MESSAGE import MESSAGE, MESSAGE_TYPE
 from src.CONTENT import CONTENT
 from src.COUPLING import *
 from src.BROADCAST_MODELS import BROADCAST_MODELS
 
 from src.SIMULATORS import SIMULATORS
 from src.CO_ORDINATORS import CO_ORDINATORS
-
-print(sys.path)
 
 # Import models from test_models folder
 from mbase.EF_P import EF_P
@@ -53,13 +52,7 @@ class TestBroadcastModels(unittest.TestCase):
         # Create components
         self.ef_p = EF_P()
         self.ef = EF()
-        self.ps = PS()
-        
-        
-        self.bp1 = BP("BP1")
-        self.bp2 = BP("BP2")
-        self.bp3 = BP("BP3")
-        
+        self.ps = PS()        
         
     def test_init(self):
         """생성자 테스트"""
@@ -98,17 +91,116 @@ class TestBroadcastModels(unittest.TestCase):
         self.assertEqual(len(controllee_list), 2)
         self.assertEqual(controllee_list[0].getName(), "TestChildModel1")
         self.assertEqual(controllee_list[1].getName(), "TestChildModel2")
+
+    def test_ps_model(self):
+        """PS 모델 테스트"""
+        # PS 모델 생성
+        ps = PS()
         
-    def test_broadcast_model(self):
-        pass
-        # Run simulation
-        #self.ef_p.simulate(20)
+        # BP 컨트롤리 생성 확인
+        bp_list = ps.getControlleeList()
+        self.assertEqual(len(bp_list), 3)
+        self.assertEqual(bp_list[0].getName(), "BP1")
+        self.assertEqual(bp_list[1].getName(), "BP2")
+        self.assertEqual(bp_list[2].getName(), "BP3")
         
-        # Verify results
-        #self.assertEqual(self.transd.getTotal(), 3)  # Should receive 3 messages
-        #self.assertEqual(self.bp1.getTotal(), 1)     # Each BP should receive 1 message
-        #self.assertEqual(self.bp2.getTotal(), 1)
-        #self.assertEqual(self.bp3.getTotal(), 1)
+        # 포트 확인
+        in_port = PORT()
+        in_port.setName("in")
+        out_port = PORT()
+        out_port.setName("out")
+        
+        # 커플링 확인 (COUPLED_MODELS 메소드 사용)
+        # EIC (External Input Coupling) 확인
+        self.assertTrue(ps.external_input_coupling.find("PS.in"))
+        # EOC (External Output Coupling) 확인
+        self.assertTrue(ps.external_output_coupling.find("BP1.out"))
+        
+        # 자식 모델 존재 확인
+        self.assertTrue(ps.existChildModel(bp_list))
+        
+        # 우선순위 리스트 확인
+        priority_list = ps.getPrioriryModelNameList()
+        self.assertEqual(len(priority_list), 3)
+        self.assertEqual(priority_list[0], "BP1")
+        self.assertEqual(priority_list[1], "BP2")
+        self.assertEqual(priority_list[2], "BP3")
+        
+        # 커플링 목적지 확인
+        # @todo       BROADCAST_MODELS에서 dest_coupling = ps.getDestinationCoupling(ps, "in") 실행할 때 오류 발생 --> 'BP1.inBP2.inBP3.in' 형식으로 반환됨
+        # dest_coupling = ps.getDestinationCoupling(ps, "in")
+        # self.assertTrue(any("BP.in" in coupling for coupling in dest_coupling))
+        
+        # dest_coupling = ps.getDestinationCoupling(bp_list, "out")
+        # self.assertTrue(any("PS.out" in coupling for coupling in dest_coupling))
+
+    def test_bp_model(self):
+        """BP 모델 테스트"""
+        # BP 모델 생성
+        bp = BP("BP1")
+        
+        # 포트 확인
+        # 입력 포트 확인
+        self.assertTrue("in" in bp.inport_list)
+        # 출력 포트 확인
+        self.assertTrue("out" in bp.outport_list)
+        self.assertTrue("unsolved" in bp.outport_list)
+        
+        # 초기 상태 확인
+        self.assertEqual(bp.state["phase"], "passive")
+        self.assertEqual(bp.state["sigma"], math.inf)
+        self.assertEqual(bp.state["job-id"], "")
+        self.assertEqual(bp.state["processing_time"], 10)
+        
+        # 메시지 처리 테스트
+        input_message = MESSAGE()
+        input_message.setExt(MESSAGE_TYPE.EXT, bp, 0)
+        
+        content = CONTENT()
+        content.setContent("in", "JOB-1")
+        input_message.addContent(content)
+        
+        # 외부 전이 테스트
+        bp.externalTransitionFunc(0, content)
+        self.assertEqual(bp.state["phase"], "busy")
+        self.assertEqual(bp.state["job-id"], "JOB-1")
+        self.assertEqual(bp.state["sigma"], 10)
+        
+        # 출력 함수 테스트
+        output_content = bp.outputFunc()
+        self.assertEqual(output_content.getValue(), "JOB-1")
+        
+        # 내부 전이 테스트
+        bp.internalTransitionFunc()
+        self.assertEqual(bp.state["phase"], "passive")
+        self.assertEqual(bp.state["sigma"], math.inf)
+
+    def test_bp2_special_case(self):
+        """BP2 모델의 특수 케이스 테스트"""
+        # BP2 모델 생성
+        bp2 = BP("BP2")
+        
+        # 포트 확인
+        self.assertTrue("in" in bp2.inport_list)
+        self.assertTrue("out" in bp2.outport_list)
+        self.assertTrue("unsolved" in bp2.outport_list)
+        
+        # 메시지 처리 테스트
+        input_message = MESSAGE()
+        input_message.setExt(MESSAGE_TYPE.EXT, bp2, 0)
+        
+        content = CONTENT()
+        content.setContent("in", "JOB-1")
+        input_message.addContent(content)
+        
+        # 외부 전이 테스트
+        bp2.externalTransitionFunc(0, content)
+        self.assertEqual(bp2.state["phase"], "busy")
+        self.assertEqual(bp2.state["job-id"], "JOB-1")
+        
+        # 출력 함수 테스트 (BP2는 항상 out 포트로 출력)
+        output_content = bp2.outputFunc()
+        self.assertEqual(output_content.getValue(), "JOB-1")
 
 if __name__ == '__main__':
     unittest.main()
