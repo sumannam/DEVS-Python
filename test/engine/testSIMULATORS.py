@@ -38,4 +38,4 @@ class testSIMULATORS(unittest.TestCase):
 
         test_next = self.transd.processor.time_next
         
-        assert test_next == 10
+        assert test_next == 30

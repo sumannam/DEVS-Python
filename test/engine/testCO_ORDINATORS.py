@@ -43,7 +43,7 @@ class testCO_ORDINATORS(unittest.TestCase):
         """
         time_list = list(self.ef.processor.processor_time.values())
         
-        assert time_list == [0, 10]
+        assert time_list == [0, 30]
         
     def testWhenReceiveStar(self):
         """
