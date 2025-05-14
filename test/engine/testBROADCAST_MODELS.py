@@ -76,16 +76,20 @@ class TestBroadcastModels(unittest.TestCase):
     #     controllee1 = self.broadcast_model.controllee_list[0]
     #     controllee2 = self.broadcast_model.controllee_list[1]
         
-    #     # 내부 커플링 mock 생성 및 설정
-    #     self.broadcast_model.internal_coupling = MagicMock()
-        
     #     # 내부 커플링 추가
     #     self.broadcast_model.addCoupling(controllee1, controllee1.out_port1, controllee2, controllee2.in_port1)
         
-    #     # 검증
-    #     self.broadcast_model.internal_coupling.addCoupling.assert_called_with(
-    #         controllee1, controllee1.out_port1, controllee1, controllee1.in_port1
-    #     )
+    #     # 검증: translate 메서드를 사용하여 커플링이 올바르게 추가되었는지 확인
+    #     result = self.broadcast_model.translate(COUPLING_TYPE.IC, controllee1, controllee1.out_port1)
+    #     self.assertTrue(len(result) > 0, "커플링 결과가 비어 있습니다")
+        
+    #     # 모든 컨트롤리에 대한 커플링이 올바르게 생성되었는지 확인
+    #     found_coupling = False
+    #     for model_port in result:
+    #         if model_port[0] == controllee2 and model_port[1] == controllee2.in_port1:
+    #             found_coupling = True
+    #             break
+    #     self.assertTrue(found_coupling, "적절한 내부 커플링을 찾지 못했습니다")
         
     # def test_add_coupling_external_output(self):
     #     """외부 출력 커플링(EOC) 추가 테스트"""
@@ -98,16 +102,20 @@ class TestBroadcastModels(unittest.TestCase):
     #     external_port = PORT("ext_port")
     #     external_model.addInPort(external_port)
         
-    #     # 외부 출력 커플링 mock 생성 및 설정
-    #     self.broadcast_model.external_output_coupling = MagicMock()
-        
     #     # 외부 출력 커플링 추가
     #     self.broadcast_model.addCoupling(controllee, controllee.out_port1, external_model, external_port)
         
-    #     # 검증
-    #     self.broadcast_model.external_output_coupling.addCoupling.assert_called_with(
-    #         controllee, controllee.out_port1, external_model, external_port
-    #     )
+    #     # 검증: translate 메서드를 사용하여 커플링이 올바르게 추가되었는지 확인
+    #     result = self.broadcast_model.translate(COUPLING_TYPE.EOC, controllee, controllee.out_port1)
+    #     self.assertTrue(len(result) > 0, "커플링 결과가 비어 있습니다")
+        
+    #     # 외부 모델에 대한 커플링이 올바르게 생성되었는지 확인
+    #     found_coupling = False
+    #     for model_port in result:
+    #         if model_port[0] == external_model and model_port[1] == external_port:
+    #             found_coupling = True
+    #             break
+    #     self.assertTrue(found_coupling, "적절한 외부 출력 커플링을 찾지 못했습니다")
         
     # def test_add_coupling_external_input(self):
     #     """외부 입력 커플링(EIC) 추가 테스트"""
@@ -120,16 +128,20 @@ class TestBroadcastModels(unittest.TestCase):
     #     external_port = PORT("ext_port")
     #     external_model.addOutPort(external_port)
         
-    #     # 외부 입력 커플링 mock 생성 및 설정
-    #     self.broadcast_model.external_input_coupling = MagicMock()
-        
     #     # 외부 입력 커플링 추가
     #     self.broadcast_model.addCoupling(external_model, external_port, controllee, controllee.in_port1)
         
-    #     # 검증
-    #     self.broadcast_model.external_input_coupling.addCoupling.assert_called_with(
-    #         external_model, external_port, controllee, controllee.in_port1
-    #     )
+    #     # 검증: translate 메서드를 사용하여 커플링이 올바르게 추가되었는지 확인
+    #     result = self.broadcast_model.translate(COUPLING_TYPE.EIC, external_model, external_port)
+    #     self.assertTrue(len(result) > 0, "커플링 결과가 비어 있습니다")
+        
+    #     # 모든 컨트롤리에 대한 커플링이 올바르게 생성되었는지 확인
+    #     found_coupling = False
+    #     for model_port in result:
+    #         if model_port[0] == controllee and model_port[1] == controllee.in_port1:
+    #             found_coupling = True
+    #             break
+    #     self.assertTrue(found_coupling, "적절한 외부 입력 커플링을 찾지 못했습니다")
         
     # def test_add_coupling_error(self):
     #     """커플링 추가 오류 케이스 테스트"""
@@ -148,87 +160,63 @@ class TestBroadcastModels(unittest.TestCase):
     #         # 오류 메시지 검증
     #         mock_print.assert_called_once()
             
-    # def test_translate_external_output_coupling(self):
-    #     """External Output Coupling 번역 테스트"""
+    # def test_translate_with_couplings(self):
+    #     """커플링이 있는 경우의 translate 메서드 테스트"""
+    #     # 컨트롤리 생성
+    #     self.broadcast_model.makeControllee(TestChildModel, 2)
+    #     controllee1 = self.broadcast_model.controllee_list[0]
+    #     controllee2 = self.broadcast_model.controllee_list[1]
+        
+    #     # 커플링 추가
+    #     self.broadcast_model.addCoupling(controllee1, controllee1.out_port1, controllee2, controllee2.in_port1)
+        
+    #     # 외부 모델 생성 및 커플링 추가
+    #     external_model = MODELS("ExternalModel")
+    #     external_in_port = PORT("ext_in_port")
+    #     external_out_port = PORT("ext_out_port")
+    #     external_model.addInPort(external_in_port)
+    #     external_model.addOutPort(external_out_port)
+        
+    #     # EOC 커플링 추가
+    #     self.broadcast_model.addCoupling(controllee1, controllee1.out_port2, external_model, external_in_port)
+        
+    #     # EIC 커플링 추가
+    #     self.broadcast_model.addCoupling(external_model, external_out_port, controllee2, controllee2.in_port2)
+        
+    #     # 내부 커플링 테스트
+    #     ic_result = self.broadcast_model.translate(COUPLING_TYPE.IC, controllee1, controllee1.out_port1)
+    #     self.assertTrue(len(ic_result) > 0)
+        
+    #     # 외부 출력 커플링 테스트
+    #     eoc_result = self.broadcast_model.translate(COUPLING_TYPE.EOC, controllee1, controllee1.out_port2)
+    #     self.assertTrue(len(eoc_result) > 0)
+        
+    #     # 외부 입력 커플링 테스트
+    #     eic_result = self.broadcast_model.translate(COUPLING_TYPE.EIC, external_model, external_out_port)
+    #     self.assertTrue(len(eic_result) > 0)
+        
+    # def test_translate_without_couplings(self):
+    #     """커플링이 없는 경우의 translate 메서드 테스트"""
     #     # 컨트롤리 생성
     #     self.broadcast_model.makeControllee(TestChildModel, 1)
     #     controllee = self.broadcast_model.controllee_list[0]
         
-    #     # 테스트용 모델-포트 쌍 생성
-    #     test_pairs = [("model1", "port1"), ("model2", "port2")]
+    #     # 커플링 없이 호출 - 빈 리스트 반환 예상
+    #     out_port1 = PORT("out_port1")
+    #     ic_result = self.broadcast_model.translate(COUPLING_TYPE.IC, controllee, out_port1)
+    #     self.assertEqual(ic_result, [])
         
-    #     # Mocking
-    #     self.broadcast_model.external_output_coupling = MagicMock()
-    #     self.broadcast_model.external_output_coupling.get.return_value = test_pairs
+    #     eoc_result = self.broadcast_model.translate(COUPLING_TYPE.EOC, controllee, out_port1)
+    #     self.assertEqual(eoc_result, [])
         
-    #     # 번역 실행
-    #     result = self.broadcast_model.translate(COUPLING_TYPE.EOC, controllee, controllee.out_port1)
+    #     # 외부 모델 생성
+    #     external_model = MODELS("ExternalModel")
+    #     external_port = PORT("ext_port")
+    #     external_model.addOutPort(external_port)
         
-    #     # 검증
-    #     self.assertEqual(result, test_pairs)
-    #     self.broadcast_model.external_output_coupling.get.assert_called_with(
-    #         f"{controllee.getName()}.{controllee.out_port1}"
-    #     )
-        
-    # def test_translate_internal_coupling(self):
-    #     """Internal Coupling 번역 테스트"""
-    #     # 컨트롤리 생성
-    #     self.broadcast_model.makeControllee(TestChildModel, 1)
-    #     controllee = self.broadcast_model.controllee_list[0]
-        
-    #     # 테스트용 모델-포트 쌍 생성
-    #     test_pairs = [("model1", "port1"), ("model2", "port2")]
-        
-    #     # Mocking
-    #     self.broadcast_model.internal_coupling = MagicMock()
-    #     self.broadcast_model.internal_coupling.get.return_value = test_pairs
-        
-    #     # 번역 실행
-    #     result = self.broadcast_model.translate(COUPLING_TYPE.IC, controllee, controllee.out_port1)
-        
-    #     # 검증
-    #     self.assertEqual(result, test_pairs)
-    #     self.broadcast_model.internal_coupling.get.assert_called_with(
-    #         f"{controllee.getName()}.{controllee.out_port1}"
-    #     )
-        
-    # def test_translate_external_input_coupling(self):
-    #     """External Input Coupling 번역 테스트"""
-    #     # 컨트롤리 생성
-    #     self.broadcast_model.makeControllee(TestChildModel, 1)
-    #     controllee = self.broadcast_model.controllee_list[0]
-        
-    #     # 테스트용 모델-포트 쌍 생성
-    #     test_pairs = [("model1", "port1"), ("model2", "port2")]
-        
-    #     # Mocking
-    #     self.broadcast_model.external_input_coupling = MagicMock()
-    #     self.broadcast_model.external_input_coupling.get.return_value = test_pairs
-        
-    #     # 번역 실행
-    #     result = self.broadcast_model.translate(COUPLING_TYPE.EIC, controllee, controllee.in_port1)
-        
-    #     # 검증
-    #     self.assertEqual(result, test_pairs)
-    #     self.broadcast_model.external_input_coupling.get.assert_called_with(
-    #         f"{controllee.getName()}.{controllee.in_port1}"
-    #     )
-        
-    # def test_translate_none_result(self):
-    #     """translate 메서드에서 None 결과 처리 테스트"""
-    #     # 컨트롤리 생성
-    #     self.broadcast_model.makeControllee(TestChildModel, 1)
-    #     controllee = self.broadcast_model.controllee_list[0]
-        
-    #     # Mocking - None 반환하는 경우
-    #     self.broadcast_model.internal_coupling = MagicMock()
-    #     self.broadcast_model.internal_coupling.get.return_value = None
-        
-    #     # 번역 실행
-    #     result = self.broadcast_model.translate(COUPLING_TYPE.IC, controllee, controllee.out_port1)
-        
-    #     # 검증 - 빈 리스트 반환
-    #     self.assertEqual(result, [])
+    #     eic_result = self.broadcast_model.translate(COUPLING_TYPE.EIC, external_model, external_port)
+    #     self.assertEqual(eic_result, [])
+
         
         
 if __name__ == '__main__':
