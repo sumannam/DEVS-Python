@@ -13,17 +13,14 @@ class TRANSD(ATOMIC_MODELS):
         self.addInPorts("solved", "arrived")
         self.addOutPorts("out")
 
-        self.observation_interval = 50
+        self.observation_interval = 30
         
         self.state["sigma"]=self.observation_interval
         self.state["phase"]="active"
-        self.addState("arrived_list", [])
-        self.addState("solved_list", [])
+        self.addState("arrived_list", {})
+        self.addState("solved_list", {})
         self.addState("clock", 0.0)
-        self.addState("total_ta", 0.0) # total turnaround time
-
-        self.arrived_dic={}
-        self.solved_dic={}
+        self.addState("total_ta", 0.0)
 
     def externalTransitionFunc(self, e, x):
         clock = self.state["clock"]
@@ -31,18 +28,17 @@ class TRANSD(ATOMIC_MODELS):
         time = clock
 
         if x.port == "arrived":
-            self.arrived_dic[x.value]=time
+            self.state["arrived_list"][x.value] = time
         if x.port == "solved":
-            turn_around_time = time - self.arrived_dic[x.value]
-            
-            # Update total turn-around time and solved list
-            total_ta = self.state["total_ta"]
-            total_ta += turn_around_time
-            self.state["total_ta"] = total_ta
-            
-            self.solved_dic[x.value]=time
-        
-        self.Continue(e)
+            prob_arrival_time = self.get_arrival_time(x.value)
+            turn_around_time = time - prob_arrival_time
+
+            if(prob_arrival_time >= 0):
+                self.state["total_ta"] = self.state["total_ta"] + turn_around_time
+                self.state["solved_list"][x.value] = time                
+
+        else:
+            self.Continue(e)
 
     def internalTransitionFunc(self):
         if self.state["phase"] == "active":
@@ -59,18 +55,25 @@ class TRANSD(ATOMIC_MODELS):
         time = self.state["clock"]
 
         if self.state["phase"] == "active":
-            if(len(self.solved_dic)!=0):
-                total_ta_time = self.state["total_ta"]
-                avg_ta_time = total_ta_time / len(self.solved_dic)
+            if(len(self.state["solved_list"])!=0):
+                avg_ta_time = self.state["total_ta"] / len(self.state["solved_list"])
 
             if(time!=0):
-                throughput = (len(self.solved_dic)-1) / (time-avg_ta_time)
+                throughput = (len(self.state["solved_list"])-1) / (time-avg_ta_time)
             
-            print(avg_ta_time)
-            print(throughput)
+            print("avg_ta_time", avg_ta_time)
+            print("throughput", throughput)
 
             value = avg_ta_time
 
             content.setContent("out", value)
 
             return content
+        
+    def get_arrival_time(self, job_id):
+        arrival_time = self.state["arrived_list"][job_id]
+
+        if(arrival_time >= 0):
+            return arrival_time
+        else:
+            return -1

@@ -30,8 +30,11 @@ class BP(ATOMIC_MODELS):
     def outputFunc(self):
         content = CONTENT()
         
-        # 모델 이름이 bp2이면 무조건 나가기
-        if self.model_name == "BP2":
+        print("self.model_name", self.model_name)
+        print("self.state['job-id']", self.state["job-id"])
+
+        
+        if self.model_name == "BP3":
             content.setContent("out", self.state["job-id"])
         elif self.state["phase"] == "busy":
             content.setContent("unsolved", self.state["job-id"])

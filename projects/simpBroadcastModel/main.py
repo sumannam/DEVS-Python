@@ -1,9 +1,9 @@
 import config
 
 # 시뮬레이션
-from projects.simpBroadcastModel.coupbase.EF_P import EF_P
+from projects.simpBroadcastModel.coupbase.EF_PS import EF_PS
 
 if __name__ == '__main__':
-    ef_p = EF_P()
+    ef_p = EF_PS()
     ef_p.initialize() 
     ef_p.restart()
