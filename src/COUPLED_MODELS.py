@@ -221,7 +221,7 @@ class COUPLED_MODELS(MODELS):
         @author     남수만(sumannam@gmail.com)
         @date       2024.04.15
 
-        @todo       
+        @todo       BROADCAST_MODELS에서 dest_coupling = ps.getDestinationCoupling(ps, "in") 실행할 때 오류 발생 --> 'BP1.inBP2.inBP3.in' 형식으로 반환됨
         """
         model_port_name = self.getModelPortName(src_model, port)        
         model_port_list = []

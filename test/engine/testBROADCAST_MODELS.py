@@ -1,20 +1,35 @@
-import os
+﻿import os
 import sys
 import unittest
-import shutil
-import filecmp
+import logging
+from pathlib import Path
+import math
 
+# Add test directory to sys.path to access config.py
+test_dir = Path(__file__).parent.parent
+sys.path.append(str(test_dir))
 
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-import config
+from config import setup_paths
+setup_paths()
 
-import src.util as util
+from src.log import logInfoCoordinator, logInfoSimulator, logDebugCoordinator, logDebugSimulator, setLogLevel
 from src.MODELS import MODELS
 from src.PORT import PORT
-from src.MESSAGE import MESSAGE
+from src.MESSAGE import MESSAGE, MESSAGE_TYPE
 from src.CONTENT import CONTENT
 from src.COUPLING import *
 from src.BROADCAST_MODELS import BROADCAST_MODELS
+
+from src.SIMULATORS import SIMULATORS
+from src.CO_ORDINATORS import CO_ORDINATORS
+
+# Import models from test_models folder
+from mbase.EF_P import EF_P
+from mbase.EF import EF
+from mbase.PS import PS
+from mbase.GENR import GENR
+from mbase.TRANSD import TRANSD
+from mbase.BP import BP
 
 class TestChildModel(MODELS):
     """Test child model class for testing BROADCAST_MODELS"""
@@ -25,11 +40,18 @@ class TestChildModel(MODELS):
         self.addInPorts("in_port1", "in_port2")
         self.addOutPorts("out_port2", "out_port2")
 
-class TestBroadcastModels(unittest.TestCase):
-    
+class testBroadcastModels(unittest.TestCase):
     def setUp(self):
         """테스트 전 설정"""
         self.broadcast_model = BROADCAST_MODELS("TestBroadcast")
+        
+        # Set log level to DEBUG for detailed logging
+        setLogLevel(logging.DEBUG)
+        
+        # Create components
+        self.ef_p = EF_P()
+        self.ef = EF()
+        self.ps = PS()        
         
     def test_init(self):
         """생성자 테스트"""
@@ -68,17 +90,11 @@ class TestBroadcastModels(unittest.TestCase):
         self.assertEqual(len(controllee_list), 2)
         self.assertEqual(controllee_list[0].getName(), "TestChildModel1")
         self.assertEqual(controllee_list[1].getName(), "TestChildModel2")
-        
-    # def test_add_coupling_internal(self):
-    #     """내부 커플링(IC) 추가 테스트"""
-    #     # 컨트롤리 생성
-    #     self.broadcast_model.makeControllee(TestChildModel, 2)
-    #     controllee1 = self.broadcast_model.controllee_list[0]
-    #     controllee2 = self.broadcast_model.controllee_list[1]
-        
-    #     # 내부 커플링 추가
-    #     self.broadcast_model.addCoupling(controllee1, controllee1.out_port1, controllee2, controllee2.in_port1)
-        
+
+    def test_ps_model(self):
+        """PS 모델 테스트"""
+        # PS 모델 생성
+        ps = PS()
     #     # 검증: translate 메서드를 사용하여 커플링이 올바르게 추가되었는지 확인
     #     result = self.broadcast_model.translate(COUPLING_TYPE.IC, controllee1, controllee1.out_port1)
     #     self.assertTrue(len(result) > 0, "커플링 결과가 비어 있습니다")
@@ -90,21 +106,6 @@ class TestBroadcastModels(unittest.TestCase):
     #             found_coupling = True
     #             break
     #     self.assertTrue(found_coupling, "적절한 내부 커플링을 찾지 못했습니다")
-        
-    # def test_add_coupling_external_output(self):
-    #     """외부 출력 커플링(EOC) 추가 테스트"""
-    #     # 컨트롤리 생성
-    #     self.broadcast_model.makeControllee(TestChildModel, 2)
-    #     controllee = self.broadcast_model.controllee_list[0]
-        
-    #     # 외부 모델 생성
-    #     external_model = MODELS("ExternalModel")
-    #     external_port = PORT("ext_port")
-    #     external_model.addInPort(external_port)
-        
-    #     # 외부 출력 커플링 추가
-    #     self.broadcast_model.addCoupling(controllee, controllee.out_port1, external_model, external_port)
-        
     #     # 검증: translate 메서드를 사용하여 커플링이 올바르게 추가되었는지 확인
     #     result = self.broadcast_model.translate(COUPLING_TYPE.EOC, controllee, controllee.out_port1)
     #     self.assertTrue(len(result) > 0, "커플링 결과가 비어 있습니다")
@@ -116,21 +117,6 @@ class TestBroadcastModels(unittest.TestCase):
     #             found_coupling = True
     #             break
     #     self.assertTrue(found_coupling, "적절한 외부 출력 커플링을 찾지 못했습니다")
-        
-    # def test_add_coupling_external_input(self):
-    #     """외부 입력 커플링(EIC) 추가 테스트"""
-    #     # 컨트롤리 생성
-    #     self.broadcast_model.makeControllee(TestChildModel, 2)
-    #     controllee = self.broadcast_model.controllee_list[0]
-        
-    #     # 외부 모델 생성
-    #     external_model = MODELS("ExternalModel")
-    #     external_port = PORT("ext_port")
-    #     external_model.addOutPort(external_port)
-        
-    #     # 외부 입력 커플링 추가
-    #     self.broadcast_model.addCoupling(external_model, external_port, controllee, controllee.in_port1)
-        
     #     # 검증: translate 메서드를 사용하여 커플링이 올바르게 추가되었는지 확인
     #     result = self.broadcast_model.translate(COUPLING_TYPE.EIC, external_model, external_port)
     #     self.assertTrue(len(result) > 0, "커플링 결과가 비어 있습니다")
@@ -143,32 +129,29 @@ class TestBroadcastModels(unittest.TestCase):
     #             break
     #     self.assertTrue(found_coupling, "적절한 외부 입력 커플링을 찾지 못했습니다")
         
-    # def test_add_coupling_error(self):
-    #     """커플링 추가 오류 케이스 테스트"""
-    #     # 외부 모델 생성
-    #     external_model1 = MODELS("ExternalModel1")
-    #     external_port1 = PORT("ext_port1")
-    #     external_model1.addOutPort(external_port1)
+        # BP 컨트롤리 생성 확인
+        bp_list = ps.getControlleeList()
+        self.assertEqual(len(bp_list), 3)
+        self.assertEqual(bp_list[0].getName(), "BP1")
+        self.assertEqual(bp_list[1].getName(), "BP2")
+        self.assertEqual(bp_list[2].getName(), "BP3")
         
-    #     external_model2 = MODELS("ExternalModel2")
-    #     external_port2 = PORT("ext_port2")
-    #     external_model2.addInPort(external_port2)
-        
-    #     # 출력 리다이렉션 (print 문 캡처)
-    #     with patch('builtins.print') as mock_print:
-    #         self.broadcast_model.addCoupling(external_model1, external_port1, external_model2, external_port2)
-    #         # 오류 메시지 검증
-    #         mock_print.assert_called_once()
-            
     # def test_translate_with_couplings(self):
     #     """커플링이 있는 경우의 translate 메서드 테스트"""
-    #     # 컨트롤리 생성
+        in_port.setName("in")
     #     self.broadcast_model.makeControllee(TestChildModel, 2)
     #     controllee1 = self.broadcast_model.controllee_list[0]
     #     controllee2 = self.broadcast_model.controllee_list[1]
+        self.assertTrue(ps.external_input_coupling.find("PS.in"))
+        # EOC (External Output Coupling) 확인
+        self.assertTrue(ps.external_output_coupling.find("BP1.out"))
         
     #     # 커플링 추가
     #     self.broadcast_model.addCoupling(controllee1, controllee1.out_port1, controllee2, controllee2.in_port1)
+        self.assertEqual(len(priority_list), 3)
+        self.assertEqual(priority_list[0], "BP1")
+        self.assertEqual(priority_list[1], "BP2")
+        self.assertEqual(priority_list[2], "BP3")
         
     #     # 외부 모델 생성 및 커플링 추가
     #     external_model = MODELS("ExternalModel")
@@ -179,17 +162,24 @@ class TestBroadcastModels(unittest.TestCase):
         
     #     # EOC 커플링 추가
     #     self.broadcast_model.addCoupling(controllee1, controllee1.out_port2, external_model, external_in_port)
-        
+
     #     # EIC 커플링 추가
     #     self.broadcast_model.addCoupling(external_model, external_out_port, controllee2, controllee2.in_port2)
+        # BP 모델 생성
+        bp = BP("BP1")
         
     #     # 내부 커플링 테스트
     #     ic_result = self.broadcast_model.translate(COUPLING_TYPE.IC, controllee1, controllee1.out_port1)
     #     self.assertTrue(len(ic_result) > 0)
+        # 출력 포트 확인
+        self.assertTrue("out" in bp.outport_list)
+        self.assertTrue("unsolved" in bp.outport_list)
         
     #     # 외부 출력 커플링 테스트
     #     eoc_result = self.broadcast_model.translate(COUPLING_TYPE.EOC, controllee1, controllee1.out_port2)
     #     self.assertTrue(len(eoc_result) > 0)
+        self.assertEqual(bp.state["job-id"], "")
+        self.assertEqual(bp.state["processing_time"], 10)
         
     #     # 외부 입력 커플링 테스트
     #     eic_result = self.broadcast_model.translate(COUPLING_TYPE.EIC, external_model, external_out_port)
@@ -197,14 +187,15 @@ class TestBroadcastModels(unittest.TestCase):
         
     # def test_translate_without_couplings(self):
     #     """커플링이 없는 경우의 translate 메서드 테스트"""
-    #     # 컨트롤리 생성
-    #     self.broadcast_model.makeControllee(TestChildModel, 1)
-    #     controllee = self.broadcast_model.controllee_list[0]
+        input_message.addContent(content)
         
     #     # 커플링 없이 호출 - 빈 리스트 반환 예상
     #     out_port1 = PORT("out_port1")
     #     ic_result = self.broadcast_model.translate(COUPLING_TYPE.IC, controllee, out_port1)
     #     self.assertEqual(ic_result, [])
+        self.assertEqual(bp.state["sigma"], 10)
+        self.assertEqual(bp.state["phase"], "passive")
+        self.assertEqual(bp.state["sigma"], math.inf)
         
     #     eoc_result = self.broadcast_model.translate(COUPLING_TYPE.EOC, controllee, out_port1)
     #     self.assertEqual(eoc_result, [])
@@ -216,8 +207,14 @@ class TestBroadcastModels(unittest.TestCase):
         
     #     eic_result = self.broadcast_model.translate(COUPLING_TYPE.EIC, external_model, external_port)
     #     self.assertEqual(eic_result, [])
+        input_message.addContent(content)
 
+        self.assertEqual(bp2.state["phase"], "busy")
+        self.assertEqual(bp2.state["job-id"], "JOB-1")
         
-        
+        # 출력 함수 테스트 (BP2는 항상 out 포트로 출력)
+        output_content = bp2.outputFunc()
+        self.assertEqual(output_content.getValue(), "JOB-1")
+
 if __name__ == '__main__':
     unittest.main()

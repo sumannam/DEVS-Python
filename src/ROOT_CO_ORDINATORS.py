@@ -1,7 +1,7 @@
 from src.PROCESSORS import PROCESSORS
 from src.MESSAGE import *
 
-import src.util
+import src.log
 
 class ROOT_CO_ORDINATORS(PROCESSORS):
     def __init__(self):
@@ -54,14 +54,14 @@ class ROOT_CO_ORDINATORS(PROCESSORS):
         self.clock_base = self.child.getTimeOfNextEvent()
     
     def restart(self):
-        while( self.clock_base >= 0 and self.clock_base < src.util.INFINITY):
+        while( self.clock_base >= 0 and self.clock_base < src.log.INFINITY):
             # print("***********************************************************")
             star_msg = MESSAGE()
             star_msg.setRootStar(MESSAGE_TYPE.STAR, self.clock_base)
 
             self.child.whenReceiveStar(star_msg)
 
-            if( self.clock_base == src.util.INFINITY):
+            if( self.clock_base == src.log.INFINITY):
                 break
     
     def whenReceiveDone(self, input_message):

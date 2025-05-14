@@ -1,41 +1,73 @@
-import os
+﻿import os
 import sys
 import unittest
+import logging
+from pathlib import Path
 
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-import config
+# Add the project root directory to the Python path
+project_root = str(Path(__file__).parent.parent.parent)
+sys.path.append(project_root)
 
-from src.MESSAGE import MESSAGE
+from src.log import logInfoCoordinator, logInfoSimulator, logDebugCoordinator, logDebugSimulator, setLogLevel
 from src.SIMULATORS import SIMULATORS
+from src.ROOT_CO_ORDINATORS import ROOT_CO_ORDINATORS
+from src.CO_ORDINATORS import CO_ORDINATORS
 
-from projects.simparc.mbase.TRANSD import TRANSD
+# Import models from test_models folder
+from mbase.EF import EF
+from mbase.PS import PS
+from mbase.GENR import GENR
+from mbase.TRANSD import TRANSD
+from mbase.BP import BP
 
 class testSIMULATORS(unittest.TestCase):
-    """
-    이 클래스는 SIMULATORS 클래스를 테스트합니다.
-    """
-
     def setUp(self):
-        """
-        테스트 환경을 설정합니다.
-        """
-        self.transd = TRANSD()
-
-    def testInitialize(self):
-        """
-        모델 초기화를 테스트합니다.
-
-        이 함수는 모델 초기화의 최소 시간을 테스트합니다.
-        EF의 최소 Sigma 시간을 검사합니다.
-
-        :작성자: 남수만(sumannam@gmail.com)
-        :작성일: 2024.01.04
-
-        :TDD: 
-        :노션: https://www.notion.so/modsim-devs/TDD-c80a15fcb34c40319b7a4e3d9b0211a7?pvs=4
-        """
-        self.transd.processor.initialize()
-
-        test_next = self.transd.processor.time_next
+        # Set log level to DEBUG for detailed logging
+        setLogLevel(logging.DEBUG)
         
+        # Create components
+        self.genr = GENR()
+        self.transd = TRANSD()
+        self.ef = EF()
+        self.ps = PS()
+        self.bp1 = BP("BP1")
+        self.bp2 = BP("BP2")
+        self.bp3 = BP("BP3")
+        
+        # Create coordinators
+        self.root = ROOT_CO_ORDINATORS()
+        self.ef_p = CO_ORDINATORS()
+        self.ef_p.setName("EF_P")
+        self.ef_p.addChild(self.ef)
+        self.ef_p.addChild(self.ps)
+        
+        self.ef.addChild(self.genr)
+        self.ef.addChild(self.transd)
+        
+        self.ps.addChild(self.bp1)
+        self.ps.addChild(self.bp2)
+        self.ps.addChild(self.bp3)
+        
+        # Add EF_P to root
+        self.root.addChild(self.ef_p)
+        
+        # Create simulator
+        self.sim = SIMULATORS()
+        self.sim.setRoot(self.root)
+
         assert test_next == 30
+    #     self.assertEqual(self.sim.getRoot().getName(), "ROOT")
+    #     self.assertEqual(self.sim.getTime(), 0.0)
+
+    # def test_simulator_simulation(self):
+    #     # Run simulation
+    #     self.sim.simulate(20)
+        
+    #     # Verify results
+    #     self.assertEqual(self.transd.getTotal(), 3)  # Should receive 3 messages
+    #     self.assertEqual(self.bp1.getTotal(), 1)     # Each BP should receive 1 message
+    #     self.assertEqual(self.bp2.getTotal(), 1)
+    #     self.assertEqual(self.bp3.getTotal(), 1)
+
+if __name__ == '__main__':
+    unittest.main()

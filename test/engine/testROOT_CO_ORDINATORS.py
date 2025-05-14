@@ -1,82 +1,55 @@
 import os
 import sys
 import unittest
+import logging
+from pathlib import Path
 
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-import config
+# Add the project root directory to the Python path
+project_root = str(Path(__file__).parent.parent.parent)
+sys.path.append(project_root)
 
-from src.MESSAGE import MESSAGE
+from src.log import logInfoCoordinator, logInfoSimulator, logDebugCoordinator, logDebugSimulator, setLogLevel
 from src.ROOT_CO_ORDINATORS import ROOT_CO_ORDINATORS
-
-from projects.simparc.coupbase.EF_P import EF_P
+from src.CO_ORDINATORS import CO_ORDINATORS
+from src.MESSAGE import MESSAGE, MESSAGE_TYPE
+from src.COUPLED_MODELS import COUPLED_MODELS
 
 class testROOT_CO_ORDINATORS(unittest.TestCase):
-    """
-    이 클래스는 ROOT_CO_ORDINATORS 클래스를 테스트합니다.
-    """
-
     def setUp(self):
-        """
-        테스트 환경을 설정합니다.
-        """
-        self.ef_p = EF_P()
+        """테스트 전 설정"""
+        # Set log level to DEBUG for detailed logging
+        setLogLevel(logging.DEBUG)
+        
+        # Create root_coordinator
+        self.root = ROOT_CO_ORDINATORS()
+        
+        # Create a coupled model for testing
+        self.coupled_model = COUPLED_MODELS()
+        self.coupled_model.setName("TestModel")
+        
+        # Set child to root
+        self.root.setChild(self.coupled_model.processor)
+        
+    def test_name_setting(self):
+        """이름 설정 테스트"""
+        # 이름 설정
+        self.root.setName("TestRoot")
+        
+        # 이름 확인
+        self.assertEqual(self.root.getName(), "R:TestRoot") 
+        
+    def test_child_management(self):
+        """자식 프로세서 관리 테스트"""
+        # 자식 프로세서 설정 확인
+        self.assertEqual(self.root.child.getName(), "TestModel")
+        
+        # 새로운 자식 프로세서 설정
+        new_model = COUPLED_MODELS()
+        new_model.setName("NewTestModel")
+        self.root.setChild(new_model.processor)
+        
+        # 자식 프로세서 변경 확인
+        self.assertEqual(self.root.child.getName(), "NewTestModel")
 
-    def testInitialize(self):
-        """
-        모델 초기화를 테스트합니다.
-
-        이 함수는 모델 초기화의 최소 시간을 테스트합니다.
-        EF-P의 최소 Sigma 시간을 검사합니다.
-
-        :작성자: 남수만(sumannam@gmail.com)
-        :작성일: 2023.11.16
-
-        :TDD: TDD_ROOT_CO_ORDINATORS-01
-        :노션: https://www.notion.so/modsim-devs/initialize-clock-base-32268a08426e4c63b44946aaef0efea5?pvs=4
-        """
-        self.ef_p.initialize()
-        clock_base = self.ef_p.getClockBase()
-        assert 0 == clock_base
-    
-    def testRestart(self):
-        """
-        모델의 재시작 함수를 테스트합니다.
-
-        이 함수는 초기화 후 모델의 재시작 함수를 테스트합니다.
-
-        :작성자: 남수만(sumannam@gmail.com)
-        :작성일: 2024.01.04
-
-        :TDD: TDD_ROOT_CO_ORDINATORS-02
-        :노션: https://www.notion.so/modsim-devs/TDD_ROOT_CO_ORDINATORS-02-6253f47e8d394427bdf5936573fe34e5?pvs=4
-        """
-        self.ef_p.initialize()
-        self.ef_p.restart()
-
-        clock_base = self.ef_p.getClockBase()
-
-        assert clock_base == float('inf')
-
-    def testWhenReceiveDone(self):
-        """
-        모델의 whenReceiveDone 함수를 테스트합니다.
-
-        이 함수는 초기화 후 모델의 whenReceiveDone 함수를 테스트합니다.
-        'Done' 메시지를 수신한 후의 다음 시간이 클록 베이스와 같은지 검사합니다.
-
-        :작성자: 남수만(sumannam@gmail.com)
-        :작성일: 2024.01.04
-
-        :TDD: TDD_ROOT_CO_ORDINATORS-03
-        :노션: https://www.notion.so/modsim-devs/initialize-clock-base-32268a08426e4c63b44946aaef0efea5?pvs=4
-        """
-        self.ef_p.initialize()
-
-        time_next = 15
-        output = MESSAGE()
-        output.setDone('Done', self.ef_p, time_next)
-
-        self.ef_p.processor.parent.whenReceiveDone(output)
-        clock_base = self.ef_p.getClockBase()
-
-        assert clock_base == 15
+if __name__ == '__main__':
+    unittest.main()

@@ -1,17 +1,17 @@
-import time
+﻿import time
 import os
 import unittest
 
 # List of Atomic Models
-from models.testP import testP
+from model_test.testP import testP
 from models.testTRANSD import testTRANSD
 from models.testGENR import testGENR
 
 # List of Coupled Models 
-from models.testEF_P import testEF_P
-from models.testEF import testEF
-from models.testACLUSTERS import testACLUSTERS
-from models.testSENSORS import testSENSORS
+from model_test.testEF_P import testEF_P
+from model_test.testEF import testEF
+from model_test.testACLUSTERS import testACLUSTERS
+from model_test.testSENSORS import testSENSORS
 
 def run_test():
    """5개 모델을 포함한 테스트 실행 및 결과 수집"""
