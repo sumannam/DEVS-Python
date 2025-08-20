@@ -5,7 +5,7 @@ from src.ROOT_CO_ORDINATORS import ROOT_CO_ORDINATORS
 from src.MESSAGE import *
 from src.CONTENT import CONTENT
 
-from src.util import *
+from src.log import *
 
 class SIMULATORS(PROCESSORS):
     def __init__(self):

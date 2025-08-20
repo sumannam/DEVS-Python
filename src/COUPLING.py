@@ -48,14 +48,17 @@ class COUPLING():
         @author     남수만(sumannam@gmail.com)
         @date       2021.10.15        
 
-        @remark     중복 키 허용을 위해 value를 list로 변경[남수만; 2021.12.27]
+        @chagelog   key와 value 저장을 위해 기존 'model.__class_name__에서 'from_model.getName()'으로 변경
+                        커널 모델에서 클래스명으로 지정할 경우, controllee의 번호가 생기지 않는 문제 발생[남수만; 2021.12.13]
+                        ref: https://github.com/sumannam/DEVS-Python/issues/55
+                    중복 키 허용을 위해 value를 list로 변경[남수만; 2021.12.27]
                     모델의 인스턴스로 바로 저장하고 사용하기가 어려워 커플링 정보를 문자열로 변경하여 저장 [남수만; 2021.10.26]
 
         @todo       [취소] map를 dictionary로 변경하고 key 중복 허용(https://kangprog.tistory.com/27) [남수만; 2021.10.25]
         """
 
-        src_key = from_model.__class__.__name__ + "." + from_port
-        dst_value = to_model.__class__.__name__ + "." + to_port
+        src_key = from_model.getName() + "." + from_port
+        dst_value = to_model.getName() + "." + to_port
         
         self.addDictionaryValue(src_key, dst_value)
 

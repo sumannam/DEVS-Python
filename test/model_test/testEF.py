@@ -2,10 +2,16 @@ import sys
 import os
 import unittest
 
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-import config
+# Add test directory to sys.path
+test_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(test_dir)
 
-from projects.simparc.coupbase.EF import EF
+# Import config and setup paths
+from config import setup_paths
+setup_paths()
+
+from mbase.EF import EF
+from src.COUPLED_MODELS import COUPLED_MODELS
 
 class testEF(unittest.TestCase):
     def setUp(self):
@@ -31,3 +37,6 @@ class testEF(unittest.TestCase):
     def testAddExternalOutputCoupling(self):
         coupling_list = self.ef.external_output_coupling
         assert coupling_list.coupling_dic == {'GENR.out': ['EF.out'], 'TRANSD.out': ['EF.result']}
+
+if __name__ == '__main__':
+    unittest.main()

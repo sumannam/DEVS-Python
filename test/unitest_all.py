@@ -1,7 +1,6 @@
 import sys
 import config
 import os
-import psutil
 
 import subprocess
 

@@ -5,7 +5,7 @@ import unittest
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 import config
 
-from projects.coupledmodelTest.coupbase.ACLUSTERS import ACLUSTERS
+from mbase.ACLUSTERS import ACLUSTERS
 
 class testACLUSTERS(unittest.TestCase):
     """! 
@@ -48,3 +48,6 @@ class testACLUSTERS(unittest.TestCase):
                                         , 'CONTROLLER.knowledge_out': ['CLUSTER.knowledge_in']
                                         , 'CLUSTER.knowledge_out': ['CONTROLLER.knowledge_in']    
                                         , 'CLUSTER.result_out': ['CONTROLLER.result_in']    }
+        
+if __name__ == '__main__':
+    unittest.main()

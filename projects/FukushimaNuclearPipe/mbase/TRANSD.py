@@ -6,6 +6,7 @@ from src.CONTENT import CONTENT
 from src.PORT import PORT
 
 from src.util import *
+from src.log import *
 
 class TRANSD(ATOMIC_MODELS):
     def __init__(self):
