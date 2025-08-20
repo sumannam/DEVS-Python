@@ -28,7 +28,7 @@ def setup_paths():
             sys.path.append(project_root_str)
         
         # Add project's models directory to Python path
-        models_path = str(project_root / "projects" / "simpBroadcastModel")
+        models_path = str(project_root / "projects" / "simps_broadcastmodel")
         if models_path not in sys.path:
             sys.path.append(models_path)
         

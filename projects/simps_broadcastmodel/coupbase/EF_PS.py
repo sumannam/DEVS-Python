@@ -5,10 +5,6 @@ import config
 # pypreprocessor.parse()
 
 from src.COUPLED_MODELS import COUPLED_MODELS
-<<<<<<<< HEAD:projects/simps_broadcastmodel/coupbase/EF_PS.py
-
-========
->>>>>>>> aa8271f3d8f60045a2c2a14ac9e5aa4f78198c63:projects/simps_broadcastmodel/coupbase/EF_P.py
 from coupbase.PS import PS
 from coupbase.EF import EF
 
