@@ -4,8 +4,8 @@ import unittest
 
 # List of Atomic Models
 from model_test.testP import testP
-from models.testTRANSD import testTRANSD
-from models.testGENR import testGENR
+from model_test.testTRANSD import testTRANSD
+from model_test.testGENR import testGENR
 
 # List of Coupled Models 
 from model_test.testEF_P import testEF_P

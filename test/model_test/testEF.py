@@ -10,8 +10,8 @@ sys.path.append(test_dir)
 from config import setup_paths
 setup_paths()
 
-from src.COUPLED_MODELS import COUPLED_MODELS
 from mbase.EF import EF
+from src.COUPLED_MODELS import COUPLED_MODELS
 
 class testEF(unittest.TestCase):
     def setUp(self):

@@ -14,11 +14,10 @@ from src.ROOT_CO_ORDINATORS import ROOT_CO_ORDINATORS
 from src.CO_ORDINATORS import CO_ORDINATORS
 
 # Import models from test_models folder
-from mbase.EF import EF
-from mbase.PS import PS
-from mbase.GENR import GENR
-from mbase.TRANSD import TRANSD
-from mbase.BP import BP
+from model_test.testEF import testEF
+from model_test.testGENR import testGENR
+from model_test.testTRANSD import testTRANSD
+from model_test.testBP import testBP
 
 class testSIMULATORS(unittest.TestCase):
     def setUp(self):
@@ -26,13 +25,12 @@ class testSIMULATORS(unittest.TestCase):
         setLogLevel(logging.DEBUG)
         
         # Create components
-        self.genr = GENR()
-        self.transd = TRANSD()
-        self.ef = EF()
-        self.ps = PS()
-        self.bp1 = BP("BP1")
-        self.bp2 = BP("BP2")
-        self.bp3 = BP("BP3")
+        self.genr = testGENR()
+        self.transd = testTRANSD()
+        self.ef = testEF()
+        self.bp1 = testBP("BP1")
+        self.bp2 = testBP("BP2")
+        self.bp3 = testBP("BP3")
         
         # Create coordinators
         self.root = ROOT_CO_ORDINATORS()
